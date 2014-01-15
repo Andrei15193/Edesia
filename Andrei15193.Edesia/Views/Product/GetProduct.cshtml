@@ -1,0 +1,7 @@
+﻿@model System.Collections.Generic.KeyValuePair<Andrei15193.Edesia.Models.Product, int>
+<div class="product">
+	<div class="view">
+		<h1><a href="/Product/Show/@Model.Key.ProductId">@Model.Key.ProductName</a> (@Model.Value @(Model.Value == 1 ? "ofertă" : "oferte"))</h1>
+		<p class="small noMarin">@Model.Key.ProducerName</p>
+	</div>
+</div>

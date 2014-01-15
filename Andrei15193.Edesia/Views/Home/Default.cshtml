@@ -1,0 +1,17 @@
+﻿@{
+	ViewBag.Title = "Home Page";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="message">
+	<h1>Încă nu-i gata...</h1>
+	<p>
+		„Edesia” este proiectul meu de licență. La suprafață se este un magazin online, iar „în spate” este un motor
+		de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web (eventual o
+		aplicație pentru dispozitive mobile poate fi implementată pentru a strange comenzi) și să planifice sarcini
+		pentru „angajați” (cum ar fi planificarea rutelor pentru livrare).
+		<div style="text-align:right; font-style:italic">- Andrei</div>
+	</p>
+	@*<p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>*@
+</div>
+@Html.Action("GetProducts", "Product")

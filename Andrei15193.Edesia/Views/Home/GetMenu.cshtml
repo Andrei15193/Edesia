@@ -1,0 +1,10 @@
+﻿@{
+	Layout = null;
+}
+
+<ul>
+	@foreach (Tuple<string, string, string> menuOptions in (IEnumerable<Tuple<string, string, string>>)Model)
+	{
+		<li>@Html.ActionLink(menuOptions.Item1, menuOptions.Item2, menuOptions.Item3)</li>
+	}
+</ul>

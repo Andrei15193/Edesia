@@ -1,0 +1,38 @@
+﻿@using Andrei15193.Edesia.Controllers.Validation;
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	ValidationResult validationResult = (ValidationResult)ViewData["validationResult"];
+}
+
+<div class="message">
+	@if (validationResult != null && validationResult.HasErrors())
+	{
+		Html.RenderPartial("ValidationErrors", validationResult);
+	}
+	<form action="/User/Login" method="post">
+		<table>
+			<tr>
+				<td>
+					<label>Nume de utilizator: </label>
+				</td>
+				<td>
+					<input type="text" name="username" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>Parolă: </label>
+				</td>
+				<td>
+					<input type="password" name="password" />
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="2">
+					<input type="submit" value="Conectare" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
