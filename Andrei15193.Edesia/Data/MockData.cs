@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Andrei15193.Edesia.Models;
-
 namespace Andrei15193.Edesia.Data
 {
 	public class MockData
 	{
-		public static readonly IReadOnlyList<User> Users = new[]
-		{
-			new User("Admin", "Admin", "admin@domain.tld", "Cireșilor 10"),
-			new User("Client", "Client", "client@domain.tld", "Cireșilor 12"),
-			new User("Angajat", "Angajat", "angajat@domain.tld", "Cireșilor 14"),
-		};
 		public static readonly IReadOnlyList<Product> Products = new[]
 		{
 			new Product("Lapte 1L", "Napolact")

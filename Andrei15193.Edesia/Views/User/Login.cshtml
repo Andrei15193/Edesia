@@ -1,38 +1,23 @@
-﻿@using Andrei15193.Edesia.Controllers.Validation;
+﻿@model Andrei15193.Edesia.ViewModels.LoginViewModel
 @{
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	ValidationResult validationResult = (ValidationResult)ViewData["validationResult"];
+	ViewBag.Title = "Autentificare";
 }
-
-<div class="message">
-	@if (validationResult != null && validationResult.HasErrors())
-	{
-		Html.RenderPartial("ValidationErrors", validationResult);
-	}
-	<form action="/User/Login" method="post">
-		<table>
-			<tr>
-				<td>
-					<label>Nume de utilizator: </label>
-				</td>
-				<td>
-					<input type="text" name="username" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Parolă: </label>
-				</td>
-				<td>
-					<input type="password" name="password" />
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan="2">
-					<input type="submit" value="Conectare" />
-				</td>
-			</tr>
-		</table>
-	</form>
+<div class="grid fluid">
+	<div class="row">
+		<div class="span4 offset4">
+			<h1>Autentificare</h1>
+			@using (Html.BeginForm())
+			{
+				@Html.LabelFor(model => model.Email)
+				<div class="input-control text">
+					@Html.EditorFor(model => model.Email)
+				</div>
+				@Html.LabelFor(model => model.Password)
+				<div class="input-control password">
+					@Html.EditorFor(model => model.Password)
+				</div>
+				<input class="action" type="submit" value="Autentificare" />
+			}
+		</div>
+	</div>
 </div>

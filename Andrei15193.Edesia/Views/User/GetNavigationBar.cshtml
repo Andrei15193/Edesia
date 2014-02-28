@@ -1,0 +1,37 @@
+﻿@using Andrei15193.Edesia.Models
+@model IEnumerable<NavigationBarAction>
+@{
+	ViewBag.Title = "Bara de navigare";
+	Layout = null;
+}
+<nav class="navigation-bar fixed-top green" style="border:1px solid white; border-width: 0 0 1px;">
+	<nav class="navigation-bar-content">
+		<a href="/" class="element">
+			<i class="icon-cart"></i> <strong>Edesia</strong>
+		</a>
+		@using (IEnumerator<NavigationBarAction> userAction = Model.Reverse().GetEnumerator())
+		{
+			if (userAction.MoveNext())
+			{
+				<a href="/@(userAction.Current.Controller)/@userAction.Current.Action" class="element place-right">
+					@if (userAction.Current.Icon != null)
+					{
+						<i class="@userAction.Current.Icon"></i>
+					}
+					@userAction.Current.Title
+				</a>
+				while (userAction.MoveNext())
+				{
+					<span class="element-divider place-right"></span>
+					<a href="/@(userAction.Current.Controller)/@userAction.Current.Action" class="element place-right">
+						@if (userAction.Current.Icon != null)
+						{
+							<i class="@userAction.Current.Icon"></i>
+						}
+						@userAction.Current.Title
+					</a>
+				}
+			}
+		}
+	</nav>
+</nav>

@@ -1,0 +1,8 @@
+﻿namespace Andrei15193.Edesia
+{
+	public static class RegexPatterns
+	{
+		public const string LettersAndWhitespacesOnlyPatther = @"^\s*(\w+\s*)+$";
+		//public const string EmailAddress = @"([\x21-\x7E-[\x3C\x3E\x28\x29\x5B\x5C\x5D\\x2E\x2C\x3A\x3B\x40\x22]]+(\.[\x21-\x7E-[\x3C\x3E\x28\x29\x5B\x5C\x5D\\x2E\x2C\x3A\x3B\x40\x22]]+)*|""(\\?[\x00-\x7F-[\x0A\x0D\x22\x5C]]|\\[\x0A\x0D\x22\x5C])+"")@([\x])";
+	}
+}

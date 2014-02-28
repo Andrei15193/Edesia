@@ -1,0 +1,29 @@
+﻿@model Andrei15193.Edesia.ViewModels.RegisterViewModel
+@{
+	ViewBag.Title = "Înregistrare cont";
+}
+<div class="grid fluid">
+	<div class="row">
+		<div class="span4 offset4">
+			<h1>Înregistrare cont</h1>
+			@using (Html.BeginForm())
+			{
+				@Html.LabelFor(model => model.EMail)
+				<div class="input-control text">
+					@Html.EditorFor(model => model.EMail)
+				</div>
+				<div class="input-control text">
+					@Html.EditorFor(model => model.EMailCopy)
+				</div>
+				@Html.LabelFor(model => model.Password)
+				<div class="input-control text">
+					@Html.EditorFor(model => model.Password)
+				</div>
+				<div class="input-control text">
+					@Html.EditorFor(model => model.PasswordCopy)
+				</div>
+				<input type="submit" class="action" value="Pasul următor" />
+			}
+		</div>
+	</div>
+</div>

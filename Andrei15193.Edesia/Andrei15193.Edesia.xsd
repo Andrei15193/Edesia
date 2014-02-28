@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="Membership">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="User" type="User" minOccurs="0" maxOccurs="unbounded">
+					<xsd:unique name="UniqueEmails">
+						<xsd:selector xpath="User" />
+						<xsd:field xpath="@EMail" />
+					</xsd:unique>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="User">
+		<xsd:sequence>
+			<xsd:element name="Role" type="Role" minOccurs="0" maxOccurs="unbounded">
+				<xsd:unique  name="UniqueRoleNames">
+					<xsd:selector xpath="Role" />
+					<xsd:field xpath="@Name" />
+				</xsd:unique>
+			</xsd:element>
+			<xsd:element name="Address" type="Address" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="EMail" type="xsd:string" use="required" />
+		<xsd:attribute name="PasswordHash" type="xsd:string" use="required" />
+		<xsd:attribute name="RegistrationTime" type="xsd:dateTime" use="required" />
+		<xsd:attribute name="AuthenticationToken" type="xsd:string" use="optional" />
+		<xsd:attribute name="RegistrationKey" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="Role">
+		<xsd:attribute name="Name">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="Client" />
+					<xsd:enumeration value="Angajat" />
+					<xsd:enumeration value="Administrator" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="Address">
+		<xsd:attribute name="Street" type="xsd:string" use="required" />
+		<xsd:attribute name="City" type="xsd:string" use="required" />
+		<xsd:attribute name="County" type="xsd:string" use="required" />
+	</xsd:complexType>
+</xsd:schema>

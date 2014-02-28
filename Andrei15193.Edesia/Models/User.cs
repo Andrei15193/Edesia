@@ -1,44 +1,52 @@
-﻿namespace Andrei15193.Edesia.Models
+﻿using System;
+using System.Collections.Generic;
+namespace Andrei15193.Edesia.Models
 {
 	public class User
 	{
-		public User(string username, string password, string email, string streetAddress)
+		public User(string email, DateTime registrationTime)
 		{
-			Username = username;
-			Password = password;
-			Email = email;
-			StreetAddress = streetAddress;
+			_email = email;
+			_registrationTime = registrationTime;
 		}
 
-		public int UserId
+		public DateTime RegistrationTime
+		{
+			get
+			{
+				return _registrationTime;
+			}
+		}
+		public string EMail
+		{
+			get
+			{
+				return _email;
+			}
+		}
+		public Address DefaultAddress
 		{
 			get;
 			set;
 		}
-		public UserType UserType
+		public ICollection<Address> Addresses
 		{
-			get;
-			set;
+			get
+			{
+				return _addresses;
+			}
 		}
-		public string Username
+		public ISet<string> Roles
 		{
-			get;
-			set;
+			get
+			{
+				return _roles;
+			}
 		}
-		public string Password
-		{
-			get;
-			set;
-		}
-		public string Email
-		{
-			get;
-			set;
-		}
-		public string StreetAddress
-		{
-			get;
-			set;
-		}
+
+		private string _email;
+		private readonly DateTime _registrationTime;
+		private readonly ICollection<Address> _addresses = new LinkedList<Address>();
+		private readonly ISet<string> _roles = new HashSet<string>();
 	}
 }
