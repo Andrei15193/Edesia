@@ -1,11 +1,11 @@
 ﻿@model Andrei15193.Edesia.ViewModels.User.RegisterViewModel
 @{
-	ViewBag.Title = "Înregistrare cont";
+	ViewBag.Title = LanguageResource.RegisterLabel;
 }
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4 offset4">
-			<h1>Înregistrare cont</h1>
+			<h1>@LanguageResource.RegisterLabel</h1>
 			@using (Html.BeginForm())
 			{
 				@Html.LabelFor(model => model.EMail)

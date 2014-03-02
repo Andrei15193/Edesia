@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Andrei15193.Edesia.ApplicationResources.Language;
 using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
 using Andrei15193.Edesia.Extensions;
@@ -14,7 +16,7 @@ using Andrei15193.Edesia.ViewModels.User;
 namespace Andrei15193.Edesia.Controllers
 {
 	public class UserController
-		: Controller
+		: ApplicationController
 	{
 		[ConfirmAccess(UserRoles.Client)]
 		public ActionResult UserProfile()
@@ -115,6 +117,18 @@ namespace Andrei15193.Edesia.Controllers
 			}
 			return View(loginViewModel);
 		}
+		[HttpGet]
+		public ActionResult ChangeLanguage(string language, string returnUrl)
+		{
+			if (language == null || returnUrl == null)
+				return RedirectToAction("Default", "Home");
+
+			Response.SetCookie(GetLanguageCookie(language));
+			if (Url.IsLocalUrl(returnUrl))
+				return Redirect(returnUrl);
+			else
+				return RedirectToAction("Default", "Home");
+		}
 		[NonAction]
 		public void Login(string eMail, HttpContext context)
 		{
@@ -130,13 +144,23 @@ namespace Andrei15193.Edesia.Controllers
 			IList<NavigationBarAction> userActions = new List<NavigationBarAction>();
 
 			if (User.Identity.IsAuthenticated)
-				userActions.Add(new NavigationBarAction("Deconectare", "Logout", "User", Icons.User));
+				userActions.Add(new NavigationBarAction(LanguageResource.LogoutLabel, "Logout", "User", Icons.User));
 			else
 			{
-				userActions.Add(new NavigationBarAction("Conectare", "Login", "User", Icons.User));
-				userActions.Add(new NavigationBarAction("Înregistrare", "Register", "User", Icons.New));
+				userActions.Add(new NavigationBarAction(LanguageResource.LoginLabel, "Login", "User", Icons.User));
+				userActions.Add(new NavigationBarAction(LanguageResource.RegisterLabel, "Register", "User", Icons.New));
 			}
 			return View(userActions);
+		}
+		public ActionResult GetLanguageDropdown()
+		{
+			string selectedLanguage = GetSelectedLanguage();
+
+			return View(LanguageResource.AvailableLanguages
+										.Select(availableLanguage => new DisplayLanguage(availableLanguage,
+																						 string.Equals(selectedLanguage,
+																									   availableLanguage,
+																									   StringComparison.Ordinal))));
 		}
 
 		private string _GenerateRegistrationKey()

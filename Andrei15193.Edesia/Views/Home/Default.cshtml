@@ -1,17 +1,15 @@
-﻿@{
-	ViewBag.Title = "Acasă";
+﻿@using Andrei15193.Edesia.ApplicationResources.Language
+@{
+	ViewBag.Title = LanguageResource.HomePageTitle;
 }
 <div class="body-content">
 	<div class="grid fluid">
 		<div class="row">
 			<div class="span8 offset2">
 				<div class="notice bg-gray fg-white">
-					<h1>Încă nu-i gata...</h1>
+					<h1>@LanguageResource.NotReadyYetTitle</h1>
 					<p class="text-justify">
-						„Edesia” este proiectul meu de licență. La suprafață se este un magazin online, iar „în spate” este un motor
-						de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web (eventual o
-						aplicație pentru dispozitive mobile va fi creată pentru a realiza același lucru) și să planifice sarcini
-						pentru „angajați” (cum ar fi planificarea rutelor pentru livrare).
+						@LanguageResource.NotReadyYetMessage
 						<div class="text-right"><em>Andrei</em></div>
 					</p>
 				</div>

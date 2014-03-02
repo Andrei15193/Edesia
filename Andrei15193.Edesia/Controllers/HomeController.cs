@@ -2,7 +2,7 @@
 namespace Andrei15193.Edesia.Controllers
 {
 	public class HomeController
-		: Controller
+		: ApplicationController
 	{
 		public ActionResult Default()
 		{

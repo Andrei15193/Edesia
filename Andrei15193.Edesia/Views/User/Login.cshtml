@@ -1,11 +1,11 @@
 ﻿@model Andrei15193.Edesia.ViewModels.User.LoginViewModel
 @{
-	ViewBag.Title = "Autentificare";
+	ViewBag.Title = LanguageResource.LoginLabel;
 }
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4 offset4">
-			<h1>Autentificare</h1>
+			<h1>@LanguageResource.LoginLabel</h1>
 			@using (Html.BeginForm())
 			{
 				@Html.LabelFor(model => model.Email)

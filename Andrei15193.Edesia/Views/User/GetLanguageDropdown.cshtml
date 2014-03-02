@@ -1,0 +1,25 @@
+﻿@using Andrei15193.Edesia.Models;
+@model IEnumerable<DisplayLanguage>
+@{
+	ViewBag.Title = string.Empty;
+	Layout = null;
+}
+@if (Model.Skip(1).Any())
+{
+	<div class="element">
+		<a class="dropdown-toggle" style="cursor: pointer;">@LanguageResource.LanguageLabel</a>
+		<ul class="dropdown-menu inverse" data-role="dropdown">
+			@foreach (DisplayLanguage displayLanguage in Model)
+			{
+				if (displayLanguage.IsSelected)
+				{
+					<li class="disabled"><a href="/User/ChangeLanguage?language=@displayLanguage.LanguageName&returnUrl=@Request.Path">@displayLanguage.LanguageName</a></li>
+				}
+				else
+				{
+					<li><a href="/User/ChangeLanguage?language=@displayLanguage.LanguageName&returnUrl=@Request.Path">@displayLanguage.LanguageName</a></li>
+				}
+			}
+		</ul>
+	</div>
+}

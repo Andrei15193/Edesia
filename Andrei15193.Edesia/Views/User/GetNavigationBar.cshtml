@@ -1,7 +1,8 @@
 ﻿@using Andrei15193.Edesia.Models
+@using Andrei15193.Edesia.ApplicationResources.Language;
 @model IEnumerable<NavigationBarAction>
 @{
-	ViewBag.Title = "Bara de navigare";
+	ViewBag.Title = string.Empty;
 	Layout = null;
 }
 <nav class="navigation-bar fixed-top green" style="border:1px solid white; border-width: 0 0 1px;">
@@ -9,6 +10,8 @@
 		<a href="/" class="element">
 			<i class="icon-cart"></i> <strong>Edesia</strong>
 		</a>
+		@Html.Action("GetLanguageDropdown", "User")
+
 		@using (IEnumerator<NavigationBarAction> userAction = Model.Reverse().GetEnumerator())
 		{
 			if (userAction.MoveNext())
