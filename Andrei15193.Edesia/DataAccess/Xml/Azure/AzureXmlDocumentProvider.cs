@@ -4,7 +4,6 @@ using System.IO;
 using System.Threading;
 using System.Xml.Linq;
 using System.Xml.Schema;
-using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 namespace Andrei15193.Edesia.DataAccess.Xml.Azure
@@ -37,7 +36,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 			if (string.IsNullOrEmpty(xmlDocumentFileName) || string.IsNullOrWhiteSpace(xmlDocumentFileName))
 				throw new ArgumentException("Filename cannot be empty or whitespace!", "xmlDocumentFileName");
 
-			CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("storage_connectionString"));
+			CloudStorageAccount storageAccount = CloudStorageAccount.Parse(MvcApplication.EdesiaSettings.StorageSettings.StorageConnectionString);
 			CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 			CloudBlobContainer container = blobClient.GetContainerReference("andrei15193");
 			CloudBlockBlob dataBlob = container.GetBlockBlobReference(xmlDocumentFileName);
@@ -113,7 +112,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 			if (string.IsNullOrEmpty(xmlDocumentFileName) || string.IsNullOrWhiteSpace(xmlDocumentFileName))
 				throw new ArgumentException("Filename cannot be empty or whitespace!", "xmlDataFileName");
 
-			CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("storage_connectionString"));
+			CloudStorageAccount storageAccount = CloudStorageAccount.Parse(MvcApplication.EdesiaSettings.StorageSettings.StorageConnectionString);
 			CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 			CloudBlobContainer container = blobClient.GetContainerReference("andrei15193");
 			CloudBlockBlob dataBlob = container.GetBlockBlobReference(xmlDocumentFileName);

@@ -5,21 +5,21 @@ namespace Andrei15193.Edesia.Extensions
 {
 	internal static class HttpContextExtensions
 	{
-		internal static User GetUser(this HttpContext httpContext)
+		internal static ApplicationUser GetApplicationUser(this HttpContext httpContext)
 		{
 			if (httpContext == null)
 				throw new ArgumentNullException("httpContext");
 
-			return (User)httpContext.Session[httpContext.User.Identity.Name];
+			return (ApplicationUser)httpContext.Session[httpContext.User.Identity.Name];
 		}
-		internal static void SetUser(this HttpContext httpContext, User user)
+		internal static void SetApplicationUser(this HttpContext httpContext, ApplicationUser applicationUser)
 		{
 			if (httpContext == null)
 				throw new ArgumentNullException("httpContext");
-			if (user == null)
+			if (applicationUser == null)
 				throw new ArgumentNullException("user");
 
-			httpContext.Session.Add(httpContext.User.Identity.Name, user);
+			httpContext.Session.Add(httpContext.User.Identity.Name, applicationUser);
 		}
 	}
 }

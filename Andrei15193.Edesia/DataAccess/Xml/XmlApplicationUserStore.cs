@@ -10,14 +10,14 @@ using System.Xml.Schema;
 using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.DataAccess.Xml
 {
-	public class XmlUserStore
-		: IUserStore
+	public class XmlApplicationUserStore
+		: IApplicationUserStore
 	{
-		public XmlUserStore(IXmlDocumentProvider xmlDocumentProvider)
+		public XmlApplicationUserStore(IXmlDocumentProvider xmlDocumentProvider)
 		{
 			if (xmlDocumentProvider == null)
 				throw new ArgumentNullException("userStore");
-			XmlDocumentFileName = MvcApplication.EdesiaSettings.StorageSettings.MembershipFileName;
+			XmlDocumentFileName = MvcApplication.EdesiaSettings.StorageSettings.MembershipXmlDocumentFileName;
 			_xmlDocumentProvider = xmlDocumentProvider;
 			_xmlDocumentProvider.XmlDocumentSchemaSet.Add(XmlSchema.Read(new StringReader(@"<?xml version=""1.0"" encoding=""utf-8"" ?>
 <xsd:schema xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
@@ -78,10 +78,10 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		}
 
 		#region IUserStore Members
-		public void AddUser(User user, string password, string registrationKey)
+		public void AddApplicationUser(ApplicationUser applicationUser, string password, string registrationKey)
 		{
-			if (user == null)
-				throw new ArgumentNullException("user");
+			if (applicationUser == null)
+				throw new ArgumentNullException("applicationUser");
 			if (password == null)
 				throw new ArgumentNullException("password");
 			if (registrationKey == null)
@@ -89,10 +89,10 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName);
 			_ClearTimedoutRegistrationKeys(xmlDocument);
-			xmlDocument.Root.AddFirst(_GetUserXElement(user, password, registrationKey));
+			xmlDocument.Root.AddFirst(_GetUserXElement(applicationUser, password, registrationKey));
 			_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName);
 		}
-		public User Find(string email, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
+		public ApplicationUser Find(string email, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
 		{
 			IEnumerable<XElement> userXElements = _xmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName)
 																	  .Root
@@ -100,7 +100,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			switch (authenticationTokenType)
 			{
 				case AuthenticationTokenType.Key:
-					return _GetUser(userXElements.FirstOrDefault(userXElement =>
+					return _GetApplicationUser(userXElements.FirstOrDefault(userXElement =>
 						{
 							XAttribute authenticationTokenXAttribute = userXElement.Attribute("AuthenticationToken");
 							return (authenticationTokenXAttribute != null && string.Equals(authenticationToken, authenticationTokenXAttribute.Value, StringComparison.Ordinal));
@@ -108,19 +108,19 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				case AuthenticationTokenType.Password:
 				default:
 					string passwordHash = _ComputeHash(authenticationToken);
-					return _GetUser(userXElements.FirstOrDefault(userXElement => string.Equals(passwordHash, userXElement.Attribute("PasswordHash").Value, StringComparison.Ordinal)));
+					return _GetApplicationUser(userXElements.FirstOrDefault(userXElement => string.Equals(passwordHash, userXElement.Attribute("PasswordHash").Value, StringComparison.Ordinal)));
 			}
 		}
-		public void SetAuthenticationToken(User user, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
+		public void SetAuthenticationToken(ApplicationUser applicationUser, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
 		{
-			if (user == null)
-				throw new ArgumentNullException("user");
+			if (applicationUser == null)
+				throw new ArgumentNullException("applicationUser");
 			if (authenticationToken == null)
 				throw new ArgumentNullException("authenticationKey");
 			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName);
 			XElement userXElement = xmlDocument.Root
 											   .Elements("User")
-											   .FirstOrDefault(userElement => string.Equals(user.EMail, userElement.Attribute("EMail").Value, StringComparison.Ordinal));
+											   .FirstOrDefault(userElement => string.Equals(applicationUser.EMail, userElement.Attribute("EMail").Value, StringComparison.Ordinal));
 			if (userXElement != null)
 			{
 				switch (authenticationTokenType)
@@ -140,14 +140,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, XmlDocumentFileName);
 			}
 		}
-		public void ClearAuthenticationKey(User user)
+		public void ClearAuthenticationKey(ApplicationUser applicationUser)
 		{
-			if (user == null)
-				throw new ArgumentNullException("user");
+			if (applicationUser == null)
+				throw new ArgumentNullException("applicationUser");
 			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName);
 			XElement userXElement = xmlDocument.Root
 											   .Elements("User")
-											   .FirstOrDefault(userElement => string.Equals(user.EMail, userElement.Attribute("EMail").Value, StringComparison.Ordinal));
+											   .FirstOrDefault(userElement => string.Equals(applicationUser.EMail, userElement.Attribute("EMail").Value, StringComparison.Ordinal));
 			if (userXElement != null)
 			{
 				XAttribute authenticationTokenXAttribute = userXElement.Attribute("AuthenticationToken");
@@ -199,23 +199,23 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 		}
 
-		private User _GetUser(XElement userXElement)
+		private ApplicationUser _GetApplicationUser(XElement userXElement)
 		{
 			// remove, this check is inconsistent
 			if (userXElement == null)
 				return null;
 
 			string registrationKey;
-			User user = _GetUser(userXElement, out registrationKey);
+			ApplicationUser applicationUser = _GetApplicationUser(userXElement, out registrationKey);
 
 			if (registrationKey != null)
 				return null;
 
-			return user;
+			return applicationUser;
 		}
-		private User _GetUser(XElement userXElement, out string registrationKey)
+		private ApplicationUser _GetApplicationUser(XElement userXElement, out string registrationKey)
 		{
-			User user = new User(userXElement.Attribute("EMail").Value,
+			ApplicationUser applicationUser = new ApplicationUser(userXElement.Attribute("EMail").Value,
 								 XmlConvert.ToDateTime(userXElement.Attribute("RegistrationTime").Value, MvcApplication.DateTimeSerializationFormat));
 			XAttribute registrationKeyXAttribute = userXElement.Attribute("RegistrationKey");
 
@@ -225,26 +225,26 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				registrationKey = registrationKeyXAttribute.Value;
 
 			foreach (XElement roleXElement in userXElement.Elements("Role"))
-				user.Roles.Add(_GetRole(roleXElement));
+				applicationUser.Roles.Add(_GetRole(roleXElement));
 			foreach (XElement addressXElement in userXElement.Elements("Address"))
-				user.Addresses.Add(_GetAddress(addressXElement));
+				applicationUser.Addresses.Add(_GetAddress(addressXElement));
 
-			return user;
+			return applicationUser;
 		}
-		private XElement _GetUserXElement(User user, string password, string registrationKey = null)
+		private XElement _GetUserXElement(ApplicationUser applicationUser, string password, string registrationKey = null)
 		{
 			XElement newUserXElement = new XElement("User",
-													new XAttribute("EMail", user.EMail),
+													new XAttribute("EMail", applicationUser.EMail),
 													new XAttribute("PasswordHash", _ComputeHash(password)));
 
 			if (registrationKey != null)
 			{
-				newUserXElement.Add(new XAttribute("RegistrationTime", XmlConvert.ToString(user.RegistrationTime, MvcApplication.DateTimeSerializationFormat)));
+				newUserXElement.Add(new XAttribute("RegistrationTime", XmlConvert.ToString(applicationUser.RegistrationTime, MvcApplication.DateTimeSerializationFormat)));
 				newUserXElement.Add(new XAttribute("RegistrationKey", registrationKey));
 			}
-			foreach (string userRole in user.Roles)
+			foreach (string userRole in applicationUser.Roles)
 				newUserXElement.Add(_GetRoleXElement(userRole));
-			foreach (Address userAddress in user.Addresses)
+			foreach (Address userAddress in applicationUser.Addresses)
 				newUserXElement.Add(_GetAddressXElement(userAddress));
 
 			return newUserXElement;
@@ -277,13 +277,13 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		}
 		private void _ClearTimedoutRegistrationKeys(XDocument xmlDocument)
 		{
-			foreach (XElement timedoutUser in xmlDocument.Root
-														 .Elements("User")
-														 .Where(userXElement => userXElement.Attribute("RegistrationKey") != null
-																				&& (DateTime.Now - XmlConvert.ToDateTime(userXElement.Attribute("RegistrationTime").Value,
-																														 MvcApplication.DateTimeSerializationFormat)
-																				   ).TotalHours >= MvcApplication.EdesiaSettings.Registration.RegistrationKeyHoursTimeout))
-				timedoutUser.Remove();
+			foreach (XElement timedoutApplicationUser in xmlDocument.Root
+																	.Elements("User")
+																	.Where(userXElement => userXElement.Attribute("RegistrationKey") != null
+																						   && (DateTime.Now - XmlConvert.ToDateTime(userXElement.Attribute("RegistrationTime").Value,
+																																	MvcApplication.DateTimeSerializationFormat)
+																							  ).TotalHours >= MvcApplication.EdesiaSettings.Registration.RegistrationKeyHoursTimeout))
+				timedoutApplicationUser.Remove();
 		}
 
 		private string _xmlDocumentFileName;

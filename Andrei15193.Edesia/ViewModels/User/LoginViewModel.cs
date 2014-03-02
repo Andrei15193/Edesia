@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Andrei15193.Edesia.Attributes;
-namespace Andrei15193.Edesia.ViewModels
+namespace Andrei15193.Edesia.ViewModels.User
 {
 	public class LoginViewModel
 	{

@@ -8,12 +8,9 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
-using Andrei15193.Edesia.DataAccess.Xml;
-using Andrei15193.Edesia.DataAccess.Xml.Azure;
 using Andrei15193.Edesia.Extensions;
 using Andrei15193.Edesia.Models;
-using Andrei15193.Edesia.ViewModels;
-using Microsoft.WindowsAzure;
+using Andrei15193.Edesia.ViewModels.User;
 namespace Andrei15193.Edesia.Controllers
 {
 	public class UserController
@@ -41,7 +38,7 @@ namespace Andrei15193.Edesia.Controllers
 			if (ModelState.IsValid)
 			{
 				string registrationKey = _GenerateRegistrationKey();
-				_userStore.AddUser(new User(registerViewModel.EMail, DateTime.Now)
+				_userStore.AddApplicationUser(new ApplicationUser(registerViewModel.EMail, DateTime.Now)
 					{
 						Roles =
 						{
@@ -51,14 +48,15 @@ namespace Andrei15193.Edesia.Controllers
 
 				new SmtpClient
 				{
-					Host = CloudConfigurationManager.GetSetting("smtp_host"),
-					Port = int.Parse(CloudConfigurationManager.GetSetting("smtp_port")),
+					Host = MvcApplication.EdesiaSettings.EmailSettings.SmtpHost,
+					Port = MvcApplication.EdesiaSettings.EmailSettings.SmtpPort,
 					EnableSsl = true,
-					Credentials = new NetworkCredential(CloudConfigurationManager.GetSetting("smtp_username"), CloudConfigurationManager.GetSetting("smtp_password"))
+					Credentials = new NetworkCredential(MvcApplication.EdesiaSettings.EmailSettings.SmtpUsername,
+														MvcApplication.EdesiaSettings.EmailSettings.SmtpPassword)
 				}.Send(new MailMessage
 					{
 						Subject = "Edesia Register",
-						From = new MailAddress("andrei_fangli@hotmail.com", "Andrei Fangli"),
+						From = new MailAddress("andrei_fangli@hotmail.com", MvcApplication.EdesiaSettings.EmailSettings.SenderDisplayName),
 						To =
 						{
 							new MailAddress(registerViewModel.EMail)
@@ -82,7 +80,7 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet, ConfirmAccess]
 		public ActionResult Logout()
 		{
-			_userStore.ClearAuthenticationKey(HttpContext.GetUser());
+			_userStore.ClearAuthenticationKey(HttpContext.GetApplicationUser());
 			FormsAuthentication.SignOut();
 			Session.Abandon();
 			return Redirect("/");
@@ -97,16 +95,16 @@ namespace Andrei15193.Edesia.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				User user = _userStore.Find(loginViewModel.Email, loginViewModel.Password);
+				ApplicationUser applicationUser = _userStore.Find(loginViewModel.Email, loginViewModel.Password);
 
-				if (user != null)
+				if (applicationUser != null)
 				{
 					FormsAuthentication.SignOut();
 					HttpCookie authenticationCookie = FormsAuthentication.GetAuthCookie(loginViewModel.Email, true);
 
-					_userStore.SetAuthenticationToken(user, authenticationCookie.Value, AuthenticationTokenType.Key);
+					_userStore.SetAuthenticationToken(applicationUser, authenticationCookie.Value, AuthenticationTokenType.Key);
 					Response.SetCookie(authenticationCookie);
-					HttpContext.SetUser(user, loginViewModel.Email);
+					HttpContext.SetApplicationUser(applicationUser, loginViewModel.Email);
 					if (Url.IsLocalUrl(returnUrl))
 						return Redirect(returnUrl);
 					else
@@ -116,6 +114,16 @@ namespace Andrei15193.Edesia.Controllers
 					ModelState.AddModelError(string.Empty, "Invalid username or password.");
 			}
 			return View(loginViewModel);
+		}
+		[NonAction]
+		public void Login(string eMail, HttpContext context)
+		{
+			if (context.User.Identity.IsAuthenticated)
+			{
+				ApplicationUser applicationUser = _userStore.Find(eMail, context.Request.Cookies.Get(FormsAuthentication.FormsCookieName).Value, AuthenticationTokenType.Key);
+				if (applicationUser != null)
+					context.SetApplicationUser(applicationUser);
+			}
 		}
 		public ActionResult GetNavigationBar()
 		{
@@ -129,16 +137,6 @@ namespace Andrei15193.Edesia.Controllers
 				userActions.Add(new NavigationBarAction("Înregistrare", "Register", "User", Icons.New));
 			}
 			return View(userActions);
-		}
-		[NonAction]
-		public void Login(string eMail, HttpContext context)
-		{
-			if (context.User.Identity.IsAuthenticated)
-			{
-				User user = _userStore.Find(eMail, context.Request.Cookies.Get(FormsAuthentication.FormsCookieName).Value, AuthenticationTokenType.Key);
-				if (user != null)
-					context.SetUser(user);
-			}
 		}
 
 		private string _GenerateRegistrationKey()
@@ -166,7 +164,7 @@ namespace Andrei15193.Edesia.Controllers
 			return registrationKey.ToString();
 		}
 
-		private IUserStore _userStore = new XmlUserStore(new AzureXmlDocumentProvider());
+		private IApplicationUserStore _userStore = StoreFactory.ApplicationUserStore;
 		private const string _emailConfirmationMailBody = @"<!doctype html>
 <html>
 <head>

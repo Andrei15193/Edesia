@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 namespace Andrei15193.Edesia.Models
 {
-	public class User
+	public class ApplicationUser
 	{
-		public User(string email, DateTime registrationTime)
+		public ApplicationUser(string email, DateTime registrationTime)
 		{
 			_email = email;
 			_registrationTime = registrationTime;

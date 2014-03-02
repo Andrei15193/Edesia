@@ -4,9 +4,9 @@ namespace Andrei15193.Edesia.Models
 {
 	public class Order
 	{
-		public Order(User user, ShoppingCart shoppingCart)
+		public Order(ApplicationUser applicationUser, ShoppingCart shoppingCart)
 		{
-			User = user;
+			ApplicationUser = applicationUser;
 			TimePurchased = DateTime.Now;
 			foreach (KeyValuePair<Offer, uint> offer in shoppingCart)
 				_offersBought.Add(offer.Key, offer.Value);
@@ -22,7 +22,7 @@ namespace Andrei15193.Edesia.Models
 			get;
 			private set;
 		}
-		public User User
+		public ApplicationUser ApplicationUser
 		{
 			get;
 			private set;

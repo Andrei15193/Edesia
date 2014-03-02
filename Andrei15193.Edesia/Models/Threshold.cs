@@ -2,7 +2,7 @@
 {
 	public class Threshold
 	{
-		public Threshold(string name, uint limit, User owner)
+		public Threshold(string name, uint limit, ApplicationUser owner)
 		{
 			Name = name;
 			Limit = limit;
@@ -19,7 +19,7 @@
 			get;
 			private set;
 		}
-		public User Owner
+		public ApplicationUser Owner
 		{
 			get;
 			private set;

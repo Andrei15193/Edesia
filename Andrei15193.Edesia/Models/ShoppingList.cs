@@ -3,10 +3,10 @@ namespace Andrei15193.Edesia.Models
 {
 	public class ShoppingList
 	{
-		public ShoppingList(string name, User user)
+		public ShoppingList(string name, ApplicationUser applicationUser)
 		{
 			Name = name;
-			User = user;
+			ApplicationUser = applicationUser;
 		}
 
 		public string Name
@@ -14,7 +14,7 @@ namespace Andrei15193.Edesia.Models
 			get;
 			private set;
 		}
-		public User User
+		public ApplicationUser ApplicationUser
 		{
 			get;
 			private set;

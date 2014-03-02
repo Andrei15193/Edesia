@@ -5,41 +5,41 @@ namespace Andrei15193.Edesia.Extensions
 {
 	internal static class HttpContextBaseExtensions
 	{
-		internal static User GetUser(this HttpContextBase httpContextBase)
+		internal static ApplicationUser GetApplicationUser(this HttpContextBase httpContextBase)
 		{
 			if (httpContextBase == null)
 				throw new ArgumentNullException("httpContextBase");
 
-			return (User)httpContextBase.Session[httpContextBase.User.Identity.Name];
+			return (ApplicationUser)httpContextBase.Session[httpContextBase.User.Identity.Name];
 		}
-		internal static User GetUser(this HttpContextBase httpContextBase, string key)
+		internal static ApplicationUser GetApplicationUser(this HttpContextBase httpContextBase, string key)
 		{
 			if (httpContextBase == null)
 				throw new ArgumentNullException("httpContextBase");
 			if (key == null)
 				throw new ArgumentNullException("key");
 
-			return (User)httpContextBase.Session[key];
+			return (ApplicationUser)httpContextBase.Session[key];
 		}
-		internal static void SetUser(this HttpContextBase httpContextBase, User user, string key)
+		internal static void SetApplicationUser(this HttpContextBase httpContextBase, ApplicationUser applicationUser, string key)
 		{
 			if (httpContextBase == null)
 				throw new ArgumentNullException("httpContextBase");
-			if (user == null)
-				throw new ArgumentNullException("user");
+			if (applicationUser == null)
+				throw new ArgumentNullException("ApplicationUser");
 			if (key == null)
 				throw new ArgumentNullException("key");
 
-			httpContextBase.Session.Add(key, user);
+			httpContextBase.Session.Add(key, applicationUser);
 		}
-		internal static void SetUser(this HttpContextBase httpContextBase, User user)
+		internal static void SetApplicationUser(this HttpContextBase httpContextBase, ApplicationUser applicationUser)
 		{
 			if (httpContextBase == null)
 				throw new ArgumentNullException("httpContextBase");
-			if (user == null)
+			if (applicationUser == null)
 				throw new ArgumentNullException("user");
 
-			httpContextBase.Session.Add(httpContextBase.User.Identity.Name, user);
+			httpContextBase.Session.Add(httpContextBase.User.Identity.Name, applicationUser);
 		}
 	}
 }
