@@ -142,11 +142,6 @@
     <Folder Include="Views\Application\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationResources\Language\English.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>English.resx</DependentUpon>
-    </Compile>
     <Compile Include="ApplicationResources\Language\Romanian.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -267,10 +262,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ApplicationResources\Language\English.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>English.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationResources\Language\English.resx" />
     <EmbeddedResource Include="ApplicationResources\Language\Romanian.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Romanian.Designer.cs</LastGenOutput>
