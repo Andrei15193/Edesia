@@ -106,6 +106,15 @@ namespace Andrei15193.Edesia.ApplicationResources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ro.
+        /// </summary>
+        internal static string LanguageId {
+            get {
+                return ResourceManager.GetString("LanguageId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Limba.
         /// </summary>
         internal static string LanguageLabel {

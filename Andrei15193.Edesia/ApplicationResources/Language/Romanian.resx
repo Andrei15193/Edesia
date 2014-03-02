@@ -132,6 +132,9 @@
   <data name="LanguageDisplayName" xml:space="preserve">
     <value>Română</value>
   </data>
+  <data name="LanguageId" xml:space="preserve">
+    <value>ro</value>
+  </data>
   <data name="LanguageLabel" xml:space="preserve">
     <value>Limba</value>
   </data>

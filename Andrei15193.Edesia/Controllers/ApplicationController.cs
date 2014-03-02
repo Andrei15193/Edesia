@@ -11,50 +11,49 @@ namespace Andrei15193.Edesia.Controllers
 		protected override void OnResultExecuting(ResultExecutingContext filterContext)
 		{
 			base.OnResultExecuting(filterContext);
-			HttpCookie languageCookie = filterContext.HttpContext.Request.Cookies[_languageCookieName];
-
-			if (languageCookie != null)
-				LanguageResource.DisplayLanguage = _Decode(languageCookie.Value);
+			LanguageResource.DisplayLanguageId = GetSelectedLanguageId();
 		}
-		protected HttpCookie GetLanguageCookie(string language)
+		protected HttpCookie GetLanguageCookie(string languageId)
 		{
-			return new HttpCookie(_languageCookieName, _Encode(language ?? LanguageResource.DefaultLanguage));
+			return new HttpCookie(_languageCookieName, languageId ?? LanguageResource.DefaultLanguageId);
 		}
-		protected string GetSelectedLanguage()
+		protected string GetSelectedLanguageId()
 		{
 			HttpCookie languageCookie = HttpContext.Request.Cookies[_languageCookieName];
 
 			if (languageCookie != null)
-				return _Decode(languageCookie.Value);
-			return LanguageResource.DefaultLanguage;
+				return languageCookie.Value;
+			return LanguageResource.DefaultLanguageId;
 		}
 
-		private string _Encode(string value)
-		{
-			StringBuilder convertedValueStringBuilder = new StringBuilder();
+		//private string _Encode(string value)
+		//{
+		//	return Server.UrlEncode(value);
+		//	//StringBuilder convertedValueStringBuilder = new StringBuilder();
 
-			if (value.Length > 0)
-			{
-				convertedValueStringBuilder.Append(char.ConvertToUtf32(value, 0));
-				for (int valueIndex = 1; valueIndex < value.Length; valueIndex++)
-				{
-					convertedValueStringBuilder.Append('-');
-					convertedValueStringBuilder.Append(char.ConvertToUtf32(value, valueIndex));
-				}
-			}
+		//	//if (value.Length > 0)
+		//	//{
+		//	//	convertedValueStringBuilder.Append(char.ConvertToUtf32(value, 0));
+		//	//	for (int valueIndex = 1; valueIndex < value.Length; valueIndex++)
+		//	//	{
+		//	//		convertedValueStringBuilder.Append('-');
+		//	//		convertedValueStringBuilder.Append(char.ConvertToUtf32(value, valueIndex));
+		//	//	}
+		//	//}
 
-			return convertedValueStringBuilder.ToString();
-		}
-		private string _Decode(string value)
-		{
-			return string.Join(string.Empty, value.Split('-').Select(code =>
-				{
-					int codeValue;
-					if (int.TryParse(code, out codeValue))
-						return char.ConvertFromUtf32(codeValue);
-					return char.ConvertFromUtf32(0);
-				}));
-		}
+		//	//return convertedValueStringBuilder.ToString();
+		//}
+		//private string _Decode(string value)
+		//{
+		//	return Server.UrlDecode(value);
+		//	//return string.Join(string.Empty, value.Split('-').Select(code =>
+		//	//	{
+		//	//		int codeValue;
+		//	//		if (int.TryParse(code, out codeValue))
+		//	//			return char.ConvertFromUtf32(codeValue);
+		//	//		return char.ConvertFromUtf32(0);
+		//	//	}));
+		//}
 
 		private const string _languageCookieName = "DisplayLanguage";
 	}

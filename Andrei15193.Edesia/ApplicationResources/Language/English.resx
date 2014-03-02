@@ -132,6 +132,9 @@
   <data name="LanguageDisplayName" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="LanguageId" xml:space="preserve">
+    <value>en-gb</value>
+  </data>
   <data name="LanguageLabel" xml:space="preserve">
     <value>Language</value>
   </data>

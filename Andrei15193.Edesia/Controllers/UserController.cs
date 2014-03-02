@@ -118,12 +118,12 @@ namespace Andrei15193.Edesia.Controllers
 			return View(loginViewModel);
 		}
 		[HttpGet]
-		public ActionResult ChangeLanguage(string language, string returnUrl)
+		public ActionResult ChangeLanguage(string languageId, string returnUrl)
 		{
-			if (language == null || returnUrl == null)
+			if (languageId == null || returnUrl == null)
 				return RedirectToAction("Default", "Home");
 
-			Response.SetCookie(GetLanguageCookie(language));
+			Response.SetCookie(GetLanguageCookie(languageId));
 			if (Url.IsLocalUrl(returnUrl))
 				return Redirect(returnUrl);
 			else
@@ -154,12 +154,13 @@ namespace Andrei15193.Edesia.Controllers
 		}
 		public ActionResult GetLanguageDropdown()
 		{
-			string selectedLanguage = GetSelectedLanguage();
+			string selectedLanguageId = GetSelectedLanguageId();
 
 			return View(LanguageResource.AvailableLanguages
-										.Select(availableLanguage => new DisplayLanguage(availableLanguage,
-																						 string.Equals(selectedLanguage,
-																									   availableLanguage,
+										.Select(availableLanguage => new DisplayLanguage(availableLanguage.Value,
+																						 availableLanguage.Key,
+																						 string.Equals(selectedLanguageId,
+																									   availableLanguage.Key,
 																									   StringComparison.Ordinal))));
 		}
 

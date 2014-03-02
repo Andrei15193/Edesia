@@ -13,11 +13,11 @@
 			{
 				if (displayLanguage.IsSelected)
 				{
-					<li class="disabled"><a href="/User/ChangeLanguage?language=@displayLanguage.LanguageName&returnUrl=@Request.Path">@displayLanguage.LanguageName</a></li>
+					<li class="disabled"><a href="/User/ChangeLanguage?languageId=@Server.UrlEncode(displayLanguage.LanguageId)&returnUrl=@Server.UrlEncode(Request.Path)">@displayLanguage.LanguageDisplayName</a></li>
 				}
 				else
 				{
-					<li><a href="/User/ChangeLanguage?language=@displayLanguage.LanguageName&returnUrl=@Request.Path">@displayLanguage.LanguageName</a></li>
+					<li><a href="/User/ChangeLanguage?languageId=@Server.UrlEncode(displayLanguage.LanguageId)&returnUrl=@Server.UrlEncode(Request.Path)">@displayLanguage.LanguageDisplayName</a></li>
 				}
 			}
 		</ul>

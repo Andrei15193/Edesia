@@ -3,24 +3,22 @@ namespace Andrei15193.Edesia.Models
 {
 	public struct DisplayLanguage
 	{
-		public DisplayLanguage(string languageName, bool isSelected = false)
+		public DisplayLanguage(string languageDisplayName, string languageId, bool isSelected = false)
 		{
-			if (languageName == null)
-				throw new ArgumentNullException("language");
-			if (string.IsNullOrEmpty(languageName) || string.IsNullOrWhiteSpace(languageName))
-				throw new ArgumentException("Cannot be empty or whitespace!", "language");
+			if (languageDisplayName == null)
+				throw new ArgumentNullException("languageDisplayName");
+			if (string.IsNullOrEmpty(languageDisplayName) || string.IsNullOrWhiteSpace(languageDisplayName))
+				throw new ArgumentException("Cannot be empty or whitespace!", "languageDisplayName");
+			if (languageId == null)
+				throw new ArgumentNullException("languageId");
+			if (string.IsNullOrEmpty(languageId) || string.IsNullOrWhiteSpace(languageId))
+				throw new ArgumentException("Cannot be empty or whitespace!", "languageId");
 
-			_languageName = languageName;
+			_languageDisplayName = languageDisplayName;
+			_languageId = languageId;
 			_isSelected = isSelected;
 		}
 
-		public string LanguageName
-		{
-			get
-			{
-				return _languageName;
-			}
-		}
 		public bool IsSelected
 		{
 			get
@@ -28,8 +26,23 @@ namespace Andrei15193.Edesia.Models
 				return _isSelected;
 			}
 		}
+		public string LanguageDisplayName
+		{
+			get
+			{
+				return _languageDisplayName;
+			}
+		}
+		public string LanguageId
+		{
+			get
+			{
+				return _languageId;
+			}
+		}
 
 		private readonly bool _isSelected;
-		private readonly string _languageName;
+		private readonly string _languageDisplayName;
+		private readonly string _languageId;
 	}
 }

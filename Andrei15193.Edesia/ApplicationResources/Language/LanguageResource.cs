@@ -16,33 +16,34 @@ namespace Andrei15193.Edesia.ApplicationResources.Language
 														let resourceManagerPropertyInfo = type.GetProperty("ResourceManager", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.GetProperty, Type.DefaultBinder, typeof(ResourceManager), Type.EmptyTypes, null)
 														where resourceManagerPropertyInfo != null
 														select (ResourceManager)resourceManagerPropertyInfo.GetValue(null))
-				_languageResourceManagers.Add(resourceManager.GetString("LanguageDisplayName"), resourceManager);
+				_languageResourceManagers.Add(resourceManager.GetString("LanguageId"), resourceManager);
 		}
-		public static IEnumerable<string> AvailableLanguages
+
+		public static IEnumerable<KeyValuePair<string, string>> AvailableLanguages
 		{
 			get
 			{
-				return _languageResourceManagers.Keys;
+				return _languageResourceManagers.Select(languageResourceManager => new KeyValuePair<string, string>(languageResourceManager.Key, languageResourceManager.Value.GetString("LanguageDisplayName")));
 			}
 		}
-		public static string DefaultLanguage
+		public static string DefaultLanguageId
 		{
 			get
 			{
-				return Romanian.LanguageDisplayName;
+				return Romanian.LanguageId;
 			}
 		}
-		public static string DisplayLanguage
+		public static string DisplayLanguageId
 		{
 			get
 			{
-				if (_language != null && _languageResourceManagers.ContainsKey(_language))
-					return _language;
-				return DefaultLanguage;
+				if (_displayLanguageId != null && _languageResourceManagers.ContainsKey(_displayLanguageId))
+					return _displayLanguageId;
+				return DefaultLanguageId;
 			}
 			set
 			{
-				_language = value;
+				_displayLanguageId = value;
 			}
 		}
 		public static string EMailCopyPrompt
@@ -143,19 +144,26 @@ namespace Andrei15193.Edesia.ApplicationResources.Language
 				return ResourceManager.GetString("HomePageTitle");
 			}
 		}
+		public static string LanguageId
+		{
+			get
+			{
+				return ResourceManager.GetString("LanguageId");
+			}
+		}
 		public static ResourceManager ResourceManager
 		{
 			get
 			{
 				ResourceManager languageResourceManager;
-				if (_languageResourceManagers.TryGetValue(DisplayLanguage, out languageResourceManager))
+				if (_languageResourceManagers.TryGetValue(_displayLanguageId, out languageResourceManager))
 					return languageResourceManager;
-				return _languageResourceManagers[typeof(Romanian).Name];
+				return _languageResourceManagers[Romanian.LanguageId];
 			}
 		}
 		
 		[ThreadStatic]
-		private static string _language;
+		private static string _displayLanguageId;
 		private static readonly IDictionary<string, ResourceManager> _languageResourceManagers;
 	}
 }
