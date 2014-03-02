@@ -28,5 +28,17 @@ namespace Andrei15193.Edesia.Configuration
 				this["StorageSettings"] = value;
 			}
 		}
+		[ConfigurationProperty("EmailSettings", IsRequired = true)]
+		public EmailConfigurationElement EmailSettings
+		{
+			get
+			{
+				return (EmailConfigurationElement)this["EmailSettings"];
+			}
+			set
+			{
+				this["EmailSettings"] = value;
+			}
+		}
 	}
 }
