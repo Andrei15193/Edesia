@@ -21,7 +21,7 @@ namespace Andrei15193.Edesia.Attributes
 			_authorizeAttribute.OnAuthorization(filterContext);
 			if (filterContext.HttpContext.User.Identity.IsAuthenticated
 				&& _roles != null
-				&& !_roles.Intersect(filterContext.HttpContext.GetUser().Roles).Any())
+				&& !_roles.Intersect(filterContext.HttpContext.GetApplicationUser().Roles).Any())
 				filterContext.Result = new RedirectResult("/");
 		}
 		#endregion
