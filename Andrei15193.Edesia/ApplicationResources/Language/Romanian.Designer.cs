@@ -64,7 +64,7 @@ namespace Andrei15193.Edesia.ApplicationResources.Language {
         ///   Looks up a localized string similar to &lt;!doctype html&gt;
         ///&lt;html&gt;
         ///&lt;head&gt;
-        ///	&lt;meta charset=&quot;&quot;utf-8&quot;&quot;&gt;
+        ///	&lt;meta charset=&quot;utf-8&quot;&gt;
         ///	&lt;title&gt;Edesia - Înregistrare&lt;/title&gt;
         ///	&lt;style&gt;
         ///		body
@@ -90,7 +90,7 @@ namespace Andrei15193.Edesia.ApplicationResources.Language {
         ///		{{
         ///			color: #60A917;
         ///			text-decoration: none;
-        /// [rest of string was truncated]&quot;;.
+        ///		 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ConfirmationEMailBody {
             get {

@@ -121,7 +121,7 @@
     <value>&lt;!doctype html&gt;
 &lt;html&gt;
 &lt;head&gt;
-	&lt;meta charset=""utf-8""&gt;
+	&lt;meta charset="utf-8"&gt;
 	&lt;title&gt;Edesia - Înregistrare&lt;/title&gt;
 	&lt;style&gt;
 		body
@@ -173,7 +173,7 @@
 &lt;/head&gt;
 &lt;body&gt;
 	&lt;h1&gt;Edesia - Înregistrare&lt;/h1&gt;
-	&lt;div class=""content""&gt;
+	&lt;div class="content"&gt;
 		&lt;p&gt;
 			Bună ziua! Pentru a putea finaliza înregistrarea trebuie să confirmați adresa de e-mail.
 			Aceasta se face destul de simplu, trebuie doar să faceți un click pe linkul de
@@ -181,10 +181,10 @@
 			&lt;small&gt;edesia@outlook.com&lt;/small&gt;. Vă mulțumim!
 		&lt;/p&gt;
 		&lt;p&gt;
-			&lt;a href=""{0}?email={1}&amp;key={2}""&gt;{0}?email={1}&amp;key={2}&lt;/a&gt;
+			&lt;a href="{0}?email={1}&amp;key={2}"&gt;{0}?email={1}&amp;key={2}&lt;/a&gt;
 		&lt;/p&gt;
 	&lt;/div&gt;
-	&lt;p id=""signature"" class=""content""&gt;
+	&lt;p id="signature" class="content"&gt;
 		Vă dorim o zi superbă!
 	&lt;/p&gt;
 &lt;/body&gt;
