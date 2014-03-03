@@ -76,24 +76,13 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 		private static void _ProperSchemaValidation(object sender, ValidationEventArgs e)
 		{
-			try
+			switch (e.Exception.HResult)
 			{
-				switch (e.Exception.HResult)
-				{
-					case -2146231999:
-						Match errorMessageMatch = Regex.Match(e.Exception.Message, "There is a duplicate key sequence '(.*)' for the '(.*)' key or unique identity constraint.");
-						string conflictingValue = errorMessageMatch.Groups[1].Value;
-						string cosntraintQualifiedName = errorMessageMatch.Groups[2].Value;
-
-						//throw proper exception (e.g.: UniqueConstraintException)
-						break;
-					default:
-						throw e.Exception;
-				}
-			}
-			catch
-			{
-				throw e.Exception;
+				case -2146231999:
+					Match errorMessageMatch = Regex.Match(e.Exception.Message, "There is a duplicate key sequence '(.*)' for the '(.*)' key or unique identity constraint.");
+					throw new UnsatisfiedUniqueConstraintException(errorMessageMatch.Groups[1].Value, errorMessageMatch.Groups[2].Value);
+				default:
+					throw e.Exception;
 			}
 		}
 	}

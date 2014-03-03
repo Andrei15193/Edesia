@@ -30,9 +30,9 @@ namespace Andrei15193.Edesia.Controllers
 				return View();
 			else
 				if (_userStore.ClearRegistrationKey(email, key))
-					return View("_Notice", (object)("Contul dumneavoastră a fost creat cu success! Vă mulțumim ca ați ales să folosiți serviciile noastre!"));
+					return View("_Notice", new Notice(LanguageResource.RegisterLabel, null, "Contul dumneavoastră a fost creat cu success! Vă mulțumim ca ați ales să folosiți serviciile noastre!"));
 				else
-					return View("_Notice", (object)("Ne pare rău dar codul de înregistrare este prea vechi pentru a mai putea fi folosit. Trebuie sa vă reînregistrați."));
+					return View("_Notice", new Notice(LanguageResource.RegisterLabel, null, "Ne pare rău dar codul de înregistrare este prea vechi pentru a mai putea fi folosit. Trebuie sa vă reînregistrați."));
 		}
 		[HttpPost]
 		public ActionResult Register(RegisterViewModel registerViewModel)
