@@ -151,17 +151,38 @@ namespace Andrei15193.Edesia.ApplicationResources.Language
 				return ResourceManager.GetString("LanguageId");
 			}
 		}
+		public static string ConfirmationEMailBody
+		{
+			get
+			{
+				return ResourceManager.GetString("ConfirmationEMailBody");
+			}
+		}
+		public static string RegisterMessage
+		{
+			get
+			{
+				return ResourceManager.GetString("RegisterMessage");
+			}
+		}
+		public static string RegisterNextStepLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("RegisterNextStepLabel");
+			}
+		}
 		public static ResourceManager ResourceManager
 		{
 			get
 			{
 				ResourceManager languageResourceManager;
-				if (_languageResourceManagers.TryGetValue(_displayLanguageId, out languageResourceManager))
+				if (_languageResourceManagers.TryGetValue(DisplayLanguageId, out languageResourceManager))
 					return languageResourceManager;
 				return _languageResourceManagers[Romanian.LanguageId];
 			}
 		}
-		
+
 		[ThreadStatic]
 		private static string _displayLanguageId;
 		private static readonly IDictionary<string, ResourceManager> _languageResourceManagers;

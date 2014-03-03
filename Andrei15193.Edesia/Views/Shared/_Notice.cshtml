@@ -1,12 +1,25 @@
-﻿@model string
+﻿@model Andrei15193.Edesia.Models.Notice
 @{
-	ViewBag.Title = "Infomativ";
+	ViewBag.Title = Model.PageTitle;
 }
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4 offset4">
 			<div class="notice bg-gray fg-white text-justify">
-				<p>@Model</p>
+				@if (!string.IsNullOrEmpty(Model.Title) && !string.IsNullOrWhiteSpace(Model.Title))
+				{
+					<h1>@Model.Title</h1>
+				}
+				@if (Model.Paragraphs != null)
+				{
+					foreach (string paragraph in Model.Paragraphs)
+					{
+						if (!string.IsNullOrEmpty(paragraph) && !string.IsNullOrWhiteSpace(paragraph))
+						{
+							<p>@paragraph</p>
+						}
+					}
+				}
 			</div>
 		</div>
 	</div>

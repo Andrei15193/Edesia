@@ -181,12 +181,12 @@
       </SubType>
     </Compile>
     <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\Attributes\FeatureAttribute.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\County.cs" />
     <Compile Include="Models\DisplayLanguage.cs" />
     <Compile Include="Models\Icons.cs" />
     <Compile Include="Models\NavigationBarAction.cs" />
+    <Compile Include="Models\Notice.cs" />
     <Compile Include="Models\Offer.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderState.cs" />

@@ -57,8 +57,8 @@ namespace Andrei15193.Edesia.Controllers
 														MvcApplication.EdesiaSettings.EmailSettings.SmtpPassword)
 				}.Send(new MailMessage
 					{
-						Subject = "Edesia Register",
-						From = new MailAddress("andrei_fangli@hotmail.com", MvcApplication.EdesiaSettings.EmailSettings.SenderDisplayName),
+						Subject = "Edesia - " + LanguageResource.RegisterLabel,
+						From = new MailAddress(MvcApplication.EdesiaSettings.EmailSettings.SenderEMailAddress, MvcApplication.EdesiaSettings.EmailSettings.SenderDisplayName),
 						To =
 						{
 							new MailAddress(registerViewModel.EMail)
@@ -66,7 +66,7 @@ namespace Andrei15193.Edesia.Controllers
 						DeliveryNotificationOptions = DeliveryNotificationOptions.Never,
 						IsBodyHtml = true,
 						BodyEncoding = Encoding.UTF8,
-						Body = string.Format(_emailConfirmationMailBody,
+						Body = string.Format(LanguageResource.ConfirmationEMailBody,
 											 new StringBuilder(Request.Url.Scheme).Append(Uri.SchemeDelimiter)
 																				  .Append(Request.Url.Host)
 																				  .Append(Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port)
@@ -75,7 +75,7 @@ namespace Andrei15193.Edesia.Controllers
 											 Uri.EscapeDataString(registerViewModel.EMail),
 											 Uri.EscapeDataString(registrationKey))
 					});
-				return View("_Notice", (object)("Am trimis un e-mail la adresa oferită cu detalii despre următorii pași care trebuie urmați pentru a vă înregistra."));
+				return View("_Notice", new Notice(LanguageResource.RegisterLabel, null, LanguageResource.RegisterMessage));
 			}
 			return View();
 		}
@@ -190,76 +190,5 @@ namespace Andrei15193.Edesia.Controllers
 		}
 
 		private IApplicationUserStore _userStore = StoreFactory.ApplicationUserStore;
-		private const string _emailConfirmationMailBody = @"<!doctype html>
-<html>
-<head>
-	<meta charset=""utf-8"">
-	<title>Edesia - Înregistrare</title>
-	<style>
-		body
-		{{
-			margin: 0;
-			color: #000000;
-			text-align: justify;
-			font-family: 'Segoe UI Light_', 'Open Sans Light', Verdana, Arial, Helvetica, sans-serif;
-			font-size: 10pt;
-		}}
-
-		h1
-		{{
-			margin: 0;
-			padding: 10px;
-			background-color: #008A00;
-			color: #FFFFFF;
-			font-size: 24pt;
-			font-weight: 300;
-		}}
-
-		a
-		{{
-			color: #60A917;
-			text-decoration: none;
-		}}
-
-			a:hover
-			{{
-				color: #7AD61D;
-				text-decoration: none;
-			}}
-
-		.content
-		{{
-			padding-left: 15px;
-			padding-right: 15px;
-		}}
-
-		p#signature
-		{{
-			margin-top: 30px;
-			padding-top: 15px;
-			height: 65px;
-			background-color: #008A00;
-			color: #FFFFFF;
-		}}
-	</style>
-</head>
-<body>
-	<h1>Edesia - Înregistrare</h1>
-	<div class=""content"">
-		<p>
-			Bună ziua! Pentru a putea finaliza înregistrarea trebuie să confirmați adresa de e-mail.
-			Aceasta se face destul de simplu, trebuie doar să faceți un click pe linkul de
-			mai jos. În caz că aveți probleme nu ezitați să ne contactați la adresa de e-mail:
-			<small>edesia@outlook.com</small>. Vă mulțumim!
-		</p>
-		<p>
-			<a href=""{0}?email={1}&key={2}"">{0}?email={1}&key={2}</a>
-		</p>
-	</div>
-	<p id=""signature"" class=""content"">
-		Vă dorim o zi superbă!
-	</p>
-</body>
-</html>";
 	}
 }

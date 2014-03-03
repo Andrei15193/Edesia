@@ -61,6 +61,44 @@ namespace Andrei15193.Edesia.ApplicationResources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!doctype html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///	&lt;meta charset=&quot;&quot;utf-8&quot;&quot;&gt;
+        ///	&lt;title&gt;Edesia - Înregistrare&lt;/title&gt;
+        ///	&lt;style&gt;
+        ///		body
+        ///		{{
+        ///			margin: 0;
+        ///			color: #000000;
+        ///			text-align: justify;
+        ///			font-family: &apos;Segoe UI Light_&apos;, &apos;Open Sans Light&apos;, Verdana, Arial, Helvetica, sans-serif;
+        ///			font-size: 10pt;
+        ///		}}
+        ///
+        ///		h1
+        ///		{{
+        ///			margin: 0;
+        ///			padding: 10px;
+        ///			background-color: #008A00;
+        ///			color: #FFFFFF;
+        ///			font-size: 24pt;
+        ///			font-weight: 300;
+        ///		}}
+        ///
+        ///		a
+        ///		{{
+        ///			color: #60A917;
+        ///			text-decoration: none;
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ConfirmationEMailBody {
+            get {
+                return ResourceManager.GetString("ConfirmationEMailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to reintroduceți adresa de e-mail (verificare).
         /// </summary>
         internal static string EMailCopyPrompt {
@@ -192,6 +230,24 @@ namespace Andrei15193.Edesia.ApplicationResources.Language {
         internal static string RegisterLabel {
             get {
                 return ResourceManager.GetString("RegisterLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Am trimis un e-mail la adresa oferită cu detalii despre următorii pași care trebuie urmați pentru a vă înregistra..
+        /// </summary>
+        internal static string RegisterMessage {
+            get {
+                return ResourceManager.GetString("RegisterMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pasul următor.
+        /// </summary>
+        internal static string RegisterNextStepLabel {
+            get {
+                return ResourceManager.GetString("RegisterNextStepLabel", resourceCulture);
             }
         }
     }
