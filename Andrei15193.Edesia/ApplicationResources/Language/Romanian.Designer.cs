@@ -225,6 +225,15 @@ namespace Andrei15193.Edesia.ApplicationResources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profil.
+        /// </summary>
+        internal static string ProfilePageTitle {
+            get {
+                return ResourceManager.GetString("ProfilePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Înregistrare.
         /// </summary>
         internal static string RegisterLabel {
@@ -248,6 +257,24 @@ namespace Andrei15193.Edesia.ApplicationResources.Language {
         internal static string RegisterNextStepLabel {
             get {
                 return ResourceManager.GetString("RegisterNextStepLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roluri.
+        /// </summary>
+        internal static string RolesDisplayName {
+            get {
+                return ResourceManager.GetString("RolesDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Acceptă.
+        /// </summary>
+        internal static string SubmitLabel {
+            get {
+                return ResourceManager.GetString("SubmitLabel", resourceCulture);
             }
         }
     }

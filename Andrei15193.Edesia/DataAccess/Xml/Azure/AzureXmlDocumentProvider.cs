@@ -3,52 +3,28 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Xml.Linq;
-using System.Xml.Schema;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 {
 	public class AzureXmlDocumentProvider
-		: IXmlDocumentProvider
+		: XmlDocumentProvider
 	{
-		#region IXmlDataProvider Members
-		public event EventHandler<XmlDocumentEventArgs> LoadingXmlDocument;
-		public event EventHandler<XmlDocumentEventArgs> LoadedXmlDocument;
-		public event EventHandler<XmlDocumentEventArgs> SavingXmlDocument;
-		public event EventHandler<XmlDocumentEventArgs> SavedXmlDocument;
-		public event ValidationEventHandler XmlDocumentError;
-		public bool ValidateSourceDocument
+		protected override XDocument OnLoadXmlDocument(string xmlDocumentBlobName)
 		{
-			get;
-			set;
-		}
-		public XmlSchemaSet XmlDocumentSchemaSet
-		{
-			get
-			{
-				return _xmlDocumentSchemaSet;
-			}
-		}
-		public XDocument LoadXmlDocument(string xmlDocumentFileName)
-		{
-			if (xmlDocumentFileName == null)
-				throw new ArgumentNullException("xmlDocumentFileName");
-			if (string.IsNullOrEmpty(xmlDocumentFileName) || string.IsNullOrWhiteSpace(xmlDocumentFileName))
-				throw new ArgumentException("Filename cannot be empty or whitespace!", "xmlDocumentFileName");
-
-			CloudStorageAccount storageAccount = CloudStorageAccount.Parse(MvcApplication.EdesiaSettings.StorageSettings.StorageConnectionString);
-			CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-			CloudBlobContainer container = blobClient.GetContainerReference("andrei15193");
-			CloudBlockBlob dataBlob = container.GetBlockBlobReference(xmlDocumentFileName);
-			CachedDocument cachedDocument;
+			CachedXmlDocument cachedDocument;
+			CloudBlockBlob dataBlob = CloudStorageAccount.Parse(MvcApplication.EdesiaSettings.StorageSettings.StorageConnectionString)
+														 .CreateCloudBlobClient()
+														 .GetContainerReference("andrei15193")
+														 .GetBlockBlobReference(xmlDocumentBlobName);
 
 			try
 			{
 				_cacheLock.EnterReadLock();
 
-				if (_cachedDocuments.TryGetValue(xmlDocumentFileName, out cachedDocument)
+				if (_cachedDocuments.TryGetValue(xmlDocumentBlobName, out cachedDocument)
 					&& cachedDocument.LastModifiedTime == dataBlob.Properties.LastModified)
-					return cachedDocument.Document;
+					return cachedDocument.XmlDocument;
 				Interlocked.Increment(ref _readersWaitingForUpdate);
 			}
 			finally
@@ -60,20 +36,12 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 				try
 				{
 					_cacheLock.EnterWriteLock();
-
 					using (Stream xmlDataFileInputStream = dataBlob.OpenRead())
-						cachedDocument = new CachedDocument(XDocument.Load(xmlDataFileInputStream), dataBlob.Properties.LastModified);
-					if (!ValidateSourceDocument)
-						cachedDocument.Document.Validate(XmlDocumentSchemaSet, XmlDocumentError);
-
-					_RaiseEvent(LoadingXmlDocument, new XmlDocumentEventArgs(xmlDocumentFileName));
-
-					if (_cachedDocuments.ContainsKey(xmlDocumentFileName))
-						_cachedDocuments[xmlDocumentFileName] = cachedDocument;
+						cachedDocument = new CachedXmlDocument(XDocument.Load(xmlDataFileInputStream), dataBlob.Properties.LastModified);
+					if (_cachedDocuments.ContainsKey(xmlDocumentBlobName))
+						_cachedDocuments[xmlDocumentBlobName] = cachedDocument;
 					else
-						_cachedDocuments.Add(xmlDocumentFileName, cachedDocument);
-
-					_RaiseEvent(LoadedXmlDocument, new XmlDocumentEventArgs(xmlDocumentFileName, cachedDocument.Document));
+						_cachedDocuments.Add(xmlDocumentBlobName, cachedDocument);
 				}
 				finally
 				{
@@ -90,9 +58,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 				try
 				{
 					_getDataLock.EnterReadLock();
-					_RaiseEvent(LoadingXmlDocument, new XmlDocumentEventArgs(xmlDocumentFileName));
-					cachedDocument = _cachedDocuments[xmlDocumentFileName];
-					_RaiseEvent(LoadedXmlDocument, new XmlDocumentEventArgs(xmlDocumentFileName, cachedDocument.Document));
+					cachedDocument = _cachedDocuments[xmlDocumentBlobName];
 				}
 				finally
 				{
@@ -101,49 +67,37 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 						_noGetDataWaits.Set();
 				}
 
-			return cachedDocument.Document;
+			return cachedDocument.XmlDocument;
 		}
-		public void SaveXmlDocument(XDocument xmlDocument, string xmlDocumentFileName)
+		protected override void OnSaveXmlDocument(XDocument xmlDocument, string xmlDocumentBlobName)
 		{
-			if (xmlDocument == null)
-				throw new ArgumentNullException("xmlDocument");
-			if (xmlDocumentFileName == null)
-				throw new ArgumentNullException("xmlDataFileName");
-			if (string.IsNullOrEmpty(xmlDocumentFileName) || string.IsNullOrWhiteSpace(xmlDocumentFileName))
-				throw new ArgumentException("Filename cannot be empty or whitespace!", "xmlDataFileName");
-
-			CloudStorageAccount storageAccount = CloudStorageAccount.Parse(MvcApplication.EdesiaSettings.StorageSettings.StorageConnectionString);
-			CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-			CloudBlobContainer container = blobClient.GetContainerReference("andrei15193");
-			CloudBlockBlob dataBlob = container.GetBlockBlobReference(xmlDocumentFileName);
+			CloudBlockBlob dataBlob = CloudStorageAccount.Parse(MvcApplication.EdesiaSettings.StorageSettings.StorageConnectionString)
+														 .CreateCloudBlobClient()
+														 .GetContainerReference("andrei15193")
+														 .GetBlockBlobReference(xmlDocumentBlobName);
 
 			try
 			{
 				_cacheLock.EnterWriteLock();
-				_RaiseEvent(SavingXmlDocument, new XmlDocumentEventArgs(xmlDocumentFileName, xmlDocument));
-				xmlDocument.Validate(XmlDocumentSchemaSet, XmlDocumentError);
-
 				dataBlob.UploadText(xmlDocument.ToString());
-				if (_cachedDocuments.ContainsKey(xmlDocumentFileName))
-					_cachedDocuments[xmlDocumentFileName] = new CachedDocument(xmlDocument, dataBlob.Properties.LastModified);
+				if (_cachedDocuments.ContainsKey(xmlDocumentBlobName))
+					_cachedDocuments[xmlDocumentBlobName] = new CachedXmlDocument(xmlDocument, dataBlob.Properties.LastModified);
 				else
-					_cachedDocuments.Add(xmlDocumentFileName, new CachedDocument(xmlDocument, dataBlob.Properties.LastModified));
-				_RaiseEvent(SavedXmlDocument, new XmlDocumentEventArgs(xmlDocumentFileName, xmlDocument));
+					_cachedDocuments.Add(xmlDocumentBlobName, new CachedXmlDocument(xmlDocument, dataBlob.Properties.LastModified));
 			}
 			finally
 			{
 				_cacheLock.ExitWriteLock();
 			}
 		}
-		#endregion
 
-		private struct CachedDocument
+		private struct CachedXmlDocument
 		{
-			public CachedDocument(XDocument document, DateTimeOffset? lastModifiedTime)
+			public CachedXmlDocument(XDocument xmlDocument, DateTimeOffset? lastModifiedTime)
 			{
-				if (document == null)
-					throw new ArgumentNullException("document");
-				_document = document;
+				if (xmlDocument == null)
+					throw new ArgumentNullException("xmlDocument");
+				_xmlDocument = xmlDocument;
 				_lastModifiedTime = lastModifiedTime;
 			}
 
@@ -154,33 +108,22 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 					return _lastModifiedTime;
 				}
 			}
-			public XDocument Document
+			public XDocument XmlDocument
 			{
 				get
 				{
-					return _document;
+					return _xmlDocument;
 				}
 			}
 
 			private readonly DateTimeOffset? _lastModifiedTime;
-			private readonly XDocument _document;
+			private readonly XDocument _xmlDocument;
 		}
-		private void _RaiseEvent(EventHandler eventHandler, EventArgs eventArgs)
-		{
-			if (eventHandler != null)
-				eventHandler(this, eventArgs);
-		}
-		private void _RaiseEvent<T>(EventHandler<T> eventHandler, T eventArgs)
-			where T : EventArgs
-		{
-			if (eventHandler != null)
-				eventHandler(this, eventArgs);
-		}
-		private int _readersWaitingForUpdate = 0;
-		private readonly AutoResetEvent _noGetDataWaits = new AutoResetEvent(false);
-		private readonly ReaderWriterLockSlim _cacheLock = new ReaderWriterLockSlim();
-		private readonly ReaderWriterLockSlim _getDataLock = new ReaderWriterLockSlim();
-		private readonly IDictionary<string, CachedDocument> _cachedDocuments = new SortedDictionary<string, CachedDocument>();
-		private readonly XmlSchemaSet _xmlDocumentSchemaSet = new XmlSchemaSet();
+
+		private static int _readersWaitingForUpdate = 0;
+		private static readonly AutoResetEvent _noGetDataWaits = new AutoResetEvent(false);
+		private static readonly ReaderWriterLockSlim _cacheLock = new ReaderWriterLockSlim();
+		private static readonly ReaderWriterLockSlim _getDataLock = new ReaderWriterLockSlim();
+		private static readonly IDictionary<string, CachedXmlDocument> _cachedDocuments = new SortedDictionary<string, CachedXmlDocument>();
 	}
 }

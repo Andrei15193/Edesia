@@ -60,6 +60,7 @@
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=3.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WindowsAzure.Storage.3.0.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -168,9 +169,8 @@
     <Compile Include="DataAccess\IApplicationUserStore.cs" />
     <Compile Include="DataAccess\StoreFactory.cs" />
     <Compile Include="DataAccess\Xml\Azure\AzureXmlDocumentProvider.cs" />
-    <Compile Include="DataAccess\Xml\IXmlDocumentProvider.cs" />
+    <Compile Include="DataAccess\Xml\XmlDocumentProvider.cs" />
     <Compile Include="DataAccess\Xml\Local\LocalXmlDocumentProvider.cs" />
-    <Compile Include="DataAccess\Xml\XmlDocumentEventArgs.cs" />
     <Compile Include="DataAccess\Xml\XmlApplicationUserStore.cs" />
     <Compile Include="Data\MockData.cs" />
     <Compile Include="Extensions\HttpContextBaseExtensions.cs" />
@@ -204,6 +204,7 @@
     <Compile Include="RegexPatterns.cs" />
     <Compile Include="ApplicationResources\Language\LanguageResource.cs" />
     <Compile Include="ViewModels\User\LoginViewModel.cs" />
+    <Compile Include="ViewModels\User\ProfileViewModel.cs" />
     <Compile Include="ViewModels\User\RegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -220,7 +221,7 @@
     <Content Include="Content\metro-ui\fonts\iconFont.ttf" />
     <Content Include="Content\metro-ui\fonts\iconFont.json" />
     <Content Include="Content\metro-ui\fonts\iconFont.eot" />
-    <None Include="Andrei15193.Edesia.xsd" />
+    <None Include="Membership.xsd" />
     <None Include="Properties\PublishProfiles\andrei15193test.pubxml" />
     <None Include="Properties\PublishProfiles\edesia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -257,6 +258,7 @@
     <Content Include="Views\Shared\_Notice.cshtml" />
     <Content Include="Views\User\GetNavigationBar.cshtml" />
     <Content Include="Views\User\GetLanguageDropdown.cshtml" />
+    <Content Include="Views\User\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

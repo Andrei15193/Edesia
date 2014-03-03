@@ -4,10 +4,11 @@ namespace Andrei15193.Edesia.Models
 {
 	public class ApplicationUser
 	{
-		public ApplicationUser(string email, DateTime registrationTime)
+		public ApplicationUser(string email, DateTime registrationTime, Address deliveryAddress = null)
 		{
 			_email = email;
 			_registrationTime = registrationTime;
+			_deliveryAddress = deliveryAddress;
 		}
 
 		public DateTime RegistrationTime
@@ -24,17 +25,10 @@ namespace Andrei15193.Edesia.Models
 				return _email;
 			}
 		}
-		public Address DefaultAddress
+		public Address DeliveryAddress
 		{
 			get;
 			set;
-		}
-		public ICollection<Address> Addresses
-		{
-			get
-			{
-				return _addresses;
-			}
 		}
 		public ISet<string> Roles
 		{
@@ -45,8 +39,8 @@ namespace Andrei15193.Edesia.Models
 		}
 
 		private string _email;
+		private Address _deliveryAddress;
 		private readonly DateTime _registrationTime;
-		private readonly ICollection<Address> _addresses = new LinkedList<Address>();
 		private readonly ISet<string> _roles = new HashSet<string>();
 	}
 }

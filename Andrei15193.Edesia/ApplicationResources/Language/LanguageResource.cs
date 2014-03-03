@@ -172,6 +172,27 @@ namespace Andrei15193.Edesia.ApplicationResources.Language
 				return ResourceManager.GetString("RegisterNextStepLabel");
 			}
 		}
+		public static string ProfilePageTitle
+		{
+			get
+			{
+				return ResourceManager.GetString("ProfilePageTitle");
+			}
+		}
+		public static string SubmitLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("SubmitLabel");
+			}
+		}
+		public static string RolesDisplayName
+		{
+			get
+			{
+				return ResourceManager.GetString("RolesDisplayName");
+			}
+		}
 		public static ResourceManager ResourceManager
 		{
 			get

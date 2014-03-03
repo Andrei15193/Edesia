@@ -1,0 +1,40 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Reflection
+@model Andrei15193.Edesia.ViewModels.User.ProfileViewModel
+@{
+	ViewBag.Title = LanguageResource.ProfilePageTitle;
+	DisplayAttribute displayAttribute = Model.GetType().GetProperty("Roles").GetCustomAttribute<DisplayAttribute>();
+}
+<div class="grid fluid">
+	<div class="row">
+		<div class="span4 offset4">
+			<h1 style="display: inline;">@LanguageResource.ProfilePageTitle</h1>
+			<h2 style="display: inline;">@User.Identity.Name</h2>
+			@if (Model.Roles.Skip(1).Any())
+			{
+				<h5>@string.Join(", ", Model.Roles)</h5>
+			}
+			@using (Html.BeginForm())
+			{
+				@Html.LabelFor(model => model.EMail)
+				<div class="input-control text">
+					@Html.EditorFor(model => model.EMail, new
+			{
+				disabled = "disabled"
+			})
+				</div>
+				@*@Html.LabelFor(model => model.Password)
+					<div class="input-control text">
+						@Html.EditorFor(model => model.Password)
+					</div>
+					<div class="input-control text">
+						@Html.EditorFor(model => model.PasswordCopy)
+					</div>*@
+				<button class="action margin5">Modifica adresa de livrare</button>
+				<button class="action margin5">Modifica adresa de email</button>
+				<button class="action margin5">Modifica parola</button>
+				@*<input class="action" type="submit" value="@LanguageResource.SubmitLabel" />*@
+			}
+		</div>
+	</div>
+</div>

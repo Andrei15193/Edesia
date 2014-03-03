@@ -82,8 +82,11 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet, ConfirmAccess]
 		public ActionResult Logout()
 		{
-			_userStore.ClearAuthenticationKey(HttpContext.GetApplicationUser());
-			FormsAuthentication.SignOut();
+			if (User.Identity.IsAuthenticated)
+			{
+				_userStore.ClearAuthenticationKey(User.Identity.Name);
+				FormsAuthentication.SignOut();
+			}
 			Session.Abandon();
 			return Redirect("/");
 		}
@@ -128,6 +131,15 @@ namespace Andrei15193.Edesia.Controllers
 				return Redirect(returnUrl);
 			else
 				return RedirectToAction("Default", "Home");
+		}
+		[HttpGet, ConfirmAccess]
+		public ActionResult Profile()
+		{
+			ApplicationUser applicationUser = HttpContext.GetApplicationUser();
+			return View(new ProfileViewModel(applicationUser.Roles)
+				{
+					EMail = applicationUser.EMail
+				});
 		}
 		[NonAction]
 		public void Login(string eMail, HttpContext context)

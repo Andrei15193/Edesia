@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -19,6 +21,15 @@ namespace Andrei15193.Edesia
 				return _edesiaSettings;
 			}
 		}
+		public static T[] GetEmptyAray<T>()
+		{
+			object emptyArray;
+			if (_emptyArrays.TryGetValue(typeof(T).FullName, out emptyArray))
+				return (T[])emptyArray;
+			emptyArray = new T[0];
+			_emptyArrays.Add(typeof(T).FullName, emptyArray);
+			return (T[])emptyArray;
+		}
 
 		protected void Application_Start()
 		{
@@ -33,5 +44,6 @@ namespace Andrei15193.Edesia
 		}
 
 		private static EdesiaConfigurationSection _edesiaSettings = (EdesiaConfigurationSection)WebConfigurationManager.GetSection("EdesiaSettings");
+		private static IDictionary<string, object> _emptyArrays = new Dictionary<string, object>();
 	}
 }

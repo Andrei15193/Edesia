@@ -232,6 +232,9 @@
   <data name="PasswordPrompt" xml:space="preserve">
     <value>nu se va vedea</value>
   </data>
+  <data name="ProfilePageTitle" xml:space="preserve">
+    <value>Profil</value>
+  </data>
   <data name="RegisterLabel" xml:space="preserve">
     <value>Înregistrare</value>
   </data>
@@ -240,5 +243,11 @@
   </data>
   <data name="RegisterNextStepLabel" xml:space="preserve">
     <value>Pasul următor</value>
+  </data>
+  <data name="RolesDisplayName" xml:space="preserve">
+    <value>Roluri</value>
+  </data>
+  <data name="SubmitLabel" xml:space="preserve">
+    <value>Acceptă</value>
   </data>
 </root>
