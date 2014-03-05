@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Andrei15193.Edesia.Configuration;
-using Andrei15193.Edesia.Controllers;
-using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia
 {
 	public class MvcApplication
