@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Text.RegularExpressions;
-using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Schema;
+using Andrei15193.Edesia.DataAccess.Xml.Validation;
 namespace Andrei15193.Edesia.DataAccess.Xml
 {
 	/// <summary>
@@ -22,19 +23,22 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		/// <param name="xmlDocumentName">The name of the XML document to load.</param>
 		/// <param name="xmlSchemaSet">The XML schema to use to validate the loaded document.</param>
 		/// <returns>Returns a XML document.</returns>
+		/// <exception cref="System.AggregateException">
+		/// Thrown when xmlSchemaSet is provided and there is at least one XML schema inconsistency.
+		/// </exception>
 		public XDocument LoadXmlDocument(string xmlDocumentName, XmlSchemaSet xmlSchemaSet = null)
 		{
 			if (xmlDocumentName == null)
-				throw new ArgumentNullException("xmlDOcumentFileName");
+				throw new ArgumentNullException("xmlDocumentName");
 			if (string.IsNullOrEmpty(xmlDocumentName) || string.IsNullOrWhiteSpace(xmlDocumentName))
-				throw new ArgumentException("Cannot be empty or whitespace!", "xmlDocumentFileName");
+				throw new ArgumentException("Cannot be empty or whitespace!", "xmlDocumentName");
 
 			XDocument xmlDocument = OnLoadXmlDocument(xmlDocumentName);
 			if (xmlDocument == null)
 				throw new InvalidOperationException();
 
 			if (xmlSchemaSet != null)
-				xmlDocument.Validate(xmlSchemaSet, _ProperSchemaValidation);
+				_Validate(xmlDocument, xmlSchemaSet);
 
 			return xmlDocument;
 		}
@@ -45,17 +49,20 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		/// <param name="xmlDocument">The XML document to save.</param>
 		/// <param name="xmlDocumentName">The name with which to save the XML document.</param>
 		/// <param name="xmlSchemaSet">The XML schema set to use when validating the document before actual save.</param>
+		/// <exception cref="System.AggregateException">
+		/// Thrown when xmlSchemaSet is provided and there is at least one XML schema inconsistency.
+		/// </exception>
 		public void SaveXmlDocument(XDocument xmlDocument, string xmlDocumentName, XmlSchemaSet xmlSchemaSet = null)
 		{
 			if (xmlDocument == null)
 				throw new ArgumentNullException("xmlDocument");
 			if (xmlDocumentName == null)
-				throw new ArgumentNullException("xmlDOcumentFileName");
+				throw new ArgumentNullException("xmlDocumentName");
 			if (string.IsNullOrEmpty(xmlDocumentName) || string.IsNullOrWhiteSpace(xmlDocumentName))
-				throw new ArgumentException("Cannot be empty or whitespace!", "xmlDocumentFileName");
+				throw new ArgumentException("Cannot be empty or whitespace!", "xmlDocumentName");
 
 			if (xmlSchemaSet != null)
-				xmlDocument.Validate(xmlSchemaSet, _ProperSchemaValidation);
+				_Validate(xmlDocument, xmlSchemaSet);
 			OnSaveXmlDocument(xmlDocument, xmlDocumentName);
 		}
 
@@ -74,16 +81,27 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		/// <param name="xmlDocumentName">The name with which to save the XML document.</param>
 		protected abstract void OnSaveXmlDocument(XDocument xmlDocument, string xmlDocumentName);
 
-		private static void _ProperSchemaValidation(object sender, ValidationEventArgs e)
+		private void _Validate(XDocument xmlDocument, XmlSchemaSet xmlSchemaSet)
 		{
-			switch (e.Exception.HResult)
-			{
-				case -2146231999:
-					Match errorMessageMatch = Regex.Match(e.Exception.Message, "There is a duplicate key sequence '(.*)' for the '(.*)' key or unique identity constraint.");
-					throw new UnsatisfiedUniqueConstraintException(errorMessageMatch.Groups[1].Value, errorMessageMatch.Groups[2].Value);
-				default:
-					throw e.Exception;
-			}
+			ICollection<Exception> xmlSchemaExceptions = new LinkedList<Exception>();
+
+			xmlDocument.Validate(xmlSchemaSet, (sender, e) =>
+				{
+					XmlSchemaException xmlSchemaException = _xmlSchemaExceptionInterpreters.Select(interpreter => interpreter.Interpret(e.Exception))
+																					  .Where(exception => exception != null)
+																					  .FirstOrDefault();
+
+					if (xmlSchemaException != null)
+						xmlSchemaExceptions.Add(xmlSchemaException);
+				});
+
+			if (xmlSchemaExceptions.Any())
+				throw new AggregateException(xmlSchemaExceptions);
 		}
+		private static readonly IReadOnlyCollection<IXmlSchemaExceptionInterpreter<XmlSchemaException>> _xmlSchemaExceptionInterpreters =
+			new[]
+			{
+				new UnsatisfiedUniqueConstraintInterpreter()
+			};
 	}
 }

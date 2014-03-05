@@ -170,6 +170,8 @@
     <Compile Include="DataAccess\StoreFactory.cs" />
     <Compile Include="DataAccess\Xml\Azure\AzureXmlDocumentProvider.cs" />
     <Compile Include="DataAccess\Xml\UnsatisfiedUniqueConstraintException.cs" />
+    <Compile Include="DataAccess\Xml\Validation\IXmlSchemaExceptionInterpreter.cs" />
+    <Compile Include="DataAccess\Xml\Validation\UnsatisfiedUniqueConstraintInterpreter.cs" />
     <Compile Include="DataAccess\Xml\XmlDocumentProvider.cs" />
     <Compile Include="DataAccess\Xml\Local\LocalXmlDocumentProvider.cs" />
     <Compile Include="DataAccess\Xml\XmlApplicationUserStore.cs" />
