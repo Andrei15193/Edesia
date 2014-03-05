@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConfirmationEMailBody" xml:space="preserve">
+  <data name="RegistreationBodyFormat" xml:space="preserve">
     <value>&lt;!doctype html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -189,65 +189,5 @@
 	&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</value>
-  </data>
-  <data name="EMailCopyPrompt" xml:space="preserve">
-    <value>reintroduceți adresa de e-mail (verificare)</value>
-  </data>
-  <data name="EMailDisplayName" xml:space="preserve">
-    <value>Adresa de E-Mail</value>
-  </data>
-  <data name="EMailPrompt" xml:space="preserve">
-    <value>nume@site.ro</value>
-  </data>
-  <data name="HomePageTitle" xml:space="preserve">
-    <value>Acasă</value>
-  </data>
-  <data name="LanguageDisplayName" xml:space="preserve">
-    <value>Română</value>
-  </data>
-  <data name="LanguageId" xml:space="preserve">
-    <value>ro</value>
-  </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Limba</value>
-  </data>
-  <data name="LoginLabel" xml:space="preserve">
-    <value>Autentificare</value>
-  </data>
-  <data name="LogoutLabel" xml:space="preserve">
-    <value>Deconectare</value>
-  </data>
-  <data name="NotReadyYetMessage" xml:space="preserve">
-    <value>„Edesia” este proiectul meu de licență. La suprafață se este un magazin online, iar „în spate” este un motor de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web (eventual o aplicație pentru dispozitive mobile va fi creată pentru a realiza același lucru) și să planifice sarcini pentru „angajați” (cum ar fi planificarea rutelor pentru livrare).</value>
-  </data>
-  <data name="NotReadyYetTitle" xml:space="preserve">
-    <value>Încă nu îi gata...</value>
-  </data>
-  <data name="PasswordCopyPrompt" xml:space="preserve">
-    <value>reintroduceți parola (verificare)</value>
-  </data>
-  <data name="PasswordDisplayName" xml:space="preserve">
-    <value>Parola</value>
-  </data>
-  <data name="PasswordPrompt" xml:space="preserve">
-    <value>nu se va vedea</value>
-  </data>
-  <data name="ProfilePageTitle" xml:space="preserve">
-    <value>Profil</value>
-  </data>
-  <data name="RegisterLabel" xml:space="preserve">
-    <value>Înregistrare</value>
-  </data>
-  <data name="RegisterMessage" xml:space="preserve">
-    <value>Am trimis un e-mail la adresa oferită cu detalii despre următorii pași care trebuie urmați pentru a vă înregistra.</value>
-  </data>
-  <data name="RegisterNextStepLabel" xml:space="preserve">
-    <value>Pasul următor</value>
-  </data>
-  <data name="RolesDisplayName" xml:space="preserve">
-    <value>Roluri</value>
-  </data>
-  <data name="SubmitLabel" xml:space="preserve">
-    <value>Acceptă</value>
   </data>
 </root>

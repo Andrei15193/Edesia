@@ -33,6 +33,10 @@ namespace Andrei15193.Edesia
 
 		protected void Application_Start()
 		{
+			Resources.Strings.DefaultLanguageId = EdesiaSettings.LocalizationStrings.DefaultLanguageId;
+			foreach (ILocalizationConfigElement item in EdesiaSettings.LocalizationStrings)
+				Resources.Strings.RegisterLanguageStrings(item);
+
 			AreaRegistration.RegisterAllAreas();
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -40,7 +44,7 @@ namespace Andrei15193.Edesia
 		}
 		protected void Session_Start()
 		{
-			new UserController().Login(User.Identity.Name, Context);
+			//new UserController().Login(User.Identity.Name, Context);
 		}
 
 		private static EdesiaConfigurationSection _edesiaSettings = (EdesiaConfigurationSection)WebConfigurationManager.GetSection("EdesiaSettings");

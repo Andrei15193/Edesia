@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 namespace Andrei15193.Edesia.Configuration
 {
 	public class EdesiaConfigurationSection
@@ -38,6 +39,18 @@ namespace Andrei15193.Edesia.Configuration
 			set
 			{
 				this["EmailSettings"] = value;
+			}
+		}
+		[ConfigurationProperty("LocalizationStrings", IsRequired = true)]
+		public LocalizationStringsConfigurationElementCollection LocalizationStrings
+		{
+			get
+			{
+				return (LocalizationStringsConfigurationElementCollection)this["LocalizationStrings"];
+			}
+			set
+			{
+				this["LocalizationStrings"] = value;
 			}
 		}
 	}

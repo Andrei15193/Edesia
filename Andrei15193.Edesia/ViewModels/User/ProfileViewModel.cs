@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Andrei15193.Edesia.ApplicationResources.Language;
 using Andrei15193.Edesia.Attributes;
 namespace Andrei15193.Edesia.ViewModels.User
 {
@@ -15,25 +14,25 @@ namespace Andrei15193.Edesia.ViewModels.User
 				_roles = roles.ToList();
 		}
 
-		[EmailAddress, Required, Display(Name = "EMailDisplayName", Prompt = "EMailPrompt", ResourceType = typeof(LanguageResource))]
+		[EmailAddress, Required, Display(Name = "EMailDisplayName", Prompt = "EMailPrompt", ResourceType = typeof(Resources))]
 		public string EMail
 		{
 			get;
 			set;
 		}
-		[Password, Required, Display(Name = "PasswordDisplayName", Prompt = "PasswordPrompt", ResourceType = typeof(LanguageResource))]
+		[Password, Required, Display(Name = "PasswordDisplayName", Prompt = "PasswordPrompt", ResourceType = typeof(Resources))]
 		public string Password
 		{
 			get;
 			set;
 		}
-		[Password, Required, Display(Name = "PasswordDisplayName", Prompt = "PasswordCopyPrompt", ResourceType = typeof(LanguageResource))]
+		[Password, Required, Display(Name = "PasswordDisplayName", Prompt = "PasswordCopyPrompt", ResourceType = typeof(Resources))]
 		public string PasswordCopy
 		{
 			get;
 			set;
 		}
-		[Display(Name = "RolesDisplayName", ResourceType = typeof(LanguageResource))]
+		[Display(Name = "RolesDisplayName", ResourceType = typeof(Resources))]
 		public IReadOnlyCollection<string> Roles
 		{
 			get

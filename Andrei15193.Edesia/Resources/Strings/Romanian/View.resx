@@ -117,49 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EMailCopyPrompt" xml:space="preserve">
-    <value>type the e-mail address again (verification)</value>
+  <data name="AcceptButtonText" xml:space="preserve">
+    <value>Acceptă</value>
   </data>
-  <data name="EMailDisplayName" xml:space="preserve">
-    <value>E-Mail address</value>
+  <data name="EMailCopyPlaceholder" xml:space="preserve">
+    <value>reintroduceți adresa de e-mail (verificare)</value>
   </data>
-  <data name="EMailPrompt" xml:space="preserve">
-    <value>name@site.com</value>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>Adresa de E-Mail</value>
+  </data>
+  <data name="EMailPlaceHolder" xml:space="preserve">
+    <value>nume@site.ro</value>
+  </data>
+  <data name="HomePageNoticeParagraph1" xml:space="preserve">
+    <value>„Edesia” este proiectul meu de licență. La suprafață se este un magazin online, iar „în spate” este un motor de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web (eventual o aplicație pentru dispozitive mobile va fi creată pentru a realiza același lucru) și să planifice sarcini pentru „angajați” (cum ar fi planificarea rutelor pentru livrare).</value>
+  </data>
+  <data name="HomePageNoticeTitle" xml:space="preserve">
+    <value>Încă nu îi gata...</value>
   </data>
   <data name="HomePageTitle" xml:space="preserve">
-    <value>Home</value>
-  </data>
-  <data name="LanguageDisplayName" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="LanguageId" xml:space="preserve">
-    <value>en-gb</value>
+    <value>Acasă</value>
   </data>
   <data name="LanguageLabel" xml:space="preserve">
-    <value>Language</value>
+    <value>Limba</value>
   </data>
   <data name="LoginLabel" xml:space="preserve">
-    <value>Login</value>
+    <value>Autentificare</value>
   </data>
   <data name="LogoutLabel" xml:space="preserve">
-    <value>Logout</value>
+    <value>Deconectare</value>
   </data>
-  <data name="NotReadyYetMessage" xml:space="preserve">
-    <value>"Edesia" is my bachelor's degree project. At the surface it is an online shop and in the back it is a planning engine. The main purpose of this application is to gather orders using this interface (a mobile application may arise for the same purpose) and to plan tasks for "employees" (such as delivery routes).</value>
+  <data name="PasswordCopyPlaceholder" xml:space="preserve">
+    <value>reintroduceți parola (verificare)</value>
   </data>
-  <data name="NotReadyYetTitle" xml:space="preserve">
-    <value>Not yet ready...</value>
+  <data name="PasswordLabel" xml:space="preserve">
+    <value>Parola</value>
   </data>
-  <data name="PasswordCopyPrompt" xml:space="preserve">
-    <value>type the password again (verification)</value>
+  <data name="PasswordPlaceholder" xml:space="preserve">
+    <value>nu se va vedea</value>
   </data>
-  <data name="PasswordDisplayName" xml:space="preserve">
-    <value>Password</value>
+  <data name="ProfilePageTitle" xml:space="preserve">
+    <value>Profil</value>
   </data>
-  <data name="PasswordPrompt" xml:space="preserve">
-    <value>will not be visible</value>
+  <data name="RegisterButtonText" xml:space="preserve">
+    <value>Înregistrare</value>
   </data>
   <data name="RegisterLabel" xml:space="preserve">
-    <value>Register</value>
+    <value>Înregistrare</value>
+  </data>
+  <data name="RegisterNoticeParagraph1" xml:space="preserve">
+    <value>Am trimis un e-mail la adresa oferită cu detalii despre următorii pași care trebuie urmați pentru a vă înregistra.</value>
+  </data>
+  <data name="RolesLabel" xml:space="preserve">
+    <value>Roluri</value>
   </data>
 </root>

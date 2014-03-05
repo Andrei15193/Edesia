@@ -143,11 +143,15 @@
     <Folder Include="Views\Application\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationResources\Language\Romanian.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Romanian.resx</DependentUpon>
-    </Compile>
+    <Compile Include="Configuration\LocalizationStringsConfigurationElementCollection.cs" />
+    <Compile Include="Configuration\LocalizationStringsConfigurationElement.cs" />
+    <Compile Include="ILanguageSpecification.cs" />
+    <Compile Include="ILocalizedLanguageSpecification.cs" />
+    <Compile Include="ILocalizationConfigElement.cs" />
+    <Compile Include="Resources\Strings\EMail.cs" />
+    <Compile Include="Resources\Strings\Error.cs" />
+    <Compile Include="Resources\Strings\Strings.cs" />
+    <Compile Include="Resources\Strings\View.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\MetroUICSSBundleConfig.cs" />
@@ -205,7 +209,6 @@
     <Compile Include="Models\UserType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexPatterns.cs" />
-    <Compile Include="ApplicationResources\Language\LanguageResource.cs" />
     <Compile Include="ViewModels\User\LoginViewModel.cs" />
     <Compile Include="ViewModels\User\ProfileViewModel.cs" />
     <Compile Include="ViewModels\User\RegisterViewModel.cs" />
@@ -267,11 +270,11 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ApplicationResources\Language\English.resx" />
-    <EmbeddedResource Include="ApplicationResources\Language\Romanian.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Romanian.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="Resources\Strings\Romanian\EMail.resx">
+      <CustomToolNamespace>Andrei15193.Edesia</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Strings\Romanian\Error.resx" />
+    <EmbeddedResource Include="Resources\Strings\Romanian\View.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
