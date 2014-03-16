@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:membership="http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd" targetNamespace="http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd" elementFormDefault="qualified">
+	<xsd:element name="Membership">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ApplicationUser" type="membership:User" minOccurs="0" maxOccurs="unbounded">
+					<xsd:unique  name="UniqueRoleNames">
+						<xsd:selector xpath="membership:Role" />
+						<xsd:field xpath="@Name" />
+					</xsd:unique>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+		<xsd:unique name="UniqueEmails">
+			<xsd:selector xpath="membership:ApplicationUser" />
+			<xsd:field xpath="@EMail" />
+		</xsd:unique>
+	</xsd:element>
+
+	<xsd:complexType name="User">
+		<xsd:sequence>
+			<xsd:element name="Role" type="membership:Role" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="DeliveryAddress" type="membership:Address" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+		<xsd:attribute name="EMail" type="xsd:string" use="required" />
+		<xsd:attribute name="PasswordHash" type="xsd:string" use="required" />
+		<xsd:attribute name="RegistrationTime" type="xsd:dateTime" use="required" />
+		<xsd:attribute name="AuthenticationToken" type="xsd:string" use="optional" />
+		<xsd:attribute name="RegistrationKey" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="Role">
+		<xsd:attribute name="Name">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="Client" />
+					<xsd:enumeration value="Angajat" />
+					<xsd:enumeration value="Administrator" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="Address">
+		<xsd:attribute name="Street" type="xsd:string" use="required" />
+		<xsd:attribute name="City" type="xsd:string" use="required" />
+		<xsd:attribute name="County" type="xsd:string" use="required" />
+	</xsd:complexType>
+</xsd:schema>

@@ -7,7 +7,7 @@
 @if (Model.Skip(1).Any())
 {
 	<div class="element">
-		<a class="dropdown-toggle" style="cursor: pointer;">@LanguageResource.LanguageLabel</a>
+		<a class="dropdown-toggle" style="cursor: pointer;">@Resources.Strings.View.LanguageLabel</a>
 		<ul class="dropdown-menu inverse" data-role="dropdown">
 			@foreach (DisplayLanguage displayLanguage in Model)
 			{

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
+using Andrei15193.Edesia.Settings;
 namespace Andrei15193.Edesia
 {
 	public static partial class Resources
@@ -65,6 +66,8 @@ namespace Andrei15193.Edesia
 			{
 				get
 				{
+					if (_selectedLanguage == null)
+						SelectedLangaugeId = DefaultLanguageId;
 					return _selectedLanguage;
 				}
 			}
@@ -85,24 +88,25 @@ namespace Andrei15193.Edesia
 					}
 				}
 			}
-			public static void RegisterLanguageStrings(ILocalizationConfigElement localizationConfigElement)
-			{
-				if (localizationConfigElement == null)
-					throw new ArgumentNullException("localizationConfigElement");
 
-				Assembly resourceAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(assembly => string.Equals(assembly.GetName().Name, localizationConfigElement.ResourceFilesAssembly, StringComparison.Ordinal));
+			internal static void RegisterLanguageStrings(ILanguageSettings languageSetting)
+			{
+				if (languageSetting == null)
+					throw new ArgumentNullException("languageSetting");
+
+				Assembly resourceAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(assembly => string.Equals(assembly.GetName().Name, languageSetting.ResourceFilesAssemblyName, StringComparison.Ordinal));
 				if (resourceAssembly == null)
-					throw new ArgumentException(string.Format("Assembly {0} is not loaded!", localizationConfigElement.ResourceFilesAssembly), "localizationConfigElement");
+					throw new ArgumentException(string.Format("Assembly {0} is not loaded!", languageSetting.ResourceFilesAssemblyName), "localizationConfigElement");
 
 				try
 				{
 					_localizedLanguageSpecificationsLock.EnterWriteLock();
-					_localizedLanguageSpecifications.Add(localizationConfigElement.LanguageId,
-														 new LocalizedLanguageSpecification(localizationConfigElement.LanguageDisplayName,
-																							localizationConfigElement.LanguageId,
-																							new ResourceManager(localizationConfigElement.EMailStringsResourceFile, resourceAssembly),
-																							new ResourceManager(localizationConfigElement.ErrorStringsResourceFile, resourceAssembly),
-																							new ResourceManager(localizationConfigElement.ViewStringsResourceFile, resourceAssembly)));
+					_localizedLanguageSpecifications.Add(languageSetting.LanguageId,
+														 new LocalizedLanguageSpecification(languageSetting.LanguageDisplayName,
+																							languageSetting.LanguageId,
+																							new ResourceManager(languageSetting.EMailStringsResourceFile, resourceAssembly),
+																							new ResourceManager(languageSetting.ErrorStringsResourceFile, resourceAssembly),
+																							new ResourceManager(languageSetting.ViewStringsResourceFile, resourceAssembly)));
 				}
 				finally
 				{

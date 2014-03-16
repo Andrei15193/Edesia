@@ -7,16 +7,22 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using Andrei15193.Edesia.Models;
+using Andrei15193.Edesia.Settings;
 namespace Andrei15193.Edesia.DataAccess.Xml
 {
 	public class XmlApplicationUserStore
 		: IApplicationUserStore
 	{
-		public XmlApplicationUserStore(XmlDocumentProvider xmlDocumentProvider)
+		public XmlApplicationUserStore(string xmlDocumentFileName, XmlDocumentProvider xmlDocumentProvider)
 		{
+			if (xmlDocumentFileName == null)
+				throw new ArgumentNullException("xmlDocumentFileName");
+			if (string.IsNullOrEmpty(xmlDocumentFileName) || string.IsNullOrWhiteSpace(xmlDocumentFileName))
+				throw new ArgumentException("Cannot be empty or whitespace!", "xmlDocumentFileName");
 			if (xmlDocumentProvider == null)
 				throw new ArgumentNullException("xmlDocumentProvider");
-			XmlDocumentFileName = MvcApplication.EdesiaSettings.StorageSettings.MembershipXmlDocumentFileName;
+
+			_xmlDocumentFileName = xmlDocumentFileName;
 			_xmlDocumentProvider = xmlDocumentProvider;
 			_xmlDocumentSchemaSet = new XmlSchemaSet();
 			_xmlDocumentSchemaSet.Add("http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd", "http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd");
@@ -32,14 +38,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (registrationKey == null)
 				throw new ArgumentNullException("registrationKey");
 
-			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName, _xmlDocumentSchemaSet);
+			XDocument xmlDocument = XmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName, _xmlDocumentSchemaSet);
 			_ClearTimedoutRegistrationKeys(xmlDocument);
 			xmlDocument.Root.AddFirst(_GetUserXElement(applicationUser, password, registrationKey));
-			_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
+			XmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
 		}
 		public ApplicationUser Find(string email, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
 		{
-			IEnumerable<XElement> userXElements = _xmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet)
+			IEnumerable<XElement> userXElements = XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet)
 																	  .Root
 																	  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser");
 			switch (authenticationTokenType)
@@ -62,7 +68,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				throw new ArgumentNullException("applicationUser");
 			if (authenticationToken == null)
 				throw new ArgumentNullException("authenticationKey");
-			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet);
+			XDocument xmlDocument = XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet);
 			XElement userXElement = xmlDocument.Root
 											   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
 											   .FirstOrDefault(userElement => string.Equals(applicationUser.EMail, userElement.Attribute("EMail").Value, StringComparison.Ordinal));
@@ -82,14 +88,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 						userXElement.Attribute("Password").SetValue(_ComputeHash(authenticationToken));
 						break;
 				}
-				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, XmlDocumentFileName, _xmlDocumentSchemaSet);
+				XmlDocumentProvider.SaveXmlDocument(xmlDocument, XmlDocumentFileName, _xmlDocumentSchemaSet);
 			}
 		}
 		public void ClearAuthenticationKey(string applicationUserEmail)
 		{
 			if (applicationUserEmail == null)
 				throw new ArgumentNullException("applicationUserEmail");
-			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet);
+			XDocument xmlDocument = XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet);
 			XElement userXElement = xmlDocument.Root
 											   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
 											   .FirstOrDefault(userElement => string.Equals(applicationUserEmail, userElement.Attribute("EMail").Value, StringComparison.Ordinal));
@@ -99,7 +105,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				if (authenticationTokenXAttribute != null)
 				{
 					authenticationTokenXAttribute.Remove();
-					_xmlDocumentProvider.SaveXmlDocument(xmlDocument, XmlDocumentFileName, _xmlDocumentSchemaSet);
+					XmlDocumentProvider.SaveXmlDocument(xmlDocument, XmlDocumentFileName, _xmlDocumentSchemaSet);
 				}
 			}
 		}
@@ -110,7 +116,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (userRegistrationKey == null)
 				throw new ArgumentNullException("userRegistrationKey");
 
-			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet);
+			XDocument xmlDocument = XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet);
 			_ClearTimedoutRegistrationKeys(xmlDocument);
 			XElement userXElement = xmlDocument.Root
 											   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
@@ -124,12 +130,26 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (userXElement != null)
 			{
 				userXElement.Attribute("RegistrationKey").Remove();
-				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
+				XmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
 				return true;
 			}
 			return false;
 		}
 		#endregion
+		public XmlDocumentProvider XmlDocumentProvider
+		{
+			get
+			{
+				return _xmlDocumentProvider;
+			}
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("XmlDocumentProvider");
+
+				_xmlDocumentProvider = value;
+			}
+		}
 		public string XmlDocumentFileName
 		{
 			get
@@ -139,7 +159,9 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			set
 			{
 				if (value == null)
-					throw new ArgumentNullException("value");
+					throw new ArgumentNullException("XmlDocumentFileName");
+				if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+					throw new ArgumentException("Cannot be empty or whitespace!", "XmlDocumentFileName");
 				_xmlDocumentFileName = value;
 			}
 		}
@@ -230,18 +252,20 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		}
 		private void _ClearTimedoutRegistrationKeys(XDocument xmlDocument)
 		{
+			IRegistrationSettings registrationSettings = (IRegistrationSettings)MvcApplication.DependencyContainer["registrationSettings"];
+			
 			foreach (XElement timedoutApplicationUser in xmlDocument.Root
 																	.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
 																	.Where(userXElement => userXElement.Attribute("RegistrationKey") != null
 																						   && (DateTime.Now - XmlConvert.ToDateTime(userXElement.Attribute("RegistrationTime").Value,
 																																	MvcApplication.DateTimeSerializationFormat)
-																							  ).TotalHours >= MvcApplication.EdesiaSettings.Registration.RegistrationKeyHoursTimeout))
+																							  ).TotalHours >= registrationSettings.RegistrationKeyHoursTimeout))
 				timedoutApplicationUser.Remove();
 		}
 
 		private string _xmlDocumentFileName;
+		private XmlDocumentProvider _xmlDocumentProvider;
 		private readonly HashAlgorithm _hashAlgorithm = new SHA256Managed();
-		private readonly XmlDocumentProvider _xmlDocumentProvider;
 		private readonly XmlSchemaSet _xmlDocumentSchemaSet;
 	}
 }

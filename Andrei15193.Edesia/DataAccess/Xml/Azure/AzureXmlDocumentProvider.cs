@@ -3,17 +3,28 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Xml.Linq;
+using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 {
-	public class AzureXmlDocumentProvider
+	public sealed class AzureXmlDocumentProvider
 		: XmlDocumentProvider
 	{
+		public AzureXmlDocumentProvider(string connectionStringCloudSettingName)
+		{
+			if (connectionStringCloudSettingName == null)
+				throw new ArgumentNullException("connectionStringCloudSettingName");
+			if (string.IsNullOrEmpty(connectionStringCloudSettingName) || string.IsNullOrWhiteSpace(connectionStringCloudSettingName))
+				throw new ArgumentException("Cannot be empty or whitespace!", "connectionStringCloudSettingName");
+
+			_connectionStringCloudSettingName = connectionStringCloudSettingName;
+		}
+
 		protected override XDocument OnLoadXmlDocument(string xmlDocumentBlobName)
 		{
 			CachedXmlDocument cachedDocument;
-			CloudBlockBlob dataBlob = CloudStorageAccount.Parse(MvcApplication.EdesiaSettings.StorageSettings.StorageConnectionString)
+			CloudBlockBlob dataBlob = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(_connectionStringCloudSettingName))
 														 .CreateCloudBlobClient()
 														 .GetContainerReference("andrei15193")
 														 .GetBlockBlobReference(xmlDocumentBlobName);
@@ -71,7 +82,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 		}
 		protected override void OnSaveXmlDocument(XDocument xmlDocument, string xmlDocumentBlobName)
 		{
-			CloudBlockBlob dataBlob = CloudStorageAccount.Parse(MvcApplication.EdesiaSettings.StorageSettings.StorageConnectionString)
+			CloudBlockBlob dataBlob = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(_connectionStringCloudSettingName))
 														 .CreateCloudBlobClient()
 														 .GetContainerReference("andrei15193")
 														 .GetBlockBlobReference(xmlDocumentBlobName);
@@ -120,6 +131,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 			private readonly XDocument _xmlDocument;
 		}
 
+		private readonly string _connectionStringCloudSettingName;
 		private static int _readersWaitingForUpdate = 0;
 		private static readonly AutoResetEvent _noGetDataWaits = new AutoResetEvent(false);
 		private static readonly ReaderWriterLockSlim _cacheLock = new ReaderWriterLockSlim();

@@ -1,5 +1,5 @@
 ﻿using System.Xml.Schema;
-namespace Andrei15193.Edesia.DataAccess.Xml.Validation
+namespace Andrei15193.Edesia.Xml.Validation
 {
 	public interface IXmlSchemaExceptionInterpreter<out TException>
 		where TException : XmlSchemaException

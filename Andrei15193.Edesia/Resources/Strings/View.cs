@@ -27,11 +27,11 @@
 						return SelectedLanguage.ViewStringsResourceManager.GetString("EMailLabel");
 					}
 				}
-				public static string EMailPlaceHolder
+				public static string EMailPlaceholder
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("EMailPlaceHolder");
+						return SelectedLanguage.ViewStringsResourceManager.GetString("EMailPlaceholder");
 					}
 				}
 				public static string HomePageNoticeParagraph1

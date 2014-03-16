@@ -126,7 +126,7 @@
   <data name="EMailLabel" xml:space="preserve">
     <value>Adresa de E-Mail</value>
   </data>
-  <data name="EMailPlaceHolder" xml:space="preserve">
+  <data name="EMailPlaceholder" xml:space="preserve">
     <value>nume@site.ro</value>
   </data>
   <data name="HomePageNoticeParagraph1" xml:space="preserve">

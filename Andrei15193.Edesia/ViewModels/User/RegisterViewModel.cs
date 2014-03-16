@@ -16,25 +16,25 @@ namespace Andrei15193.Edesia.ViewModels.User
 				yield return new ValidationResult("Parolele trebuie să fie aceleași!");
 		}
 		#endregion
-		[EmailAddress, Required, Display(Name = "EMailDisplayName", Prompt = "EMailPrompt", ResourceType = typeof(Resources))]
+		[EmailAddress, Required, Display(Name = "EMailLabel", Prompt = "EMailPlaceholder", ResourceType = typeof(Resources.Strings.View))]
 		public string EMail
 		{
 			get;
 			set;
 		}
-		[EmailAddress, Required, Display(Prompt = "EMailCopyPrompt", ResourceType = typeof(Resources))]
+		[EmailAddress, Required, Display(Prompt = "EMailCopyPlaceholder", ResourceType = typeof(Resources.Strings.View))]
 		public string EMailCopy
 		{
 			get;
 			set;
 		}
-		[Password, Required, Display(Name = "PasswordDisplayName", Prompt = "PasswordPrompt", ResourceType = typeof(Resources))]
+		[Password, Required, Display(Name = "PasswordLabel", Prompt = "PasswordPlaceholder", ResourceType = typeof(Resources.Strings.View))]
 		public string Password
 		{
 			get;
 			set;
 		}
-		[Password, Required, Display(Prompt = "PasswordCopyPrompt", ResourceType = typeof(Resources))]
+		[Password, Required, Display(Prompt = "PasswordCopyPlaceholder", ResourceType = typeof(Resources.Strings.View))]
 		public string PasswordCopy
 		{
 			get;

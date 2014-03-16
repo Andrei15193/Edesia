@@ -41,6 +41,9 @@
     <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Andrei15193.DependencyInjection">
+      <HintPath>..\..\..\Lib\Andrei15193.DependencyInjection\Andrei15193.DependencyInjection.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.6.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -66,6 +69,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Spatial, Version=5.6.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -143,11 +147,9 @@
     <Folder Include="Views\Application\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\LocalizationStringsConfigurationElementCollection.cs" />
-    <Compile Include="Configuration\LocalizationStringsConfigurationElement.cs" />
     <Compile Include="ILanguageSpecification.cs" />
     <Compile Include="ILocalizedLanguageSpecification.cs" />
-    <Compile Include="ILocalizationConfigElement.cs" />
+    <Compile Include="Models\IApplication.cs" />
     <Compile Include="Resources\Strings\EMail.cs" />
     <Compile Include="Resources\Strings\Error.cs" />
     <Compile Include="Resources\Strings\Strings.cs" />
@@ -158,11 +160,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Attributes\ConfirmAccessAttribute.cs" />
     <Compile Include="Attributes\PasswordAttribute.cs" />
-    <Compile Include="Configuration\CloudConfigurableElement.cs" />
-    <Compile Include="Configuration\EdesiaConfigurationSection.cs" />
-    <Compile Include="Configuration\EmailConfigurationElement.cs" />
-    <Compile Include="Configuration\RegistrationConfigurationElement.cs" />
-    <Compile Include="Configuration\StorageConfigurationElement.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\HomeController.cs">
       <SubType>
@@ -171,11 +168,19 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataAccess\AuthenticationTokenType.cs" />
     <Compile Include="DataAccess\IApplicationUserStore.cs" />
-    <Compile Include="DataAccess\StoreFactory.cs" />
     <Compile Include="DataAccess\Xml\Azure\AzureXmlDocumentProvider.cs" />
-    <Compile Include="DataAccess\Xml\UnsatisfiedUniqueConstraintException.cs" />
-    <Compile Include="DataAccess\Xml\Validation\IXmlSchemaExceptionInterpreter.cs" />
-    <Compile Include="DataAccess\Xml\Validation\UnsatisfiedUniqueConstraintInterpreter.cs" />
+    <Compile Include="Settings\Azure\AzureEMailSettings.cs" />
+    <Compile Include="Settings\IEMailSettings.cs" />
+    <Compile Include="Settings\ILanguageSettings.cs" />
+    <Compile Include="Settings\ILocalizationSettings.cs" />
+    <Compile Include="Settings\IRegistrationSettings.cs" />
+    <Compile Include="Settings\LanguageSettings.cs" />
+    <Compile Include="Settings\LocalizationSettings.cs" />
+    <Compile Include="Settings\Local\LocalEMailSettings.cs" />
+    <Compile Include="Settings\RegistrationSettings.cs" />
+    <Compile Include="Xml\Validation\UniqueConstraintException.cs" />
+    <Compile Include="Xml\Validation\IXmlSchemaExceptionInterpreter.cs" />
+    <Compile Include="Xml\Validation\UniqueConstraintExceptionInterpreter.cs" />
     <Compile Include="DataAccess\Xml\XmlDocumentProvider.cs" />
     <Compile Include="DataAccess\Xml\Local\LocalXmlDocumentProvider.cs" />
     <Compile Include="DataAccess\Xml\XmlApplicationUserStore.cs" />
@@ -212,6 +217,7 @@
     <Compile Include="ViewModels\User\LoginViewModel.cs" />
     <Compile Include="ViewModels\User\ProfileViewModel.cs" />
     <Compile Include="ViewModels\User\RegisterViewModel.cs" />
+    <Compile Include="Xml\Validation\XmlSchemaConstraintException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\metro-ui\css\metro-bootstrap-responsive.css" />
@@ -227,7 +233,7 @@
     <Content Include="Content\metro-ui\fonts\iconFont.ttf" />
     <Content Include="Content\metro-ui\fonts\iconFont.json" />
     <Content Include="Content\metro-ui\fonts\iconFont.eot" />
-    <None Include="Membership.xsd" />
+    <None Include="Schemas\Membership.xsd" />
     <None Include="Properties\PublishProfiles\andrei15193test.pubxml" />
     <None Include="Properties\PublishProfiles\edesia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -264,7 +270,8 @@
     <Content Include="Views\Shared\_Notice.cshtml" />
     <Content Include="Views\User\GetNavigationBar.cshtml" />
     <Content Include="Views\User\GetLanguageDropdown.cshtml" />
-    <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <None Include="Schemas\Config.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

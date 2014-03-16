@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Schema;
-using Andrei15193.Edesia.DataAccess.Xml.Validation;
+using Andrei15193.Edesia.Xml.Validation;
 namespace Andrei15193.Edesia.DataAccess.Xml
 {
 	/// <summary>
@@ -65,6 +65,16 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				_Validate(xmlDocument, xmlSchemaSet);
 			OnSaveXmlDocument(xmlDocument, xmlDocumentName);
 		}
+		/// <summary>
+		/// Returns a collection XML Schema Exception interpreters.
+		/// </summary>
+		public ICollection<IXmlSchemaExceptionInterpreter<XmlSchemaException>> XmlSchemaExceptionInterpreters
+		{
+			get
+			{
+				return _xmlSchemaExceptionInterpreters;
+			}
+		}
 
 		/// <summary>
 		/// When implemented in a derived class it loads a XML document with the given XML document name.
@@ -98,10 +108,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (xmlSchemaExceptions.Any())
 				throw new AggregateException(xmlSchemaExceptions);
 		}
-		private static readonly IReadOnlyCollection<IXmlSchemaExceptionInterpreter<XmlSchemaException>> _xmlSchemaExceptionInterpreters =
-			new[]
-			{
-				new UnsatisfiedUniqueConstraintInterpreter()
-			};
+		private readonly ICollection<IXmlSchemaExceptionInterpreter<XmlSchemaException>> _xmlSchemaExceptionInterpreters = new List<IXmlSchemaExceptionInterpreter<XmlSchemaException>>();
 	}
 }

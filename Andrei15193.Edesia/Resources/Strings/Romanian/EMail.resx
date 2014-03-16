@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RegistreationBodyFormat" xml:space="preserve">
+  <data name="RegistrationBodyFormat" xml:space="preserve">
     <value>&lt;!doctype html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -161,7 +161,7 @@
 			padding-right: 15px;
 		}}
 
-		p#signature
+		#signature
 		{{
 			margin-top: 30px;
 			padding-top: 15px;
@@ -178,7 +178,7 @@
 			Bună ziua! Pentru a putea finaliza înregistrarea trebuie să confirmați adresa de e-mail.
 			Aceasta se face destul de simplu, trebuie doar să faceți un click pe linkul de
 			mai jos. În caz că aveți probleme nu ezitați să ne contactați la adresa de e-mail:
-			&lt;small&gt;edesia@outlook.com&lt;/small&gt;. Vă mulțumim!
+			&lt;small&gt;andrei_fangli@hotmail.com&lt;/small&gt;. Vă mulțumim!
 		&lt;/p&gt;
 		&lt;p&gt;
 			&lt;a href="{0}?email={1}&amp;key={2}"&gt;{0}?email={1}&amp;key={2}&lt;/a&gt;

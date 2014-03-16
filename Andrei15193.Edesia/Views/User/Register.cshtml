@@ -1,11 +1,11 @@
 ﻿@model Andrei15193.Edesia.ViewModels.User.RegisterViewModel
 @{
-	ViewBag.Title = LanguageResource.RegisterLabel;
+	ViewBag.Title = Resources.Strings.View.RegisterLabel;
 }
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4 offset4">
-			<h1>@LanguageResource.RegisterLabel</h1>
+			<h1>@Resources.Strings.View.RegisterLabel</h1>
 			@using (Html.BeginForm())
 			{
 				@Html.LabelFor(model => model.EMail)
@@ -22,7 +22,7 @@
 				<div class="input-control text">
 					@Html.EditorFor(model => model.PasswordCopy)
 				</div>
-				<input type="submit" class="action" value="@LanguageResource.RegisterNextStepLabel" />
+				<input type="submit" class="action" value="@Resources.Strings.View.RegisterButtonText" />
 			}
 		</div>
 	</div>

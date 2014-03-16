@@ -4,19 +4,17 @@ namespace Andrei15193.Edesia.ViewModels.User
 {
 	public class LoginViewModel
 	{
-		[EmailAddress, Required, Display(Name = "EMailDisplayName", Prompt = "EMailPrompt", ResourceType = typeof(Resources))]
+		[EmailAddress, Required, Display(Name = "EMailLabel", Prompt = "EMailPlaceholder", ResourceType = typeof(Resources.Strings.View))]
 		public string Email
 		{
 			get;
 			set;
 		}
-		public static string EmailPlaceholder = "";
-		[Password, Required, MinLength(6), Display(Name = "PasswordDisplayName", Prompt = "PasswordPrompt", ResourceType = typeof(Resources))]
+		[Password, Required, MinLength(6), Display(Name = "PasswordLabel", Prompt = "PasswordPlaceholder", ResourceType = typeof(Resources.Strings.View))]
 		public string Password
 		{
 			get;
 			set;
 		}
-		public static string PasswordPlaceholder = "";
 	}
 }

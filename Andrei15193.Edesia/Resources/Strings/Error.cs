@@ -6,6 +6,13 @@
 		{
 			public static class Error
 			{
+				public static string RegistrationTokenExpiredMessage
+				{
+					get
+					{
+						return SelectedLanguage.ErrorStringsResourceManager.GetString("RegistrationBodyFormat");
+					}
+				}
 			}
 		}
 	}

@@ -4,7 +4,7 @@ using System.Xml;
 using System.Xml.Linq;
 namespace Andrei15193.Edesia.DataAccess.Xml.Local
 {
-	public class LocalXmlDocumentProvider
+	public sealed class LocalXmlDocumentProvider
 		: XmlDocumentProvider
 	{
 		protected override XDocument OnLoadXmlDocument(string xmlDocumentFileName)

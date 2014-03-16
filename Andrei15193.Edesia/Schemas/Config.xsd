@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:config="http://storage.andrei15193.ro/public/schemas/Edesia/Config.xsd" targetNamespace="http://storage.andrei15193.ro/public/schemas/Edesia/Config.xsd" elementFormDefault="qualified">
+	<xsd:element name="EdesiaSettings" type="config:Settings" />
+
+	<xsd:complexType name="Settings">
+		<xsd:sequence>
+			<xsd:element name="Registration" type="config:Registration" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="Storage" type="config:Storage" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="EMail" type="config:EMail" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="Localization" type="config:Localization" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Registration">
+		<xsd:attribute name="RegistrationKeyLength" default="7">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int" id="RegistrationKeyLengthConstraint">
+					<xsd:minInclusive value="6" />
+					<xsd:maxExclusive value="12" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="RegistrationKeyHoursTimeout" default="24">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int" id="RegistrationKeyHoursTimeoutConstraint">
+					<xsd:minInclusive value="6" />
+					<xsd:maxInclusive value="48" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="Storage">
+		<xsd:sequence>
+			<xsd:element name="DataProvider" type="config:DataProvider" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="DataStore" type="config:DataStore" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DataStore">
+		<xsd:sequence>
+			<xsd:element name="Property" type="config:Property" />
+		</xsd:sequence>
+		<xsd:attribute name="Id" type="xsd:ID" use="required" />
+		<xsd:attribute name="TypeName" type="config:QualifiedIdentifier" use="required" />
+		<xsd:attribute name="TypeAssemblyName" type="config:QualifiedIdentifier" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="Property">
+		<xsd:choice>
+			<xsd:element name="Value" type="xsd:string" />
+			<xsd:element name="Reference" type="xsd:IDREF" />
+		</xsd:choice>
+		<xsd:attribute name="Name" type="config:Identifier" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="DataProvider">
+		<xsd:attribute name="Id" type="xsd:ID" />
+		<xsd:attribute name="ConnectionString" type="xsd:string" use="required" />
+		<xsd:attribute name="TypeName" type="config:QualifiedIdentifier" use="required" />
+		<xsd:attribute name="TypeAssemblyName" type="config:QualifiedIdentifier" use="required" />
+		<xsd:attribute name="DataSourceName" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="EMail">
+		<xsd:attribute name="SmtpHost" type="xsd:string" use="required" />
+		<xsd:attribute name="SmtpPort" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int" id="SmtpPortConstraint">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="SmtpUsername" type="xsd:string" use="required" />
+		<xsd:attribute name="SmtpPassword" type="xsd:string" use="required" />
+		<xsd:attribute name="SenderEMailAddress" type="xsd:string" use="required" />
+		<xsd:attribute name="SenderDisplayName" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="Localization">
+		<xsd:sequence>
+			<xsd:element name="Language" type="config:Language" minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Language">
+		<xsd:attribute name="LanguageId" type="xsd:ID" use="required" />
+		<xsd:attribute name="LanguageDisplayName" type="xsd:string" use="required" />
+		<xsd:attribute name="EMailStringsResourceFile" type="config:QualifiedIdentifier" use="required" />
+		<xsd:attribute name="ErrorStringsResourceFile" type="config:QualifiedIdentifier" use="required" />
+		<xsd:attribute name="ViewStringsResourceFile" type="config:QualifiedIdentifier" use="required" />
+		<xsd:attribute name="ResourceFilesAssemblyName" type="config:QualifiedIdentifier" use="required" />
+	</xsd:complexType>
+
+	<xsd:simpleType name="QualifiedIdentifier">
+		<xsd:restriction base="xsd:string" id="QualifiedIdentifierConstraint">
+			<xsd:pattern value="^[_a-zA-Z][_a-zA-Z0-9]*(\.[_a-zA-Z][_a-zA-Z0-9]*)*$" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Identifier">
+		<xsd:restriction base="xsd:string" id="IdentifierConstraint">
+			<xsd:pattern value="^[_a-zA-Z][_a-zA-Z0-9]*$" />
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

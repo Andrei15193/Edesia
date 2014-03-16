@@ -14,25 +14,25 @@ namespace Andrei15193.Edesia.ViewModels.User
 				_roles = roles.ToList();
 		}
 
-		[EmailAddress, Required, Display(Name = "EMailDisplayName", Prompt = "EMailPrompt", ResourceType = typeof(Resources))]
+		[EmailAddress, Required, Display(Name = "EMailLabel", Prompt = "EMailPlaceholder", ResourceType = typeof(Resources))]
 		public string EMail
 		{
 			get;
 			set;
 		}
-		[Password, Required, Display(Name = "PasswordDisplayName", Prompt = "PasswordPrompt", ResourceType = typeof(Resources))]
+		[Password, Required, Display(Name = "PasswordLabel", Prompt = "PasswordPlaceholder", ResourceType = typeof(Resources))]
 		public string Password
 		{
 			get;
 			set;
 		}
-		[Password, Required, Display(Name = "PasswordDisplayName", Prompt = "PasswordCopyPrompt", ResourceType = typeof(Resources))]
+		[Password, Required, Display(Name = "PasswordLabel", Prompt = "PasswordCopyPlaceholder", ResourceType = typeof(Resources))]
 		public string PasswordCopy
 		{
 			get;
 			set;
 		}
-		[Display(Name = "RolesDisplayName", ResourceType = typeof(Resources))]
+		[Display(Name = "RolesLabel", ResourceType = typeof(Resources))]
 		public IReadOnlyCollection<string> Roles
 		{
 			get

@@ -1,11 +1,11 @@
 ﻿@model Andrei15193.Edesia.ViewModels.User.LoginViewModel
 @{
-	ViewBag.Title = LanguageResource.LoginLabel;
+	ViewBag.Title = Resources.Strings.View.LoginLabel;
 }
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4 offset4">
-			<h1>@LanguageResource.LoginLabel</h1>
+			<h1>@Resources.Strings.View.LoginLabel</h1>
 			@using (Html.BeginForm())
 			{
 				@Html.LabelFor(model => model.Email)
@@ -16,7 +16,7 @@
 				<div class="input-control password">
 					@Html.EditorFor(model => model.Password)
 				</div>
-				<input class="action" type="submit" value="Autentificare" />
+				<input class="action" type="submit" value="@Resources.Strings.View.LoginLabel" />
 			}
 		</div>
 	</div>
