@@ -40,7 +40,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			XDocument xmlDocument = XmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName, _xmlDocumentSchemaSet);
 			_ClearTimedoutRegistrationKeys(xmlDocument);
-			xmlDocument.Root.AddFirst(_GetUserXElement(applicationUser, password, registrationKey));
+			xmlDocument.Root.AddFirst(_GetApplicationUserXElement(applicationUser, password, registrationKey));
 			XmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
 		}
 		public ApplicationUser Find(string email, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
@@ -199,7 +199,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			return applicationUser;
 		}
-		private XElement _GetUserXElement(ApplicationUser applicationUser, string password, string registrationKey = null)
+		private XElement _GetApplicationUserXElement(ApplicationUser applicationUser, string password, string registrationKey = null)
 		{
 			XElement newUserXElement = new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser",
 													new XAttribute("EMail", applicationUser.EMail),

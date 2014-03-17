@@ -165,8 +165,11 @@
   <data name="RegisterLabel" xml:space="preserve">
     <value>Înregistrare</value>
   </data>
-  <data name="RegisterNoticeParagraph1" xml:space="preserve">
+  <data name="RegisterMailSendNoticeParagraph1" xml:space="preserve">
     <value>Am trimis un e-mail la adresa oferită cu detalii despre următorii pași care trebuie urmați pentru a vă înregistra.</value>
+  </data>
+  <data name="RegistrationCompleteNoticeParagraph1" xml:space="preserve">
+    <value>Înregistrarea s-a încheiat cu succes. Vă puteți autentifica și începe să cumpărați!</value>
   </data>
   <data name="RolesLabel" xml:space="preserve">
     <value>Roluri</value>

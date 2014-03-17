@@ -9,16 +9,20 @@
 			@using (Html.BeginForm())
 			{
 				@Html.LabelFor(model => model.EMail)
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["EMail"])
 				<div class="input-control text">
 					@Html.EditorFor(model => model.EMail)
 				</div>
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["EMailCopy"])
 				<div class="input-control text">
 					@Html.EditorFor(model => model.EMailCopy)
 				</div>
 				@Html.LabelFor(model => model.Password)
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Password"])
 				<div class="input-control text">
 					@Html.EditorFor(model => model.Password)
 				</div>
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["PasswordCopy"])
 				<div class="input-control text">
 					@Html.EditorFor(model => model.PasswordCopy)
 				</div>

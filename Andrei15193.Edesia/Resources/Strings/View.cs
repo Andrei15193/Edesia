@@ -118,11 +118,18 @@
 						return SelectedLanguage.ViewStringsResourceManager.GetString("RegisterLabel");
 					}
 				}
-				public static string RegisterNoticeParagraph1
+				public static string RegisterMailSendNoticeParagraph1
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("RegisterNoticeParagraph1");
+						return SelectedLanguage.ViewStringsResourceManager.GetString("RegisterMailSendNoticeParagraph1");
+					}
+				}
+				public static string RegistrationCompleteNoticeParagraph1
+				{
+					get
+					{
+						return SelectedLanguage.ViewStringsResourceManager.GetString("RegistrationCompleteNoticeParagraph1");
 					}
 				}
 				public static string RolesLabel

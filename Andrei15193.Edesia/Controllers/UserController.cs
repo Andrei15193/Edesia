@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Web;
@@ -13,16 +12,22 @@ using Andrei15193.Edesia.Extensions;
 using Andrei15193.Edesia.Models;
 using Andrei15193.Edesia.Settings;
 using Andrei15193.Edesia.ViewModels.User;
+using Andrei15193.Edesia.Xml.Validation;
 namespace Andrei15193.Edesia.Controllers
 {
 	public class UserController
 		: ApplicationController
 	{
-		[ConfirmAccess(UserRoles.Client)]
-		public ActionResult UserProfile()
+		[HttpGet, ConfirmAccess]
+		public ActionResult Details()
 		{
-			return View();
+			ApplicationUser applicationUser = HttpContext.GetApplicationUser();
+			return View(new ProfileViewModel(applicationUser.Roles)
+			{
+				EMail = applicationUser.EMail
+			});
 		}
+
 		[HttpGet]
 		public ActionResult Register(string email, string key)
 		{
@@ -30,7 +35,7 @@ namespace Andrei15193.Edesia.Controllers
 				return View();
 			else
 				if (_userStore.ClearRegistrationKey(email, key))
-					return View("_Notice", new Notice(Resources.Strings.View.RegisterLabel, null, Resources.Strings.View.RegisterNoticeParagraph1));
+					return View("_Notice", new Notice(Resources.Strings.View.RegisterLabel, null, Resources.Strings.View.RegistrationCompleteNoticeParagraph1));
 				else
 					return View("_Notice", new Notice(Resources.Strings.View.RegisterLabel, null, Resources.Strings.Error.RegistrationTokenExpiredMessage));
 		}
@@ -38,47 +43,68 @@ namespace Andrei15193.Edesia.Controllers
 		public ActionResult Register(RegisterViewModel registerViewModel)
 		{
 			if (ModelState.IsValid)
-			{
-				string registrationKey = _GenerateRegistrationKey();
-				_userStore.AddApplicationUser(new ApplicationUser(registerViewModel.EMail, DateTime.Now)
-					{
-						Roles =
-						{
-							UserRoles.Client
-						}
-					}, registerViewModel.Password, registrationKey);
-
-				IEMailSettings emailSettings = (IEMailSettings)MvcApplication.DependencyContainer["eMailSettings"];
-				new SmtpClient
+				try
 				{
-					Host = emailSettings.SmtpHost,
-					Port = emailSettings.SmtpPort,
-					EnableSsl = true,
-					Credentials = emailSettings.Credentials
-				}.Send(new MailMessage
-					{
-						Subject = "Edesia - " + Resources.Strings.View.RegisterLabel,
-						From = emailSettings.SenderMailAddress,
-						To =
+					string registrationKey = _GenerateRegistrationKey();
+
+					_userStore.AddApplicationUser(new ApplicationUser(registerViewModel.EMail, DateTime.Now)
 						{
-							new MailAddress(registerViewModel.EMail)
-						},
-						DeliveryNotificationOptions = DeliveryNotificationOptions.Never,
-						IsBodyHtml = true,
-						BodyEncoding = Encoding.UTF8,
-						Body = string.Format(Resources.Strings.EMail.RegistrationBodyFormat,
-											 new StringBuilder(Request.Url.Scheme).Append(Uri.SchemeDelimiter)
-																				  .Append(Request.Url.Host)
-																				  .Append(Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port)
-																				  .Append("/User/Register")
-																				  .ToString(),
-											 Uri.EscapeDataString(registerViewModel.EMail),
-											 Uri.EscapeDataString(registrationKey))
-					});
-				return View("_Notice", new Notice(Resources.Strings.View.RegisterLabel, null, Resources.Strings.View.RegisterNoticeParagraph1));
-			}
+							Roles =
+							{
+								UserRoles.Client
+							}
+						}, registerViewModel.Password, registrationKey);
+					_SendRegistrationEMail(registerViewModel, registrationKey);
+
+					return View("_Notice", new Notice(Resources.Strings.View.RegisterLabel, null, Resources.Strings.View.RegisterMailSendNoticeParagraph1));
+				}
+				catch (AggregateException aggregateException)
+				{
+					foreach (Exception aggregatedException in aggregateException.InnerExceptions)
+					{
+						UniqueConstraintException uniqueConstraintException = (aggregatedException as UniqueConstraintException);
+
+						if (uniqueConstraintException != null && string.Equals(uniqueConstraintException.ConstraintName, "http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd:UniqueEmails", StringComparison.Ordinal))
+							ModelState.AddModelError("EMail", string.Format(Resources.Strings.Error.DuplicateEMailMessageFormat, uniqueConstraintException.ConflictingValue));
+					}
+
+					return View(registerViewModel);
+				}
+			else
+				return View();
+		}
+
+		[HttpGet]
+		public ActionResult Login()
+		{
 			return View();
 		}
+		[HttpPost]
+		public ActionResult Login(LoginViewModel loginViewModel, string returnUrl)
+		{
+			if (ModelState.IsValid)
+			{
+				ApplicationUser applicationUser = _userStore.Find(loginViewModel.EMail, loginViewModel.Password);
+
+				if (applicationUser != null)
+				{
+					FormsAuthentication.SignOut();
+					HttpCookie authenticationCookie = FormsAuthentication.GetAuthCookie(loginViewModel.EMail, true);
+
+					_userStore.SetAuthenticationToken(applicationUser, authenticationCookie.Value, AuthenticationTokenType.Key);
+					Response.SetCookie(authenticationCookie);
+					HttpContext.SetApplicationUser(applicationUser, loginViewModel.EMail);
+					if (Url.IsLocalUrl(returnUrl))
+						return Redirect(returnUrl);
+					else
+						return RedirectToAction("Default", "Home");
+				}
+				else
+					ModelState.AddModelError(string.Empty, "Invalid username or password.");
+			}
+			return View(loginViewModel);
+		}
+
 		[HttpGet, ConfirmAccess]
 		public ActionResult Logout()
 		{
@@ -90,36 +116,7 @@ namespace Andrei15193.Edesia.Controllers
 			Session.Abandon();
 			return Redirect("/");
 		}
-		[HttpGet]
-		public ActionResult Login()
-		{
-			return View();
-		}
-		[HttpPost]
-		public ActionResult Login(LoginViewModel loginViewModel, string returnUrl)
-		{
-			if (ModelState.IsValid)
-			{
-				ApplicationUser applicationUser = _userStore.Find(loginViewModel.Email, loginViewModel.Password);
 
-				if (applicationUser != null)
-				{
-					FormsAuthentication.SignOut();
-					HttpCookie authenticationCookie = FormsAuthentication.GetAuthCookie(loginViewModel.Email, true);
-
-					_userStore.SetAuthenticationToken(applicationUser, authenticationCookie.Value, AuthenticationTokenType.Key);
-					Response.SetCookie(authenticationCookie);
-					HttpContext.SetApplicationUser(applicationUser, loginViewModel.Email);
-					if (Url.IsLocalUrl(returnUrl))
-						return Redirect(returnUrl);
-					else
-						return RedirectToAction("Default", "Home");
-				}
-				else
-					ModelState.AddModelError(string.Empty, "Invalid username or password.");
-			}
-			return View(loginViewModel);
-		}
 		[HttpGet]
 		public ActionResult ChangeLanguage(string languageId, string returnUrl)
 		{
@@ -131,15 +128,6 @@ namespace Andrei15193.Edesia.Controllers
 				return Redirect(returnUrl);
 			else
 				return RedirectToAction("Default", "Home");
-		}
-		[HttpGet, ConfirmAccess]
-		public ActionResult Details()
-		{
-			ApplicationUser applicationUser = HttpContext.GetApplicationUser();
-			return View(new ProfileViewModel(applicationUser.Roles)
-				{
-					EMail = applicationUser.EMail
-				});
 		}
 		[NonAction]
 		public void Login(string eMail, HttpContext context)
@@ -202,7 +190,38 @@ namespace Andrei15193.Edesia.Controllers
 
 			return registrationKey.ToString();
 		}
+		private void _SendRegistrationEMail(RegisterViewModel registerViewModel, string registrationKey)
+		{
+			IEMailSettings emailSettings = (IEMailSettings)MvcApplication.DependencyContainer["eMailSettings"];
 
-		private IApplicationUserStore _userStore = (IApplicationUserStore)DependencyContainer["applicationUserStore"];
+			new SmtpClient
+			{
+				Host = emailSettings.SmtpHost,
+				Port = emailSettings.SmtpPort,
+				EnableSsl = true,
+				Credentials = emailSettings.Credentials
+			}.Send(new MailMessage
+			{
+				Subject = "Edesia - " + Resources.Strings.View.RegisterLabel,
+				From = emailSettings.SenderMailAddress,
+				To =
+				{
+					new MailAddress(registerViewModel.EMail)
+				},
+				DeliveryNotificationOptions = DeliveryNotificationOptions.Never,
+				IsBodyHtml = true,
+				BodyEncoding = Encoding.UTF8,
+				Body = string.Format(Resources.Strings.EMail.RegistrationBodyFormat,
+									 new StringBuilder(Request.Url.Scheme).Append(Uri.SchemeDelimiter)
+																		  .Append(Request.Url.Host)
+																		  .Append(Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port)
+																		  .Append("/User/Register")
+																		  .ToString(),
+									 Uri.EscapeDataString(registerViewModel.EMail),
+									 Uri.EscapeDataString(registrationKey))
+			});
+		}
+
+		private readonly IApplicationUserStore _userStore = (IApplicationUserStore)DependencyContainer["applicationUserStore"];
 	}
 }

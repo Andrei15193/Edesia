@@ -39,6 +39,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Andrei15193.DependencyInjection">
@@ -272,6 +274,7 @@
     <Content Include="Views\User\GetLanguageDropdown.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
     <None Include="Schemas\Config.xsd" />
+    <Content Include="Views\Shared\_ModelErrorNotice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -12,6 +12,10 @@ namespace Andrei15193.Edesia.Xml.Validation
 				return null;
 
 			Match errorMessageMatch = Regex.Match(xmlSchemaException.Message, "There is a duplicate key sequence '(.*)' for the '(.*)' key or unique identity constraint.");
+
+			if (!errorMessageMatch.Success)
+				return null;
+
 			return new UniqueConstraintException(errorMessageMatch.Groups[1].Value, errorMessageMatch.Groups[2].Value, xmlSchemaException);
 		}
 		#endregion
