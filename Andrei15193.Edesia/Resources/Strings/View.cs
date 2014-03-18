@@ -10,133 +10,133 @@
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("AcceptButtonText");
+						return ViewStringsResourceManager.GetString("AcceptButtonText");
 					}
 				}
 				public static string EMailCopyPlaceholder
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("EMailCopyPlaceholder");
+						return ViewStringsResourceManager.GetString("EMailCopyPlaceholder");
 					}
 				}
 				public static string EMailLabel
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("EMailLabel");
+						return ViewStringsResourceManager.GetString("EMailLabel");
 					}
 				}
 				public static string EMailPlaceholder
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("EMailPlaceholder");
+						return ViewStringsResourceManager.GetString("EMailPlaceholder");
 					}
 				}
 				public static string HomePageNoticeParagraph1
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("HomePageNoticeParagraph1");
+						return ViewStringsResourceManager.GetString("HomePageNoticeParagraph1");
 					}
 				}
 				public static string HomePageNoticeTitle
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("HomePageNoticeTitle");
+						return ViewStringsResourceManager.GetString("HomePageNoticeTitle");
 					}
 				}
 				public static string HomePageTitle
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("HomePageTitle");
+						return ViewStringsResourceManager.GetString("HomePageTitle");
 					}
 				}
 				public static string LanguageLabel
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("LanguageLabel");
+						return ViewStringsResourceManager.GetString("LanguageLabel");
 					}
 				}
 				public static string LoginLabel
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("LoginLabel");
+						return ViewStringsResourceManager.GetString("LoginLabel");
 					}
 				}
 				public static string LogoutLabel
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("LogoutLabel");
+						return ViewStringsResourceManager.GetString("LogoutLabel");
 					}
 				}
 				public static string PasswordCopyPlaceholder
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("PasswordCopyPlaceholder");
+						return ViewStringsResourceManager.GetString("PasswordCopyPlaceholder");
 					}
 				}
 				public static string PasswordLabel
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("PasswordLabel");
+						return ViewStringsResourceManager.GetString("PasswordLabel");
 					}
 				}
 				public static string PasswordPlaceholder
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("PasswordPlaceholder");
+						return ViewStringsResourceManager.GetString("PasswordPlaceholder");
 					}
 				}
 				public static string ProfilePageTitle
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("ProfilePageTitle");
+						return ViewStringsResourceManager.GetString("ProfilePageTitle");
 					}
 				}
 				public static string RegisterButtonText
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("RegisterButtonText");
+						return ViewStringsResourceManager.GetString("RegisterButtonText");
 					}
 				}
 				public static string RegisterLabel
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("RegisterLabel");
+						return ViewStringsResourceManager.GetString("RegisterLabel");
 					}
 				}
 				public static string RegisterMailSendNoticeParagraph1
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("RegisterMailSendNoticeParagraph1");
+						return ViewStringsResourceManager.GetString("RegisterMailSendNoticeParagraph1");
 					}
 				}
 				public static string RegistrationCompleteNoticeParagraph1
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("RegistrationCompleteNoticeParagraph1");
+						return ViewStringsResourceManager.GetString("RegistrationCompleteNoticeParagraph1");
 					}
 				}
 				public static string RolesLabel
 				{
 					get
 					{
-						return SelectedLanguage.ViewStringsResourceManager.GetString("RolesLabel");
+						return ViewStringsResourceManager.GetString("RolesLabel");
 					}
 				}
 			}

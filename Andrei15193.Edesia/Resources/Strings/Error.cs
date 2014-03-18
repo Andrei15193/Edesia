@@ -10,49 +10,49 @@
 				{
 					get
 					{
-						return SelectedLanguage.ErrorStringsResourceManager.GetString("RegistrationBodyFormat");
+						return ErrorStringsResourceManager.GetString("RegistrationBodyFormat");
 					}
 				}
 				public static string DuplicateEMailMessageFormat
 				{
 					get
 					{
-						return SelectedLanguage.ErrorStringsResourceManager.GetString("DuplicateEMailMessageFormat");
+						return ErrorStringsResourceManager.GetString("DuplicateEMailMessageFormat");
 					}
 				}
 				public static string EMailAddressesAreNotEqualMessage
 				{
 					get
 					{
-						return SelectedLanguage.ErrorStringsResourceManager.GetString("EMailAddressesAreNotEqualMessage");
+						return ErrorStringsResourceManager.GetString("EMailAddressesAreNotEqualMessage");
 					}
 				}
 				public static string PasswordsAreNotEqualMessage
 				{
 					get
 					{
-						return SelectedLanguage.ErrorStringsResourceManager.GetString("PasswordsAreNotEqualMessage");
+						return ErrorStringsResourceManager.GetString("PasswordsAreNotEqualMessage");
 					}
 				}
 				public static string InvalidEMailAddress
 				{
 					get
 					{
-						return SelectedLanguage.ErrorStringsResourceManager.GetString("InvalidEMailAddress");
+						return ErrorStringsResourceManager.GetString("InvalidEMailAddress");
 					}
 				}
 				public static string MissingEMailMessage
 				{
 					get
 					{
-						return SelectedLanguage.ErrorStringsResourceManager.GetString("MissingEMailMessage");
+						return ErrorStringsResourceManager.GetString("MissingEMailMessage");
 					}
 				}
 				public static string MissingPasswordMessage
 				{
 					get
 					{
-						return SelectedLanguage.ErrorStringsResourceManager.GetString("MissingPasswordMessage");
+						return ErrorStringsResourceManager.GetString("MissingPasswordMessage");
 					}
 				}
 			}

@@ -10,7 +10,7 @@
 				{
 					get
 					{
-						return SelectedLanguage.EMailStringsResourceManager.GetString("RegistrationBodyFormat");
+						return EMailStringsResourceManager.GetString("RegistrationBodyFormat");
 					}
 				}
 			}

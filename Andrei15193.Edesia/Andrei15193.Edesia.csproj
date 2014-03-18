@@ -149,8 +149,6 @@
     <Folder Include="Views\Application\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILanguageSpecification.cs" />
-    <Compile Include="ILocalizedLanguageSpecification.cs" />
     <Compile Include="Models\IApplication.cs" />
     <Compile Include="Resources\Strings\EMail.cs" />
     <Compile Include="Resources\Strings\Error.cs" />

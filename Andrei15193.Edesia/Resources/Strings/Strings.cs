@@ -17,24 +17,24 @@ namespace Andrei15193.Edesia
 				{
 					try
 					{
-						_localizedLanguageSpecificationsLock.EnterReadLock();
+						_registeredLanguageSettingsLock.EnterReadLock();
 						return _defaultLanguageId;
 					}
 					finally
 					{
-						_localizedLanguageSpecificationsLock.ExitReadLock();
+						_registeredLanguageSettingsLock.ExitReadLock();
 					}
 				}
 				set
 				{
 					try
 					{
-						_localizedLanguageSpecificationsLock.EnterWriteLock();
+						_registeredLanguageSettingsLock.EnterWriteLock();
 						_defaultLanguageId = value;
 					}
 					finally
 					{
-						_localizedLanguageSpecificationsLock.ExitWriteLock();
+						_registeredLanguageSettingsLock.ExitWriteLock();
 					}
 				}
 			}
@@ -48,44 +48,66 @@ namespace Andrei15193.Edesia
 				{
 					try
 					{
-						ILocalizedLanguageSpecification selectedLanguage;
-						_localizedLanguageSpecificationsLock.EnterReadLock();
+						Tuple<ILanguageSettings, ResourceManager, ResourceManager, ResourceManager> selectedLanguage;
+						_registeredLanguageSettingsLock.EnterReadLock();
 
-						if (!_localizedLanguageSpecifications.TryGetValue(value, out selectedLanguage))
-							selectedLanguage = _localizedLanguageSpecifications[DefaultLanguageId];
+						if (!_registeredLanguageSettings.TryGetValue(value, out selectedLanguage))
+							selectedLanguage = _registeredLanguageSettings[DefaultLanguageId];
 
-						_selectedLanguage = selectedLanguage;
+						_selectedLanguageSettings = selectedLanguage;
 					}
 					finally
 					{
-						_localizedLanguageSpecificationsLock.ExitReadLock();
+						_registeredLanguageSettingsLock.ExitReadLock();
 					}
 				}
 			}
-			public static ILocalizedLanguageSpecification SelectedLanguage
+			public static ILanguageSettings SelectedLanguage
 			{
 				get
 				{
-					if (_selectedLanguage == null)
+					if (_selectedLanguageSettings == null)
 						SelectedLangaugeId = DefaultLanguageId;
-					return _selectedLanguage;
+					return _selectedLanguageSettings.Item1;
 				}
 			}
-			public static IReadOnlyList<ILanguageSpecification> LanguageSpecifications
+			public static IReadOnlyList<ILanguageSettings> LanguageSpecifications
 			{
 				get
 				{
 					try
 					{
-						_localizedLanguageSpecificationsLock.EnterReadLock();
-						return _localizedLanguageSpecifications.Values
-															   .OrderBy(languageSpecification => languageSpecification.LanguageDisplayName)
-															   .ToList();
+						_registeredLanguageSettingsLock.EnterReadLock();
+						return _registeredLanguageSettings.Values
+														  .Select(languageSettings => languageSettings.Item1)
+														  .OrderBy(languageSpecification => languageSpecification.LanguageDisplayName)
+														  .ToList();
 					}
 					finally
 					{
-						_localizedLanguageSpecificationsLock.ExitReadLock();
+						_registeredLanguageSettingsLock.ExitReadLock();
 					}
+				}
+			}
+			internal static ResourceManager EMailStringsResourceManager
+			{
+				get
+				{
+					return _selectedLanguageSettings.Item2;
+				}
+			}
+			internal static ResourceManager ErrorStringsResourceManager
+			{
+				get
+				{
+					return _selectedLanguageSettings.Item3;
+				}
+			}
+			internal static ResourceManager ViewStringsResourceManager
+			{
+				get
+				{
+					return _selectedLanguageSettings.Item4;
 				}
 			}
 
@@ -94,116 +116,30 @@ namespace Andrei15193.Edesia
 				if (languageSetting == null)
 					throw new ArgumentNullException("languageSetting");
 
-				Assembly resourceAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(assembly => string.Equals(assembly.GetName().Name, languageSetting.ResourceFilesAssemblyName, StringComparison.Ordinal));
+				Assembly resourceAssembly = Assembly.Load(new AssemblyName(languageSetting.ResourceFilesAssemblyName));
 				if (resourceAssembly == null)
 					throw new ArgumentException(string.Format("Assembly {0} is not loaded!", languageSetting.ResourceFilesAssemblyName), "localizationConfigElement");
 
 				try
 				{
-					_localizedLanguageSpecificationsLock.EnterWriteLock();
-					_localizedLanguageSpecifications.Add(languageSetting.LanguageId,
-														 new LocalizedLanguageSpecification(languageSetting.LanguageDisplayName,
-																							languageSetting.LanguageId,
-																							new ResourceManager(languageSetting.EMailStringsResourceFile, resourceAssembly),
-																							new ResourceManager(languageSetting.ErrorStringsResourceFile, resourceAssembly),
-																							new ResourceManager(languageSetting.ViewStringsResourceFile, resourceAssembly)));
+					_registeredLanguageSettingsLock.EnterWriteLock();
+					_registeredLanguageSettings.Add(languageSetting.LanguageId,
+													Tuple.Create(languageSetting,
+																 new ResourceManager(languageSetting.EMailStringsResourceFile, resourceAssembly),
+																 new ResourceManager(languageSetting.ErrorStringsResourceFile, resourceAssembly),
+																 new ResourceManager(languageSetting.ViewStringsResourceFile, resourceAssembly)));
 				}
 				finally
 				{
-					_localizedLanguageSpecificationsLock.ExitWriteLock();
+					_registeredLanguageSettingsLock.ExitWriteLock();
 				}
-			}
-
-			private class LanguageSpecification
-				: ILanguageSpecification
-			{
-				public LanguageSpecification(string languageDisplayName, string languageId)
-				{
-					if (languageDisplayName == null)
-						throw new ArgumentNullException("languageDisplayName");
-					if (string.IsNullOrEmpty(languageDisplayName) || string.IsNullOrWhiteSpace(languageDisplayName))
-						throw new ArgumentException("Cannot be empty or whitespace!", "languageDisplayName");
-					if (languageId == null)
-						throw new ArgumentNullException("languageId");
-					if (string.IsNullOrEmpty(languageId) || string.IsNullOrWhiteSpace(languageId))
-						throw new ArgumentException("Cannot be empty or whitespace!", "languageId");
-
-					_languageDisplayName = languageDisplayName.Trim();
-					_languageId = languageId.Trim();
-				}
-
-				#region ILanguageSpecification Members
-				public string LanguageDisplayName
-				{
-					get
-					{
-						return _languageDisplayName;
-					}
-				}
-				public string LanguageId
-				{
-					get
-					{
-						return _languageId;
-					}
-				}
-				#endregion
-
-				private readonly string _languageDisplayName;
-				private readonly string _languageId;
-			}
-			private class LocalizedLanguageSpecification
-				: LanguageSpecification, ILocalizedLanguageSpecification
-			{
-				public LocalizedLanguageSpecification(string languageDisplayName, string languageId, ResourceManager eMailStringsResourceManager, ResourceManager errorStringsResourceManager, ResourceManager viewStringsResourceManager)
-					: base(languageDisplayName, languageId)
-				{
-					if (eMailStringsResourceManager == null)
-						throw new ArgumentNullException("eMailStringsResourceManager");
-					if (errorStringsResourceManager == null)
-						throw new ArgumentNullException("errorStringsResourceManager");
-					if (viewStringsResourceManager == null)
-						throw new ArgumentNullException("viewStringsResourceManager");
-
-					_eMailStringsResourceManager = eMailStringsResourceManager;
-					_errorStringsResourceManager = errorStringsResourceManager;
-					_viewStringsResourceManager = viewStringsResourceManager;
-				}
-
-				#region ILocalizedLanguageSpecification Members
-				public ResourceManager EMailStringsResourceManager
-				{
-					get
-					{
-						return _eMailStringsResourceManager;
-					}
-				}
-				public ResourceManager ErrorStringsResourceManager
-				{
-					get
-					{
-						return _errorStringsResourceManager;
-					}
-				}
-				public ResourceManager ViewStringsResourceManager
-				{
-					get
-					{
-						return _viewStringsResourceManager;
-					}
-				}
-				#endregion
-
-				private ResourceManager _eMailStringsResourceManager;
-				private ResourceManager _errorStringsResourceManager;
-				private ResourceManager _viewStringsResourceManager;
 			}
 
 			private static string _defaultLanguageId;
 			[ThreadStatic]
-			private static ILocalizedLanguageSpecification _selectedLanguage;
-			private static readonly ReaderWriterLockSlim _localizedLanguageSpecificationsLock = new ReaderWriterLockSlim();
-			private static readonly IDictionary<string, ILocalizedLanguageSpecification> _localizedLanguageSpecifications = new SortedDictionary<string, ILocalizedLanguageSpecification>();
+			private static Tuple<ILanguageSettings, ResourceManager, ResourceManager, ResourceManager> _selectedLanguageSettings;
+			private static readonly ReaderWriterLockSlim _registeredLanguageSettingsLock = new ReaderWriterLockSlim();
+			private static readonly IDictionary<string, Tuple<ILanguageSettings, ResourceManager, ResourceManager, ResourceManager>> _registeredLanguageSettings = new SortedDictionary<string, Tuple<ILanguageSettings, ResourceManager, ResourceManager, ResourceManager>>();
 		}
 	}
 }
