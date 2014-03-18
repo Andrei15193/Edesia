@@ -8,14 +8,24 @@
 			<h1>@Resources.Strings.View.RegisterLabel</h1>
 			@using (Html.BeginForm())
 			{
-				@Html.LabelFor(model => model.EMail)
-				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["EMail"])
+				@Html.LabelFor(model => model.FirstName)
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["FirstName"])
 				<div class="input-control text">
-					@Html.EditorFor(model => model.EMail)
+					@Html.EditorFor(model => model.FirstName)
 				</div>
-				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["EMailCopy"])
+				@Html.LabelFor(model => model.LastName)
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["LastName"])
 				<div class="input-control text">
-					@Html.EditorFor(model => model.EMailCopy)
+					@Html.EditorFor(model => model.LastName)
+				</div>
+				@Html.LabelFor(model => model.EMailAddress)
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["EMailAddress"])
+				<div class="input-control text">
+					@Html.EditorFor(model => model.EMailAddress)
+				</div>
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["EMailAddressCopy"])
+				<div class="input-control text">
+					@Html.EditorFor(model => model.EMailAddressCopy)
 				</div>
 				@Html.LabelFor(model => model.Password)
 				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Password"])

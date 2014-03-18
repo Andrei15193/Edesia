@@ -8,10 +8,10 @@
 			<h1>@Resources.Strings.View.LoginLabel</h1>
 			@using (Html.BeginForm())
 			{
-				@Html.LabelFor(model => model.EMail)
-				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["EMail"])
+				@Html.LabelFor(model => model.EMailAddress)
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["EMailAddress"])
 				<div class="input-control text">
-					@Html.EditorFor(model => model.EMail)
+					@Html.EditorFor(model => model.EMailAddress)
 				</div>
 				@Html.LabelFor(model => model.Password)
 				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Password"])

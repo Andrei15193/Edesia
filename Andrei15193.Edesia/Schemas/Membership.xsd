@@ -20,9 +20,10 @@
 	<xsd:complexType name="User">
 		<xsd:sequence>
 			<xsd:element name="Role" type="membership:Role" minOccurs="0" maxOccurs="unbounded" />
-			<xsd:element name="DeliveryAddress" type="membership:Address" minOccurs="0" maxOccurs="1" />
 		</xsd:sequence>
 		<xsd:attribute name="EMail" type="xsd:string" use="required" />
+		<xsd:attribute name="FirstName" type="xsd:string" use="required" />
+		<xsd:attribute name="LastName" type="xsd:string" use="required" />
 		<xsd:attribute name="PasswordHash" type="xsd:string" use="required" />
 		<xsd:attribute name="RegistrationTime" type="xsd:dateTime" use="required" />
 		<xsd:attribute name="AuthenticationToken" type="xsd:string" use="optional" />
@@ -33,6 +34,7 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
+		<xsd:attribute name="Street" type="xsd:string" use="optional" />
 	</xsd:complexType>
 
 	<xsd:complexType name="Role">

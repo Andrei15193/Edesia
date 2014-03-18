@@ -1,14 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 namespace Andrei15193.Edesia.Models
 {
 	public class ApplicationUser
 	{
-		public ApplicationUser(string email, DateTime registrationTime, Address deliveryAddress = null)
+		public ApplicationUser(string eMailAddress, string firstName, string lastName, DateTime registrationTime, string street = null)
 		{
-			_email = email;
+			if (eMailAddress == null)
+				throw new ArgumentNullException("eMailAddress");
+			try
+			{
+				_eMailAddress = new MailAddress(eMailAddress).Address;
+			}
+			catch (FormatException formatException)
+			{
+				throw new ArgumentException("The given e-mail address is not valid!", "eMailAddress", formatException);
+			}
+
+			if (firstName == null)
+				throw new ArgumentNullException("firstName");
+			if (string.IsNullOrEmpty(firstName) || string.IsNullOrWhiteSpace(firstName))
+				throw new ArgumentException("Cannot be empty or whitesapce!", "firstName");
+
+			if (lastName == null)
+				throw new ArgumentNullException("lastName");
+			if (string.IsNullOrEmpty(lastName) || string.IsNullOrWhiteSpace(lastName))
+				throw new ArgumentException("Cannot be empty or whitesapce!", "lastName");
+
+			_firstName = firstName.Trim();
+			_lastName = lastName.Trim();
 			_registrationTime = registrationTime;
-			_deliveryAddress = deliveryAddress;
+			Street = (street == null ? null : street.Trim());
 		}
 
 		public DateTime RegistrationTime
@@ -18,17 +41,62 @@ namespace Andrei15193.Edesia.Models
 				return _registrationTime;
 			}
 		}
-		public string EMail
+		public string EMailAddress
 		{
 			get
 			{
-				return _email;
+				return _eMailAddress;
+			}
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("EMailAddress");
+				try
+				{
+					_eMailAddress = new MailAddress(value).Address;
+				}
+				catch (FormatException formatException)
+				{
+					throw new ArgumentException("The given e-mail address is not valid!", "EMailAddress", formatException);
+				}
 			}
 		}
-		public Address DeliveryAddress
+		public string Street
 		{
 			get;
 			set;
+		}
+		public string FirstName
+		{
+			get
+			{
+				return _firstName;
+			}
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("FirstName");
+				if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+					throw new ArgumentException("Cannot be empty or whitesapce!", "FirstName");
+
+				_firstName = value.Trim();
+			}
+		}
+		public string LastName
+		{
+			get
+			{
+				return _lastName;
+			}
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("LastName");
+				if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+					throw new ArgumentException("Cannot be empty or whitesapce!", "LastName");
+
+				_lastName = value.Trim();
+			}
 		}
 		public ISet<string> Roles
 		{
@@ -38,8 +106,9 @@ namespace Andrei15193.Edesia.Models
 			}
 		}
 
-		private string _email;
-		private Address _deliveryAddress;
+		private string _eMailAddress;
+		private string _firstName;
+		private string _lastName;
 		private readonly DateTime _registrationTime;
 		private readonly ISet<string> _roles = new HashSet<string>();
 	}

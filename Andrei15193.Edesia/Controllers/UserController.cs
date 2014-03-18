@@ -24,7 +24,7 @@ namespace Andrei15193.Edesia.Controllers
 			ApplicationUser applicationUser = HttpContext.GetApplicationUser();
 			return View(new ProfileViewModel(applicationUser.Roles)
 			{
-				EMail = applicationUser.EMail
+				EMail = applicationUser.EMailAddress
 			});
 		}
 
@@ -47,7 +47,7 @@ namespace Andrei15193.Edesia.Controllers
 				{
 					string registrationKey = _GenerateRegistrationKey();
 
-					_userStore.AddApplicationUser(new ApplicationUser(registerViewModel.EMail, DateTime.Now)
+					_userStore.AddApplicationUser(new ApplicationUser(registerViewModel.EMailAddress, registerViewModel.FirstName, registerViewModel.LastName, DateTime.Now)
 						{
 							Roles =
 							{
@@ -65,7 +65,7 @@ namespace Andrei15193.Edesia.Controllers
 						UniqueConstraintException uniqueConstraintException = (aggregatedException as UniqueConstraintException);
 
 						if (uniqueConstraintException != null && string.Equals(uniqueConstraintException.ConstraintName, "http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd:UniqueEmails", StringComparison.Ordinal))
-							ModelState.AddModelError("EMail", string.Format(Resources.Strings.Error.DuplicateEMailMessageFormat, uniqueConstraintException.ConflictingValue));
+							ModelState.AddModelError("EMailAddress", string.Format(Resources.Strings.Error.DuplicateEMailMessageFormat, uniqueConstraintException.ConflictingValue));
 					}
 
 					return View(registerViewModel);
@@ -84,23 +84,23 @@ namespace Andrei15193.Edesia.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				ApplicationUser applicationUser = _userStore.Find(loginViewModel.EMail, loginViewModel.Password);
+				ApplicationUser applicationUser = _userStore.Find(loginViewModel.EMailAddress, loginViewModel.Password);
 
 				if (applicationUser != null)
 				{
 					FormsAuthentication.SignOut();
-					HttpCookie authenticationCookie = FormsAuthentication.GetAuthCookie(loginViewModel.EMail, true);
+					HttpCookie authenticationCookie = FormsAuthentication.GetAuthCookie(loginViewModel.EMailAddress, true);
 
 					_userStore.SetAuthenticationToken(applicationUser, authenticationCookie.Value, AuthenticationTokenType.Key);
 					Response.SetCookie(authenticationCookie);
-					HttpContext.SetApplicationUser(applicationUser, loginViewModel.EMail);
+					HttpContext.SetApplicationUser(applicationUser, loginViewModel.EMailAddress);
 					if (Url.IsLocalUrl(returnUrl))
 						return Redirect(returnUrl);
 					else
 						return RedirectToAction("Default", "Home");
 				}
 				else
-					ModelState.AddModelError(string.Empty, "Invalid username or password.");
+					ModelState.AddModelError("EMailAddress", Resources.Strings.Error.InvalidCredentialsMessage);
 			}
 			return View(loginViewModel);
 		}
@@ -206,7 +206,7 @@ namespace Andrei15193.Edesia.Controllers
 				From = emailSettings.SenderMailAddress,
 				To =
 				{
-					new MailAddress(registerViewModel.EMail)
+					new MailAddress(registerViewModel.EMailAddress)
 				},
 				DeliveryNotificationOptions = DeliveryNotificationOptions.Never,
 				IsBodyHtml = true,
@@ -217,7 +217,7 @@ namespace Andrei15193.Edesia.Controllers
 																		  .Append(Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port)
 																		  .Append("/User/Register")
 																		  .ToString(),
-									 Uri.EscapeDataString(registerViewModel.EMail),
+									 Uri.EscapeDataString(registerViewModel.EMailAddress),
 									 Uri.EscapeDataString(registrationKey))
 			});
 		}

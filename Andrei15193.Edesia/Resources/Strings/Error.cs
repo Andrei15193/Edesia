@@ -1,4 +1,5 @@
-﻿namespace Andrei15193.Edesia
+﻿using System;
+namespace Andrei15193.Edesia
 {
 	public static partial class Resources
 	{
@@ -6,53 +7,97 @@
 		{
 			public static class Error
 			{
+				public static string GetString(string key)
+				{
+					string value = ErrorStringsResourceManager.GetString(key);
+
+					if (value == null)
+						throw new InvalidOperationException(string.Format("Key {0} does not exist in Resources.Strings.Error[{1}]", key, SelectedLangaugeId));
+
+					return value;
+				}
 				public static string RegistrationTokenExpiredMessage
 				{
 					get
 					{
-						return ErrorStringsResourceManager.GetString("RegistrationBodyFormat");
+						return GetString("RegistrationBodyFormat");
 					}
 				}
 				public static string DuplicateEMailMessageFormat
 				{
 					get
 					{
-						return ErrorStringsResourceManager.GetString("DuplicateEMailMessageFormat");
+						return GetString("DuplicateEMailMessageFormat");
 					}
 				}
 				public static string EMailAddressesAreNotEqualMessage
 				{
 					get
 					{
-						return ErrorStringsResourceManager.GetString("EMailAddressesAreNotEqualMessage");
+						return GetString("EMailAddressesAreNotEqualMessage");
 					}
 				}
 				public static string PasswordsAreNotEqualMessage
 				{
 					get
 					{
-						return ErrorStringsResourceManager.GetString("PasswordsAreNotEqualMessage");
+						return GetString("PasswordsAreNotEqualMessage");
 					}
 				}
-				public static string InvalidEMailAddress
+				public static string InvalidEMailAddressMessage
 				{
 					get
 					{
-						return ErrorStringsResourceManager.GetString("InvalidEMailAddress");
+						return GetString("InvalidEMailAddressMessage");
 					}
 				}
 				public static string MissingEMailMessage
 				{
 					get
 					{
-						return ErrorStringsResourceManager.GetString("MissingEMailMessage");
+						return GetString("MissingEMailMessage");
 					}
 				}
 				public static string MissingPasswordMessage
 				{
 					get
 					{
-						return ErrorStringsResourceManager.GetString("MissingPasswordMessage");
+						return GetString("MissingPasswordMessage");
+					}
+				}
+				public static string InvalidFirstNameMessage
+				{
+					get
+					{
+						return GetString("InvalidFirstNameMessage");
+					}
+				}
+				public static string MissingFirstNameMessage
+				{
+					get
+					{
+						return GetString("MissingFirstNameMessage");
+					}
+				}
+				public static string InvalidLastNameMessage
+				{
+					get
+					{
+						return GetString("InvalidLastNameMessage");
+					}
+				}
+				public static string MissingLastNameMessage
+				{
+					get
+					{
+						return GetString("MissingLastNameMessage");
+					}
+				}
+				public static string InvalidCredentialsMessage
+				{
+					get
+					{
+						return GetString("InvalidCredentialsMessage");
 					}
 				}
 			}

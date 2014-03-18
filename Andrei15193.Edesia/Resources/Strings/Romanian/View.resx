@@ -120,14 +120,20 @@
   <data name="AcceptButtonText" xml:space="preserve">
     <value>Acceptă</value>
   </data>
-  <data name="EMailCopyPlaceholder" xml:space="preserve">
+  <data name="EMailAddressCopyPlaceholder" xml:space="preserve">
     <value>reintroduceți adresa de e-mail (verificare)</value>
   </data>
-  <data name="EMailLabel" xml:space="preserve">
+  <data name="EMailAddressLabel" xml:space="preserve">
     <value>Adresa de E-Mail</value>
   </data>
-  <data name="EMailPlaceholder" xml:space="preserve">
+  <data name="EMailAddressPlaceholder" xml:space="preserve">
     <value>nume@site.ro</value>
+  </data>
+  <data name="FirstNameLabel" xml:space="preserve">
+    <value>Prenume</value>
+  </data>
+  <data name="FirstNamePlaceholder" xml:space="preserve">
+    <value>prenumele duneavoastră</value>
   </data>
   <data name="HomePageNoticeParagraph1" xml:space="preserve">
     <value>„Edesia” este proiectul meu de licență. La suprafață se este un magazin online, iar „în spate” este un motor de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web (eventual o aplicație pentru dispozitive mobile va fi creată pentru a realiza același lucru) și să planifice sarcini pentru „angajați” (cum ar fi planificarea rutelor pentru livrare).</value>
@@ -140,6 +146,12 @@
   </data>
   <data name="LanguageLabel" xml:space="preserve">
     <value>Limba</value>
+  </data>
+  <data name="LastNameLabel" xml:space="preserve">
+    <value>Nume</value>
+  </data>
+  <data name="LastNamePlaceholder" xml:space="preserve">
+    <value>nume dumneavoastră (de familie)</value>
   </data>
   <data name="LoginLabel" xml:space="preserve">
     <value>Autentificare</value>
@@ -154,7 +166,7 @@
     <value>Parola</value>
   </data>
   <data name="PasswordPlaceholder" xml:space="preserve">
-    <value>nu se va vedea</value>
+    <value>cheia contului</value>
   </data>
   <data name="ProfilePageTitle" xml:space="preserve">
     <value>Profil</value>

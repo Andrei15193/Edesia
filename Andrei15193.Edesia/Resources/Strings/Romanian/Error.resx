@@ -123,11 +123,26 @@
   <data name="EMailAddressesAreNotEqualMessage" xml:space="preserve">
     <value>Adresele de e-mail trebuie să fie aceleași!</value>
   </data>
-  <data name="InvalidEMailAddress" xml:space="preserve">
+  <data name="InvalidCredentialsMessage" xml:space="preserve">
+    <value>Adresa de e-mail sau parola nu sunt valide.</value>
+  </data>
+  <data name="InvalidEMailAddressMessage" xml:space="preserve">
     <value>Nu ați introdus o adresă de e-mail validă!</value>
+  </data>
+  <data name="InvalidFirstNameMessage" xml:space="preserve">
+    <value>Nu ași introdus un nume!</value>
+  </data>
+  <data name="InvalidLastNameMessage" xml:space="preserve">
+    <value>Nu ași introdus un nume!</value>
   </data>
   <data name="MissingEMailMessage" xml:space="preserve">
     <value>Trebuie să introduceți o adresă de e-mail.</value>
+  </data>
+  <data name="MissingFirstNameMessage" xml:space="preserve">
+    <value>Trebuie să introduceți un nume.</value>
+  </data>
+  <data name="MissingLastNameMessage" xml:space="preserve">
+    <value>Trebuie să introduceți un nume.</value>
   </data>
   <data name="MissingPasswordMessage" xml:space="preserve">
     <value>Trebuie să introduceți o parolă.</value>

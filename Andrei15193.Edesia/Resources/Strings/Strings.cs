@@ -93,6 +93,8 @@ namespace Andrei15193.Edesia
 			{
 				get
 				{
+					if (_selectedLanguageSettings == null)
+						SelectedLangaugeId = DefaultLanguageId;
 					return _selectedLanguageSettings.Item2;
 				}
 			}
@@ -100,6 +102,8 @@ namespace Andrei15193.Edesia
 			{
 				get
 				{
+					if (_selectedLanguageSettings == null)
+						SelectedLangaugeId = DefaultLanguageId;
 					return _selectedLanguageSettings.Item3;
 				}
 			}
@@ -107,6 +111,8 @@ namespace Andrei15193.Edesia
 			{
 				get
 				{
+					if (_selectedLanguageSettings == null)
+						SelectedLangaugeId = DefaultLanguageId;
 					return _selectedLanguageSettings.Item4;
 				}
 			}

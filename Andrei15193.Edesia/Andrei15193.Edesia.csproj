@@ -213,7 +213,6 @@
     <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Models\UserType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegexPatterns.cs" />
     <Compile Include="ViewModels\User\LoginViewModel.cs" />
     <Compile Include="ViewModels\User\ProfileViewModel.cs" />
     <Compile Include="ViewModels\User\RegisterViewModel.cs" />
@@ -261,7 +260,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Home\Default.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
@@ -271,8 +269,8 @@
     <Content Include="Views\User\GetNavigationBar.cshtml" />
     <Content Include="Views\User\GetLanguageDropdown.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
-    <None Include="Schemas\Config.xsd" />
     <Content Include="Views\Shared\_ModelErrorNotice.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
