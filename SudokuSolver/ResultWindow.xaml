@@ -1,0 +1,1225 @@
+﻿<Window
+	x:Class="SudokuSolver.ResultWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Title="Sudoku solutions"
+	Height="300px"
+	Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+	ResizeMode="NoResize">
+	<Window.Resources>
+		<ResourceDictionary>
+			<s:SudokuValueConverter
+				xmlns:s="clr-namespace:SudokuSolver"
+				x:Key="SudokuValueConverter" />
+		</ResourceDictionary>
+	</Window.Resources>
+	<Grid
+		HorizontalAlignment="Stretch"
+		VerticalAlignment="Stretch">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Label
+			Grid.Row="0"
+			Grid.Column="0"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[0][0],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="0"
+			Grid.Column="1"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[0][1],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="0"
+			Grid.Column="2"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[0][2],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="0"
+			Grid.Column="3"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[0][3],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="0"
+			Grid.Column="4"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[0][4],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="0"
+			Grid.Column="5"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[0][5],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="0"
+			Grid.Column="6"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[0][6],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="0"
+			Grid.Column="7"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[0][7],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="0"
+			Grid.Column="8"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[0][8],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="1"
+			Grid.Column="0"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[1][0],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="1"
+			Grid.Column="1"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[1][1],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="1"
+			Grid.Column="2"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[1][2],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="1"
+			Grid.Column="3"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[1][3],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="1"
+			Grid.Column="4"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[1][4],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="1"
+			Grid.Column="5"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[1][5],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="1"
+			Grid.Column="6"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[1][6],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="1"
+			Grid.Column="7"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[1][7],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="1"
+			Grid.Column="8"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[1][8],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="2"
+			Grid.Column="0"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[2][0],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="2"
+			Grid.Column="1"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[2][1],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="2"
+			Grid.Column="2"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[2][2],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="2"
+			Grid.Column="3"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[2][3],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="2"
+			Grid.Column="4"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[2][4],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="2"
+			Grid.Column="5"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[2][5],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="2"
+			Grid.Column="6"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[2][6],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="2"
+			Grid.Column="7"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[2][7],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="2"
+			Grid.Column="8"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[2][8],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="3"
+			Grid.Column="0"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[3][0],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="3"
+			Grid.Column="1"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[3][1],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="3"
+			Grid.Column="2"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[3][2],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="3"
+			Grid.Column="3"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,2,0,0"
+			Content="{Binding SudokuMatrix[3][3],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="3"
+			Grid.Column="4"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[3][4],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="3"
+			Grid.Column="5"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[3][5],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="3"
+			Grid.Column="6"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,2,0,0"
+			Content="{Binding SudokuMatrix[3][6],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="3"
+			Grid.Column="7"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[3][7],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="3"
+			Grid.Column="8"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[3][8],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="4"
+			Grid.Column="0"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[4][0],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="4"
+			Grid.Column="1"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[4][1],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="4"
+			Grid.Column="2"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[4][2],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="4"
+			Grid.Column="3"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[4][3],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="4"
+			Grid.Column="4"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[4][4],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="4"
+			Grid.Column="5"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[4][5],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="4"
+			Grid.Column="6"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[4][6],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="4"
+			Grid.Column="7"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[4][7],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="4"
+			Grid.Column="8"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[4][8],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="5"
+			Grid.Column="0"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[5][0],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="5"
+			Grid.Column="1"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[5][1],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="5"
+			Grid.Column="2"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[5][2],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="5"
+			Grid.Column="3"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[5][3],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="5"
+			Grid.Column="4"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[5][4],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="5"
+			Grid.Column="5"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[5][5],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="5"
+			Grid.Column="6"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[5][6],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="5"
+			Grid.Column="7"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[5][7],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="5"
+			Grid.Column="8"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[5][8],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="6"
+			Grid.Column="0"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[6][0],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="6"
+			Grid.Column="1"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[6][1],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="6"
+			Grid.Column="2"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[6][2],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="6"
+			Grid.Column="3"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,2,0,0"
+			Content="{Binding SudokuMatrix[6][3],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="6"
+			Grid.Column="4"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[6][4],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="6"
+			Grid.Column="5"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[6][5],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="6"
+			Grid.Column="6"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,2,0,0"
+			Content="{Binding SudokuMatrix[6][6],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="6"
+			Grid.Column="7"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[6][7],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="6"
+			Grid.Column="8"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="0,2,0,0"
+			Content="{Binding SudokuMatrix[6][8],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="7"
+			Grid.Column="0"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[7][0],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="7"
+			Grid.Column="1"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[7][1],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="7"
+			Grid.Column="2"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[7][2],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="7"
+			Grid.Column="3"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[7][3],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="7"
+			Grid.Column="4"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[7][4],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="7"
+			Grid.Column="5"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[7][5],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="7"
+			Grid.Column="6"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[7][6],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="7"
+			Grid.Column="7"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[7][7],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="7"
+			Grid.Column="8"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[7][8],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="8"
+			Grid.Column="0"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[8][0],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="8"
+			Grid.Column="1"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[8][1],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="8"
+			Grid.Column="2"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[8][2],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="8"
+			Grid.Column="3"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[8][3],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="8"
+			Grid.Column="4"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[8][4],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="8"
+			Grid.Column="5"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[8][5],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="8"
+			Grid.Column="6"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Margin="2,0,0,0"
+			Content="{Binding SudokuMatrix[8][6],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="8"
+			Grid.Column="7"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[8][7],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Label
+			Grid.Row="8"
+			Grid.Column="8"
+			Background="LightGray"
+			BorderBrush="Gray"
+			BorderThickness="1"
+			Padding="0"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Center"
+			Content="{Binding SudokuMatrix[8][8],
+							  RelativeSource={RelativeSource AncestorType=Window},
+							  Converter={StaticResource SudokuValueConverter}}"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch" />
+		<Button
+			Grid.Row="9"
+			Grid.Column="0"
+			Grid.ColumnSpan="3"
+			Margin="0,2,0,0"
+			Content="Save solution"
+			Command="{Binding SaveSolutionCommand,
+					  RelativeSource={RelativeSource AncestorType=Window}}" />
+		<Button
+			Grid.Row="9"
+			Grid.Column="6"
+			Grid.ColumnSpan="3"
+			Margin="2,2,0,0"
+			Content="Next solution"
+			Command="{Binding NextSolutionCommand,
+					  RelativeSource={RelativeSource AncestorType=Window}}" />
+	</Grid>
+</Window>
