@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Andrei15193.Edesia.Extensions;
+using Andrei15193.Edesia.Controllers;
+using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.Attributes
 {
 	public class ConfirmAccessAttribute
@@ -15,13 +16,15 @@ namespace Andrei15193.Edesia.Attributes
 		{
 			_roles = roles;
 		}
+
 		#region IAuthorizationFilter Members
 		public void OnAuthorization(AuthorizationContext filterContext)
 		{
 			_authorizeAttribute.OnAuthorization(filterContext);
-			if (filterContext.HttpContext.User.Identity.IsAuthenticated
+			ApplicationUser applicationUser = ApplicationController.GetApplicationUser(filterContext.HttpContext);
+			if (applicationUser != null
 				&& _roles != null
-				&& !_roles.Intersect(filterContext.HttpContext.GetApplicationUser().Roles).Any())
+				&& !_roles.Intersect(applicationUser.Roles).Any())
 				filterContext.Result = new RedirectResult("/");
 		}
 		#endregion

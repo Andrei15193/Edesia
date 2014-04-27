@@ -1,38 +1,28 @@
 ﻿@using System.ComponentModel.DataAnnotations
 @using System.Reflection
-@model Andrei15193.Edesia.ViewModels.User.ProfileViewModel
+@model Andrei15193.Edesia.ViewModels.User.UserDetailsViewModel
 @{
 	ViewBag.Title = Resources.Strings.View.ProfilePageTitle;
-	DisplayAttribute displayAttribute = Model.GetType().GetProperty("Roles").GetCustomAttribute<DisplayAttribute>();
 }
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4 offset4">
 			<h1 style="display: inline;">@Resources.Strings.View.ProfilePageTitle</h1>
-			<h2 style="display: inline;">@User.Identity.Name</h2>
-			@if (Model.Roles.Skip(1).Any())
-			{
-				<h5>@string.Join(", ", Model.Roles)</h5>
-			}
+			<h3 style="display: inline;">@Model.FirstName @Model.LastName</h3>
 			@using (Html.BeginForm())
 			{
-				@Html.LabelFor(model => model.EMail)
+				@Html.LabelFor(model => model.EMailAddress)
 				<div class="input-control text">
-					@Html.EditorFor(model => model.EMail, new
-			{
-				disabled = "disabled"
-			})
+					@Html.EditorFor(model => model.EMailAddress, new
+						{
+							disabled = "disabled"
+						})
 				</div>
-				@*@Html.LabelFor(model => model.Password)
-					<div class="input-control text">
-						@Html.EditorFor(model => model.Password)
-					</div>
-					<div class="input-control text">
-						@Html.EditorFor(model => model.PasswordCopy)
-					</div>*@
-				<button class="action margin5">Modifica adresa de livrare</button>
-				<button class="action margin5">Modifica adresa de email</button>
-				<button class="action margin5">Modifica parola</button>
+				@Html.LabelFor(model => model.Street)
+				@*@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Street"])*@
+				<div class="input-control text">
+					@Html.EditorFor(model => model.Street)
+				</div>
 				<input class="action" type="submit" value="@Resources.Strings.View.AcceptButtonText" />
 			}
 		</div>

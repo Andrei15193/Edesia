@@ -135,7 +135,7 @@
   <data name="InvalidLastNameMessage" xml:space="preserve">
     <value>Nu ași introdus un nume!</value>
   </data>
-  <data name="MissingEMailMessage" xml:space="preserve">
+  <data name="MissingEMailAddressMessage" xml:space="preserve">
     <value>Trebuie să introduceți o adresă de e-mail.</value>
   </data>
   <data name="MissingFirstNameMessage" xml:space="preserve">

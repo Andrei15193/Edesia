@@ -51,11 +51,11 @@ namespace Andrei15193.Edesia
 						return GetString("InvalidEMailAddressMessage");
 					}
 				}
-				public static string MissingEMailMessage
+				public static string MissingEMailAddressMessage
 				{
 					get
 					{
-						return GetString("MissingEMailMessage");
+						return GetString("MissingEMailAddressMessage");
 					}
 				}
 				public static string MissingPasswordMessage

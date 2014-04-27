@@ -1,18 +1,41 @@
-﻿using System.Linq;
-using System.Text;
+﻿using System;
 using System.Web;
-using System.Web.Configuration;
 using System.Web.Mvc;
-using Andrei15193.DependencyInjection;
-using Andrei15193.DependencyInjection.Configuration;
+using System.Web.Security;
+using Andrei15193.Edesia.DataAccess;
+using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.Controllers
 {
 	public abstract class ApplicationController
 		: Controller
 	{
-		static ApplicationController()
+		internal static ApplicationUser GetApplicationUser(HttpContextBase httpContext)
 		{
-			_dependencyContainer = new DependencyContainer((DependencyInjectionConfigurationSection)WebConfigurationManager.GetSection("DependencyInjection"));
+			if (httpContext == null)
+				throw new ArgumentNullException("httpContext");
+
+			if (!httpContext.User.Identity.IsAuthenticated)
+				return null;
+
+			HttpCookie authenticationCookie = httpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
+			if (authenticationCookie == null)
+				return null;
+
+			return ((IApplicationUserStore)MvcApplication.DependencyContainer["applicationUserStore"]).Find(httpContext.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
+		}
+		internal static ApplicationUser GetApplicationUser(HttpContext httpContext)
+		{
+			if (httpContext == null)
+				throw new ArgumentNullException("httpContext");
+
+			if (!httpContext.User.Identity.IsAuthenticated)
+				return null;
+
+			HttpCookie authenticationCookie = httpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
+			if (authenticationCookie == null)
+				return null;
+
+			return ((IApplicationUserStore)MvcApplication.DependencyContainer["applicationUserStore"]).Find(httpContext.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
 		}
 
 		protected override void OnResultExecuting(ResultExecutingContext filterContext)
@@ -32,15 +55,21 @@ namespace Andrei15193.Edesia.Controllers
 				return languageCookie.Value;
 			return Resources.Strings.DefaultLanguageId;
 		}
-		protected static DependencyContainer DependencyContainer
+		protected ApplicationUser ApplicationUser
 		{
 			get
 			{
-				return _dependencyContainer;
+				if (!User.Identity.IsAuthenticated)
+					return null;
+
+				HttpCookie authenticationCookie = HttpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
+				if (authenticationCookie == null)
+					return null;
+
+				return ((IApplicationUserStore)MvcApplication.DependencyContainer["applicationUserStore"]).Find(User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
 			}
 		}
 
 		private const string _languageCookieName = "DisplayLanguage";
-		private static readonly DependencyContainer _dependencyContainer;
 	}
 }

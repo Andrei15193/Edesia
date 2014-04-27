@@ -8,7 +8,6 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
-using Andrei15193.Edesia.Extensions;
 using Andrei15193.Edesia.Models;
 using Andrei15193.Edesia.Settings;
 using Andrei15193.Edesia.ViewModels.User;
@@ -21,11 +20,16 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet, ConfirmAccess]
 		public ActionResult Details()
 		{
-			ApplicationUser applicationUser = HttpContext.GetApplicationUser();
-			return View(new ProfileViewModel(applicationUser.Roles)
+			return View(new UserDetailsViewModel(ApplicationUser));
+		}
+		[HttpPost, ConfirmAccess]
+		public ActionResult Details(UserDetailsViewModel userDetailsViewModel)
+		{
+			if (ModelState.IsValid)
 			{
-				EMail = applicationUser.EMailAddress
-			});
+				return View(new UserDetailsViewModel(ApplicationUser));
+			}
+			return View();
 		}
 
 		[HttpGet]
@@ -93,7 +97,6 @@ namespace Andrei15193.Edesia.Controllers
 
 					_userStore.SetAuthenticationToken(applicationUser, authenticationCookie.Value, AuthenticationTokenType.Key);
 					Response.SetCookie(authenticationCookie);
-					HttpContext.SetApplicationUser(applicationUser, loginViewModel.EMailAddress);
 					if (Url.IsLocalUrl(returnUrl))
 						return Redirect(returnUrl);
 					else
@@ -128,16 +131,6 @@ namespace Andrei15193.Edesia.Controllers
 				return Redirect(returnUrl);
 			else
 				return RedirectToAction("Default", "Home");
-		}
-		[NonAction]
-		public void Login(string eMail, HttpContext context)
-		{
-			if (context.User.Identity.IsAuthenticated)
-			{
-				ApplicationUser applicationUser = _userStore.Find(eMail, context.Request.Cookies.Get(FormsAuthentication.FormsCookieName).Value, AuthenticationTokenType.Key);
-				if (applicationUser != null)
-					context.SetApplicationUser(applicationUser);
-			}
 		}
 		public ActionResult GetNavigationBar()
 		{
@@ -222,6 +215,6 @@ namespace Andrei15193.Edesia.Controllers
 			});
 		}
 
-		private readonly IApplicationUserStore _userStore = (IApplicationUserStore)DependencyContainer["applicationUserStore"];
+		private readonly IApplicationUserStore _userStore = (IApplicationUserStore)MvcApplication.DependencyContainer["applicationUserStore"];
 	}
 }

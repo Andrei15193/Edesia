@@ -2,10 +2,10 @@
 using Andrei15193.Edesia.Attributes;
 namespace Andrei15193.Edesia.ViewModels.User
 {
-	public class LoginViewModel
+	public sealed class LoginViewModel
 	{
 		[EmailAddress(ErrorMessage = null, ErrorMessageResourceName = "InvalidEMailAddressMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
-		[Required(AllowEmptyStrings = false, ErrorMessage = null, ErrorMessageResourceName = "MissingEMailMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
+		[Required(AllowEmptyStrings = false, ErrorMessage = null, ErrorMessageResourceName = "MissingEMailAddressMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
 		[Display(Name = "EMailAddressLabel", Prompt = "EMailAddressPlaceholder", ResourceType = typeof(Resources.Strings.View))]
 		public string EMailAddress
 		{

@@ -186,4 +186,10 @@
   <data name="RolesLabel" xml:space="preserve">
     <value>Roluri</value>
   </data>
+  <data name="StreetLabel" xml:space="preserve">
+    <value>Adresa (strada)</value>
+  </data>
+  <data name="StreetPlaceholder" xml:space="preserve">
+    <value>..., Cluj, Cluj-Napoca, România</value>
+  </data>
 </root>

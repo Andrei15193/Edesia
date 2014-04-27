@@ -177,6 +177,20 @@ namespace Andrei15193.Edesia
 						return GetString("LastNamePlaceholder");
 					}
 				}
+				public static string StreetLabel
+				{
+					get
+					{
+						return GetString("StreetLabel");
+					}
+				}
+				public static string StreetPlaceholder
+				{
+					get
+					{
+						return GetString("StreetPlaceholder");
+					}
+				}
 			}
 		}
 	}

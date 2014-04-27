@@ -1,21 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Andrei15193.Edesia.Attributes;
+using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.ViewModels.User
 {
-	public sealed class RegisterViewModel
-		: IValidatableObject
+	public sealed class UserDetailsViewModel
 	{
-		#region IValidatableObject Members
-		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+		public UserDetailsViewModel(ApplicationUser applicationUser)
 		{
-			if (!string.Equals(EMailAddress, EMailAddressCopy, StringComparison.Ordinal))
-				yield return new ValidationResult(Resources.Strings.Error.EMailAddressesAreNotEqualMessage, new[] { "EMailAddressCopy" });
-			if (!string.Equals(Password, PasswordCopy, StringComparison.Ordinal))
-				yield return new ValidationResult(Resources.Strings.Error.PasswordsAreNotEqualMessage, new[] { "PasswordCopy" });
+			if (applicationUser == null)
+				throw new ArgumentNullException("applicationUser");
+
+			EMailAddress = applicationUser.EMailAddress;
+			FirstName = applicationUser.FirstName;
+			LastName = applicationUser.LastName;
+			Street = applicationUser.Street;
 		}
-		#endregion
+
 		[Required(AllowEmptyStrings = false, ErrorMessage = null, ErrorMessageResourceName = "MissingFirstNameMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
 		[Display(Name = "FirstNameLabel", Prompt = "FirstNamePlaceholder", ResourceType = typeof(Resources.Strings.View))]
 		[RegularExpression(@"\s*\w+([ \-]\w+)*\s*", ErrorMessage = null, ErrorMessageResourceName = "InvalidFirstNameMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
@@ -41,14 +42,6 @@ namespace Andrei15193.Edesia.ViewModels.User
 			get;
 			set;
 		}
-		[EmailAddress(ErrorMessage = null, ErrorMessageResourceName = "InvalidEMailAddressMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
-		[Required(AllowEmptyStrings = false, ErrorMessage = null, ErrorMessageResourceName = "MissingEMailAddressMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
-		[Display(Prompt = "EMailAddressCopyPlaceholder", ResourceType = typeof(Resources.Strings.View))]
-		public string EMailAddressCopy
-		{
-			get;
-			set;
-		}
 
 		[Password]
 		[Required(AllowEmptyStrings = true, ErrorMessage = null, ErrorMessageResourceName = "MissingPasswordMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
@@ -60,8 +53,15 @@ namespace Andrei15193.Edesia.ViewModels.User
 		}
 		[Password]
 		[Required(AllowEmptyStrings = true, ErrorMessage = null, ErrorMessageResourceName = "MissingPasswordMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
-		[Display(Prompt = "PasswordCopyPlaceholder", ResourceType = typeof(Resources.Strings.View))]
+		[Display(Name = "PasswordLabel", Prompt = "PasswordCopyPlaceholder", ResourceType = typeof(Resources.Strings.View))]
 		public string PasswordCopy
+		{
+			get;
+			set;
+		}
+
+		[Display(Name = "StreetLabel", Prompt = "StreetPlaceholder", ResourceType = typeof(Resources.Strings.View))]
+		public string Street
 		{
 			get;
 			set;
