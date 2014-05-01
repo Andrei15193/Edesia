@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -7,7 +6,6 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Andrei15193.DependencyInjection;
 using Andrei15193.DependencyInjection.Configuration;
-using Andrei15193.Edesia.Settings;
 namespace Andrei15193.Edesia
 {
 	public class MvcApplication
@@ -34,11 +32,6 @@ namespace Andrei15193.Edesia
 
 		protected void Application_Start()
 		{
-			ILocalizationSettings localizationSettings = (ILocalizationSettings)DependencyContainer["localizationSettings"];
-			Resources.Strings.DefaultLanguageId = localizationSettings.LanguageSettings.First().LanguageId;
-			foreach (ILanguageSettings languageSetting in localizationSettings.LanguageSettings)
-				Resources.Strings.RegisterLanguageStrings(languageSetting);
-
 			AreaRegistration.RegisterAllAreas();
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);

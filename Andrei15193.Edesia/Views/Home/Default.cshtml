@@ -1,14 +1,15 @@
-﻿@{
-	ViewBag.Title = Resources.Strings.View.HomePageTitle;
+﻿@using Andrei15193.Edesia.Resources;
+@{
+	ViewBag.Title = ProductsViewStrings.ViewTitle;
 }
 <div class="body-content">
 	<div class="grid fluid">
 		<div class="row">
 			<div class="span8 offset2">
 				<div class="notice bg-gray fg-white">
-					<h1>@Resources.Strings.View.HomePageNoticeTitle</h1>
+					<h1>@ProductsViewStrings.NoticeTitle</h1>
 					<p class="text-justify">
-						@Resources.Strings.View.HomePageNoticeParagraph1
+						@ProductsViewStrings.NoticeParagraph1
 						<div class="text-right"><em>Andrei</em></div>
 					</p>
 				</div>

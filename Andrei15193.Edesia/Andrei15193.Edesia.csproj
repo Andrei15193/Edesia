@@ -146,14 +146,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\" />
     <Folder Include="Views\Application\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\LocalizedEMailAddressAttribute.cs" />
+    <Compile Include="Attributes\LocalizedRegularExpressionAttribute.cs" />
+    <Compile Include="Attributes\LocalizedRequiredAttribute.cs" />
     <Compile Include="Models\IApplication.cs" />
-    <Compile Include="Resources\Strings\EMail.cs" />
-    <Compile Include="Resources\Strings\Error.cs" />
-    <Compile Include="Resources\Strings\Strings.cs" />
-    <Compile Include="Resources\Strings\View.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\MetroUICSSBundleConfig.cs" />
@@ -169,13 +169,87 @@
     <Compile Include="DataAccess\AuthenticationTokenType.cs" />
     <Compile Include="DataAccess\IApplicationUserStore.cs" />
     <Compile Include="DataAccess\Xml\Azure\AzureXmlDocumentProvider.cs" />
+    <Compile Include="Resources\AddProductViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddProductViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\EMailNoticeStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EMailNoticeStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Strings\AddProductViewKey.cs" />
+    <Compile Include="Resources\Strings\EMailNoticeKey.cs" />
+    <Compile Include="Resources\Strings\ErrorKey.cs" />
+    <Compile Include="Resources\ErrorStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\LayoutViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LayoutViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\LoginViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoginViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\NavigationViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NavigationViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\NoticeStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NoticeStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ProductsViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductsViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\PurchaseViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\RegisterViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RegisterViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ScheduleDeliveriesViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScheduleDeliveriesViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ShoppingCartViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ShoppingCartViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Strings\LayoutViewKey.cs" />
+    <Compile Include="Resources\Strings\LoginViewKey.cs" />
+    <Compile Include="Resources\Strings\NavigationViewKey.cs" />
+    <Compile Include="Resources\Strings\NoticeKey.cs" />
+    <Compile Include="Resources\Strings\ProductsViewKey.cs" />
+    <Compile Include="Resources\Strings\PurchaseViewKey.cs" />
+    <Compile Include="Resources\Strings\RegisterViewKey.cs" />
+    <Compile Include="Resources\Strings\ScheduleDeliveriesViewKey.cs" />
+    <Compile Include="Resources\Strings\ShoppingCartViewKey.cs" />
+    <Compile Include="Resources\Strings\TasksViewKey.cs" />
+    <Compile Include="Resources\TasksViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TasksViewStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Settings\Azure\AzureEMailSettings.cs" />
     <Compile Include="Settings\IEMailSettings.cs" />
-    <Compile Include="Settings\ILanguageSettings.cs" />
-    <Compile Include="Settings\ILocalizationSettings.cs" />
     <Compile Include="Settings\IRegistrationSettings.cs" />
-    <Compile Include="Settings\LanguageSettings.cs" />
-    <Compile Include="Settings\LocalizationSettings.cs" />
     <Compile Include="Settings\Local\LocalEMailSettings.cs" />
     <Compile Include="Settings\RegistrationSettings.cs" />
     <Compile Include="Xml\Validation\UniqueConstraintException.cs" />
@@ -184,7 +258,6 @@
     <Compile Include="DataAccess\Xml\XmlDocumentProvider.cs" />
     <Compile Include="DataAccess\Xml\Local\LocalXmlDocumentProvider.cs" />
     <Compile Include="DataAccess\Xml\XmlApplicationUserStore.cs" />
-    <Compile Include="Data\MockData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>
@@ -212,7 +285,6 @@
     <Compile Include="Models\UserType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\User\LoginViewModel.cs" />
-    <Compile Include="ViewModels\User\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\User\RegisterViewModel.cs" />
     <Compile Include="Xml\Validation\XmlSchemaConstraintException.cs" />
   </ItemGroup>
@@ -264,9 +336,8 @@
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Shared\_Notice.cshtml" />
-    <Content Include="Views\User\GetNavigationBar.cshtml" />
-    <Content Include="Views\User\GetLanguageDropdown.cshtml" />
-    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\Shared\_NavigationBar.cshtml" />
+    <Content Include="Views\Shared\_LanguageDropdown.cshtml" />
     <Content Include="Views\Shared\_ModelErrorNotice.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
@@ -274,11 +345,58 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Strings\Romanian\EMail.resx">
-      <CustomToolNamespace>Andrei15193.Edesia</CustomToolNamespace>
+    <EmbeddedResource Include="Resources\AddProductViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddProductViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Strings\Romanian\Error.resx" />
-    <EmbeddedResource Include="Resources\Strings\Romanian\View.resx" />
+    <EmbeddedResource Include="Resources\EMailNoticeStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EMailNoticeStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ErrorStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LayoutViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LayoutViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LoginViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoginViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NavigationViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NavigationViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NoticeStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NoticeStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProductsViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProductsViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PurchaseViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PurchaseViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\RegisterViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RegisterViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ScheduleDeliveriesViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ScheduleDeliveriesViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ShoppingCartViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ShoppingCartViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TasksViewStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TasksViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

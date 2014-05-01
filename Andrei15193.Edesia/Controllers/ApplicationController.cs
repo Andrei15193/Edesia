@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -41,11 +43,11 @@ namespace Andrei15193.Edesia.Controllers
 		protected override void OnResultExecuting(ResultExecutingContext filterContext)
 		{
 			base.OnResultExecuting(filterContext);
-			Resources.Strings.SelectedLangaugeId = GetSelectedLanguageId();
+			Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(GetSelectedLanguageId());
 		}
 		protected HttpCookie GetLanguageCookie(string languageId)
 		{
-			return new HttpCookie(_languageCookieName, languageId ?? Resources.Strings.DefaultLanguageId);
+			return new HttpCookie(_languageCookieName, languageId ?? "RO");
 		}
 		protected string GetSelectedLanguageId()
 		{
@@ -53,7 +55,7 @@ namespace Andrei15193.Edesia.Controllers
 
 			if (languageCookie != null)
 				return languageCookie.Value;
-			return Resources.Strings.DefaultLanguageId;
+			return "RO";
 		}
 		protected ApplicationUser ApplicationUser
 		{

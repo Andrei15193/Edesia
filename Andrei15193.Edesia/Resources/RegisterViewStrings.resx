@@ -117,79 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AcceptButtonText" xml:space="preserve">
-    <value>Acceptă</value>
-  </data>
-  <data name="EMailAddressCopyPlaceholder" xml:space="preserve">
-    <value>reintroduceți adresa de e-mail (verificare)</value>
-  </data>
-  <data name="EMailAddressLabel" xml:space="preserve">
+  <data name="EMailTextBox_DisplayName" xml:space="preserve">
     <value>Adresa de E-Mail</value>
   </data>
-  <data name="EMailAddressPlaceholder" xml:space="preserve">
-    <value>nume@site.ro</value>
+  <data name="EMailTextBox_Hint" xml:space="preserve">
+    <value>nume@exemplu.ro</value>
   </data>
-  <data name="FirstNameLabel" xml:space="preserve">
+  <data name="EMailVerificationTextBox_DisplayName" xml:space="preserve">
+    <value>Verificați adresa de E-Mail</value>
+  </data>
+  <data name="EMailVerificationTextBox_Hint" xml:space="preserve">
+    <value>reintroduceți adresa de e-mail (verificare)</value>
+  </data>
+  <data name="FirstNameTextBox_DisplayName" xml:space="preserve">
     <value>Prenume</value>
   </data>
-  <data name="FirstNamePlaceholder" xml:space="preserve">
-    <value>prenumele duneavoastră</value>
+  <data name="FirstNameTextBox_Hint" xml:space="preserve">
+    <value>prenumele dumneavoastră</value>
   </data>
-  <data name="HomePageNoticeParagraph1" xml:space="preserve">
-    <value>„Edesia” este proiectul meu de licență. La suprafață se este un magazin online, iar „în spate” este un motor de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web (eventual o aplicație pentru dispozitive mobile va fi creată pentru a realiza același lucru) și să planifice sarcini pentru „angajați” (cum ar fi planificarea rutelor pentru livrare).</value>
-  </data>
-  <data name="HomePageNoticeTitle" xml:space="preserve">
-    <value>Încă nu îi gata...</value>
-  </data>
-  <data name="HomePageTitle" xml:space="preserve">
-    <value>Acasă</value>
-  </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Limba</value>
-  </data>
-  <data name="LastNameLabel" xml:space="preserve">
+  <data name="LastNameTextBox_DisplayName" xml:space="preserve">
     <value>Nume</value>
   </data>
-  <data name="LastNamePlaceholder" xml:space="preserve">
-    <value>nume dumneavoastră (de familie)</value>
+  <data name="LastNameTextBox_Hint" xml:space="preserve">
+    <value>numele dumneavoastră (de familie)</value>
   </data>
-  <data name="LoginLabel" xml:space="preserve">
-    <value>Autentificare</value>
-  </data>
-  <data name="LogoutLabel" xml:space="preserve">
-    <value>Deconectare</value>
-  </data>
-  <data name="PasswordCopyPlaceholder" xml:space="preserve">
-    <value>reintroduceți parola (verificare)</value>
-  </data>
-  <data name="PasswordLabel" xml:space="preserve">
+  <data name="PasswordInput_DisplayName" xml:space="preserve">
     <value>Parola</value>
   </data>
-  <data name="PasswordPlaceholder" xml:space="preserve">
-    <value>cheia contului</value>
+  <data name="PasswordInput_Hint" xml:space="preserve">
+    <value />
   </data>
-  <data name="ProfilePageTitle" xml:space="preserve">
-    <value>Profil</value>
+  <data name="PasswordVerificationInput_DisplayName" xml:space="preserve">
+    <value>Verificați parola</value>
   </data>
-  <data name="RegisterButtonText" xml:space="preserve">
+  <data name="PasswordVerificationInput_Hint" xml:space="preserve">
+    <value>reintroduceți parola (verificare)</value>
+  </data>
+  <data name="RegisterButton_DisplayName" xml:space="preserve">
     <value>Înregistrare</value>
   </data>
-  <data name="RegisterLabel" xml:space="preserve">
+  <data name="ViewTitle" xml:space="preserve">
     <value>Înregistrare</value>
-  </data>
-  <data name="RegisterMailSendNoticeParagraph1" xml:space="preserve">
-    <value>Am trimis un e-mail la adresa oferită cu detalii despre următorii pași care trebuie urmați pentru a vă înregistra.</value>
-  </data>
-  <data name="RegistrationCompleteNoticeParagraph1" xml:space="preserve">
-    <value>Înregistrarea s-a încheiat cu succes. Vă puteți autentifica și începe să cumpărați!</value>
-  </data>
-  <data name="RolesLabel" xml:space="preserve">
-    <value>Roluri</value>
-  </data>
-  <data name="StreetLabel" xml:space="preserve">
-    <value>Adresa (strada)</value>
-  </data>
-  <data name="StreetPlaceholder" xml:space="preserve">
-    <value>..., Cluj, Cluj-Napoca, România</value>
   </data>
 </root>

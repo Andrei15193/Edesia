@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Andrei15193.Edesia.Attributes;
+using Andrei15193.Edesia.Resources;
+using Andrei15193.Edesia.Resources.Strings;
 namespace Andrei15193.Edesia.ViewModels.User
 {
 	public sealed class RegisterViewModel
@@ -11,56 +13,56 @@ namespace Andrei15193.Edesia.ViewModels.User
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{
 			if (!string.Equals(EMailAddress, EMailAddressCopy, StringComparison.Ordinal))
-				yield return new ValidationResult(Resources.Strings.Error.EMailAddressesAreNotEqualMessage, new[] { "EMailAddressCopy" });
+				yield return new ValidationResult(ErrorStrings.EMailTextBox_InvalidVerificationValue, new[] { "EMailAddressCopy" });
 			if (!string.Equals(Password, PasswordCopy, StringComparison.Ordinal))
-				yield return new ValidationResult(Resources.Strings.Error.PasswordsAreNotEqualMessage, new[] { "PasswordCopy" });
+				yield return new ValidationResult(ErrorStrings.PasswordInput_InvalidVerificationValue, new[] { "PasswordCopy" });
 		}
 		#endregion
-		[Required(AllowEmptyStrings = false, ErrorMessage = null, ErrorMessageResourceName = "MissingFirstNameMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
-		[Display(Name = "FirstNameLabel", Prompt = "FirstNamePlaceholder", ResourceType = typeof(Resources.Strings.View))]
-		[RegularExpression(@"\s*\w+([ \-]\w+)*\s*", ErrorMessage = null, ErrorMessageResourceName = "InvalidFirstNameMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
+		[LocalizedRequired(ErrorKey.FirstNameTextBox_MissingValue, AllowEmptyStrings = false)]
+		[LocalizedRegularExpression(@"\s*\w+([ \-]\w+)*\s*", ErrorKey.FirstNameTextBox_InvalidValue)]
+		[Display(Name = "FirstNameTextBox_DisplayName", Prompt = "FirstNameTextBox_Hint", ResourceType = typeof(RegisterViewStrings))]
 		public string FirstName
 		{
 			get;
 			set;
 		}
-		[Required(AllowEmptyStrings = false, ErrorMessage = null, ErrorMessageResourceName = "MissingLastNameMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
-		[Display(Name = "LastNameLabel", Prompt = "LastNamePlaceholder", ResourceType = typeof(Resources.Strings.View))]
-		[RegularExpression(@"\s*\w+([ \-]\w+)*\s*", ErrorMessage = null, ErrorMessageResourceName = "InvalidLastNameMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
+		[LocalizedRequired(ErrorKey.LastNameTextBox_MissingValue, AllowEmptyStrings = false)]
+		[LocalizedRegularExpression(@"\s*\w+([ \-]\w+)*\s*", ErrorKey.LastNameTextBox_InvalidValue)]
+		[Display(Name = RegisterViewKey.LastNameTextBox_DisplayName, Prompt = RegisterViewKey.LastNameTextBox_Hint, ResourceType = typeof(RegisterViewStrings))]
 		public string LastName
 		{
 			get;
 			set;
 		}
 
-		[EmailAddress(ErrorMessage = null, ErrorMessageResourceName = "InvalidEMailAddressMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
-		[Required(AllowEmptyStrings = false, ErrorMessage = null, ErrorMessageResourceName = "MissingEMailAddressMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
-		[Display(Name = "EMailAddressLabel", Prompt = "EMailAddressPlaceholder", ResourceType = typeof(Resources.Strings.View))]
+		[LocalizedEMailAddress]
+		[LocalizedRequired(ErrorKey.EMailTextBox_MissingValue, AllowEmptyStrings = false)]
+		[Display(Name = RegisterViewKey.EMailTextBox_DisplayName, Prompt = RegisterViewKey.EMailTextBox_Hint, ResourceType = typeof(RegisterViewStrings))]
 		public string EMailAddress
 		{
 			get;
 			set;
 		}
-		[EmailAddress(ErrorMessage = null, ErrorMessageResourceName = "InvalidEMailAddressMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
-		[Required(AllowEmptyStrings = false, ErrorMessage = null, ErrorMessageResourceName = "MissingEMailAddressMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
-		[Display(Prompt = "EMailAddressCopyPlaceholder", ResourceType = typeof(Resources.Strings.View))]
+		[LocalizedEMailAddress]
+		[LocalizedRequired(ErrorKey.EMailTextBox_MissingValue)]
+		[Display(Name = RegisterViewKey.EMailVerificationTextBox_DisplayName, Prompt = RegisterViewKey.EMailVerificationTextBox_Hint, ResourceType = typeof(RegisterViewStrings))]
 		public string EMailAddressCopy
 		{
 			get;
 			set;
 		}
 
+		[LocalizedRequired(ErrorKey.PasswordInput_MissingValue, AllowEmptyStrings = false)]
 		[Password]
-		[Required(AllowEmptyStrings = true, ErrorMessage = null, ErrorMessageResourceName = "MissingPasswordMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
-		[Display(Name = "PasswordLabel", Prompt = "PasswordPlaceholder", ResourceType = typeof(Resources.Strings.View))]
+		[Display(Name = RegisterViewKey.PasswordInput_DisplayName, Prompt = RegisterViewKey.PasswordInput_Hint, ResourceType = typeof(RegisterViewStrings))]
 		public string Password
 		{
 			get;
 			set;
 		}
 		[Password]
-		[Required(AllowEmptyStrings = true, ErrorMessage = null, ErrorMessageResourceName = "MissingPasswordMessage", ErrorMessageResourceType = typeof(Resources.Strings.Error))]
-		[Display(Prompt = "PasswordCopyPlaceholder", ResourceType = typeof(Resources.Strings.View))]
+		[LocalizedRequired(ErrorKey.PasswordInput_MissingValue, AllowEmptyStrings = false)]
+		[Display(Name = RegisterViewKey.PasswordVerificationInput_DisplayName, Prompt = RegisterViewKey.PasswordVerificationInput_Hint, ResourceType = typeof(RegisterViewStrings))]
 		public string PasswordCopy
 		{
 			get;
