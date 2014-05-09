@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Andrei15193.Edesia.Controllers;
@@ -12,7 +13,7 @@ namespace Andrei15193.Edesia.Attributes
 			: this(null)
 		{
 		}
-		public ConfirmAccessAttribute(params string[] roles)
+		public ConfirmAccessAttribute(params Type[] roles)
 		{
 			_roles = roles;
 		}
@@ -21,15 +22,18 @@ namespace Andrei15193.Edesia.Attributes
 		public void OnAuthorization(AuthorizationContext filterContext)
 		{
 			_authorizeAttribute.OnAuthorization(filterContext);
-			ApplicationUser applicationUser = ApplicationController.GetApplicationUser(filterContext.HttpContext);
-			if (applicationUser != null
-				&& _roles != null
-				&& !_roles.Intersect(applicationUser.Roles).Any())
-				filterContext.Result = new RedirectResult("/");
+
+			if (filterContext.HttpContext.User.Identity.IsAuthenticated)
+			{
+				ApplicationUserRole applicationUserRole = ApplicationController.GetApplicationUser(filterContext.HttpContext) as ApplicationUserRole;
+
+				if (_roles != null && (applicationUserRole == null || _roles.All(role => !applicationUserRole.IsInRole(role))))
+					filterContext.Result = new RedirectResult("/");
+			}
 		}
 		#endregion
 
-		private readonly IReadOnlyCollection<string> _roles;
+		private readonly IReadOnlyCollection<Type> _roles;
 		private readonly AuthorizeAttribute _authorizeAttribute = new AuthorizeAttribute();
 	}
 }

@@ -5,7 +5,7 @@ namespace Andrei15193.Edesia.Models
 {
 	public class ApplicationUser
 	{
-		public ApplicationUser(string eMailAddress, string firstName, string lastName, DateTime registrationTime, string street = null)
+		public ApplicationUser(string eMailAddress, string firstName, string lastName, DateTime registrationTime, Address address = null)
 		{
 			if (eMailAddress == null)
 				throw new ArgumentNullException("eMailAddress");
@@ -31,16 +31,20 @@ namespace Andrei15193.Edesia.Models
 			_firstName = firstName.Trim();
 			_lastName = lastName.Trim();
 			_registrationTime = registrationTime;
-			Street = (street == null ? null : street.Trim());
+
+			Address = address;
+		}
+		protected ApplicationUser(ApplicationUser applicationUser)
+		{
+			if (applicationUser == null)
+				throw new ArgumentNullException("applicationUser");
+
+			_eMailAddress = applicationUser._eMailAddress;
+			_firstName = applicationUser._firstName;
+			_lastName = applicationUser._lastName;
+			_registrationTime = applicationUser._registrationTime;
 		}
 
-		public DateTime RegistrationTime
-		{
-			get
-			{
-				return _registrationTime;
-			}
-		}
 		public string EMailAddress
 		{
 			get
@@ -60,11 +64,6 @@ namespace Andrei15193.Edesia.Models
 					throw new ArgumentException("The given e-mail address is not valid!", "EMailAddress", formatException);
 				}
 			}
-		}
-		public string Street
-		{
-			get;
-			set;
 		}
 		public string FirstName
 		{
@@ -98,11 +97,23 @@ namespace Andrei15193.Edesia.Models
 				_lastName = value.Trim();
 			}
 		}
-		public ISet<string> Roles
+		public DateTime RegistrationTime
 		{
 			get
 			{
-				return _roles;
+				return _registrationTime;
+			}
+		}
+		public Address Address
+		{
+			get;
+			set;
+		}
+		public virtual IReadOnlyCollection<string> Roles
+		{
+			get
+			{
+				return MvcApplication.GetEmptyAray<string>();
 			}
 		}
 
@@ -110,6 +121,5 @@ namespace Andrei15193.Edesia.Models
 		private string _firstName;
 		private string _lastName;
 		private readonly DateTime _registrationTime;
-		private readonly ISet<string> _roles = new HashSet<string>();
 	}
 }

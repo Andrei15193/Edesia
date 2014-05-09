@@ -153,6 +153,11 @@
     <Compile Include="Attributes\LocalizedEMailAddressAttribute.cs" />
     <Compile Include="Attributes\LocalizedRegularExpressionAttribute.cs" />
     <Compile Include="Attributes\LocalizedRequiredAttribute.cs" />
+    <Compile Include="Collections\ReadOnlyCollection.cs" />
+    <Compile Include="Controllers\DeliveryController.cs" />
+    <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\ApplicationUserRole.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\IApplication.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -173,6 +178,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AddProductViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DeliveryPlanningViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeliveryPlanningViewStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\EMailNoticeStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -306,6 +316,7 @@
     <None Include="Properties\PublishProfiles\andrei15193test.pubxml" />
     <None Include="Properties\PublishProfiles\edesia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <None Include="Schemas\DeliveryMapping.xsd" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\metro-ui\jquery.ui.widget.js" />
@@ -340,6 +351,7 @@
     <Content Include="Views\Shared\_LanguageDropdown.cshtml" />
     <Content Include="Views\Shared\_ModelErrorNotice.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\Delivery\Planning.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -348,6 +360,10 @@
     <EmbeddedResource Include="Resources\AddProductViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AddProductViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DeliveryPlanningViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeliveryPlanningViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EMailNoticeStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

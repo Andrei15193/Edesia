@@ -9,7 +9,6 @@ using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
 using Andrei15193.Edesia.Models;
 using Andrei15193.Edesia.Resources;
-using Andrei15193.Edesia.Resources.Strings;
 using Andrei15193.Edesia.Settings;
 using Andrei15193.Edesia.ViewModels.User;
 using Andrei15193.Edesia.Xml.Validation;
@@ -37,13 +36,9 @@ namespace Andrei15193.Edesia.Controllers
 				{
 					string registrationKey = _GenerateRegistrationKey();
 
-					_userStore.AddApplicationUser(new ApplicationUser(registerViewModel.EMailAddress, registerViewModel.FirstName, registerViewModel.LastName, DateTime.Now)
-						{
-							Roles =
-							{
-								UserRoles.Client
-							}
-						}, registerViewModel.Password, registrationKey);
+					_userStore.AddApplicationUser(new ApplicationUser(registerViewModel.EMailAddress, registerViewModel.FirstName, registerViewModel.LastName, DateTime.Now),
+												  registerViewModel.Password,
+												  registrationKey);
 					_SendRegistrationEMail(registerViewModel, registrationKey);
 
 					return View("_Notice", new Notice(RegisterViewStrings.ViewTitle, null, NoticeStrings.Registration_ConfirmationMailSent_Paragraph1));
@@ -91,6 +86,7 @@ namespace Andrei15193.Edesia.Controllers
 				else
 					ModelState.AddModelError("EMailAddress", ErrorStrings.CredentialControls_InvalidValues);
 			}
+
 			return View(loginViewModel);
 		}
 

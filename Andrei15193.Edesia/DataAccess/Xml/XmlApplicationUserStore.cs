@@ -40,14 +40,16 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			XDocument xmlDocument = XmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName, _xmlDocumentSchemaSet);
 			_ClearTimedoutRegistrationKeys(xmlDocument);
+
 			xmlDocument.Root.AddFirst(_GetApplicationUserXElement(applicationUser, password, registrationKey));
+
 			XmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
 		}
 		public ApplicationUser Find(string email, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
 		{
 			IEnumerable<XElement> userXElements = XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet)
-																	  .Root
-																	  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser");
+																	 .Root
+																	 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser");
 			switch (authenticationTokenType)
 			{
 				case AuthenticationTokenType.Key:
@@ -95,6 +97,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		{
 			if (applicationUserEmail == null)
 				throw new ArgumentNullException("applicationUserEmail");
+
 			XDocument xmlDocument = XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet);
 			XElement userXElement = xmlDocument.Root
 											   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
@@ -118,6 +121,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			XDocument xmlDocument = XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet);
 			_ClearTimedoutRegistrationKeys(xmlDocument);
+
 			XElement userXElement = xmlDocument.Root
 											   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
 											   .FirstOrDefault(userElement =>
@@ -187,67 +191,85 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 																  userXElement.Attribute("LastName").Value,
 																  XmlConvert.ToDateTime(userXElement.Attribute("RegistrationTime").Value, MvcApplication.DateTimeSerializationFormat));
 			XAttribute registrationKeyXAttribute = userXElement.Attribute("RegistrationKey");
-			XAttribute streetXAttribute = userXElement.Attribute("Street");
-			
-			if (streetXAttribute != null)
-				applicationUser.Street = streetXAttribute.Value;
+
 			if (registrationKeyXAttribute == null)
 				registrationKey = null;
 			else
 				registrationKey = registrationKeyXAttribute.Value;
 
-			foreach (XElement roleXElement in userXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Role"))
-				applicationUser.Roles.Add(_GetRole(roleXElement));
+			XElement addressXElement = userXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address");
+			if (addressXElement != null)
+				applicationUser.Address = _GetAddress(addressXElement);
+
+			XElement employeeXElement = userXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee");
+			if (employeeXElement != null)
+			{
+				Employee employee = new Employee(applicationUser, int.Parse(employeeXElement.Attribute("TransportCapacity").Value));
+
+				foreach (XElement deliveryZoneXElement in employeeXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}DeliveryZone"))
+					employee.DeliveryZones.Add(deliveryZoneXElement.Value);
+
+				applicationUser = employee;
+			}
+
+			XElement administratorXElement = userXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Administrator");
+			if (administratorXElement != null)
+				applicationUser = new Administrator(applicationUser);
 
 			return applicationUser;
 		}
 		private XElement _GetApplicationUserXElement(ApplicationUser applicationUser, string password, string registrationKey = null)
 		{
-			XElement newUserXElement = new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser",
-													new XAttribute("EMail", applicationUser.EMailAddress),
-													new XAttribute("FirstName", applicationUser.FirstName),
-													new XAttribute("LastName", applicationUser.LastName),
-													new XAttribute("PasswordHash", _ComputeHash(password)));
+			XElement applicationUserXElement = new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser",
+															new XAttribute("EMail", applicationUser.EMailAddress),
+															new XAttribute("FirstName", applicationUser.FirstName),
+															new XAttribute("LastName", applicationUser.LastName),
+															new XAttribute("PasswordHash", _ComputeHash(password)));
 
 			if (registrationKey != null)
 			{
-				newUserXElement.Add(new XAttribute("RegistrationTime", XmlConvert.ToString(applicationUser.RegistrationTime, MvcApplication.DateTimeSerializationFormat)));
-				newUserXElement.Add(new XAttribute("RegistrationKey", registrationKey));
+				applicationUserXElement.Add(new XAttribute("RegistrationTime", XmlConvert.ToString(applicationUser.RegistrationTime, MvcApplication.DateTimeSerializationFormat)));
+				applicationUserXElement.Add(new XAttribute("RegistrationKey", registrationKey));
 			}
-			foreach (string userRole in applicationUser.Roles)
-				newUserXElement.Add(_GetRoleXElement(userRole));
-			if (applicationUser.Street != null)
-				newUserXElement.Add(new XAttribute("Street", applicationUser.Street));
+			if (applicationUser.Address != null)
+				applicationUserXElement.Add(_GetAddressXElement(applicationUser.Address));
 
-			return newUserXElement;
-		}
-		private XElement _GetRoleXElement(string role)
-		{
-			return new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Role", new XAttribute("Name", role));
-		}
-		private string _GetRole(XElement roleXElement)
-		{
-			return roleXElement.Attribute("Name").Value;
+			ApplicationUserRole applicationUserRole = applicationUser as ApplicationUserRole;
+
+			if (applicationUserRole != null)
+			{
+				Employee employee = applicationUserRole.TryGetRole<Employee>();
+
+				if (employee != null)
+					applicationUserXElement.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee",
+															 employee.DeliveryZones.Select(deliveryZone => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}DeliveryZone", deliveryZone))));
+
+				Administrator administrator = applicationUserRole.TryGetRole<Administrator>();
+
+				if (administrator != null)
+					applicationUserXElement.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Administrator"));
+			}
+			
+			return applicationUserXElement;
 		}
 		private XElement _GetAddressXElement(Address address)
 		{
-			return new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address",
-								new XAttribute("Street", address.Street),
-								new XAttribute("City", address.City),
-								new XAttribute("County", address.County));
-		}
-		private XElement _GetAddressXElement(Address address, string xElementName = null)
-		{
-			return new XElement(("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}" + (xElementName ?? "Address")),
-								new XAttribute("Street", address.Street),
-								new XAttribute("City", address.City),
-								new XAttribute("County", address.County));
+			if (address.Details == null)
+				return new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address",
+									new XAttribute("Street", address.Street));
+			else
+				return new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address",
+									new XAttribute("Street", address.Street),
+									new XAttribute("Details", address.Details));
 		}
 		private Address _GetAddress(XElement addressXElement)
 		{
-			return new Address(addressXElement.Attribute("Street").Value,
-							   (City)Enum.Parse(typeof(City), addressXElement.Attribute("City").Value),
-							   (County)Enum.Parse(typeof(County), addressXElement.Attribute("City").Value));
+			XAttribute addressDetailsAttribute = addressXElement.Attribute("Details");
+
+			if (addressDetailsAttribute == null)
+				return new Address(addressXElement.Attribute("Street").Value);
+			else
+				return new Address(addressXElement.Attribute("Street").Value, addressDetailsAttribute.Value);
 		}
 		private string _ComputeHash(string authenticationToken)
 		{
@@ -257,7 +279,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		private void _ClearTimedoutRegistrationKeys(XDocument xmlDocument)
 		{
 			IRegistrationSettings registrationSettings = (IRegistrationSettings)MvcApplication.DependencyContainer["registrationSettings"];
-			
+
 			foreach (XElement timedoutApplicationUser in xmlDocument.Root
 																	.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
 																	.Where(userXElement => userXElement.Attribute("RegistrationKey") != null

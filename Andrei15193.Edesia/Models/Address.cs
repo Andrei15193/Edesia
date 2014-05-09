@@ -3,25 +3,21 @@ namespace Andrei15193.Edesia.Models
 {
 	public class Address
 	{
-		public Address(string street, City city, County county)
+		public Address(string street, string details = null)
 		{
 			if (street == null)
 				throw new ArgumentNullException("street");
+			if (string.IsNullOrEmpty(street) || string.IsNullOrWhiteSpace(street))
+				throw new ArgumentException("Cannot be empty or whitespace!", "street");
+
 			_street = street;
-			City = city;
-			County = county;
+
+			if (string.IsNullOrEmpty(details) || string.IsNullOrWhiteSpace(details))
+				_details = null;
+			else
+				_details = details;
 		}
 
-		public City City
-		{
-			get;
-			set;
-		}
-		public County County
-		{
-			get;
-			set;
-		}
 		public string Street
 		{
 			get
@@ -32,10 +28,35 @@ namespace Andrei15193.Edesia.Models
 			{
 				if (value == null)
 					throw new ArgumentNullException("Street");
+				if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+					throw new ArgumentException("Cannot be empty or whitespace!", "Street");
+
 				_street = value;
 			}
 		}
+		public string Details
+		{
+			get
+			{
+				return _details;
+			}
+			set
+			{
+				if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+					_details = null;
+				else
+					_details = value;
+			}
+		}
+		public override string ToString()
+		{
+			if (_details == null)
+				return _street;
+			else
+				return string.Join(", ", _street, _details);
+		}
 
 		private string _street;
+		private string _details;
 	}
 }

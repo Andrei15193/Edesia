@@ -19,6 +19,18 @@
 		color: #FFFFFF !important;
 	}
 
+.damagingAction
+{
+	background-color: #E51400 !important;
+	color: #000000 !important;
+}
+
+	.damagingAction:hover
+	{
+		background-color: #FF2D19 !important;
+		color: #000000 !important;
+	}
+
 p a, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a
 {
 	color: #60A917 !important;
