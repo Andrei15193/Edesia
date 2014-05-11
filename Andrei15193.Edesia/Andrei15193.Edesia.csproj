@@ -155,13 +155,18 @@
     <Compile Include="Attributes\LocalizedRequiredAttribute.cs" />
     <Compile Include="Collections\ReadOnlyCollection.cs" />
     <Compile Include="Controllers\DeliveryController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="DataAccess\IDeliveryRepository.cs" />
+    <Compile Include="DataAccess\IProductRepository.cs" />
+    <Compile Include="DataAccess\Mock\MockProductRepository.cs" />
     <Compile Include="DataAccess\Xml\XmlDeliveryRepository.cs" />
+    <Compile Include="DataAccess\Xml\XmlProductRepository.cs" />
     <Compile Include="Exceptions\DomainConstraintException.cs" />
     <Compile Include="Exceptions\UniqueAddressException.cs" />
     <Compile Include="Exceptions\UniqueConstraintException.cs" />
     <Compile Include="Exceptions\UniqueDeliveryZoneNameException.cs" />
     <Compile Include="Exceptions\UniqueEMailAddressException.cs" />
+    <Compile Include="Exceptions\UniqueProductException.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\ApplicationUserRole.cs" />
     <Compile Include="Models\Colour.cs" />
@@ -175,14 +180,11 @@
     <Compile Include="Attributes\ConfirmAccessAttribute.cs" />
     <Compile Include="Attributes\PasswordAttribute.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
-    <Compile Include="Controllers\HomeController.cs">
-      <SubType>
-      </SubType>
-    </Compile>
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataAccess\AuthenticationTokenType.cs" />
     <Compile Include="DataAccess\IApplicationUserRepository.cs" />
     <Compile Include="DataAccess\Xml\Azure\AzureXmlDocumentProvider.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Resources\AddDeliveryZoneViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -324,6 +326,9 @@
     <Compile Include="ViewModels\Delivery\DeliveryPlanningViewModel.cs" />
     <Compile Include="ViewModels\Delivery\DeliveryZonesViewModel.cs" />
     <Compile Include="ViewModels\Delivery\RemoveAddressViewModel.cs" />
+    <Compile Include="ViewModels\Product\AddProductViewModel.cs" />
+    <Compile Include="ViewModels\Product\ProductsViewModel.cs" />
+    <Compile Include="ViewModels\Product\ProductViewModel.cs" />
     <Compile Include="Xml\Validation\XmlUniqueConstraintException.cs" />
     <Compile Include="Xml\Validation\IXmlSchemaExceptionInterpreter.cs" />
     <Compile Include="Xml\Validation\XmlUniqueConstraintExceptionInterpreter.cs" />
@@ -365,6 +370,7 @@
     <None Include="Properties\PublishProfiles\edesia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Schemas\DeliveryMapping.xsd" />
+    <None Include="Schemas\Consumer.xsd" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\metro-ui\jquery.ui.widget.js" />
@@ -389,7 +395,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\Home\Default.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
@@ -410,6 +415,9 @@
     <Content Include="Views\Delivery\GetDeliveryZoneName.cshtml" />
     <Content Include="Views\Delivery\EditDeliveryZone.cshtml" />
     <Content Include="Views\Delivery\RemoveDeliveryZone.cshtml" />
+    <Content Include="Views\Product\Default.cshtml" />
+    <Content Include="Views\Product\_Product.cshtml" />
+    <Content Include="Views\Product\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

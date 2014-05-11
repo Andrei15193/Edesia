@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CancelButton_DisplayName" xml:space="preserve">
+    <value>Renunță</value>
+  </data>
+  <data name="ProductNameTextBox_DisplayName" xml:space="preserve">
+    <value>Numele produsului</value>
+  </data>
+  <data name="ProductNameTextBox_Hint" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductPriceTextBox_DisplayName" xml:space="preserve">
+    <value>Prețul produsului (RON)</value>
+  </data>
+  <data name="ProductPriceTextBox_Hint" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SubmitButton_DisplayName" xml:space="preserve">
+    <value>Adaugă</value>
+  </data>
   <data name="ViewTitle" xml:space="preserve">
     <value>Adaugă produs</value>
   </data>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:consumer="http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd"
+			targetNamespace="http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd"
+			elementFormDefault="qualified">
+	<xsd:element name="Consumer">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Product"
+							 type="consumer:Product"
+							 minOccurs="0"
+							 maxOccurs="unbounded" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="Product">
+		<xsd:attribute name="Name"
+					   type="xsd:string"
+					   use="required" />
+		<xsd:attribute name="Price"
+					   type="xsd:double"
+					   use="required" />
+		<xsd:attribute name="DateAdded"
+					   type="xsd:dateTime"
+					   use="required" />
+		<xsd:attribute name="DateRemoved"
+					   type="xsd:dateTime"
+					   use="optional" />
+	</xsd:complexType>
+</xsd:schema>

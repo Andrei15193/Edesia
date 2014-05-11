@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddProductButton_DisplayName" xml:space="preserve">
+    <value>Adaugă</value>
+  </data>
+  <data name="AddToCartProductButton_Hint" xml:space="preserve">
+    <value>Adaugă în coș</value>
+  </data>
+  <data name="DeleteProductButton_Hint" xml:space="preserve">
+    <value>Șterge produs</value>
+  </data>
   <data name="NoticeParagraph1" xml:space="preserve">
     <value>„Edesia” este proiectul meu de licență. La suprafață se este un magazin online, iar „în spate” este un motor de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web (eventual o aplicație pentru dispozitive mobile va fi creată pentru a realiza același lucru) și să planifice sarcini pentru „angajați” (cum ar fi planificarea rutelor pentru livrare).</value>
   </data>

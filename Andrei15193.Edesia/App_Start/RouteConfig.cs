@@ -12,7 +12,7 @@ namespace Andrei15193.Edesia
 				url: "{controller}/{action}/{id}",
 				defaults: new
 				{
-					controller = "Home",
+					controller = "Product",
 					action = "Default",
 					id = UrlParameter.Optional
 				}

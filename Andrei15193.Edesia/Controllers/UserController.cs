@@ -81,7 +81,7 @@ namespace Andrei15193.Edesia.Controllers
 					if (Url.IsLocalUrl(returnUrl))
 						return Redirect(returnUrl);
 					else
-						return RedirectToAction("Default", "Home");
+						return RedirectToAction("Default", "Product");
 				}
 				else
 					ModelState.AddModelError("EMailAddress", ErrorStrings.CredentialControls_InvalidValues);
@@ -99,7 +99,7 @@ namespace Andrei15193.Edesia.Controllers
 				FormsAuthentication.SignOut();
 			}
 			Session.Abandon();
-			return Redirect(Url.Action());
+			return RedirectToAction("Default", "Product");
 		}
 
 		[HttpGet]

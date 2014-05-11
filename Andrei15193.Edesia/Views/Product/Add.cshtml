@@ -1,0 +1,29 @@
+﻿@using Andrei15193.Edesia.Resources;
+@model Andrei15193.Edesia.ViewModels.Product.AddProductViewModel
+@{
+	ViewBag.Title = AddProductViewStrings.ViewTitle;
+}
+<div class="grid fluid">
+	<div class="row">
+		<div class="span4 offset4">
+			<h1>@AddProductViewStrings.ViewTitle</h1>
+			@using (Html.BeginForm())
+			{
+				@Html.LabelFor(model => model.Name)
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Name"])
+				<div class="input-control text">
+					@Html.EditorFor(model => model.Name)
+				</div>
+				
+				@Html.LabelFor(model => model.Price)
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Price"])
+				<div class="input-control text">
+					@Html.EditorFor(model => model.Price)
+				</div>
+				
+				<input class="action" type="submit" value="@AddProductViewStrings.SubmitButton_DisplayName" />
+				<a class="button cancelAction" href="@Url.Action("Default", "Product")">@AddProductViewStrings.CancelButton_DisplayName</a>
+			}
+		</div>
+	</div>
+</div>

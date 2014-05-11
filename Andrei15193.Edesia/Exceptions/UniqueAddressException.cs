@@ -25,6 +25,6 @@ namespace Andrei15193.Edesia.Exceptions
 			}
 		}
 
-		private string _conflictingValue;
+		private readonly string _conflictingValue;
 	}
 }

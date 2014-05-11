@@ -223,6 +223,42 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ne pare rău dar produsul {0} este deja existent..
+        /// </summary>
+        public static string ProductNameTextBox_DuplicateValue_Format {
+            get {
+                return ResourceManager.GetString("ProductNameTextBox_DuplicateValue_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trebuie să introduceți numele unui produs..
+        /// </summary>
+        public static string ProductNameTextBox_MissingValue {
+            get {
+                return ResourceManager.GetString("ProductNameTextBox_MissingValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trebuie să intorduceți un numar mai mare sau egal cu 0.00..
+        /// </summary>
+        public static string ProductPriceTextBox_InvalidValue {
+            get {
+                return ResourceManager.GetString("ProductPriceTextBox_InvalidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trebuie să introduceți un preț..
+        /// </summary>
+        public static string ProductPriceTextBox_MissingValue {
+            get {
+                return ResourceManager.GetString("ProductPriceTextBox_MissingValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ne pare rău dar codul de înregistrare este prea vechi pentru a mai putea fi folosit. Trebuie sa vă reînregistrați..
         /// </summary>
         public static string RegistrationTokenInput_ExpiredValue {

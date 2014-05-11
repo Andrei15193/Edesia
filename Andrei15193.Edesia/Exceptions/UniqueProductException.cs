@@ -1,10 +1,10 @@
 ﻿using System;
 namespace Andrei15193.Edesia.Exceptions
 {
-	public class UniqueEMailAddressException
+	public class UniqueProductException
 		: UniqueConstraintException
 	{
-		public UniqueEMailAddressException(string conflictingValue, Exception innerException = null)
+		public UniqueProductException(string conflictingValue, Exception innerException = null)
 			: base(string.Format("Duplicate '{0}' value", conflictingValue), innerException)
 		{
 			_conflictingValue = conflictingValue;
@@ -14,7 +14,7 @@ namespace Andrei15193.Edesia.Exceptions
 		{
 			get
 			{
-				return "Unique E-Mail Address";
+				return "Unique Product";
 			}
 		}
 		public override string ConflictingValue

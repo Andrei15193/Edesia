@@ -1,0 +1,54 @@
+﻿@using Andrei15193.Edesia.ViewModels.Product;
+@using Andrei15193.Edesia.Resources;
+@model ProductsViewModel
+@{
+	ViewBag.Title = ProductsViewStrings.ViewTitle;
+}
+<h1>@ProductsViewStrings.ViewTitle</h1>
+@if (Model.IsUserAdministrator)
+{
+	<a href="@Url.Action("Add", "Product")" class="actionLink padding5 border bd-grayLighter"><i class="icon-plus-2"></i> @ProductsViewStrings.AddProductButton_DisplayName</a>
+}
+
+<div class="grid fluid">
+	@foreach (IGrouping<int, ProductViewModel> productsOnRow in Model.ProductViewModels
+																	 .Select((product, index) => new
+																			 {
+																				 Row = index / 4,
+																				 Product = product
+																			 })
+																	 .GroupBy(productWithRow => productWithRow.Row,
+																			  productWithRow => productWithRow.Product))
+	{
+		<div class="row">
+			@foreach (ProductViewModel productViewModel in productsOnRow)
+			{
+				<div class="span3">
+					@Html.Partial("_Product", productViewModel)
+				</div>
+			}
+		</div>
+	}
+</div>
+
+@section scripts
+{
+	<script>
+		$.Dialog({
+			shadow: true,
+			overlay: false,
+			flat: true,
+			icon: '<span class="icon-info-2 fg-emerald"></span>',
+			title: "<span class=\"fg-emerald\">@ProductsViewStrings.NoticeTitle.Replace("\"", "\\\"")</span>",
+			width: 500,
+			padding: 10,
+			content: '',
+			draggable: true,
+			onShow: function(_dialog){
+				var content = _dialog.children('.content');
+				content.html("@ProductsViewStrings.NoticeParagraph1.Replace("\"", "\\\"")");
+			}
+
+		});
+	</script>
+}

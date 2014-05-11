@@ -61,6 +61,60 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Renunță.
+        /// </summary>
+        public static string CancelButton_DisplayName {
+            get {
+                return ResourceManager.GetString("CancelButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Numele produsului.
+        /// </summary>
+        public static string ProductNameTextBox_DisplayName {
+            get {
+                return ResourceManager.GetString("ProductNameTextBox_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ProductNameTextBox_Hint {
+            get {
+                return ResourceManager.GetString("ProductNameTextBox_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prețul produsului (RON).
+        /// </summary>
+        public static string ProductPriceTextBox_DisplayName {
+            get {
+                return ResourceManager.GetString("ProductPriceTextBox_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ProductPriceTextBox_Hint {
+            get {
+                return ResourceManager.GetString("ProductPriceTextBox_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adaugă.
+        /// </summary>
+        public static string SubmitButton_DisplayName {
+            get {
+                return ResourceManager.GetString("SubmitButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adaugă produs.
         /// </summary>
         public static string ViewTitle {

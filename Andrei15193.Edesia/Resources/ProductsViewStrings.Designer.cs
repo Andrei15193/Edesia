@@ -61,6 +61,33 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adaugă.
+        /// </summary>
+        public static string AddProductButton_DisplayName {
+            get {
+                return ResourceManager.GetString("AddProductButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adaugă în coș.
+        /// </summary>
+        public static string AddToCartProductButton_Hint {
+            get {
+                return ResourceManager.GetString("AddToCartProductButton_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Șterge produs.
+        /// </summary>
+        public static string DeleteProductButton_Hint {
+            get {
+                return ResourceManager.GetString("DeleteProductButton_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to „Edesia” este proiectul meu de licență. La suprafață se este un magazin online, iar „în spate” este un motor de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web (eventual o aplicație pentru dispozitive mobile va fi creată pentru a realiza același lucru) și să planifice sarcini pentru „angajați” (cum ar fi planificarea rutelor pentru livrare)..
         /// </summary>
         public static string NoticeParagraph1 {

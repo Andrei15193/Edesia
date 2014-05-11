@@ -1,0 +1,15 @@
+﻿@using Andrei15193.Edesia.Resources;
+@model Andrei15193.Edesia.ViewModels.Product.ProductViewModel
+<div class="panel">
+	<div class="panel-content" style="min-height: 130px; padding-left: 5px;">
+		<span style="float: right;">@Model.Product.Price RON</span>
+		<a href="#" class="right action padding5" title="@ProductsViewStrings.AddToCartProductButton_Hint"><i class="icon-cart"></i></a>
+		@if (Model.IsUserAdministrator)
+		{
+			<a href="@Url.Action("Remove","Product")?productName=@Model.Product.Name" class="right action padding5" title="@ProductsViewStrings.DeleteProductButton_Hint"><i class="icon-remove"></i></a>
+		}
+	</div>
+	<div class="panel-header bg-emerald fg-white">
+		<small>@Model.Product.Name</small>
+	</div>
+</div>
