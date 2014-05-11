@@ -121,7 +121,7 @@
     <value>„Edesia” este proiectul meu de licență. La suprafață se este un magazin online, iar „în spate” este un motor de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web (eventual o aplicație pentru dispozitive mobile va fi creată pentru a realiza același lucru) și să planifice sarcini pentru „angajați” (cum ar fi planificarea rutelor pentru livrare).</value>
   </data>
   <data name="NoticeTitle" xml:space="preserve">
-    <value>Încă nu îi gata...</value>
+    <value>Încă nu-i gata...</value>
   </data>
   <data name="ViewTitle" xml:space="preserve">
     <value>Produse</value>

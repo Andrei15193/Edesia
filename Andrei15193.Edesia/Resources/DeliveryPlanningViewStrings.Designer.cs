@@ -79,7 +79,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gestionează zone de transport.
+        ///   Looks up a localized string similar to Gestionează zone de livrare.
         /// </summary>
         public static string ManageTransportZonesButton_DisplayName {
             get {
@@ -88,7 +88,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adaugă, modifică, șterge zone de transport..
+        ///   Looks up a localized string similar to Adaugă, modifică, șterge zone de livrare..
         /// </summary>
         public static string ManageTransportZonesButton_Hint {
             get {
@@ -133,7 +133,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trasporturi planificate.
+        ///   Looks up a localized string similar to Livrări planificate.
         /// </summary>
         public static string PendingTransportsLabel_DisplayName {
             get {
@@ -160,7 +160,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zone de transport.
+        ///   Looks up a localized string similar to Zone de livrare.
         /// </summary>
         public static string TransportZonesLabel_DisplayName {
             get {
@@ -169,7 +169,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stare transport.
+        ///   Looks up a localized string similar to Stare livrare.
         /// </summary>
         public static string TranspotStateLabel_DisplayName {
             get {

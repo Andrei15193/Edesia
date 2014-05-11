@@ -70,7 +70,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Încă nu îi gata....
+        ///   Looks up a localized string similar to Încă nu-i gata....
         /// </summary>
         public static string NoticeTitle {
             get {

@@ -124,10 +124,10 @@
     <value>Anulează comenzi care nu sunt în curs de livrare.</value>
   </data>
   <data name="ManageTransportZonesButton_DisplayName" xml:space="preserve">
-    <value>Gestionează zone de transport</value>
+    <value>Gestionează zone de livrare</value>
   </data>
   <data name="ManageTransportZonesButton_Hint" xml:space="preserve">
-    <value>Adaugă, modifică, șterge zone de transport.</value>
+    <value>Adaugă, modifică, șterge zone de livrare.</value>
   </data>
   <data name="OrderLabel_DisplayName" xml:space="preserve">
     <value>Comandă</value>
@@ -142,7 +142,7 @@
     <value>Comenzi în așteptare</value>
   </data>
   <data name="PendingTransportsLabel_DisplayName" xml:space="preserve">
-    <value>Trasporturi planificate</value>
+    <value>Livrări planificate</value>
   </data>
   <data name="SchedulePendingOrdersButton_DisplayName" xml:space="preserve">
     <value>Programează comenzi</value>
@@ -151,10 +151,10 @@
     <value>Planifică manual comenzi pentru a fi livrate.</value>
   </data>
   <data name="TransportZonesLabel_DisplayName" xml:space="preserve">
-    <value>Zone de transport</value>
+    <value>Zone de livrare</value>
   </data>
   <data name="TranspotStateLabel_DisplayName" xml:space="preserve">
-    <value>Stare transport</value>
+    <value>Stare livrare</value>
   </data>
   <data name="UngroupedStreetsLabel_DisplayName" xml:space="preserve">
     <value>Străzi neorganizate</value>
