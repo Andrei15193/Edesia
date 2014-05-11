@@ -19,6 +19,44 @@
 		color: #FFFFFF !important;
 	}
 
+.cancelAction
+{
+	background-color: #9A1616 !important;
+	color: #FFFFFF !important;
+}
+
+	.cancelAction:hover
+	{
+		background-color: #E51400 !important;
+		color: #FFFFFF !important;
+	}
+
+.disabledActionLink, .disabledActionLink:hover
+{
+	cursor: not-allowed !important;
+	color: #EAEAEA !important;
+}
+
+.actionLink
+{
+	color: #008A00 !important;
+}
+
+	.actionLink:hover
+	{
+		color: #60A917 !important;
+	}
+
+.damagingActionLink
+{
+	color: #E51400 !important;
+}
+
+	.damagingActionLink:hover
+	{
+		color: #FF2D19 !important;
+	}
+
 .damagingAction
 {
 	background-color: #E51400 !important;

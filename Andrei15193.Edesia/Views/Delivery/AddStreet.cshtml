@@ -1,0 +1,22 @@
+﻿@using Andrei15193.Edesia.Resources;
+@model Andrei15193.Edesia.ViewModels.Delivery.AddStreetViewModel
+@{
+	ViewBag.Title = AddStreetViewStrings.ViewTitle;
+}
+<div class="grid fluid">
+	<div class="row">
+		<div class="span4 offset4">
+			<h1>@AddStreetViewStrings.ViewTitle</h1>
+			@using (Html.BeginForm())
+			{
+				@Html.LabelFor(model => model.StreetName)
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["StreetName"])
+				<div class="input-control text">
+					@Html.EditorFor(model => model.StreetName)
+				</div>
+				<input class="action" type="submit" value="@AddStreetViewStrings.SubmitButton_DisplayName" />
+				<a class="button cancelAction" href="@Url.Action("ManageDeliveryZones", "Delivery")">@AddStreetViewStrings.CancelButton_DisplayName</a>
+			}
+		</div>
+	</div>
+</div>

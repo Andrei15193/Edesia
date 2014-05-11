@@ -1,0 +1,14 @@
+﻿@using Andrei15193.Edesia.Resources;
+@model Andrei15193.Edesia.ViewModels.Delivery.DeliveryZoneViewModel
+@{
+	ViewBag.Title = AddDeliveryZoneViewStrings.ViewTitle;
+}
+<div class="grid fluid">
+	<div class="row">
+		<div class="span4 offset4">
+			<h1>@AddDeliveryZoneViewStrings.ViewTitle</h1>
+
+			@Html.Partial("_DeliveryZoneDetails", Model)
+	</div>
+	</div>
+</div>

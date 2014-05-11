@@ -1,4 +1,5 @@
-﻿using Andrei15193.Edesia.Models;
+﻿using System.Collections.Generic;
+using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.DataAccess
 {
 	public interface IApplicationUserStore
@@ -8,5 +9,6 @@ namespace Andrei15193.Edesia.DataAccess
 		void SetAuthenticationToken(ApplicationUser applicationUser, string authenticationToken, AuthenticationTokenType authenticationMethod = AuthenticationTokenType.Password);
 		void ClearAuthenticationKey(string applicationUserEmail);
 		bool ClearRegistrationKey(string applicationUserEmail, string applicationUserRegistrationKey);
+		IEnumerable<Address> GetAddresses();
 	}
 }

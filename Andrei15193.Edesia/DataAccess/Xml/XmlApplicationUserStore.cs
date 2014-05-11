@@ -139,6 +139,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 			return false;
 		}
+		public IEnumerable<Address> GetAddresses()
+		{
+			return XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet)
+									  .Root
+									  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+									  .SelectMany(applicationUserXElement => applicationUserXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address"))
+									  .Select(_GetAddress);
+		}
 		#endregion
 		public XmlDocumentProvider XmlDocumentProvider
 		{
@@ -249,7 +257,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				if (administrator != null)
 					applicationUserXElement.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Administrator"));
 			}
-			
+
 			return applicationUserXElement;
 		}
 		private XElement _GetAddressXElement(Address address)

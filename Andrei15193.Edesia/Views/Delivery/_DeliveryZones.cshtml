@@ -1,0 +1,23 @@
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.Resources;
+@model Andrei15193.Edesia.ViewModels.Delivery.DeliveryZonesViewModel
+@if (Model.UnmappedStreets.Any())
+{
+	<div class="accordion with-marker" data-role="accordion">
+		<div class="accordion-frame">
+			<a href="#" class="heading active fg-red" title="@DeliveryPlanningViewStrings.UngroupedStreetsLabel_Hint"><i class="icon-warning"></i> @DeliveryPlanningViewStrings.UngroupedStreetsLabel_DisplayName</a>
+			<div class="content">
+				<ul>
+					@foreach (string unammpedStreet in Model.UnmappedStreets)
+					{
+						<li>@unammpedStreet</li>
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+}
+@foreach (DeliveryZone deliveryZone in Model.DeliveryZones)
+{
+	@Html.Partial("_DeliveryZone", deliveryZone)
+}

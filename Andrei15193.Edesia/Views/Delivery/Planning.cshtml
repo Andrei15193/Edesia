@@ -1,0 +1,82 @@
+﻿@model Andrei15193.Edesia.ViewModels.Delivery.DeliveryPlanningViewModel
+@using Andrei15193.Edesia.Resources;
+@{
+	ViewBag.Title = DeliveryPlanningViewStrings.ViewTitle;
+}
+<h1>@DeliveryPlanningViewStrings.ViewTitle</h1>
+<div class="grid fluid">
+	<div class="row">
+		<div class="span4">
+			<h2>@DeliveryPlanningViewStrings.TransportZonesLabel_DisplayName</h2>
+		</div>
+		<div class="span4">
+			<h2>@DeliveryPlanningViewStrings.PendingTransportsLabel_DisplayName</h2>
+		</div>
+		<div class="span4">
+			<h2>@DeliveryPlanningViewStrings.PendingOrdersLabel_DisplayName</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span4">
+			<a href="/Delivery/ManageDeliveryZones" class="command-button action" style="width: 100%;">
+				<i class="icon-cog on-left"></i>
+				@DeliveryPlanningViewStrings.ManageTransportZonesButton_DisplayName
+				<small>@DeliveryPlanningViewStrings.ManageTransportZonesButton_Hint</small>
+			</a>
+		</div>
+		<div class="span4">
+			<a class="command-button action" style="width: 100%;">
+				<i class="icon-cancel on-left"></i>
+				@DeliveryPlanningViewStrings.CancelPendingTransportsButton_DisplayName
+				<small>@DeliveryPlanningViewStrings.CancelPendingTransportsButton_Hint</small>
+			</a>
+		</div>
+		<div class="span4">
+			<a class="command-button action disabled" style="width: 100%;">
+				<i class="icon-bars on-left"></i>
+				@DeliveryPlanningViewStrings.SchedulePendingOrdersButton_DisplayName
+				<small>@DeliveryPlanningViewStrings.SchedulePendingOrdersButton_Hint</small>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span4">
+			@Html.Partial("_DeliveryZones", Model.DeliveryZonesViewModel)
+		</div>
+		<div class="span4">
+			<div class="accordion with-marker" data-role="accordion">
+				<div class="accordion-frame">
+					<a href="#" class="heading active"><i class="icon-stop fg-red"></i> Transport 1</a>
+					<div class="content">
+						<p>
+							<strong>@DeliveryPlanningViewStrings.TranspotStateLabel_DisplayName:</strong> en route<br />
+							<strong>@DeliveryPlanningViewStrings.OrdersLabel_DisplayName:</strong>
+							<ul>
+								<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, @Guid.NewGuid(), "asd"))</li>
+								<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, @Guid.NewGuid(), "asd"))</li>
+								<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, @Guid.NewGuid(), "asd"))</li>
+							</ul>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="accordion with-marker" data-role="accordion">
+				<div class="accordion-frame">
+					<a href="#" class="heading"><i class="icon-stop fg-red"></i> Transport 2</a>
+					<div class="content">
+						<p>
+							<strong>@DeliveryPlanningViewStrings.TranspotStateLabel_DisplayName:</strong> scheduled<br />
+							<strong>@DeliveryPlanningViewStrings.OrdersLabel_DisplayName:</strong>
+							<ul>
+								<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, @Guid.NewGuid(), "asd"))</li>
+								<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, @Guid.NewGuid(), "asd"))</li>
+								<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, @Guid.NewGuid(), "asd"))</li>
+							</ul>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

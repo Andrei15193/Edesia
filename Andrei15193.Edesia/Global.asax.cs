@@ -36,6 +36,7 @@ namespace Andrei15193.Edesia
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+			_dependencyContainer.CreateAllSingletons();
 		}
 
 		private static IDictionary<string, object> _emptyArrays = new Dictionary<string, object>();

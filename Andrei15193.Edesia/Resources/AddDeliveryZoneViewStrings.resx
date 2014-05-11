@@ -117,61 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CredentialControls_InvalidValues" xml:space="preserve">
-    <value>Adresa de e-mail sau parola nu sunt valide.</value>
+  <data name="SubmitButton_DisplayName" xml:space="preserve">
+    <value>Adaugă</value>
   </data>
-  <data name="DeliveryZoneColourTextBox_InvalidValue" xml:space="preserve">
-    <value>Culoarea trebuie introdusă în format hexazecimal (ex: #FA1519).</value>
-  </data>
-  <data name="DeliveryZoneNameComboBox_InvalidValue" xml:space="preserve">
-    <value>Zona de livrare selectată nu există.</value>
-  </data>
-  <data name="DeliveryZoneNameTextBox_InvalidDuplicateValue_Format" xml:space="preserve">
-    <value>Ne pare rau dar zona de livrare {0} este deja memorată.</value>
-  </data>
-  <data name="DeliveryZoneStreetListBox_NoValues" xml:space="preserve">
-    <value>Această zonă de livrare nu conține străzi!</value>
-  </data>
-  <data name="DeliveryZoneTextBox_MissingValue" xml:space="preserve">
-    <value>Trebuie să introduceți numele zonei de livrare.</value>
-  </data>
-  <data name="EMailTextBox_DuplicateValue_Format" xml:space="preserve">
-    <value>Ne pare rău dar adresa de e-mail {0} este deja folosită.</value>
-  </data>
-  <data name="EMailTextBox_InvalidValue" xml:space="preserve">
-    <value>Nu ați introdus o adresă de e-mail validă.</value>
-  </data>
-  <data name="EMailTextBox_InvalidVerificationValue" xml:space="preserve">
-    <value>Adresele de e-mail trebuie să fie aceleași.</value>
-  </data>
-  <data name="EMailTextBox_MissingValue" xml:space="preserve">
-    <value>Trebuie să introduceți o adresă de e-mail.</value>
-  </data>
-  <data name="FirstNameTextBox_InvalidValue" xml:space="preserve">
-    <value>Nu ați introdus un prenume corect.</value>
-  </data>
-  <data name="FirstNameTextBox_MissingValue" xml:space="preserve">
-    <value>Trebuie să introduceți un prenume.</value>
-  </data>
-  <data name="LastNameTextBox_InvalidValue" xml:space="preserve">
-    <value>Nu ați introdus un nume corect.</value>
-  </data>
-  <data name="LastNameTextBox_MissingValue" xml:space="preserve">
-    <value>Trebuie să introduceți un nume.</value>
-  </data>
-  <data name="PasswordInput_InvalidVerificationValue" xml:space="preserve">
-    <value>Parolele trebuie să fie aceleași.</value>
-  </data>
-  <data name="PasswordInput_MissingValue" xml:space="preserve">
-    <value>Trebuie să introduceți o parolă.</value>
-  </data>
-  <data name="RegistrationTokenInput_ExpiredValue" xml:space="preserve">
-    <value>Ne pare rău dar codul de înregistrare este prea vechi pentru a mai putea fi folosit. Trebuie sa vă reînregistrați.</value>
-  </data>
-  <data name="StreetTextBox_InvalidDuplicateValue_Format" xml:space="preserve">
-    <value>Ne pare rau dar strada {0} este deja memorată.</value>
-  </data>
-  <data name="StreetTextBox_MissingValue" xml:space="preserve">
-    <value>Trebuie să introduceți numele unei străzi.</value>
+  <data name="ViewTitle" xml:space="preserve">
+    <value>Adaugare zonă de livrare</value>
   </data>
 </root>

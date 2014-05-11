@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Andrei15193.DependencyInjection</name>
+    </assembly>
+    <members>
+        <member name="T:Andrei15193.DependencyInjection.DependencyContainer">
+            <summary>
+            Represents a dependency container responsible with creating objects from
+            a given dependency injection configuration section.
+            </summary>
+        </member>
+        <member name="M:Andrei15193.DependencyInjection.DependencyContainer.#ctor(Andrei15193.DependencyInjection.Configuration.DependencyInjectionConfigurationSection)">
+            <summary>
+            Creates a new DependencyContainer using the given dependency injection configuration.
+            </summary>
+            <param name="dependencyInjectionConfigurationSection">
+            The dependency injection configuration to use when building the dependency container.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when dependencyInjectionConfigurationSection is null.
+            </exception>
+        </member>
+        <member name="M:Andrei15193.DependencyInjection.DependencyContainer.ContainsKey(System.String)">
+            <summary>
+            Determines whether an object with the given objectName exists in the
+            dependency container.
+            </summary>
+            <param name="objectName">
+            The name of an object to check if it is defined in the dependency container.
+            </param>
+            <returns>
+            True if an object with the given objectName is defined in the dependency container.
+            </returns>
+        </member>
+        <member name="M:Andrei15193.DependencyInjection.DependencyContainer.System#Collections#Generic#IReadOnlyDictionary{System#String@System#Object}#TryGetValue(System.String,System.Object@)">
+            <summary>
+            Attempts to return an object having the given objectName from the dependency
+            container. If the object has been previously created then the same instance
+            is returned (Singleton).
+            </summary>
+            <param name="objectName">
+            The name the object to retrieve.
+            </param>
+            <param name="value">
+            The instance of the requested object if objectName is found in the dependency
+            container, null otherwise.
+            </param>
+            <returns>
+            Returns true if value has been set, false otherwise.
+            </returns>
+        </member>
+        <member name="M:Andrei15193.DependencyInjection.DependencyContainer.GetEnumerator">
+            <summary>
+            Returns an Enumerator that will iterate over all objects defined
+            in the dependency container. If any of the objects have been
+            previously defined the same instance is returned (Singleton).
+            The Key member is equal to the object name and the value to the
+            actual instance.
+            </summary>
+            <returns>
+            An enumerator which will enumerate all instances in the dependency container.
+            </returns>
+        </member>
+        <member name="M:Andrei15193.DependencyInjection.DependencyContainer.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an Enumerator that will iterate over all objects defined
+            in the dependency container. If any of the objects have been
+            previously defined the same instance is returned (Singleton).
+            </summary>
+            <returns>
+            An enumerator which will enumerate all instances in the dependency container.
+            </returns>
+        </member>
+        <member name="M:Andrei15193.DependencyInjection.DependencyContainer.TryGetValue(System.String,System.Object@,System.Boolean)">
+            <summary>
+            Attempts to return an object having the given objectName from the dependency
+            container. If the object has been previously created and createNew is set to
+            false then the same instance is returned (Singleton). If the createNew parameter
+            is set to true then any previously created instance is ignore and a new one is
+            returned.
+            </summary>
+            <param name="objectName">
+            The name the object to retrieve.
+            </param>
+            <param name="value">
+            The instance of the requested object if objectName is found in the dependency
+            container, null otherwise.
+            </param>
+            <param name="createNew">
+            Indicates whether to return a previously created instance, if it exists, or
+            to create a new one.
+            </param>
+            <returns>
+            Returns true if value has been set, false otherwise.
+            </returns>
+        </member>
+        <member name="M:Andrei15193.DependencyInjection.DependencyContainer.CreateAllSingletons">
+            <summary>
+            Creates an instance for each specification. This will make the
+            container behave like a readonly collection because internal
+            write operations will no longer be required. This is useful in
+            multi-threaded environments where sync may be required otherwise.
+            </summary>
+        </member>
+        <member name="P:Andrei15193.DependencyInjection.DependencyContainer.Keys">
+            <summary>
+            Returns all objectNames found in the dependency container.
+            </summary>
+        </member>
+        <member name="P:Andrei15193.DependencyInjection.DependencyContainer.Values">
+            <summary>
+            Returns all instances found in the dependency container. If any of them have
+            been previously defined then the same instance is returned (Singleton).
+            </summary>
+            <exception cref="T:System.ArgumentException">
+            Thrown when one of the properties or constructor parameters refers
+            the object that is being constructed.
+            </exception>
+        </member>
+        <member name="P:Andrei15193.DependencyInjection.DependencyContainer.System#Collections#Generic#IReadOnlyDictionary{System#String@System#Object}#Item(System.String)">
+            <summary>
+            Returns an object having the given objectName from the dependency container.
+            If the object has been previously created then the same instance is returned
+            (Singleton).
+            </summary>
+            <param name="objectName">
+            The name the object to retrieve.
+            </param>
+            <returns>
+            Returns the instance of the requested object.
+            </returns>
+            <exception cref="T:System.MissingMemberException">
+            Thrown when a property for the requested object is not found.
+            </exception>
+            <exception cref="T:System.MissingMethodException">
+            Thrown when the constructor for the requested object is not found.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            Thrown when one of the properties or constructor parameters refers
+            the object that is being requested or when two objects refer eachother
+            through constructor parameters (circular reference).
+            </exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">
+            Thrown when an object with the given objectName does is not defined
+            in the dependency container.
+            </exception>
+        </member>
+        <member name="P:Andrei15193.DependencyInjection.DependencyContainer.Count">
+            <summary>
+            Returns the total number of defined objects in the dependency container.
+            </summary>
+        </member>
+        <member name="P:Andrei15193.DependencyInjection.DependencyContainer.Item(System.String,System.Boolean)">
+            <summary>
+            Returns an object having the given objectName from the dependency container.
+            If the object has been previously created and createNew is set to false then
+            the same instance is returned (Singleton). If the createNew parameter is set
+            to true then any previously created instance is ignore and a new one is returned.
+            </summary>
+            <param name="objectName">
+            The name the object to retrieve.
+            </param>
+            <param name="createNew">
+            Indicates whether to return a previously created instance, if it exists, or
+            to create a new one.
+            </param>
+            <returns>
+            Returns the instance of the requested object.
+            </returns>
+            <exception cref="T:System.MissingMemberException">
+            Thrown when a property for the requested object is not found.
+            </exception>
+            <exception cref="T:System.MissingMethodException">
+            Thrown when the constructor for the requested object is not found.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            Thrown when one of the properties or constructor parameters refers
+            the object that is being requested or when two objects refer eachother
+            through constructor parameters (circular reference).
+            </exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">
+            Thrown when an object with the given objectName does is not defined
+            in the dependency container.
+            </exception>
+        </member>
+    </members>
+</doc>

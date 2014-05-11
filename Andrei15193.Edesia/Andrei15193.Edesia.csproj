@@ -43,8 +43,9 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Andrei15193.DependencyInjection">
-      <HintPath>..\..\..\Lib\Andrei15193.DependencyInjection\Andrei15193.DependencyInjection.dll</HintPath>
+    <Reference Include="Andrei15193.DependencyInjection, Version=1.2014.309.7, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>External Dependencies\Andrei15193.DependencyInjection.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.6.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -155,8 +156,13 @@
     <Compile Include="Attributes\LocalizedRequiredAttribute.cs" />
     <Compile Include="Collections\ReadOnlyCollection.cs" />
     <Compile Include="Controllers\DeliveryController.cs" />
+    <Compile Include="DataAccess\IDeliveryRepository.cs" />
+    <Compile Include="DataAccess\Xml\XmlDeliveryRepository.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\ApplicationUserRole.cs" />
+    <Compile Include="Models\Colour.cs" />
+    <Compile Include="Models\Colours.cs" />
+    <Compile Include="Models\DeliveryZone.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\IApplication.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -174,22 +180,67 @@
     <Compile Include="DataAccess\AuthenticationTokenType.cs" />
     <Compile Include="DataAccess\IApplicationUserStore.cs" />
     <Compile Include="DataAccess\Xml\Azure\AzureXmlDocumentProvider.cs" />
+    <Compile Include="Resources\AddDeliveryZoneViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddDeliveryZoneViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DeliveryZoneDetailsViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeliveryZoneDetailsViewStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\AddProductViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AddProductViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\AddStreetViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddStreetViewStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\DeliveryPlanningViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeliveryPlanningViewStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\EditDeliveryZoneViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EditDeliveryZoneViewStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\EMailNoticeStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EMailNoticeStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\GetDeliveryZoneNameViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetDeliveryZoneNameViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ManageDeliveryZonesViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ManageDeliveryZonesViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\RemoveDeliveryZoneViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RemoveDeliveryZoneViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\RemoveStreetViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RemoveStreetViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Strings\AddDeliveryZoneViewKey.cs" />
     <Compile Include="Resources\Strings\AddProductViewKey.cs" />
+    <Compile Include="Resources\Strings\AddStreetViewKey.cs" />
+    <Compile Include="Resources\Strings\DeliveryPlanningViewKey.cs" />
+    <Compile Include="Resources\Strings\DeliveryZoneDetailsViewKey.cs" />
+    <Compile Include="Resources\Strings\EditDeliveryZoneViewKey.cs" />
     <Compile Include="Resources\Strings\EMailNoticeKey.cs" />
     <Compile Include="Resources\Strings\ErrorKey.cs" />
     <Compile Include="Resources\ErrorStrings.Designer.cs">
@@ -242,13 +293,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShoppingCartViewStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Strings\GetDeliveryZoneNameViewKey.cs" />
     <Compile Include="Resources\Strings\LayoutViewKey.cs" />
     <Compile Include="Resources\Strings\LoginViewKey.cs" />
+    <Compile Include="Resources\Strings\ManageDeliveryZonesViewKey.cs" />
     <Compile Include="Resources\Strings\NavigationViewKey.cs" />
     <Compile Include="Resources\Strings\NoticeKey.cs" />
     <Compile Include="Resources\Strings\ProductsViewKey.cs" />
     <Compile Include="Resources\Strings\PurchaseViewKey.cs" />
     <Compile Include="Resources\Strings\RegisterViewKey.cs" />
+    <Compile Include="Resources\Strings\RemoveDeliveryZoneViewKey.cs" />
+    <Compile Include="Resources\Strings\RemoveStreetViewKey.cs" />
     <Compile Include="Resources\Strings\ScheduleDeliveriesViewKey.cs" />
     <Compile Include="Resources\Strings\ShoppingCartViewKey.cs" />
     <Compile Include="Resources\Strings\TasksViewKey.cs" />
@@ -262,6 +317,11 @@
     <Compile Include="Settings\IRegistrationSettings.cs" />
     <Compile Include="Settings\Local\LocalEMailSettings.cs" />
     <Compile Include="Settings\RegistrationSettings.cs" />
+    <Compile Include="ViewModels\Delivery\DeliveryZoneViewModel.cs" />
+    <Compile Include="ViewModels\Delivery\AddStreetViewModel.cs" />
+    <Compile Include="ViewModels\Delivery\DeliveryPlanningViewModel.cs" />
+    <Compile Include="ViewModels\Delivery\DeliveryZonesViewModel.cs" />
+    <Compile Include="ViewModels\Delivery\RemoveStreetViewModel.cs" />
     <Compile Include="Xml\Validation\UniqueConstraintException.cs" />
     <Compile Include="Xml\Validation\IXmlSchemaExceptionInterpreter.cs" />
     <Compile Include="Xml\Validation\UniqueConstraintExceptionInterpreter.cs" />
@@ -352,18 +412,44 @@
     <Content Include="Views\Shared\_ModelErrorNotice.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Delivery\Planning.cshtml" />
+    <Content Include="Views\Delivery\_DeliveryZones.cshtml" />
+    <Content Include="Views\Delivery\_DeliveryZone.cshtml" />
+    <Content Include="Views\Delivery\ManageDeliveryZones.cshtml" />
+    <Content Include="Views\Delivery\AddStreet.cshtml" />
+    <Content Include="Views\Delivery\RemoveStreet.cshtml" />
+    <Content Include="Views\Delivery\AddDeliveryZone.cshtml" />
+    <Content Include="Views\Delivery\_DeliveryZoneDetails.cshtml" />
+    <Content Include="Views\Delivery\GetDeliveryZoneName.cshtml" />
+    <Content Include="Views\Delivery\EditDeliveryZone.cshtml" />
+    <Content Include="Views\Delivery\RemoveDeliveryZone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\AddDeliveryZoneViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddDeliveryZoneViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DeliveryZoneDetailsViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeliveryZoneDetailsViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\AddProductViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AddProductViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\AddStreetViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddStreetViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\DeliveryPlanningViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DeliveryPlanningViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EditDeliveryZoneViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDeliveryZoneViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EMailNoticeStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -373,6 +459,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\GetDeliveryZoneNameViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetDeliveryZoneNameViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\LayoutViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LayoutViewStrings.Designer.cs</LastGenOutput>
@@ -380,6 +470,10 @@
     <EmbeddedResource Include="Resources\LoginViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LoginViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ManageDeliveryZonesViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ManageDeliveryZonesViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\NavigationViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -400,6 +494,14 @@
     <EmbeddedResource Include="Resources\RegisterViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RegisterViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\RemoveDeliveryZoneViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RemoveDeliveryZoneViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\RemoveStreetViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RemoveStreetViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ScheduleDeliveriesViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
