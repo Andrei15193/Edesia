@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web.Mvc;
 using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
+using Andrei15193.Edesia.Exceptions;
 using Andrei15193.Edesia.Models;
 using Andrei15193.Edesia.Resources;
 using Andrei15193.Edesia.ViewModels.Delivery;
-using Andrei15193.Edesia.Xml.Validation;
 namespace Andrei15193.Edesia.Controllers
 {
 	[ConfirmAccess(typeof(Administrator))]
@@ -44,10 +44,10 @@ namespace Andrei15193.Edesia.Controllers
 				{
 					foreach (Exception aggregatedException in aggregateException.InnerExceptions)
 					{
-						UniqueConstraintException uniqueConstraintException = (aggregatedException as UniqueConstraintException);
+						UniqueAddressException uniqueAddressException = aggregatedException as UniqueAddressException;
 
-						if (uniqueConstraintException != null && string.Equals(uniqueConstraintException.ConstraintName, "http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd:UniqueAddresses", StringComparison.Ordinal))
-							ModelState.AddModelError("Address", string.Format(ErrorStrings.AddressTextBox_InvalidDuplicateValue_Format, uniqueConstraintException.ConflictingValue));
+						if (uniqueAddressException != null)
+							ModelState.AddModelError("Address", string.Format(ErrorStrings.AddressTextBox_InvalidDuplicateValue_Format, uniqueAddressException.ConflictingValue));
 					}
 
 					return View(addAddressViewModel);
@@ -101,10 +101,10 @@ namespace Andrei15193.Edesia.Controllers
 				{
 					foreach (Exception aggregatedException in aggregateException.InnerExceptions)
 					{
-						UniqueConstraintException uniqueConstraintException = (aggregatedException as UniqueConstraintException);
+						UniqueDeliveryZoneNameException uniqueDeliveryZoneNameException = aggregatedException as UniqueDeliveryZoneNameException;
 
-						if (uniqueConstraintException != null && string.Equals(uniqueConstraintException.ConstraintName, "http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd:UniqueDeliveryZoneNames", StringComparison.Ordinal))
-							ModelState.AddModelError("DeliveryZoneName", string.Format(ErrorStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueConstraintException.ConflictingValue));
+						if (uniqueDeliveryZoneNameException != null)
+							ModelState.AddModelError("DeliveryZoneName", string.Format(ErrorStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueDeliveryZoneNameException.ConflictingValue));
 					}
 				}
 			}
@@ -160,10 +160,10 @@ namespace Andrei15193.Edesia.Controllers
 				{
 					foreach (Exception aggregatedException in aggregateException.InnerExceptions)
 					{
-						UniqueConstraintException uniqueConstraintException = (aggregatedException as UniqueConstraintException);
+						UniqueDeliveryZoneNameException uniqueDeliveryZoneNameException = aggregatedException as UniqueDeliveryZoneNameException;
 
-						if (uniqueConstraintException != null && string.Equals(uniqueConstraintException.ConstraintName, "http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd:UniqueDeliveryZoneNames", StringComparison.Ordinal))
-							ModelState.AddModelError("DeliveryZoneName", string.Format(ErrorStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueConstraintException.ConflictingValue));
+						if (uniqueDeliveryZoneNameException != null)
+							ModelState.AddModelError("DeliveryZoneName", string.Format(ErrorStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueDeliveryZoneNameException.ConflictingValue));
 					}
 				}
 			}
@@ -203,10 +203,10 @@ namespace Andrei15193.Edesia.Controllers
 				{
 					foreach (Exception aggregatedException in aggregateException.InnerExceptions)
 					{
-						UniqueConstraintException uniqueConstraintException = (aggregatedException as UniqueConstraintException);
+						UniqueDeliveryZoneNameException uniqueDeliveryZoneNameException = aggregatedException as UniqueDeliveryZoneNameException;
 
-						if (uniqueConstraintException != null && string.Equals(uniqueConstraintException.ConstraintName, "http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd:UniqueDeliveryZoneNames", StringComparison.Ordinal))
-							ModelState.AddModelError("DeliveryZoneName", string.Format(ErrorStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueConstraintException.ConflictingValue));
+						if (uniqueDeliveryZoneNameException != null)
+							ModelState.AddModelError("DeliveryZoneName", string.Format(ErrorStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueDeliveryZoneNameException.ConflictingValue));
 					}
 				}
 

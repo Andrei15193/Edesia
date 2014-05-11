@@ -12,7 +12,7 @@
 							 maxOccurs="unbounded" />
 			</xsd:sequence>
 		</xsd:complexType>
-		<xsd:unique name="UniqueEmails">
+		<xsd:unique name="UniqueEMails">
 			<xsd:selector xpath="membership:ApplicationUser" />
 			<xsd:field xpath="@EMail" />
 		</xsd:unique>

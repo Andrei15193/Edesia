@@ -7,11 +7,11 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
+using Andrei15193.Edesia.Exceptions;
 using Andrei15193.Edesia.Models;
 using Andrei15193.Edesia.Resources;
 using Andrei15193.Edesia.Settings;
 using Andrei15193.Edesia.ViewModels.User;
-using Andrei15193.Edesia.Xml.Validation;
 namespace Andrei15193.Edesia.Controllers
 {
 	public class UserController
@@ -47,10 +47,10 @@ namespace Andrei15193.Edesia.Controllers
 				{
 					foreach (Exception aggregatedException in aggregateException.InnerExceptions)
 					{
-						UniqueConstraintException uniqueConstraintException = (aggregatedException as UniqueConstraintException);
+						UniqueEMailAddressException uniqueEMailAddressException = aggregatedException as UniqueEMailAddressException;
 
-						if (uniqueConstraintException != null && string.Equals(uniqueConstraintException.ConstraintName, "http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd:UniqueEmails", StringComparison.Ordinal))
-							ModelState.AddModelError("EMailAddress", string.Format(ErrorStrings.EMailTextBox_DuplicateValue_Format, uniqueConstraintException.ConflictingValue));
+						if (uniqueEMailAddressException != null)
+							ModelState.AddModelError("EMailAddress", string.Format(ErrorStrings.EMailTextBox_DuplicateValue_Format, uniqueEMailAddressException.ConflictingValue));
 					}
 
 					return View(registerViewModel);

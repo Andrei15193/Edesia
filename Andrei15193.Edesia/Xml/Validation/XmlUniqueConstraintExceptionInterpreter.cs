@@ -2,11 +2,11 @@
 using System.Xml.Schema;
 namespace Andrei15193.Edesia.Xml.Validation
 {
-	public class UniqueConstraintExceptionInterpreter
-		: IXmlSchemaExceptionInterpreter<UniqueConstraintException>
+	public class XmlUniqueConstraintExceptionInterpreter
+		: IXmlSchemaExceptionInterpreter<XmlUniqueConstraintException>
 	{
 		#region IXmlSchemaExceptionInterpreter Members
-		public UniqueConstraintException Interpret(XmlSchemaException xmlSchemaException)
+		public XmlUniqueConstraintException Interpret(XmlSchemaException xmlSchemaException)
 		{
 			if (xmlSchemaException == null || xmlSchemaException.HResult != -2146231999)
 				return null;
@@ -16,7 +16,7 @@ namespace Andrei15193.Edesia.Xml.Validation
 			if (!errorMessageMatch.Success)
 				return null;
 
-			return new UniqueConstraintException(errorMessageMatch.Groups[1].Value, errorMessageMatch.Groups[2].Value, xmlSchemaException);
+			return new XmlUniqueConstraintException(errorMessageMatch.Groups[1].Value, errorMessageMatch.Groups[2].Value, xmlSchemaException);
 		}
 		#endregion
 	}

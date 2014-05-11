@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Schema;
+using Andrei15193.Edesia.Exceptions;
 using Andrei15193.Edesia.Models;
+using Andrei15193.Edesia.Xml.Validation;
 namespace Andrei15193.Edesia.DataAccess.Xml
 {
 	public class XmlDeliveryRepository
@@ -50,7 +52,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName);
 			xmlDocument.Root.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", addressName));
-			_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
+
+			_SaveXmlDocument(xmlDocument);
 		}
 		public void RemoveAddress(string addressName)
 		{
@@ -67,7 +70,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (addressXElement != null)
 			{
 				addressXElement.Remove();
-				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
+				_SaveXmlDocument(xmlDocument);
 			}
 		}
 		public void AddDeliveryZone(DeliveryZone deliveryZone)
@@ -87,7 +90,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					   .Where(addressXElement => deliveryZone.Addresses.Contains(addressXElement.Value))
 					   .Remove();
 
-			_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
+			_SaveXmlDocument(xmlDocument);
 		}
 		public void UpdateDeliveryZone(DeliveryZone deliveryZone, string deliveryZoneOldName)
 		{
@@ -120,7 +123,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 						   .Where(addressXElement => deliveryZone.Addresses.Contains(addressXElement.Value))
 						   .Remove();
 
-				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
+				_SaveXmlDocument(xmlDocument);
 			}
 		}
 		public void RemoveDeliveryZone(string deliveryZoneName)
@@ -141,13 +144,70 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				xmlDocument.Root.Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address"));
 				deliveryZoneXElement.Remove();
 
-				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
+				_SaveXmlDocument(xmlDocument);
 			}
 		}
 		#endregion
+		public string XmlDocumentFileName
+		{
+			get
+			{
+				return _xmlDocumentFileName;
+			}
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("XmlDocumentFileName");
+				if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+					throw new ArgumentException("Cannot be empty or whitespace!", "XmlDocumentFileName");
 
-		private readonly string _xmlDocumentFileName;
-		private readonly XmlDocumentProvider _xmlDocumentProvider;
+				_xmlDocumentFileName = value;
+			}
+		}
+		public XmlDocumentProvider XmlDocumentProvider
+		{
+			get
+			{
+				return _xmlDocumentProvider;
+			}
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("XmlDocumentProvider");
+
+				_xmlDocumentProvider = value;
+			}
+		}
+
+		private void _SaveXmlDocument(XDocument xmlDocument)
+		{
+			try
+			{
+				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
+			}
+			catch (AggregateException xmlExceptions)
+			{
+				throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
+			}
+		}
+		private Exception _TranslateException(Exception exception)
+		{
+			XmlUniqueConstraintException xmlUniqueConstraintException = exception as XmlUniqueConstraintException;
+
+			if (xmlUniqueConstraintException != null)
+			{
+				if (string.Equals("http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd:UniqueAddresses", xmlUniqueConstraintException.ConstraintName, StringComparison.Ordinal))
+					return new UniqueAddressException(xmlUniqueConstraintException.ConflictingValue, xmlUniqueConstraintException);
+
+				if (string.Equals("http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd:UniqueDeliveryZoneNames", xmlUniqueConstraintException.ConstraintName, StringComparison.Ordinal))
+					return new UniqueDeliveryZoneNameException(xmlUniqueConstraintException.ConflictingValue, xmlUniqueConstraintException);
+			}
+
+			return exception;
+		}
+
+		private string _xmlDocumentFileName;
+		private XmlDocumentProvider _xmlDocumentProvider;
 		private readonly XmlSchemaSet _xmlDocumentSchemaSet;
 	}
 }

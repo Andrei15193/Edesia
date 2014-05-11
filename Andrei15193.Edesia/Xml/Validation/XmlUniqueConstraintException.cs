@@ -1,10 +1,10 @@
 ﻿using System;
 namespace Andrei15193.Edesia.Xml.Validation
 {
-	public class UniqueConstraintException
+	public class XmlUniqueConstraintException
 		: XmlSchemaConstraintException
 	{
-		public UniqueConstraintException(string conflictingValue, string constraintName, Exception innerException = null)
+		public XmlUniqueConstraintException(string conflictingValue, string constraintName, Exception innerException = null)
 			: base(string.Format("There is a duplicate key sequence '{0}' for the '{1}' key or unique identity constraint.", conflictingValue, constraintName), innerException)
 		{
 			if (conflictingValue == null)

@@ -157,13 +157,17 @@
     <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="DataAccess\IDeliveryRepository.cs" />
     <Compile Include="DataAccess\Xml\XmlDeliveryRepository.cs" />
+    <Compile Include="Exceptions\DomainConstraintException.cs" />
+    <Compile Include="Exceptions\UniqueAddressException.cs" />
+    <Compile Include="Exceptions\UniqueConstraintException.cs" />
+    <Compile Include="Exceptions\UniqueDeliveryZoneNameException.cs" />
+    <Compile Include="Exceptions\UniqueEMailAddressException.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\ApplicationUserRole.cs" />
     <Compile Include="Models\Colour.cs" />
     <Compile Include="Models\Colours.cs" />
     <Compile Include="Models\DeliveryZone.cs" />
     <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\IApplication.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\MetroUICSSBundleConfig.cs" />
@@ -320,9 +324,9 @@
     <Compile Include="ViewModels\Delivery\DeliveryPlanningViewModel.cs" />
     <Compile Include="ViewModels\Delivery\DeliveryZonesViewModel.cs" />
     <Compile Include="ViewModels\Delivery\RemoveAddressViewModel.cs" />
-    <Compile Include="Xml\Validation\UniqueConstraintException.cs" />
+    <Compile Include="Xml\Validation\XmlUniqueConstraintException.cs" />
     <Compile Include="Xml\Validation\IXmlSchemaExceptionInterpreter.cs" />
-    <Compile Include="Xml\Validation\UniqueConstraintExceptionInterpreter.cs" />
+    <Compile Include="Xml\Validation\XmlUniqueConstraintExceptionInterpreter.cs" />
     <Compile Include="DataAccess\Xml\XmlDocumentProvider.cs" />
     <Compile Include="DataAccess\Xml\Local\LocalXmlDocumentProvider.cs" />
     <Compile Include="DataAccess\Xml\XmlApplicationUserRepository.cs" />
@@ -430,6 +434,7 @@
     <EmbeddedResource Include="Resources\DeliveryPlanningViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DeliveryPlanningViewStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EditDeliveryZoneViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
