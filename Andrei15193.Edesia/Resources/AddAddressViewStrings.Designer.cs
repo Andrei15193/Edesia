@@ -22,14 +22,14 @@ namespace Andrei15193.Edesia.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AddStreetViewStrings {
+    public class AddAddressViewStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AddStreetViewStrings() {
+        internal AddAddressViewStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Andrei15193.Edesia.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.AddStreetViewStrings", typeof(AddStreetViewStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.AddAddressViewStrings", typeof(AddAddressViewStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,29 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Renunță.
+        ///   Looks up a localized string similar to Adresa.
         /// </summary>
-        public static string CancelButton_DisplayName {
+        public static string AddressTextBox_DisplayName {
             get {
-                return ResourceManager.GetString("CancelButton_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Numele străzii.
-        /// </summary>
-        public static string StreetNameTextBox_DisplayName {
-            get {
-                return ResourceManager.GetString("StreetNameTextBox_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AddressTextBox_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string StreetNameTextBox_Hint {
+        public static string AddressTextBox_Hint {
             get {
-                return ResourceManager.GetString("StreetNameTextBox_Hint", resourceCulture);
+                return ResourceManager.GetString("AddressTextBox_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Renunță.
+        /// </summary>
+        public static string CancelButton_DisplayName {
+            get {
+                return ResourceManager.GetString("CancelButton_DisplayName", resourceCulture);
             }
         }
         

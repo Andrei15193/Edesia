@@ -4,11 +4,11 @@ namespace Andrei15193.Edesia.DataAccess
 {
 	public interface IDeliveryRepository
 	{
-		IEnumerable<string> GetUnmappedStreets();
+		IEnumerable<string> GetUnmappedAddresses();
 		IEnumerable<DeliveryZone> GetDeliveryZones();
 
-		void AddStreet(string streetName);
-		void RemoveStreet(string streetName);
+		void AddAddress(string addressName);
+		void RemoveAddress(string addressName);
 
 		void AddDeliveryZone(DeliveryZone deliveryZone);
 		void UpdateDeliveryZone(DeliveryZone deliveryZone, string deliveryZoneOldName);

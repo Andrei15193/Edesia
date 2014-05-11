@@ -79,20 +79,38 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stare livrare.
+        /// </summary>
+        public static string DeliveryStateLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("DeliveryStateLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zone de livrare.
+        /// </summary>
+        public static string DeliveryZonesLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("DeliveryZonesLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gestionează zone de livrare.
         /// </summary>
-        public static string ManageTransportZonesButton_DisplayName {
+        public static string ManageDeliveryZonesButton_DisplayName {
             get {
-                return ResourceManager.GetString("ManageTransportZonesButton_DisplayName", resourceCulture);
+                return ResourceManager.GetString("ManageDeliveryZonesButton_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Adaugă, modifică, șterge zone de livrare..
         /// </summary>
-        public static string ManageTransportZonesButton_Hint {
+        public static string ManageDeliveryZonesButton_Hint {
             get {
-                return ResourceManager.GetString("ManageTransportZonesButton_Hint", resourceCulture);
+                return ResourceManager.GetString("ManageDeliveryZonesButton_Hint", resourceCulture);
             }
         }
         
@@ -124,20 +142,20 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Livrări planificate.
+        /// </summary>
+        public static string PendingDeliveriesLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("PendingDeliveriesLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comenzi în așteptare.
         /// </summary>
         public static string PendingOrdersLabel_DisplayName {
             get {
                 return ResourceManager.GetString("PendingOrdersLabel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Livrări planificate.
-        /// </summary>
-        public static string PendingTransportsLabel_DisplayName {
-            get {
-                return ResourceManager.GetString("PendingTransportsLabel_DisplayName", resourceCulture);
             }
         }
         
@@ -160,38 +178,20 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zone de livrare.
+        ///   Looks up a localized string similar to Adrese neorganizate.
         /// </summary>
-        public static string TransportZonesLabel_DisplayName {
+        public static string UngroupedAddressesLabel_DisplayName {
             get {
-                return ResourceManager.GetString("TransportZonesLabel_DisplayName", resourceCulture);
+                return ResourceManager.GetString("UngroupedAddressesLabel_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stare livrare.
+        ///   Looks up a localized string similar to Orice adresă neorganizată într-o zonă de livrare nu este inclusă în planificarea livrări comenzilor pentru acea adresă..
         /// </summary>
-        public static string TranspotStateLabel_DisplayName {
+        public static string UngroupedAddressesLabel_Hint {
             get {
-                return ResourceManager.GetString("TranspotStateLabel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Străzi neorganizate.
-        /// </summary>
-        public static string UngroupedStreetsLabel_DisplayName {
-            get {
-                return ResourceManager.GetString("UngroupedStreetsLabel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Orice stradă neorganizată într-o zonă de livrare nu este inclusă în planificarea livrări comenzilor pentru acea stradă..
-        /// </summary>
-        public static string UngroupedStreetsLabel_Hint {
-            get {
-                return ResourceManager.GetString("UngroupedStreetsLabel_Hint", resourceCulture);
+                return ResourceManager.GetString("UngroupedAddressesLabel_Hint", resourceCulture);
             }
         }
         

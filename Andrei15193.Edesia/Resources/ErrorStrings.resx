@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddressTextBox_InvalidDuplicateValue_Format" xml:space="preserve">
+    <value>Ne pare rau dar adresa {0} este deja memorată.</value>
+  </data>
+  <data name="AddressTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să introduceți o adresă.</value>
+  </data>
   <data name="CredentialControls_InvalidValues" xml:space="preserve">
     <value>Adresa de e-mail sau parola nu sunt valide.</value>
+  </data>
+  <data name="DeliveryZoneAddressesListBox_NoValues" xml:space="preserve">
+    <value>Această zonă de livrare nu conține străzi!</value>
   </data>
   <data name="DeliveryZoneColourTextBox_InvalidValue" xml:space="preserve">
     <value>Culoarea trebuie introdusă în format hexazecimal (ex: #FA1519).</value>
@@ -128,9 +137,6 @@
   </data>
   <data name="DeliveryZoneNameTextBox_InvalidDuplicateValue_Format" xml:space="preserve">
     <value>Ne pare rau dar zona de livrare {0} este deja memorată.</value>
-  </data>
-  <data name="DeliveryZoneStreetListBox_NoValues" xml:space="preserve">
-    <value>Această zonă de livrare nu conține străzi!</value>
   </data>
   <data name="DeliveryZoneTextBox_MissingValue" xml:space="preserve">
     <value>Trebuie să introduceți numele zonei de livrare.</value>
@@ -167,11 +173,5 @@
   </data>
   <data name="RegistrationTokenInput_ExpiredValue" xml:space="preserve">
     <value>Ne pare rău dar codul de înregistrare este prea vechi pentru a mai putea fi folosit. Trebuie sa vă reînregistrați.</value>
-  </data>
-  <data name="StreetTextBox_InvalidDuplicateValue_Format" xml:space="preserve">
-    <value>Ne pare rau dar strada {0} este deja memorată.</value>
-  </data>
-  <data name="StreetTextBox_MissingValue" xml:space="preserve">
-    <value>Trebuie să introduceți numele unei străzi.</value>
   </data>
 </root>

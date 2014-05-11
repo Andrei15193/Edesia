@@ -61,11 +61,38 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ne pare rau dar adresa {0} este deja memorată..
+        /// </summary>
+        public static string AddressTextBox_InvalidDuplicateValue_Format {
+            get {
+                return ResourceManager.GetString("AddressTextBox_InvalidDuplicateValue_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trebuie să introduceți o adresă..
+        /// </summary>
+        public static string AddressTextBox_MissingValue {
+            get {
+                return ResourceManager.GetString("AddressTextBox_MissingValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adresa de e-mail sau parola nu sunt valide..
         /// </summary>
         public static string CredentialControls_InvalidValues {
             get {
                 return ResourceManager.GetString("CredentialControls_InvalidValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Această zonă de livrare nu conține străzi!.
+        /// </summary>
+        public static string DeliveryZoneAddressesListBox_NoValues {
+            get {
+                return ResourceManager.GetString("DeliveryZoneAddressesListBox_NoValues", resourceCulture);
             }
         }
         
@@ -93,15 +120,6 @@ namespace Andrei15193.Edesia.Resources {
         public static string DeliveryZoneNameTextBox_InvalidDuplicateValue_Format {
             get {
                 return ResourceManager.GetString("DeliveryZoneNameTextBox_InvalidDuplicateValue_Format", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Această zonă de livrare nu conține străzi!.
-        /// </summary>
-        public static string DeliveryZoneStreetListBox_NoValues {
-            get {
-                return ResourceManager.GetString("DeliveryZoneStreetListBox_NoValues", resourceCulture);
             }
         }
         
@@ -210,24 +228,6 @@ namespace Andrei15193.Edesia.Resources {
         public static string RegistrationTokenInput_ExpiredValue {
             get {
                 return ResourceManager.GetString("RegistrationTokenInput_ExpiredValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ne pare rau dar strada {0} este deja memorată..
-        /// </summary>
-        public static string StreetTextBox_InvalidDuplicateValue_Format {
-            get {
-                return ResourceManager.GetString("StreetTextBox_InvalidDuplicateValue_Format", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Trebuie să introduceți numele unei străzi..
-        /// </summary>
-        public static string StreetTextBox_MissingValue {
-            get {
-                return ResourceManager.GetString("StreetTextBox_MissingValue", resourceCulture);
             }
         }
     }

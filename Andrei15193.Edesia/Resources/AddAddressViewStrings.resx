@@ -117,19 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddressTextBox_DisplayName" xml:space="preserve">
+    <value>Adresa</value>
+  </data>
+  <data name="AddressTextBox_Hint" xml:space="preserve">
+    <value />
+  </data>
   <data name="CancelButton_DisplayName" xml:space="preserve">
     <value>Renunță</value>
   </data>
-  <data name="StreetToRemoveComboBox_DisplayName" xml:space="preserve">
-    <value>Numele străzii</value>
-  </data>
-  <data name="StreetToRemoveComboBox_Hint" xml:space="preserve">
-    <value>Doar străzile care nu sunt folosite pot fi șterse.</value>
-  </data>
   <data name="SubmitButton_DisplayName" xml:space="preserve">
-    <value>Șterge</value>
+    <value>Adaugă</value>
   </data>
   <data name="ViewTitle" xml:space="preserve">
-    <value>Ștergere stradă</value>
+    <value>Adăugare stradă</value>
   </data>
 </root>

@@ -139,7 +139,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 			return false;
 		}
-		public IEnumerable<Address> GetAddresses()
+		public IEnumerable<DetailedAddress> GetAddresses()
 		{
 			return XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet)
 									  .Root
@@ -207,7 +207,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			XElement addressXElement = userXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address");
 			if (addressXElement != null)
-				applicationUser.Address = _GetAddress(addressXElement);
+				applicationUser.DetailedAddress = _GetAddress(addressXElement);
 
 			XElement employeeXElement = userXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee");
 			if (employeeXElement != null)
@@ -239,8 +239,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				applicationUserXElement.Add(new XAttribute("RegistrationTime", XmlConvert.ToString(applicationUser.RegistrationTime, MvcApplication.DateTimeSerializationFormat)));
 				applicationUserXElement.Add(new XAttribute("RegistrationKey", registrationKey));
 			}
-			if (applicationUser.Address != null)
-				applicationUserXElement.Add(_GetAddressXElement(applicationUser.Address));
+			if (applicationUser.DetailedAddress != null)
+				applicationUserXElement.Add(_GetAddressXElement(applicationUser.DetailedAddress));
 
 			ApplicationUserRole applicationUserRole = applicationUser as ApplicationUserRole;
 
@@ -260,24 +260,24 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			return applicationUserXElement;
 		}
-		private XElement _GetAddressXElement(Address address)
+		private XElement _GetAddressXElement(DetailedAddress address)
 		{
 			if (address.Details == null)
-				return new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address",
-									new XAttribute("Street", address.Street));
+				return new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}DetailedAddress",
+									new XAttribute("Address", address.Address));
 			else
-				return new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address",
-									new XAttribute("Street", address.Street),
+				return new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}DetailedAddress",
+									new XAttribute("Address", address.Address),
 									new XAttribute("Details", address.Details));
 		}
-		private Address _GetAddress(XElement addressXElement)
+		private DetailedAddress _GetAddress(XElement detailedAddressXElement)
 		{
-			XAttribute addressDetailsAttribute = addressXElement.Attribute("Details");
+			XAttribute addressDetailsAttribute = detailedAddressXElement.Attribute("Details");
 
 			if (addressDetailsAttribute == null)
-				return new Address(addressXElement.Attribute("Street").Value);
+				return new DetailedAddress(detailedAddressXElement.Attribute("Address").Value);
 			else
-				return new Address(addressXElement.Attribute("Street").Value, addressDetailsAttribute.Value);
+				return new DetailedAddress(detailedAddressXElement.Attribute("Address").Value, addressDetailsAttribute.Value);
 		}
 		private string _ComputeHash(string authenticationToken)
 		{

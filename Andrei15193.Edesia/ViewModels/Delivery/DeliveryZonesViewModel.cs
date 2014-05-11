@@ -6,25 +6,25 @@ namespace Andrei15193.Edesia.ViewModels.Delivery
 {
 	public class DeliveryZonesViewModel
 	{
-		public DeliveryZonesViewModel(IEnumerable<string> unmappedStreets, IEnumerable<DeliveryZone> deliveryZones, IEnumerable<string> unusedStreets)
+		public DeliveryZonesViewModel(IEnumerable<string> unmappedAddresses, IEnumerable<DeliveryZone> deliveryZones, IEnumerable<string> unusedAddresses)
 		{
-			if (unmappedStreets == null)
-				throw new ArgumentNullException("unmappedStreets");
+			if (unmappedAddresses == null)
+				throw new ArgumentNullException("unmappedAddresses");
 			if (deliveryZones == null)
 				throw new ArgumentNullException("deliveryZones");
-			if (unusedStreets == null)
-				throw new ArgumentNullException("unusedStreets");
+			if (unusedAddresses == null)
+				throw new ArgumentNullException("unusedAddress");
 
-			_unmappedSteets = unmappedStreets.Where(unmappedStreet => unmappedStreet != null && !string.IsNullOrEmpty(unmappedStreet) && !string.IsNullOrWhiteSpace(unmappedStreet));
-			_deliveryZones = deliveryZones.Where(deliveryZone => deliveryZone != null);
-			_unusedStreets = unusedStreets;
+			_unmappedAddresses = unmappedAddresses.Where(unmappedAddress => unmappedAddress != null && !string.IsNullOrEmpty(unmappedAddress) && !string.IsNullOrWhiteSpace(unmappedAddress)).OrderBy(address => address);
+			_deliveryZones = deliveryZones.Where(deliveryZone => deliveryZone != null).OrderBy(deliveryZone => deliveryZone.Name);
+			_unusedAddresses = unusedAddresses.OrderBy(unusedAddress => unusedAddress);
 		}
 
-		public IEnumerable<string> UnmappedStreets
+		public IEnumerable<string> UnmappedAddresses
 		{
 			get
 			{
-				return _unmappedSteets;
+				return _unmappedAddresses;
 			}
 		}
 		public IEnumerable<DeliveryZone> DeliveryZones
@@ -34,16 +34,16 @@ namespace Andrei15193.Edesia.ViewModels.Delivery
 				return _deliveryZones;
 			}
 		}
-		public IEnumerable<string> UnusedStreets
+		public IEnumerable<string> UnusedAddresses
 		{
 			get
 			{
-				return _unusedStreets;
+				return _unusedAddresses;
 			}
 		}
 
-		private readonly IEnumerable<string> _unmappedSteets;
+		private readonly IEnumerable<string> _unmappedAddresses;
 		private readonly IEnumerable<DeliveryZone> _deliveryZones;
-		private readonly IEnumerable<string> _unusedStreets;
+		private readonly IEnumerable<string> _unusedAddresses;
 	}
 }

@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddAddressButton_DisplayName" xml:space="preserve">
+    <value>Adaugă adresă</value>
+  </data>
   <data name="AddDeliveryZoneButton_DisplayName" xml:space="preserve">
     <value>Adaugă zonă de livrare</value>
-  </data>
-  <data name="AddStreetButton_DisplayName" xml:space="preserve">
-    <value>Adaugă stradă</value>
   </data>
   <data name="BackToDeliveryPlanningButton_DisplayName" xml:space="preserve">
     <value>Înapoi la planificare livrări</value>
@@ -135,11 +135,11 @@
   <data name="ManageOptionsLabel_DisplayName" xml:space="preserve">
     <value>Opțiuni pentru gestionare</value>
   </data>
+  <data name="RemoveAddressButton_DisplayName" xml:space="preserve">
+    <value>Șterge adresă</value>
+  </data>
   <data name="RemoveDeliveryZoneButton_DisplayName" xml:space="preserve">
     <value>Șterge zonă de livrare</value>
-  </data>
-  <data name="RemoveStreetButton_DisplayName" xml:space="preserve">
-    <value>Șterge stradă</value>
   </data>
   <data name="ViewTitle" xml:space="preserve">
     <value>Gestionare străzi și zone de livrare</value>

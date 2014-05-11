@@ -61,12 +61,12 @@ namespace Andrei15193.Edesia.ViewModels.Delivery
 			_availableColours = new ReadOnlyDictionary<string, Colour>(allColours);
 		}
 
-		public DeliveryZoneViewModel(IEnumerable<KeyValuePair<string, bool>> availableStreets)
+		public DeliveryZoneViewModel(IEnumerable<KeyValuePair<string, bool>> availableAddresses)
 		{
-			if (availableStreets == null)
-				_availableStreets = new HashSet<KeyValuePair<string, bool>>();
+			if (availableAddresses == null)
+				_availableAddresses = new SortedSet<KeyValuePair<string, bool>>(new KeyComparer());
 			else
-				_availableStreets = new SortedSet<KeyValuePair<string, bool>>(availableStreets.Where(availableStreet => !string.IsNullOrEmpty(availableStreet.Key) && !string.IsNullOrWhiteSpace(availableStreet.Key)), new KeyComparer());
+				_availableAddresses = new SortedSet<KeyValuePair<string, bool>>(availableAddresses.Where(availableAddress => !string.IsNullOrEmpty(availableAddress.Key) && !string.IsNullOrWhiteSpace(availableAddress.Key)), new KeyComparer());
 		}
 		public DeliveryZoneViewModel()
 			: this(null)
@@ -101,12 +101,12 @@ namespace Andrei15193.Edesia.ViewModels.Delivery
 			}
 		}
 
-		[Display(Name = DeliveryZoneDetailsViewKey.AvailableStreetsListBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.AvailableStreetsListBox_Hint, ResourceType = typeof(DeliveryZoneDetailsViewStrings))]
-		public ISet<KeyValuePair<string, bool>> AvailableStreets
+		[Display(Name = DeliveryZoneDetailsViewKey.AvailableAddressesListBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.AvailableAddressesListBox_Hint, ResourceType = typeof(DeliveryZoneDetailsViewStrings))]
+		public ISet<KeyValuePair<string, bool>> AvailableAddresses
 		{
 			get
 			{
-				return _availableStreets;
+				return _availableAddresses;
 			}
 		}
 		public string SubmitButtonText
@@ -115,7 +115,7 @@ namespace Andrei15193.Edesia.ViewModels.Delivery
 			set;
 		}
 
-		private ISet<KeyValuePair<string, bool>> _availableStreets;
+		private ISet<KeyValuePair<string, bool>> _availableAddresses;
 		private static IReadOnlyDictionary<string, Colour> _availableColours;
 
 		private sealed class KeyComparer

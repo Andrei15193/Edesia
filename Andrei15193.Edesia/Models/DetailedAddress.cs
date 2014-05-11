@@ -1,16 +1,16 @@
 ﻿using System;
 namespace Andrei15193.Edesia.Models
 {
-	public class Address
+	public class DetailedAddress
 	{
-		public Address(string street, string details = null)
+		public DetailedAddress(string address, string details = null)
 		{
-			if (street == null)
-				throw new ArgumentNullException("street");
-			if (string.IsNullOrEmpty(street) || string.IsNullOrWhiteSpace(street))
-				throw new ArgumentException("Cannot be empty or whitespace!", "street");
+			if (address == null)
+				throw new ArgumentNullException("address");
+			if (string.IsNullOrEmpty(address) || string.IsNullOrWhiteSpace(address))
+				throw new ArgumentException("Cannot be empty or whitespace!", "address");
 
-			_street = street;
+			_address = address;
 
 			if (string.IsNullOrEmpty(details) || string.IsNullOrWhiteSpace(details))
 				_details = null;
@@ -18,20 +18,20 @@ namespace Andrei15193.Edesia.Models
 				_details = details;
 		}
 
-		public string Street
+		public string Address
 		{
 			get
 			{
-				return _street;
+				return _address;
 			}
 			set
 			{
 				if (value == null)
-					throw new ArgumentNullException("Street");
+					throw new ArgumentNullException("Address");
 				if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
-					throw new ArgumentException("Cannot be empty or whitespace!", "Street");
+					throw new ArgumentException("Cannot be empty or whitespace!", "Address");
 
-				_street = value;
+				_address = value;
 			}
 		}
 		public string Details
@@ -51,12 +51,12 @@ namespace Andrei15193.Edesia.Models
 		public override string ToString()
 		{
 			if (_details == null)
-				return _street;
+				return _address;
 			else
-				return string.Join(", ", _street, _details);
+				return string.Join(", ", _address, _details);
 		}
 
-		private string _street;
+		private string _address;
 		private string _details;
 	}
 }

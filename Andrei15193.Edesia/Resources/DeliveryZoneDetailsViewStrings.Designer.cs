@@ -61,20 +61,20 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Străzi incluse.
+        ///   Looks up a localized string similar to Adrese incluse.
         /// </summary>
-        public static string AvailableStreetsListBox_DisplayName {
+        public static string AvailableAddressesListBox_DisplayName {
             get {
-                return ResourceManager.GetString("AvailableStreetsListBox_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AvailableAddressesListBox_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AvailableStreetsListBox_Hint {
+        public static string AvailableAddressesListBox_Hint {
             get {
-                return ResourceManager.GetString("AvailableStreetsListBox_Hint", resourceCulture);
+                return ResourceManager.GetString("AvailableAddressesListBox_Hint", resourceCulture);
             }
         }
         

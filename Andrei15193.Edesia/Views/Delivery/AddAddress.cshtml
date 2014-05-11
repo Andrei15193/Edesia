@@ -1,0 +1,22 @@
+﻿@using Andrei15193.Edesia.Resources;
+@model Andrei15193.Edesia.ViewModels.Delivery.AddAddressViewModel
+@{
+	ViewBag.Title = AddAddressViewStrings.ViewTitle;
+}
+<div class="grid fluid">
+	<div class="row">
+		<div class="span4 offset4">
+			<h1>@AddAddressViewStrings.ViewTitle</h1>
+			@using (Html.BeginForm())
+			{
+				@Html.LabelFor(model => model.Address)
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Address"])
+				<div class="input-control text">
+					@Html.EditorFor(model => model.Address)
+				</div>
+				<input class="action" type="submit" value="@AddAddressViewStrings.SubmitButton_DisplayName" />
+				<a class="button cancelAction" href="@Url.Action("ManageDeliveryZones", "Delivery")">@AddAddressViewStrings.CancelButton_DisplayName</a>
+			}
+		</div>
+	</div>
+</div>

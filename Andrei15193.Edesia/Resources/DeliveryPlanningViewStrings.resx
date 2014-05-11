@@ -123,10 +123,16 @@
   <data name="CancelPendingTransportsButton_Hint" xml:space="preserve">
     <value>Anulează comenzi care nu sunt în curs de livrare.</value>
   </data>
-  <data name="ManageTransportZonesButton_DisplayName" xml:space="preserve">
+  <data name="DeliveryStateLabel_DisplayName" xml:space="preserve">
+    <value>Stare livrare</value>
+  </data>
+  <data name="DeliveryZonesLabel_DisplayName" xml:space="preserve">
+    <value>Zone de livrare</value>
+  </data>
+  <data name="ManageDeliveryZonesButton_DisplayName" xml:space="preserve">
     <value>Gestionează zone de livrare</value>
   </data>
-  <data name="ManageTransportZonesButton_Hint" xml:space="preserve">
+  <data name="ManageDeliveryZonesButton_Hint" xml:space="preserve">
     <value>Adaugă, modifică, șterge zone de livrare.</value>
   </data>
   <data name="OrderLabel_DisplayName" xml:space="preserve">
@@ -138,11 +144,11 @@
   <data name="OrdersLabel_DisplayName" xml:space="preserve">
     <value>Comenzi</value>
   </data>
+  <data name="PendingDeliveriesLabel_DisplayName" xml:space="preserve">
+    <value>Livrări planificate</value>
+  </data>
   <data name="PendingOrdersLabel_DisplayName" xml:space="preserve">
     <value>Comenzi în așteptare</value>
-  </data>
-  <data name="PendingTransportsLabel_DisplayName" xml:space="preserve">
-    <value>Livrări planificate</value>
   </data>
   <data name="SchedulePendingOrdersButton_DisplayName" xml:space="preserve">
     <value>Programează comenzi</value>
@@ -150,17 +156,11 @@
   <data name="SchedulePendingOrdersButton_Hint" xml:space="preserve">
     <value>Planifică manual comenzi pentru a fi livrate.</value>
   </data>
-  <data name="TransportZonesLabel_DisplayName" xml:space="preserve">
-    <value>Zone de livrare</value>
+  <data name="UngroupedAddressesLabel_DisplayName" xml:space="preserve">
+    <value>Adrese neorganizate</value>
   </data>
-  <data name="TranspotStateLabel_DisplayName" xml:space="preserve">
-    <value>Stare livrare</value>
-  </data>
-  <data name="UngroupedStreetsLabel_DisplayName" xml:space="preserve">
-    <value>Străzi neorganizate</value>
-  </data>
-  <data name="UngroupedStreetsLabel_Hint" xml:space="preserve">
-    <value>Orice stradă neorganizată într-o zonă de livrare nu este inclusă în planificarea livrări comenzilor pentru acea stradă.</value>
+  <data name="UngroupedAddressesLabel_Hint" xml:space="preserve">
+    <value>Orice adresă neorganizată într-o zonă de livrare nu este inclusă în planificarea livrări comenzilor pentru acea adresă.</value>
   </data>
   <data name="ViewTitle" xml:space="preserve">
     <value>Planificare Livrări</value>

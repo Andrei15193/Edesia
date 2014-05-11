@@ -5,7 +5,7 @@ namespace Andrei15193.Edesia.Models
 {
 	public class ApplicationUser
 	{
-		public ApplicationUser(string eMailAddress, string firstName, string lastName, DateTime registrationTime, Address address = null)
+		public ApplicationUser(string eMailAddress, string firstName, string lastName, DateTime registrationTime, DetailedAddress detailedAddress = null)
 		{
 			if (eMailAddress == null)
 				throw new ArgumentNullException("eMailAddress");
@@ -32,7 +32,7 @@ namespace Andrei15193.Edesia.Models
 			_lastName = lastName.Trim();
 			_registrationTime = registrationTime;
 
-			Address = address;
+			DetailedAddress = detailedAddress;
 		}
 		protected ApplicationUser(ApplicationUser applicationUser)
 		{
@@ -104,7 +104,7 @@ namespace Andrei15193.Edesia.Models
 				return _registrationTime;
 			}
 		}
-		public Address Address
+		public DetailedAddress DetailedAddress
 		{
 			get;
 			set;

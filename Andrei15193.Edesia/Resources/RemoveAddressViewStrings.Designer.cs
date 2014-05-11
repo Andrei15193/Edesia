@@ -22,14 +22,14 @@ namespace Andrei15193.Edesia.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class RemoveStreetViewStrings {
+    public class RemoveAddressViewStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal RemoveStreetViewStrings() {
+        internal RemoveAddressViewStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Andrei15193.Edesia.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.RemoveStreetViewStrings", typeof(RemoveStreetViewStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.RemoveAddressViewStrings", typeof(RemoveAddressViewStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,29 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adresa.
+        /// </summary>
+        public static string AddressToRemoveComboBox_DisplayName {
+            get {
+                return ResourceManager.GetString("AddressToRemoveComboBox_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doar adresele care nu sunt folosite pot fi șterse..
+        /// </summary>
+        public static string AddressToRemoveComboBox_Hint {
+            get {
+                return ResourceManager.GetString("AddressToRemoveComboBox_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Renunță.
         /// </summary>
         public static string CancelButton_DisplayName {
             get {
                 return ResourceManager.GetString("CancelButton_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Numele străzii.
-        /// </summary>
-        public static string StreetToRemoveComboBox_DisplayName {
-            get {
-                return ResourceManager.GetString("StreetToRemoveComboBox_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Doar străzile care nu sunt folosite pot fi șterse..
-        /// </summary>
-        public static string StreetToRemoveComboBox_Hint {
-            get {
-                return ResourceManager.GetString("StreetToRemoveComboBox_Hint", resourceCulture);
             }
         }
         

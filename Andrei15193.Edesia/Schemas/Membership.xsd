@@ -24,8 +24,8 @@
 
 	<xsd:complexType name="ApplicationUser">
 		<xsd:sequence>
-			<xsd:element name="Address"
-						 type="membership:Address"
+			<xsd:element name="DetailedAddress"
+						 type="membership:DetailedAddress"
 						 minOccurs="0"
 						 maxOccurs="1" />
 			<xsd:element name="Employee"
@@ -83,8 +83,8 @@
 		</xsd:attribute>
 	</xsd:complexType>
 
-	<xsd:complexType name="Address">
-		<xsd:attribute name="Street"
+	<xsd:complexType name="DetailedAddress">
+		<xsd:attribute name="Address"
 					   type="xsd:string"
 					   use="required" />
 		<xsd:attribute name="Details"

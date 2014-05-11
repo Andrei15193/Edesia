@@ -61,20 +61,20 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adaugă adresă.
+        /// </summary>
+        public static string AddAddressButton_DisplayName {
+            get {
+                return ResourceManager.GetString("AddAddressButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adaugă zonă de livrare.
         /// </summary>
         public static string AddDeliveryZoneButton_DisplayName {
             get {
                 return ResourceManager.GetString("AddDeliveryZoneButton_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adaugă stradă.
-        /// </summary>
-        public static string AddStreetButton_DisplayName {
-            get {
-                return ResourceManager.GetString("AddStreetButton_DisplayName", resourceCulture);
             }
         }
         
@@ -115,20 +115,20 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Șterge adresă.
+        /// </summary>
+        public static string RemoveAddressButton_DisplayName {
+            get {
+                return ResourceManager.GetString("RemoveAddressButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Șterge zonă de livrare.
         /// </summary>
         public static string RemoveDeliveryZoneButton_DisplayName {
             get {
                 return ResourceManager.GetString("RemoveDeliveryZoneButton_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Șterge stradă.
-        /// </summary>
-        public static string RemoveStreetButton_DisplayName {
-            get {
-                return ResourceManager.GetString("RemoveStreetButton_DisplayName", resourceCulture);
             }
         }
         

@@ -25,12 +25,12 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		}
 
 		#region IDeliveryRepository Members
-		public IEnumerable<string> GetUnmappedStreets()
+		public IEnumerable<string> GetUnmappedAddresses()
 		{
 			return _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName)
 									   .Root
-									   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Street")
-									   .Select(streetXElement => streetXElement.Value);
+									   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
+									   .Select(addressXElement => addressXElement.Value);
 		}
 		public IEnumerable<DeliveryZone> GetDeliveryZones()
 		{
@@ -39,34 +39,34 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone")
 									   .Select(deliveryZoneXElement => new DeliveryZone(deliveryZoneXElement.Attribute("Name").Value,
 																						Colour.Parse(deliveryZoneXElement.Attribute("Colour").Value),
-																						deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Street").Select(streetXElement => streetXElement.Value)));
+																						deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address").Select(addressXElement => addressXElement.Value)));
 		}
-		public void AddStreet(string streetName)
+		public void AddAddress(string addressName)
 		{
-			if (streetName == null)
-				throw new ArgumentNullException("streetName");
-			if (string.IsNullOrEmpty(streetName) || string.IsNullOrWhiteSpace(streetName))
-				throw new ArgumentException("Cannot be empty or whitespace.", "streetName");
+			if (addressName == null)
+				throw new ArgumentNullException("addressName");
+			if (string.IsNullOrEmpty(addressName) || string.IsNullOrWhiteSpace(addressName))
+				throw new ArgumentException("Cannot be empty or whitespace.", "addressName");
 
 			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName);
-			xmlDocument.Root.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Street", streetName));
+			xmlDocument.Root.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", addressName));
 			_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
 		}
-		public void RemoveStreet(string streetName)
+		public void RemoveAddress(string addressName)
 		{
-			if (streetName == null)
-				throw new ArgumentNullException("streetName");
-			if (string.IsNullOrEmpty(streetName) || string.IsNullOrWhiteSpace(streetName))
-				throw new ArgumentException("Cannot be empty or whitespace.", "streetName");
+			if (addressName == null)
+				throw new ArgumentNullException("addressName");
+			if (string.IsNullOrEmpty(addressName) || string.IsNullOrWhiteSpace(addressName))
+				throw new ArgumentException("Cannot be empty or whitespace.", "addressName");
 
 			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName);
-			XElement streetXElement = xmlDocument.Root
-												 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Street")
-												 .FirstOrDefault(streetXmlElement => string.Equals(streetXmlElement.Value, streetName, StringComparison.OrdinalIgnoreCase));
+			XElement addressXElement = xmlDocument.Root
+												  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
+												  .FirstOrDefault(addressXmlElement => string.Equals(addressXmlElement.Value, addressName, StringComparison.OrdinalIgnoreCase));
 
-			if (streetXElement != null)
+			if (addressXElement != null)
 			{
-				streetXElement.Remove();
+				addressXElement.Remove();
 				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
 			}
 		}
@@ -77,14 +77,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName);
 
-			xmlDocument.Root.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone",
-											  new XAttribute("Name", deliveryZone.Name),
-											  new XAttribute("Colour", deliveryZone.Colour.ToString()),
-											  deliveryZone.Streets.Select(street => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone", street))));
+			xmlDocument.Root.AddFirst(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone",
+												   new XAttribute("Name", deliveryZone.Name),
+												   new XAttribute("Colour", deliveryZone.Colour.ToString()),
+												   deliveryZone.Addresses.Select(address => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", address))));
 
 			xmlDocument.Root
-					   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Street")
-					   .Where(streetXElement => deliveryZone.Streets.Contains(streetXElement.Value))
+					   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
+					   .Where(addressXElement => deliveryZone.Addresses.Contains(addressXElement.Value))
 					   .Remove();
 
 			_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
@@ -107,16 +107,17 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			if (deliveryZoneXElement != null)
 			{
-				xmlDocument.Root.Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Street"));
+				xmlDocument.Root.Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
+														 .Select(addressXElement => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", addressXElement.Value)));
 
 				deliveryZoneXElement.Attribute("Name").SetValue(deliveryZone.Name);
 				deliveryZoneXElement.Attribute("Colour").SetValue(deliveryZone.Colour.ToString());
 				deliveryZoneXElement.Elements().Remove();
-				deliveryZoneXElement.Add(deliveryZone.Streets.Select(street => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Street", street)));
+				deliveryZoneXElement.Add(deliveryZone.Addresses.Select(address => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", address)));
 
 				xmlDocument.Root
-						   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Street")
-						   .Where(streetXElement => deliveryZone.Streets.Contains(streetXElement.Value))
+						   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
+						   .Where(addressXElement => deliveryZone.Addresses.Contains(addressXElement.Value))
 						   .Remove();
 
 				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
@@ -125,7 +126,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		public void RemoveDeliveryZone(string deliveryZoneName)
 		{
 			if (deliveryZoneName == null)
-				throw new ArgumentNullException("streetName");
+				throw new ArgumentNullException("deliveryZoneName");
 			if (string.IsNullOrEmpty(deliveryZoneName) || string.IsNullOrWhiteSpace(deliveryZoneName))
 				throw new ArgumentException("Cannot be empty or whitespace.", "deliveryZoneName");
 
@@ -137,7 +138,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			if (deliveryZoneXElement != null)
 			{
-				xmlDocument.Root.Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Street"));
+				xmlDocument.Root.Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address"));
 				deliveryZoneXElement.Remove();
 
 				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);

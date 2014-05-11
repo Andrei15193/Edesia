@@ -2,8 +2,8 @@ namespace Andrei15193.Edesia.Resources.Strings
 {
 	internal static class DeliveryZoneDetailsViewKey
 	{
-		internal const string AvailableStreetsListBox_DisplayName = "AvailableStreetsListBox_DisplayName";
-		internal const string AvailableStreetsListBox_Hint = "AvailableStreetsListBox_Hint";
+		internal const string AvailableAddressesListBox_DisplayName = "AvailableAddressesListBox_DisplayName";
+		internal const string AvailableAddressesListBox_Hint = "AvailableAddressesListBox_Hint";
 		internal const string CancelButton_DisplayName = "CancelButton_DisplayName";
 		internal const string DeliveryZoneColourComboBox_DisplayName = "DeliveryZoneColourComboBox_DisplayName";
 		internal const string DeliveryZoneColourComboBox_Hint = "DeliveryZoneColourComboBox_Hint";

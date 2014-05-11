@@ -2,14 +2,14 @@
 @model Andrei15193.Edesia.Models.DeliveryZone
 <div class="accordion with-marker" data-role="accordion">
 	<div class="accordion-frame">
-		@if (Model.Streets.Any())
+		@if (Model.Addresses.Any())
 		{
 			<a href="#" class="heading"><i class="icon-stop" style="color: @Model.Colour.ToString();"></i> @Model.Name</a>
 			<div class="content">
 				<ul>
-					@foreach (string street in Model.Streets)
+					@foreach (string address in Model.Addresses)
 					{
-						<li>@street</li>
+						<li>@address</li>
 					}
 				</ul>
 			</div>
@@ -17,7 +17,7 @@
 		else
 		{
 			<a href="#" class="heading">
-				<span class="fg-red"><i class="icon-warning"></i> @ErrorStrings.DeliveryZoneStreetListBox_NoValues</span><br />
+				<span class="fg-red"><i class="icon-warning"></i> @ErrorStrings.DeliveryZoneAddressesListBox_NoValues</span><br />
 				<i class="icon-stop" style="color: @Model.Colour.ToString();"></i> @Model.Name
 			</a>
 			<div class="content"></div>

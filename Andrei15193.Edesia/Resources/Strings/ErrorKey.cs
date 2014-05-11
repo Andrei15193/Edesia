@@ -2,11 +2,13 @@ namespace Andrei15193.Edesia.Resources.Strings
 {
 	internal static class ErrorKey
 	{
+		internal const string AddressTextBox_InvalidDuplicateValue_Format = "AddressTextBox_InvalidDuplicateValue_Format";
+		internal const string AddressTextBox_MissingValue = "AddressTextBox_MissingValue";
 		internal const string CredentialControls_InvalidValues = "CredentialControls_InvalidValues";
+		internal const string DeliveryZoneAddressesListBox_NoValues = "DeliveryZoneAddressesListBox_NoValues";
 		internal const string DeliveryZoneColourTextBox_InvalidValue = "DeliveryZoneColourTextBox_InvalidValue";
 		internal const string DeliveryZoneNameComboBox_InvalidValue = "DeliveryZoneNameComboBox_InvalidValue";
 		internal const string DeliveryZoneNameTextBox_InvalidDuplicateValue_Format = "DeliveryZoneNameTextBox_InvalidDuplicateValue_Format";
-		internal const string DeliveryZoneStreetListBox_NoValues = "DeliveryZoneStreetListBox_NoValues";
 		internal const string DeliveryZoneTextBox_MissingValue = "DeliveryZoneTextBox_MissingValue";
 		internal const string EMailTextBox_DuplicateValue_Format = "EMailTextBox_DuplicateValue_Format";
 		internal const string EMailTextBox_InvalidValue = "EMailTextBox_InvalidValue";
@@ -19,7 +21,5 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string PasswordInput_InvalidVerificationValue = "PasswordInput_InvalidVerificationValue";
 		internal const string PasswordInput_MissingValue = "PasswordInput_MissingValue";
 		internal const string RegistrationTokenInput_ExpiredValue = "RegistrationTokenInput_ExpiredValue";
-		internal const string StreetTextBox_InvalidDuplicateValue_Format = "StreetTextBox_InvalidDuplicateValue_Format";
-		internal const string StreetTextBox_MissingValue = "StreetTextBox_MissingValue";
 	}
 }

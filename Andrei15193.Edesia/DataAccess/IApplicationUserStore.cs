@@ -9,6 +9,6 @@ namespace Andrei15193.Edesia.DataAccess
 		void SetAuthenticationToken(ApplicationUser applicationUser, string authenticationToken, AuthenticationTokenType authenticationMethod = AuthenticationTokenType.Password);
 		void ClearAuthenticationKey(string applicationUserEmail);
 		bool ClearRegistrationKey(string applicationUserEmail, string applicationUserRegistrationKey);
-		IEnumerable<Address> GetAddresses();
+		IEnumerable<DetailedAddress> GetAddresses();
 	}
 }

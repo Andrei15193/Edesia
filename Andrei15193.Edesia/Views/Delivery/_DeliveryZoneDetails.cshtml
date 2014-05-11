@@ -32,24 +32,24 @@
 			}
 		</select>
 	</div>
-	if (Model.AvailableStreets.Any())
+	if (Model.AvailableAddresses.Any())
 	{
-		@Html.LabelFor(model => model.AvailableStreets)
+		@Html.LabelFor(model => model.AvailableAddresses)
 		<div class="padding5" style="margin-bottom: 20px; border: 1px solid lightgray; max-height: 300px; overflow: auto;">
-			@foreach (KeyValuePair<string, bool> availableStreet in Model.AvailableStreets)
+			@foreach (KeyValuePair<string, bool> availableAddresses in Model.AvailableAddresses)
 			{
 				<div class="input-control checkbox" style="display: block;">
 					<label>
-						@if (availableStreet.Value)
+						@if (availableAddresses.Value)
 						{
-							<input type="checkbox" checked="checked" name="checkbox @availableStreet.Key" />
+							<input type="checkbox" checked="checked" name="checkbox @availableAddresses.Key" />
 						}
 						else
 						{
-							<input type="checkbox" name="checkbox @availableStreet.Key" />
+							<input type="checkbox" name="checkbox @availableAddresses.Key" />
 						}
 						<span class="check"></span>
-						@availableStreet.Key
+						@availableAddresses.Key
 					</label>
 				</div>
 			}

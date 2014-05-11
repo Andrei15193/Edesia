@@ -17,27 +17,27 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet]
 		public ActionResult Planning()
 		{
-			return View(new DeliveryPlanningViewModel(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedStreets(), _deliveryRepository.GetDeliveryZones(), _GetUnuesdStreets())));
+			return View(new DeliveryPlanningViewModel(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedAddresses(), _deliveryRepository.GetDeliveryZones(), _GetUnuesdAddresses())));
 		}
 		[HttpGet]
 		public ActionResult ManageDeliveryZones()
 		{
-			return View(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedStreets(), _deliveryRepository.GetDeliveryZones(), _GetUnuesdStreets()));
+			return View(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedAddresses(), _deliveryRepository.GetDeliveryZones(), _GetUnuesdAddresses()));
 		}
 
 		[HttpGet]
-		public ActionResult AddStreet()
+		public ActionResult AddAddress()
 		{
 			return View();
 		}
 		[HttpPost]
-		public ActionResult AddStreet(AddStreetViewModel addStreetViewModel)
+		public ActionResult AddAddress(AddAddressViewModel addAddressViewModel)
 		{
 			if (ModelState.IsValid)
 			{
 				try
 				{
-					_deliveryRepository.AddStreet(addStreetViewModel.StreetName);
+					_deliveryRepository.AddAddress(addAddressViewModel.Address);
 					return Redirect(Url.Action("ManageDeliveryZones", "Delivery"));
 				}
 				catch (AggregateException aggregateException)
@@ -46,43 +46,43 @@ namespace Andrei15193.Edesia.Controllers
 					{
 						UniqueConstraintException uniqueConstraintException = (aggregatedException as UniqueConstraintException);
 
-						if (uniqueConstraintException != null && string.Equals(uniqueConstraintException.ConstraintName, "http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd:UniqueStreetNames", StringComparison.Ordinal))
-							ModelState.AddModelError("StreetName", string.Format(ErrorStrings.StreetTextBox_InvalidDuplicateValue_Format, uniqueConstraintException.ConflictingValue));
+						if (uniqueConstraintException != null && string.Equals(uniqueConstraintException.ConstraintName, "http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd:UniqueAddresses", StringComparison.Ordinal))
+							ModelState.AddModelError("Address", string.Format(ErrorStrings.AddressTextBox_InvalidDuplicateValue_Format, uniqueConstraintException.ConflictingValue));
 					}
 
-					return View(addStreetViewModel);
+					return View(addAddressViewModel);
 				}
 			}
 			else
-				return View(addStreetViewModel);
+				return View(addAddressViewModel);
 		}
 
 		[HttpGet]
-		public ActionResult RemoveStreet()
+		public ActionResult RemoveAddress()
 		{
-			RemoveStreetViewModel removeStreetViewModel = new RemoveStreetViewModel();
+			RemoveAddressViewModel removeAddressesViewModel = new RemoveAddressViewModel();
 
-			foreach (string unusedStreet in _GetUnuesdStreets())
-				removeStreetViewModel.UnusedStreets.Add(unusedStreet);
+			foreach (string unusedAddress in _GetUnuesdAddresses())
+				removeAddressesViewModel.UnusedAddresses.Add(unusedAddress);
 
-			return View(removeStreetViewModel);
+			return View(removeAddressesViewModel);
 		}
 		[HttpPost]
-		public ActionResult RemoveStreet(RemoveStreetViewModel removeStreetViewModel)
+		public ActionResult RemoveAddress(RemoveAddressViewModel removeAddressViewModel)
 		{
 			if (ModelState.IsValid)
 			{
-				_deliveryRepository.RemoveStreet(removeStreetViewModel.StreetToRemove);
+				_deliveryRepository.RemoveAddress(removeAddressViewModel.AddressToRemove);
 				return Redirect(Url.Action("ManageDeliveryZones", "Delivery"));
 			}
 			else
-				return View(removeStreetViewModel);
+				return View(removeAddressViewModel);
 		}
 
 		[HttpGet]
 		public ActionResult AddDeliveryZone()
 		{
-			return View(new DeliveryZoneViewModel(_deliveryRepository.GetUnmappedStreets().Select(unmappedStreet => new KeyValuePair<string, bool>(unmappedStreet, false)))
+			return View(new DeliveryZoneViewModel(_deliveryRepository.GetUnmappedAddresses().Select(unmappedAddress => new KeyValuePair<string, bool>(unmappedAddress, false)))
 				{
 					SubmitButtonText = AddDeliveryZoneViewStrings.SubmitButton_DisplayName
 				});
@@ -109,9 +109,9 @@ namespace Andrei15193.Edesia.Controllers
 				}
 			}
 
-			deliveryZoneViewModel.AvailableStreets.Clear();
-			foreach (string unmappedStreet in _deliveryRepository.GetUnmappedStreets())
-				deliveryZoneViewModel.AvailableStreets.Add(new KeyValuePair<string, bool>(unmappedStreet, Request.Form.AllKeys.Contains("checkbox " + unmappedStreet)));
+			deliveryZoneViewModel.AvailableAddresses.Clear();
+			foreach (string unmappedAddress in _deliveryRepository.GetUnmappedAddresses())
+				deliveryZoneViewModel.AvailableAddresses.Add(new KeyValuePair<string, bool>(unmappedAddress, Request.Form.AllKeys.Contains("checkbox " + unmappedAddress)));
 
 			return View(deliveryZoneViewModel);
 		}
@@ -129,8 +129,8 @@ namespace Andrei15193.Edesia.Controllers
 				DeliveryZone deliveryZoneFound = _deliveryRepository.GetDeliveryZones().FirstOrDefault(deliveryZone => string.Equals(deliveryZoneName, deliveryZone.Name, StringComparison.OrdinalIgnoreCase));
 				if (deliveryZoneFound != null)
 				{
-					DeliveryZoneViewModel deliveryZoneViewModel = new DeliveryZoneViewModel(deliveryZoneFound.Streets.Select(street => new KeyValuePair<string, bool>(street, true))
-																											 .Concat(_deliveryRepository.GetUnmappedStreets().Select(street => new KeyValuePair<string, bool>(street, false))))
+					DeliveryZoneViewModel deliveryZoneViewModel = new DeliveryZoneViewModel(deliveryZoneFound.Addresses.Select(address => new KeyValuePair<string, bool>(address, true))
+																											 .Concat(_deliveryRepository.GetUnmappedAddresses().Select(address => new KeyValuePair<string, bool>(address, false))))
 					{
 						DeliveryZoneName = deliveryZoneFound.Name,
 						DeliveryZoneColour = deliveryZoneFound.Colour.ToString(),
@@ -171,10 +171,13 @@ namespace Andrei15193.Edesia.Controllers
 			DeliveryZone deliveryZoneFound = _deliveryRepository.GetDeliveryZones().FirstOrDefault(deliveryZone => string.Equals(deliveryZoneViewModel.DeliveryZoneOldName, deliveryZone.Name, StringComparison.OrdinalIgnoreCase));
 			if (deliveryZoneFound != null)
 			{
-				deliveryZoneViewModel.AvailableStreets.Clear();
-				foreach (KeyValuePair<string, bool> street in deliveryZoneFound.Streets.Select(street => new KeyValuePair<string, bool>(street, true))
-																					   .Concat(_deliveryRepository.GetUnmappedStreets().Select(street => new KeyValuePair<string, bool>(street, false))))
-					deliveryZoneViewModel.AvailableStreets.Add(street);
+				deliveryZoneViewModel.AvailableAddresses.Clear();
+				foreach (KeyValuePair<string, bool> address in deliveryZoneFound.Addresses.Select(address => new KeyValuePair<string, bool>(address, true))
+																						  .Concat(Request.Form.Keys.Cast<string>()
+																												   .Where(inputName => inputName.StartsWith("checkbox "))
+																												   .Select(inputName => new KeyValuePair<string, bool>(inputName.Substring(9), true)))
+																						  .Concat(_deliveryRepository.GetUnmappedAddresses().Select(address => new KeyValuePair<string, bool>(address, false))))
+					deliveryZoneViewModel.AvailableAddresses.Add(address);
 			}
 			else
 				return EditDeliveryZone(deliveryZoneViewModel.DeliveryZoneName);
@@ -210,11 +213,11 @@ namespace Andrei15193.Edesia.Controllers
 			return RemoveDeliveryZone();
 		}
 
-		private IEnumerable<string> _GetUnuesdStreets()
+		private IEnumerable<string> _GetUnuesdAddresses()
 		{
-			return _deliveryRepository.GetUnmappedStreets()
-									  .Except(_applicationUserStore.GetAddresses().Select(address => address.Street), StringComparer.OrdinalIgnoreCase)
-									  .OrderBy(street => street);
+			return _deliveryRepository.GetUnmappedAddresses()
+									  .Except(_applicationUserStore.GetAddresses().Select(detailedAddress => detailedAddress.Address), StringComparer.OrdinalIgnoreCase)
+									  .OrderBy(address => address);
 		}
 		private DeliveryZone _GetDeliveryZone(DeliveryZoneViewModel deliveryZoneViewModel)
 		{

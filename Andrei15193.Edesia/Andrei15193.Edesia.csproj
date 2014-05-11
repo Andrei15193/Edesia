@@ -195,10 +195,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AddProductViewStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\AddStreetViewStrings.Designer.cs">
+    <Compile Include="Resources\AddAddressViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AddStreetViewStrings.resx</DependentUpon>
+      <DependentUpon>AddAddressViewStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\DeliveryPlanningViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -230,19 +230,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RemoveDeliveryZoneViewStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\RemoveStreetViewStrings.Designer.cs">
+    <Compile Include="Resources\RemoveAddressViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RemoveStreetViewStrings.resx</DependentUpon>
+      <DependentUpon>RemoveAddressViewStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Strings\AddDeliveryZoneViewKey.cs" />
-    <Compile Include="Resources\Strings\AddProductViewKey.cs" />
-    <Compile Include="Resources\Strings\AddStreetViewKey.cs" />
-    <Compile Include="Resources\Strings\DeliveryPlanningViewKey.cs" />
-    <Compile Include="Resources\Strings\DeliveryZoneDetailsViewKey.cs" />
-    <Compile Include="Resources\Strings\EditDeliveryZoneViewKey.cs" />
-    <Compile Include="Resources\Strings\EMailNoticeKey.cs" />
-    <Compile Include="Resources\Strings\ErrorKey.cs" />
     <Compile Include="Resources\ErrorStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -293,6 +285,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShoppingCartViewStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Strings\AddAddressViewKey.cs" />
+    <Compile Include="Resources\Strings\AddDeliveryZoneViewKey.cs" />
+    <Compile Include="Resources\Strings\AddProductViewKey.cs" />
+    <Compile Include="Resources\Strings\DeliveryPlanningViewKey.cs" />
+    <Compile Include="Resources\Strings\DeliveryZoneDetailsViewKey.cs" />
+    <Compile Include="Resources\Strings\EditDeliveryZoneViewKey.cs" />
+    <Compile Include="Resources\Strings\EMailNoticeKey.cs" />
+    <Compile Include="Resources\Strings\ErrorKey.cs" />
     <Compile Include="Resources\Strings\GetDeliveryZoneNameViewKey.cs" />
     <Compile Include="Resources\Strings\LayoutViewKey.cs" />
     <Compile Include="Resources\Strings\LoginViewKey.cs" />
@@ -302,11 +302,10 @@
     <Compile Include="Resources\Strings\ProductsViewKey.cs" />
     <Compile Include="Resources\Strings\PurchaseViewKey.cs" />
     <Compile Include="Resources\Strings\RegisterViewKey.cs" />
+    <Compile Include="Resources\Strings\RemoveAddressViewKey.cs" />
     <Compile Include="Resources\Strings\RemoveDeliveryZoneViewKey.cs" />
-    <Compile Include="Resources\Strings\RemoveStreetViewKey.cs" />
     <Compile Include="Resources\Strings\ScheduleDeliveriesViewKey.cs" />
     <Compile Include="Resources\Strings\ShoppingCartViewKey.cs" />
-    <Compile Include="Resources\Strings\TasksViewKey.cs" />
     <Compile Include="Resources\TasksViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -318,10 +317,10 @@
     <Compile Include="Settings\Local\LocalEMailSettings.cs" />
     <Compile Include="Settings\RegistrationSettings.cs" />
     <Compile Include="ViewModels\Delivery\DeliveryZoneViewModel.cs" />
-    <Compile Include="ViewModels\Delivery\AddStreetViewModel.cs" />
+    <Compile Include="ViewModels\Delivery\AddAddressViewModel.cs" />
     <Compile Include="ViewModels\Delivery\DeliveryPlanningViewModel.cs" />
     <Compile Include="ViewModels\Delivery\DeliveryZonesViewModel.cs" />
-    <Compile Include="ViewModels\Delivery\RemoveStreetViewModel.cs" />
+    <Compile Include="ViewModels\Delivery\RemoveAddressViewModel.cs" />
     <Compile Include="Xml\Validation\UniqueConstraintException.cs" />
     <Compile Include="Xml\Validation\IXmlSchemaExceptionInterpreter.cs" />
     <Compile Include="Xml\Validation\UniqueConstraintExceptionInterpreter.cs" />
@@ -333,7 +332,7 @@
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\DetailedAddress.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\County.cs" />
     <Compile Include="Models\DisplayLanguage.cs" />
@@ -415,8 +414,8 @@
     <Content Include="Views\Delivery\_DeliveryZones.cshtml" />
     <Content Include="Views\Delivery\_DeliveryZone.cshtml" />
     <Content Include="Views\Delivery\ManageDeliveryZones.cshtml" />
-    <Content Include="Views\Delivery\AddStreet.cshtml" />
-    <Content Include="Views\Delivery\RemoveStreet.cshtml" />
+    <Content Include="Views\Delivery\AddAddress.cshtml" />
+    <Content Include="Views\Delivery\RemoveAddress.cshtml" />
     <Content Include="Views\Delivery\AddDeliveryZone.cshtml" />
     <Content Include="Views\Delivery\_DeliveryZoneDetails.cshtml" />
     <Content Include="Views\Delivery\GetDeliveryZoneName.cshtml" />
@@ -439,9 +438,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AddProductViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\AddStreetViewStrings.resx">
+    <EmbeddedResource Include="Resources\AddAddressViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AddStreetViewStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>AddAddressViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\DeliveryPlanningViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -499,9 +498,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RemoveDeliveryZoneViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\RemoveStreetViewStrings.resx">
+    <EmbeddedResource Include="Resources\RemoveAddressViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>RemoveStreetViewStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>RemoveAddressViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ScheduleDeliveriesViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
