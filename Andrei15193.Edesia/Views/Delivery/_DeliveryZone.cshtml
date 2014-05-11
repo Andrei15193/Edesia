@@ -4,7 +4,7 @@
 	<div class="accordion-frame">
 		@if (Model.Addresses.Any())
 		{
-			<a href="#" class="heading"><i class="icon-stop" style="color: @Model.Colour.ToString();"></i> @Model.Name</a>
+			<a class="heading"><i class="icon-stop" style="color: @Model.Colour.ToString();"></i> @Model.Name</a>
 			<div class="content">
 				<ul>
 					@foreach (string address in Model.Addresses)
@@ -16,7 +16,7 @@
 		}
 		else
 		{
-			<a href="#" class="heading">
+			<a class="heading">
 				<span class="fg-red"><i class="icon-warning"></i> @ErrorStrings.DeliveryZoneAddressesListBox_NoValues</span><br />
 				<i class="icon-stop" style="color: @Model.Colour.ToString();"></i> @Model.Name
 			</a>

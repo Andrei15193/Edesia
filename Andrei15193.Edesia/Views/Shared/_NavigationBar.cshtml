@@ -16,7 +16,7 @@
 		{
 			if (userAction.MoveNext())
 			{
-				<a href="/@(userAction.Current.Controller)/@userAction.Current.Action" class="element place-right">
+				<a href="@Url.Action(userAction.Current.Action, userAction.Current.Controller)" class="element place-right">
 					@if (userAction.Current.Icon != null)
 					{
 						<i class="@userAction.Current.Icon"></i>
@@ -26,7 +26,7 @@
 				while (userAction.MoveNext())
 				{
 					<span class="element-divider place-right"></span>
-					<a href="/@(userAction.Current.Controller)/@userAction.Current.Action" class="element place-right">
+					<a href="@Url.Action(userAction.Current.Action, userAction.Current.Controller)" class="element place-right">
 						@if (userAction.Current.Icon != null)
 						{
 							<i class="@userAction.Current.Icon"></i>

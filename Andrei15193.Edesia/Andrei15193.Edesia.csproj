@@ -148,7 +148,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
-    <Folder Include="Views\Application\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\LocalizedEMailAddressAttribute.cs" />

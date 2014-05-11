@@ -99,7 +99,7 @@ namespace Andrei15193.Edesia.Controllers
 				FormsAuthentication.SignOut();
 			}
 			Session.Abandon();
-			return Redirect("/");
+			return Redirect(Url.Action());
 		}
 
 		[HttpGet]
