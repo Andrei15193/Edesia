@@ -333,25 +333,11 @@
       </SubType>
     </Compile>
     <Compile Include="Models\DetailedAddress.cs" />
-    <Compile Include="Models\City.cs" />
-    <Compile Include="Models\County.cs" />
     <Compile Include="Models\DisplayLanguage.cs" />
     <Compile Include="Models\Icons.cs" />
     <Compile Include="Models\NavigationBarAction.cs" />
     <Compile Include="Models\Notice.cs" />
-    <Compile Include="Models\Offer.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\OrderState.cs" />
-    <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\Shop.cs" />
-    <Compile Include="Models\ShoppingCart.cs" />
-    <Compile Include="Models\ShoppingList.cs" />
-    <Compile Include="Models\Stats.cs" />
-    <Compile Include="Models\TaskState.cs" />
-    <Compile Include="Models\Threshold.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\UserRoles.cs" />
-    <Compile Include="Models\UserType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\User\LoginViewModel.cs" />
     <Compile Include="ViewModels\User\RegisterViewModel.cs" />
