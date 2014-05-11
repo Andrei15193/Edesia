@@ -216,7 +216,7 @@ namespace Andrei15193.Edesia.Controllers
 		private IEnumerable<string> _GetUnuesdAddresses()
 		{
 			return _deliveryRepository.GetUnmappedAddresses()
-									  .Except(_applicationUserStore.GetAddresses().Select(detailedAddress => detailedAddress.Address), StringComparer.OrdinalIgnoreCase)
+									  .Except(_applicationUserRepository.GetAddresses().Select(detailedAddress => detailedAddress.Address), StringComparer.OrdinalIgnoreCase)
 									  .OrderBy(address => address);
 		}
 		private DeliveryZone _GetDeliveryZone(DeliveryZoneViewModel deliveryZoneViewModel)
@@ -229,7 +229,7 @@ namespace Andrei15193.Edesia.Controllers
 
 		}
 
-		private readonly IApplicationUserStore _applicationUserStore = (IApplicationUserStore)MvcApplication.DependencyContainer["applicationUserStore"];
+		private readonly IApplicationUserRepository _applicationUserRepository = (IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"];
 		private readonly IDeliveryRepository _deliveryRepository = (IDeliveryRepository)MvcApplication.DependencyContainer["deliveryRepository"];
 	}
 }

@@ -23,7 +23,7 @@ namespace Andrei15193.Edesia.Controllers
 			if (email == null || key == null)
 				return View();
 			else
-				if (_userStore.ClearRegistrationKey(email, key))
+				if (_applicationUserRepository.ClearRegistrationKey(email, key))
 					return View("_Notice", new Notice(RegisterViewStrings.ViewTitle, null, NoticeStrings.Registration_Completed_Paragraph1));
 				else
 					return View("_Notice", new Notice(RegisterViewStrings.ViewTitle, null, NoticeStrings.Registration_TokenExpired_Paragraph1, NoticeStrings.Registration_TokenExpired_Paragraph2));
@@ -36,9 +36,9 @@ namespace Andrei15193.Edesia.Controllers
 				{
 					string registrationKey = _GenerateRegistrationKey();
 
-					_userStore.AddApplicationUser(new ApplicationUser(registerViewModel.EMailAddress, registerViewModel.FirstName, registerViewModel.LastName, DateTime.Now),
-												  registerViewModel.Password,
-												  registrationKey);
+					_applicationUserRepository.AddApplicationUser(new ApplicationUser(registerViewModel.EMailAddress, registerViewModel.FirstName, registerViewModel.LastName, DateTime.Now),
+																  registerViewModel.Password,
+																  registrationKey);
 					_SendRegistrationEMail(registerViewModel, registrationKey);
 
 					return View("_Notice", new Notice(RegisterViewStrings.ViewTitle, null, NoticeStrings.Registration_ConfirmationMailSent_Paragraph1));
@@ -69,14 +69,14 @@ namespace Andrei15193.Edesia.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				ApplicationUser applicationUser = _userStore.Find(loginViewModel.EMailAddress, loginViewModel.Password);
+				ApplicationUser applicationUser = _applicationUserRepository.Find(loginViewModel.EMailAddress, loginViewModel.Password);
 
 				if (applicationUser != null)
 				{
 					FormsAuthentication.SignOut();
 					HttpCookie authenticationCookie = FormsAuthentication.GetAuthCookie(loginViewModel.EMailAddress, true);
 
-					_userStore.SetAuthenticationToken(applicationUser, authenticationCookie.Value, AuthenticationTokenType.Key);
+					_applicationUserRepository.SetAuthenticationToken(applicationUser, authenticationCookie.Value, AuthenticationTokenType.Key);
 					Response.SetCookie(authenticationCookie);
 					if (Url.IsLocalUrl(returnUrl))
 						return Redirect(returnUrl);
@@ -95,7 +95,7 @@ namespace Andrei15193.Edesia.Controllers
 		{
 			if (User.Identity.IsAuthenticated)
 			{
-				_userStore.ClearAuthenticationKey(User.Identity.Name);
+				_applicationUserRepository.ClearAuthenticationKey(User.Identity.Name);
 				FormsAuthentication.SignOut();
 			}
 			Session.Abandon();
@@ -193,6 +193,6 @@ namespace Andrei15193.Edesia.Controllers
 			});
 		}
 
-		private readonly IApplicationUserStore _userStore = (IApplicationUserStore)MvcApplication.DependencyContainer["applicationUserStore"];
+		private readonly IApplicationUserRepository _applicationUserRepository = (IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"];
 	}
 }

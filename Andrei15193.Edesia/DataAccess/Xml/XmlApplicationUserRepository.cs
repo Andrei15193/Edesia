@@ -10,10 +10,10 @@ using Andrei15193.Edesia.Models;
 using Andrei15193.Edesia.Settings;
 namespace Andrei15193.Edesia.DataAccess.Xml
 {
-	public class XmlApplicationUserStore
-		: IApplicationUserStore
+	public class XmlApplicationUserRepository
+		: IApplicationUserRepository
 	{
-		public XmlApplicationUserStore(string xmlDocumentFileName, XmlDocumentProvider xmlDocumentProvider)
+		public XmlApplicationUserRepository(string xmlDocumentFileName, XmlDocumentProvider xmlDocumentProvider)
 		{
 			if (xmlDocumentFileName == null)
 				throw new ArgumentNullException("xmlDocumentFileName");

@@ -2,7 +2,7 @@
 using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.DataAccess
 {
-	public interface IApplicationUserStore
+	public interface IApplicationUserRepository
 	{
 		void AddApplicationUser(ApplicationUser applicationUser, string password, string registrationKey);
 		ApplicationUser Find(string email, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password);

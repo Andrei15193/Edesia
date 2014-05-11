@@ -12,7 +12,7 @@ namespace Andrei15193.Edesia.Models
 		{
 			get;
 		}
-		IApplicationUserStore ApplicationUserStore
+		IApplicationUserRepository ApplicationUserStore
 		{
 			get;
 		}

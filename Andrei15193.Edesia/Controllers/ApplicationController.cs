@@ -23,7 +23,7 @@ namespace Andrei15193.Edesia.Controllers
 			if (authenticationCookie == null)
 				return null;
 
-			return ((IApplicationUserStore)MvcApplication.DependencyContainer["applicationUserStore"]).Find(httpContext.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
+			return ((IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"]).Find(httpContext.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
 		}
 		internal static ApplicationUser GetApplicationUser(HttpContext httpContext)
 		{
@@ -37,7 +37,7 @@ namespace Andrei15193.Edesia.Controllers
 			if (authenticationCookie == null)
 				return null;
 
-			return ((IApplicationUserStore)MvcApplication.DependencyContainer["applicationUserStore"]).Find(httpContext.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
+			return ((IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"]).Find(httpContext.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
 		}
 
 		protected override void OnResultExecuting(ResultExecutingContext filterContext)
@@ -68,7 +68,7 @@ namespace Andrei15193.Edesia.Controllers
 				if (authenticationCookie == null)
 					return null;
 
-				return ((IApplicationUserStore)MvcApplication.DependencyContainer["applicationUserStore"]).Find(User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
+				return ((IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"]).Find(User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
 			}
 		}
 

@@ -178,7 +178,7 @@
     </Compile>
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataAccess\AuthenticationTokenType.cs" />
-    <Compile Include="DataAccess\IApplicationUserStore.cs" />
+    <Compile Include="DataAccess\IApplicationUserRepository.cs" />
     <Compile Include="DataAccess\Xml\Azure\AzureXmlDocumentProvider.cs" />
     <Compile Include="Resources\AddDeliveryZoneViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -326,7 +326,7 @@
     <Compile Include="Xml\Validation\UniqueConstraintExceptionInterpreter.cs" />
     <Compile Include="DataAccess\Xml\XmlDocumentProvider.cs" />
     <Compile Include="DataAccess\Xml\Local\LocalXmlDocumentProvider.cs" />
-    <Compile Include="DataAccess\Xml\XmlApplicationUserStore.cs" />
+    <Compile Include="DataAccess\Xml\XmlApplicationUserRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>
