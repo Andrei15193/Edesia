@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Xml.Linq;
+using System.Xml.Schema;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -21,6 +22,35 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 			_connectionStringCloudSettingName = connectionStringCloudSettingName;
 		}
 
+		public override IXmlTransaction BeginXmlTransaction(string xmlDocumentName, XmlSchemaSet xmlSchemaSet = null)
+		{
+			CloudBlockBlob dataBlob = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(_connectionStringCloudSettingName))
+														 .CreateCloudBlobClient()
+														 .GetContainerReference("andrei15193")
+														 .GetBlockBlobReference(xmlDocumentName);
+			string leaseId = dataBlob.AcquireLease(null, null);
+			Action releaseLockAction = (() => dataBlob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId)));
+
+			try
+			{
+				using (Stream xmlDataFileInputStream = dataBlob.OpenRead())
+				{
+					XDocument xmlDocument = XDocument.Load(xmlDataFileInputStream);
+
+					if (xmlSchemaSet != null)
+						Validate(xmlDocument, xmlSchemaSet);
+
+					return new XmlTransaction(xmlDocument, () => _SaveXmlDocument(dataBlob, xmlDocument, xmlSchemaSet), releaseLockAction);
+				}
+			}
+			catch
+			{
+				releaseLockAction();
+				throw;
+			}
+		}
+
+		[Obsolete]
 		protected override XDocument OnLoadXmlDocument(string xmlDocumentBlobName)
 		{
 			CachedXmlDocument cachedDocument;
@@ -80,6 +110,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 
 			return cachedDocument.XmlDocument;
 		}
+		[Obsolete]
 		protected override void OnSaveXmlDocument(XDocument xmlDocument, string xmlDocumentBlobName)
 		{
 			CloudBlockBlob dataBlob = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(_connectionStringCloudSettingName))
@@ -100,6 +131,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 			{
 				_cacheLock.ExitWriteLock();
 			}
+		}
+
+		private void _SaveXmlDocument(CloudBlockBlob dataBlob, XDocument xmlDocument, XmlSchemaSet xmlSchemaSet)
+		{
+			if (xmlSchemaSet != null)
+				Validate(xmlDocument, xmlSchemaSet);
+
+			dataBlob.UploadText(xmlDocument.ToString());
 		}
 
 		private struct CachedXmlDocument
@@ -131,11 +170,11 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 			private readonly XDocument _xmlDocument;
 		}
 
+		private int _readersWaitingForUpdate = 0;
 		private readonly string _connectionStringCloudSettingName;
-		private static int _readersWaitingForUpdate = 0;
-		private static readonly AutoResetEvent _noGetDataWaits = new AutoResetEvent(false);
-		private static readonly ReaderWriterLockSlim _cacheLock = new ReaderWriterLockSlim();
-		private static readonly ReaderWriterLockSlim _getDataLock = new ReaderWriterLockSlim();
-		private static readonly IDictionary<string, CachedXmlDocument> _cachedDocuments = new SortedDictionary<string, CachedXmlDocument>();
+		private readonly AutoResetEvent _noGetDataWaits = new AutoResetEvent(false);
+		private readonly ReaderWriterLockSlim _cacheLock = new ReaderWriterLockSlim();
+		private readonly ReaderWriterLockSlim _getDataLock = new ReaderWriterLockSlim();
+		private readonly IDictionary<string, CachedXmlDocument> _cachedDocuments = new SortedDictionary<string, CachedXmlDocument>();
 	}
 }

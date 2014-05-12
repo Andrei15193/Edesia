@@ -28,11 +28,12 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		#region IProductRepository Members
 		public IEnumerable<Product> GetProducts()
 		{
-			return _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName)
-									   .Root
-									   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product")
-									   .Where(productXElement => productXElement.Attribute("DateRemoved") == null)
-									   .Select(_GetProduct);
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName))
+				return xmlTransaction.XmlDocument
+									 .Root
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product")
+									 .Where(productXElement => productXElement.Attribute("DateRemoved") == null)
+									 .Select(_GetProduct);
 		}
 
 		public void AddProduct(Product product)
@@ -40,41 +41,50 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (product == null)
 				throw new ArgumentNullException("product");
 
-			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName);
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			{
+				if (xmlTransaction.XmlDocument
+								  .Root
+								  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product")
+								  .Any(productXElement => string.Equals(productXElement.Attribute("Name").Value, product.Name, StringComparison.OrdinalIgnoreCase)
+														  && (productXElement.Attribute("DateRemoved") == null || DateTime.ParseExact(productXElement.Attribute("DateRemoved").Value, MvcApplication.DateTimeSerializationFormat, null) >= product.DateAdded)
+														  && (!product.DateRemoved.HasValue || product.DateRemoved.Value >= DateTime.ParseExact(productXElement.Attribute("DateAdded").Value, MvcApplication.DateTimeSerializationFormat, null))))
+					throw new AggregateException(new UniqueProductException(product.Name));
 
-			if (xmlDocument.Root
-						   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product")
-						   .Any(productXElement => string.Equals(productXElement.Attribute("Name").Value, product.Name, StringComparison.OrdinalIgnoreCase)
-												   && (productXElement.Attribute("DateRemoved") == null || DateTime.ParseExact(productXElement.Attribute("DateRemoved").Value, MvcApplication.DateTimeSerializationFormat, null) >= product.DateAdded)
-												   && (!product.DateRemoved.HasValue || product.DateRemoved.Value >= DateTime.ParseExact(productXElement.Attribute("DateAdded").Value, MvcApplication.DateTimeSerializationFormat, null))))
-				throw new AggregateException(new UniqueProductException(product.Name));
+				if (!product.DateRemoved.HasValue)
+					xmlTransaction.XmlDocument
+								  .Root
+								  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product",
+													new XAttribute("Name", product.Name),
+													new XAttribute("Price", product.Price),
+													new XAttribute("DateAdded", product.DateAdded.ToString(MvcApplication.DateTimeSerializationFormat))));
+				else
+					xmlTransaction.XmlDocument
+								  .Root
+								  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product",
+													new XAttribute("Name", product.Name),
+													new XAttribute("Price", product.Price),
+													new XAttribute("DateAdded", product.DateAdded.ToString(MvcApplication.DateTimeSerializationFormat)),
+													new XAttribute("DateRemoved", product.DateRemoved.Value.ToString(MvcApplication.DateTimeSerializationFormat))));
 
-			if (!product.DateRemoved.HasValue)
-				xmlDocument.Root.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product",
-												  new XAttribute("Name", product.Name),
-												  new XAttribute("Price", product.Price),
-												  new XAttribute("DateAdded", product.DateAdded.ToString(MvcApplication.DateTimeSerializationFormat))));
-			else
-				xmlDocument.Root.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product",
-												  new XAttribute("Name", product.Name),
-												  new XAttribute("Price", product.Price),
-												  new XAttribute("DateAdded", product.DateAdded.ToString(MvcApplication.DateTimeSerializationFormat)),
-												  new XAttribute("DateRemoved", product.DateRemoved.Value.ToString(MvcApplication.DateTimeSerializationFormat))));
-
-			_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
+				xmlTransaction.Commit();
+			}
 		}
 		public void RemoveProduct(string productName)
 		{
-			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName);
-			XElement productXElement = xmlDocument.Root
-												  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product")
-												  .FirstOrDefault(productXmlElement => string.Equals(productXmlElement.Attribute("Name").Value, productName, StringComparison.OrdinalIgnoreCase)
-																					   && productXmlElement.Attribute("DateRemoved") == null);
-
-			if (productXElement != null)
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
-				productXElement.Add(new XAttribute("DateRemoved", DateTime.Now.ToString(MvcApplication.DateTimeSerializationFormat)));
-				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
+				XElement productXElement = xmlTransaction.XmlDocument
+														 .Root
+														 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product")
+														 .FirstOrDefault(productXmlElement => string.Equals(productXmlElement.Attribute("Name").Value, productName, StringComparison.OrdinalIgnoreCase)
+																							  && productXmlElement.Attribute("DateRemoved") == null);
+
+				if (productXElement != null)
+				{
+					productXElement.Add(new XAttribute("DateRemoved", DateTime.Now.ToString(MvcApplication.DateTimeSerializationFormat)));
+					xmlTransaction.Commit();
+				}
 			}
 		}
 		#endregion

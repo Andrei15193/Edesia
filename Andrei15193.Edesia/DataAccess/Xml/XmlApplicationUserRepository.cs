@@ -40,31 +40,37 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (registrationKey == null)
 				throw new ArgumentNullException("registrationKey");
 
-			XDocument xmlDocument = XmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName, _xmlDocumentSchemaSet);
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			{
+				_ClearTimedoutRegistrationKeys(xmlTransaction.XmlDocument);
+				xmlTransaction.XmlDocument
+							  .Root
+							  .AddFirst(_GetApplicationUserXElement(applicationUser, password, registrationKey));
 
-			_ClearTimedoutRegistrationKeys(xmlDocument);
-			xmlDocument.Root.AddFirst(_GetApplicationUserXElement(applicationUser, password, registrationKey));
-
-			_SaveXmlDocument(xmlDocument);
+				xmlTransaction.Commit();
+			}
 		}
 
 		public ApplicationUser Find(string email, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
 		{
-			IEnumerable<XElement> userXElements = XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet)
-																	 .Root
-																	 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser");
-			switch (authenticationTokenType)
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
-				case AuthenticationTokenType.Key:
-					return _GetApplicationUser(userXElements.FirstOrDefault(userXElement =>
-						{
-							XAttribute authenticationTokenXAttribute = userXElement.Attribute("AuthenticationToken");
-							return (authenticationTokenXAttribute != null && string.Equals(authenticationToken, authenticationTokenXAttribute.Value, StringComparison.Ordinal));
-						}));
-				case AuthenticationTokenType.Password:
-				default:
-					string passwordHash = _ComputeHash(authenticationToken);
-					return _GetApplicationUser(userXElements.FirstOrDefault(userXElement => string.Equals(passwordHash, userXElement.Attribute("PasswordHash").Value, StringComparison.Ordinal)));
+				IEnumerable<XElement> userXElements = xmlTransaction.XmlDocument
+																	.Root
+																	.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser");
+				switch (authenticationTokenType)
+				{
+					case AuthenticationTokenType.Key:
+						return _GetApplicationUser(userXElements.FirstOrDefault(userXElement =>
+							{
+								XAttribute authenticationTokenXAttribute = userXElement.Attribute("AuthenticationToken");
+								return (authenticationTokenXAttribute != null && string.Equals(authenticationToken, authenticationTokenXAttribute.Value, StringComparison.Ordinal));
+							}));
+					case AuthenticationTokenType.Password:
+					default:
+						string passwordHash = _ComputeHash(authenticationToken);
+						return _GetApplicationUser(userXElements.FirstOrDefault(userXElement => string.Equals(passwordHash, userXElement.Attribute("PasswordHash").Value, StringComparison.Ordinal)));
+				}
 			}
 		}
 		public void SetAuthenticationToken(ApplicationUser applicationUser, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
@@ -74,28 +80,31 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (authenticationToken == null)
 				throw new ArgumentNullException("authenticationKey");
 
-			XDocument xmlDocument = XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet);
-			XElement userXElement = xmlDocument.Root
-											   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
-											   .FirstOrDefault(userElement => string.Equals(applicationUser.EMailAddress, userElement.Attribute("EMail").Value, StringComparison.Ordinal));
-			if (userXElement != null)
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
-				switch (authenticationTokenType)
+				XElement userXElement = xmlTransaction.XmlDocument
+													  .Root
+													  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+													  .FirstOrDefault(userElement => string.Equals(applicationUser.EMailAddress, userElement.Attribute("EMail").Value, StringComparison.Ordinal));
+				if (userXElement != null)
 				{
-					case AuthenticationTokenType.Key:
-						XAttribute authenticationTokenXAttribute = userXElement.Attribute("AuthenticationToken");
-						if (authenticationTokenXAttribute != null)
-							authenticationTokenXAttribute.SetValue(authenticationToken);
-						else
-							userXElement.Add(new XAttribute("AuthenticationToken", authenticationToken));
-						break;
-					case AuthenticationTokenType.Password:
-					default:
-						userXElement.Attribute("Password").SetValue(_ComputeHash(authenticationToken));
-						break;
-				}
+					switch (authenticationTokenType)
+					{
+						case AuthenticationTokenType.Key:
+							XAttribute authenticationTokenXAttribute = userXElement.Attribute("AuthenticationToken");
+							if (authenticationTokenXAttribute != null)
+								authenticationTokenXAttribute.SetValue(authenticationToken);
+							else
+								userXElement.Add(new XAttribute("AuthenticationToken", authenticationToken));
+							break;
+						case AuthenticationTokenType.Password:
+						default:
+							userXElement.Attribute("Password").SetValue(_ComputeHash(authenticationToken));
+							break;
+					}
 
-				_SaveXmlDocument(xmlDocument);
+					xmlTransaction.Commit();
+				}
 			}
 		}
 		public void ClearAuthenticationKey(string applicationUserEmail)
@@ -103,17 +112,20 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (applicationUserEmail == null)
 				throw new ArgumentNullException("applicationUserEmail");
 
-			XDocument xmlDocument = XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet);
-			XElement userXElement = xmlDocument.Root
-											   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
-											   .FirstOrDefault(userElement => string.Equals(applicationUserEmail, userElement.Attribute("EMail").Value, StringComparison.Ordinal));
-			if (userXElement != null)
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
-				XAttribute authenticationTokenXAttribute = userXElement.Attribute("AuthenticationToken");
-				if (authenticationTokenXAttribute != null)
+				XElement userXElement = xmlTransaction.XmlDocument
+													  .Root
+													  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+													  .FirstOrDefault(userElement => string.Equals(applicationUserEmail, userElement.Attribute("EMail").Value, StringComparison.Ordinal));
+				if (userXElement != null)
 				{
-					authenticationTokenXAttribute.Remove();
-					_SaveXmlDocument(xmlDocument);
+					XAttribute authenticationTokenXAttribute = userXElement.Attribute("AuthenticationToken");
+					if (authenticationTokenXAttribute != null)
+					{
+						authenticationTokenXAttribute.Remove();
+						xmlTransaction.Commit();
+					}
 				}
 			}
 		}
@@ -124,33 +136,38 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (userRegistrationKey == null)
 				throw new ArgumentNullException("userRegistrationKey");
 
-			XDocument xmlDocument = XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet);
-			_ClearTimedoutRegistrationKeys(xmlDocument);
-
-			XElement userXElement = xmlDocument.Root
-											   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
-											   .FirstOrDefault(userElement =>
-												   {
-													   XAttribute registrationKeyXAttribute = userElement.Attribute("RegistrationKey");
-													   return (registrationKeyXAttribute != null
-															   && string.Equals(userEmail, userElement.Attribute("EMail").Value, StringComparison.Ordinal)
-															   && string.Equals(userRegistrationKey, registrationKeyXAttribute.Value, StringComparison.Ordinal));
-												   });
-			if (userXElement != null)
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
-				userXElement.Attribute("RegistrationKey").Remove();
-				_SaveXmlDocument(xmlDocument);
-				return true;
+				_ClearTimedoutRegistrationKeys(xmlTransaction.XmlDocument);
+
+				XElement userXElement = xmlTransaction.XmlDocument
+													  .Root
+													  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+													  .FirstOrDefault(userElement =>
+																	  {
+																		  XAttribute registrationKeyXAttribute = userElement.Attribute("RegistrationKey");
+																		  return (registrationKeyXAttribute != null
+																				  && string.Equals(userEmail, userElement.Attribute("EMail").Value, StringComparison.Ordinal)
+																				  && string.Equals(userRegistrationKey, registrationKeyXAttribute.Value, StringComparison.Ordinal));
+																	  });
+				if (userXElement != null)
+				{
+					userXElement.Attribute("RegistrationKey").Remove();
+					xmlTransaction.Commit();
+
+					return true;
+				}
+				return false;
 			}
-			return false;
 		}
 		public IEnumerable<DetailedAddress> GetAddresses()
 		{
-			return XmlDocumentProvider.LoadXmlDocument(XmlDocumentFileName, _xmlDocumentSchemaSet)
-									  .Root
-									  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
-									  .SelectMany(applicationUserXElement => applicationUserXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address"))
-									  .Select(_GetAddress);
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName))
+				return xmlTransaction.XmlDocument
+									 .Root
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+									 .SelectMany(applicationUserXElement => applicationUserXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address"))
+									 .Select(_GetAddress);
 		}
 		#endregion
 		public string XmlDocumentFileName
@@ -303,7 +320,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 																							  ).TotalHours >= registrationSettings.RegistrationKeyHoursTimeout))
 				timedoutApplicationUser.Remove();
 		}
-
+		[Obsolete]
 		private void _SaveXmlDocument(XDocument xmlDocument)
 		{
 			try

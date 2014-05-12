@@ -29,19 +29,21 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		#region IDeliveryRepository Members
 		public IEnumerable<string> GetUnmappedAddresses()
 		{
-			return _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName)
-									   .Root
-									   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
-									   .Select(addressXElement => addressXElement.Value);
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName))
+				return xmlTransaction.XmlDocument
+									 .Root
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
+									 .Select(addressXElement => addressXElement.Value);
 		}
 		public IEnumerable<DeliveryZone> GetDeliveryZones()
 		{
-			return _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName)
-									   .Root
-									   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone")
-									   .Select(deliveryZoneXElement => new DeliveryZone(deliveryZoneXElement.Attribute("Name").Value,
-																						Colour.Parse(deliveryZoneXElement.Attribute("Colour").Value),
-																						deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address").Select(addressXElement => addressXElement.Value)));
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName))
+				return xmlTransaction.XmlDocument
+									 .Root
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone")
+									 .Select(deliveryZoneXElement => new DeliveryZone(deliveryZoneXElement.Attribute("Name").Value,
+																					  Colour.Parse(deliveryZoneXElement.Attribute("Colour").Value),
+																					  deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address").Select(addressXElement => addressXElement.Value)));
 		}
 		public void AddAddress(string addressName)
 		{
@@ -50,10 +52,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (string.IsNullOrEmpty(addressName) || string.IsNullOrWhiteSpace(addressName))
 				throw new ArgumentException("Cannot be empty or whitespace.", "addressName");
 
-			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName);
-			xmlDocument.Root.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", addressName));
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			{
+				xmlTransaction.XmlDocument
+							  .Root
+							  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", addressName));
 
-			_SaveXmlDocument(xmlDocument);
+				xmlTransaction.Commit();
+			}
 		}
 		public void RemoveAddress(string addressName)
 		{
@@ -62,15 +68,18 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (string.IsNullOrEmpty(addressName) || string.IsNullOrWhiteSpace(addressName))
 				throw new ArgumentException("Cannot be empty or whitespace.", "addressName");
 
-			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName);
-			XElement addressXElement = xmlDocument.Root
-												  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
-												  .FirstOrDefault(addressXmlElement => string.Equals(addressXmlElement.Value, addressName, StringComparison.OrdinalIgnoreCase));
-
-			if (addressXElement != null)
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
-				addressXElement.Remove();
-				_SaveXmlDocument(xmlDocument);
+				XElement addressXElement = xmlTransaction.XmlDocument
+														 .Root
+														 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
+														 .FirstOrDefault(addressXmlElement => string.Equals(addressXmlElement.Value, addressName, StringComparison.OrdinalIgnoreCase));
+
+				if (addressXElement != null)
+				{
+					addressXElement.Remove();
+					xmlTransaction.Commit();
+				}
 			}
 		}
 		public void AddDeliveryZone(DeliveryZone deliveryZone)
@@ -78,19 +87,23 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (deliveryZone == null)
 				throw new ArgumentNullException("deliveryZone");
 
-			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName);
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			{
+				xmlTransaction.XmlDocument
+							  .Root
+							  .AddFirst(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone",
+													 new XAttribute("Name", deliveryZone.Name),
+													 new XAttribute("Colour", deliveryZone.Colour.ToString()),
+													 deliveryZone.Addresses.Select(address => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", address))));
 
-			xmlDocument.Root.AddFirst(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone",
-												   new XAttribute("Name", deliveryZone.Name),
-												   new XAttribute("Colour", deliveryZone.Colour.ToString()),
-												   deliveryZone.Addresses.Select(address => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", address))));
+				xmlTransaction.XmlDocument
+							  .Root
+							  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
+							  .Where(addressXElement => deliveryZone.Addresses.Contains(addressXElement.Value))
+							  .Remove();
 
-			xmlDocument.Root
-					   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
-					   .Where(addressXElement => deliveryZone.Addresses.Contains(addressXElement.Value))
-					   .Remove();
-
-			_SaveXmlDocument(xmlDocument);
+				xmlTransaction.Commit();
+			}
 		}
 		public void UpdateDeliveryZone(DeliveryZone deliveryZone, string deliveryZoneOldName)
 		{
@@ -102,28 +115,33 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (string.IsNullOrEmpty(deliveryZoneOldName) || string.IsNullOrWhiteSpace(deliveryZoneOldName))
 				throw new ArgumentException("Cannot be empty or whitespace.", "deliveryZoneOldName");
 
-			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName);
-
-			XElement deliveryZoneXElement = xmlDocument.Root
-													   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone")
-													   .FirstOrDefault(deliveryZoneXmlElement => string.Equals(deliveryZoneXmlElement.Attribute("Name").Value, deliveryZoneOldName, StringComparison.OrdinalIgnoreCase));
-
-			if (deliveryZoneXElement != null)
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
-				xmlDocument.Root.Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
-														 .Select(addressXElement => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", addressXElement.Value)));
+				XElement deliveryZoneXElement = xmlTransaction.XmlDocument
+															  .Root
+															  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone")
+															  .FirstOrDefault(deliveryZoneXmlElement => string.Equals(deliveryZoneXmlElement.Attribute("Name").Value, deliveryZoneOldName, StringComparison.OrdinalIgnoreCase));
 
-				deliveryZoneXElement.Attribute("Name").SetValue(deliveryZone.Name);
-				deliveryZoneXElement.Attribute("Colour").SetValue(deliveryZone.Colour.ToString());
-				deliveryZoneXElement.Elements().Remove();
-				deliveryZoneXElement.Add(deliveryZone.Addresses.Select(address => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", address)));
+				if (deliveryZoneXElement != null)
+				{
+					xmlTransaction.XmlDocument
+								  .Root
+								  .Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
+														   .Select(addressXElement => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", addressXElement.Value)));
 
-				xmlDocument.Root
-						   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
-						   .Where(addressXElement => deliveryZone.Addresses.Contains(addressXElement.Value))
-						   .Remove();
+					deliveryZoneXElement.Attribute("Name").SetValue(deliveryZone.Name);
+					deliveryZoneXElement.Attribute("Colour").SetValue(deliveryZone.Colour.ToString());
+					deliveryZoneXElement.Elements().Remove();
+					deliveryZoneXElement.Add(deliveryZone.Addresses.Select(address => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", address)));
 
-				_SaveXmlDocument(xmlDocument);
+					xmlTransaction.XmlDocument
+								  .Root
+								  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
+								  .Where(addressXElement => deliveryZone.Addresses.Contains(addressXElement.Value))
+								  .Remove();
+
+					xmlTransaction.Commit();
+				}
 			}
 		}
 		public void RemoveDeliveryZone(string deliveryZoneName)
@@ -133,18 +151,22 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (string.IsNullOrEmpty(deliveryZoneName) || string.IsNullOrWhiteSpace(deliveryZoneName))
 				throw new ArgumentException("Cannot be empty or whitespace.", "deliveryZoneName");
 
-			XDocument xmlDocument = _xmlDocumentProvider.LoadXmlDocument(_xmlDocumentFileName);
-
-			XElement deliveryZoneXElement = xmlDocument.Root
-													   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone")
-													   .FirstOrDefault(deliveryZoneXmlElement => string.Equals(deliveryZoneXmlElement.Attribute("Name").Value, deliveryZoneName, StringComparison.OrdinalIgnoreCase));
-
-			if (deliveryZoneXElement != null)
+			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
-				xmlDocument.Root.Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address"));
-				deliveryZoneXElement.Remove();
+				XElement deliveryZoneXElement = xmlTransaction.XmlDocument
+															  .Root
+															  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone")
+															  .FirstOrDefault(deliveryZoneXmlElement => string.Equals(deliveryZoneXmlElement.Attribute("Name").Value, deliveryZoneName, StringComparison.OrdinalIgnoreCase));
 
-				_SaveXmlDocument(xmlDocument);
+				if (deliveryZoneXElement != null)
+				{
+					xmlTransaction.XmlDocument
+								  .Root
+								  .Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address"));
+					deliveryZoneXElement.Remove();
+
+					xmlTransaction.Commit();
+				}
 			}
 		}
 		#endregion
@@ -179,6 +201,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 		}
 
+		[Obsolete]
 		private void _SaveXmlDocument(XDocument xmlDocument)
 		{
 			try

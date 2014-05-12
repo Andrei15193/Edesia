@@ -26,6 +26,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		/// <exception cref="System.AggregateException">
 		/// Thrown when xmlSchemaSet is provided and there is at least one XML schema inconsistency.
 		/// </exception>
+		[Obsolete("Use BeginXmlTransaction method to read/write to an XML document.")]
 		public XDocument LoadXmlDocument(string xmlDocumentName, XmlSchemaSet xmlSchemaSet = null)
 		{
 			if (xmlDocumentName == null)
@@ -38,7 +39,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				throw new InvalidOperationException();
 
 			if (xmlSchemaSet != null)
-				_Validate(xmlDocument, xmlSchemaSet);
+				Validate(xmlDocument, xmlSchemaSet);
 
 			return xmlDocument;
 		}
@@ -52,6 +53,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		/// <exception cref="System.AggregateException">
 		/// Thrown when xmlSchemaSet is provided and there is at least one XML schema inconsistency.
 		/// </exception>
+		[Obsolete("Use BeginXmlTransaction method to read/write to an XML document.")]
 		public void SaveXmlDocument(XDocument xmlDocument, string xmlDocumentName, XmlSchemaSet xmlSchemaSet = null)
 		{
 			if (xmlDocument == null)
@@ -62,7 +64,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				throw new ArgumentException("Cannot be empty or whitespace!", "xmlDocumentName");
 
 			if (xmlSchemaSet != null)
-				_Validate(xmlDocument, xmlSchemaSet);
+				Validate(xmlDocument, xmlSchemaSet);
 			OnSaveXmlDocument(xmlDocument, xmlDocumentName);
 		}
 		/// <summary>
@@ -77,11 +79,24 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		}
 
 		/// <summary>
+		/// Loads an XML document into a transaction, optionally validating it, having the provided name.
+		/// This method is thread safe.
+		/// </summary>
+		/// <param name="xmlDocumentName">The name of the XML document to load.</param>
+		/// <param name="xmlSchemaSet">The XML schema to use to validate the loaded document.</param>
+		/// <returns>Returns a XML document.</returns>
+		/// <exception cref="System.AggregateException">
+		/// Thrown when xmlSchemaSet is provided and there is at least one XML schema inconsistency.
+		/// </exception>
+		public abstract IXmlTransaction BeginXmlTransaction(string xmlDocumentName, XmlSchemaSet xmlSchemaSet = null);
+
+		/// <summary>
 		/// When implemented in a derived class it loads a XML document with the given XML document name.
 		/// This methos is thread safe.
 		/// </summary>
 		/// <param name="xmlDocumentName">The XML document name to load.</param>
 		/// <returns>Returns an XML document.</returns>
+		[Obsolete("Use BeginXmlTransaction method to read/write to an XML document.")]
 		protected abstract XDocument OnLoadXmlDocument(string xmlDocumentName);
 		/// <summary>
 		/// When implemented in a derived class it saves the given XML document using the given XML document name.
@@ -89,9 +104,10 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		/// </summary>
 		/// <param name="xmlDocument">The XML document to save.</param>
 		/// <param name="xmlDocumentName">The name with which to save the XML document.</param>
+		[Obsolete("Use BeginXmlTransaction method to read/write to an XML document.")]
 		protected abstract void OnSaveXmlDocument(XDocument xmlDocument, string xmlDocumentName);
 
-		private void _Validate(XDocument xmlDocument, XmlSchemaSet xmlSchemaSet)
+		protected void Validate(XDocument xmlDocument, XmlSchemaSet xmlSchemaSet)
 		{
 			ICollection<Exception> xmlSchemaExceptions = new LinkedList<Exception>();
 

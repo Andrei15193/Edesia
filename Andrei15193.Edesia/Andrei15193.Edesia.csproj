@@ -158,9 +158,10 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="DataAccess\IDeliveryRepository.cs" />
     <Compile Include="DataAccess\IProductRepository.cs" />
-    <Compile Include="DataAccess\Mock\MockProductRepository.cs" />
+    <Compile Include="DataAccess\Xml\IXmlTransaction.cs" />
     <Compile Include="DataAccess\Xml\XmlDeliveryRepository.cs" />
     <Compile Include="DataAccess\Xml\XmlProductRepository.cs" />
+    <Compile Include="DataAccess\Xml\XmlTransaction.cs" />
     <Compile Include="Exceptions\DomainConstraintException.cs" />
     <Compile Include="Exceptions\UniqueAddressException.cs" />
     <Compile Include="Exceptions\UniqueConstraintException.cs" />
