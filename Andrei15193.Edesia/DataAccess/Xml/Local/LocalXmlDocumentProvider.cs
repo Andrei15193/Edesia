@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Xml;
@@ -10,31 +12,140 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Local
 	public sealed class LocalXmlDocumentProvider
 		: XmlDocumentProvider
 	{
-		public override IXmlTransaction BeginXmlTransaction(string xmlDocumentName, XmlSchemaSet xmlSchemaSet = null)
+		public override IExclusiveXmlTransaction BeginExclusiveTransaction(string xmlDocumentName, DateTime version, XmlSchemaSet xmlSchemaSet = null)
 		{
 			if (xmlDocumentName == null)
 				throw new ArgumentNullException("xmlDocumentName");
 			if (string.IsNullOrWhiteSpace(xmlDocumentName))
 				throw new ArgumentException("Cannot be empty or whitespace!", "xmlDocumentName");
 
-			lock (_documentSpinLocksLock)
+			lock (_documentLocks)
 			{
-				SpinLock xmlDocumentSpinLock;
-				XDocument xmlDocument = XDocument.Load(xmlDocumentName);
+				ReaderWriterLockSlim versionFileLock;
 
-				if (xmlSchemaSet != null)
-					Validate(xmlDocument, xmlSchemaSet);
-
-				if (!_documentSpinLocks.TryGetValue(xmlDocumentName, out xmlDocumentSpinLock))
+				if (!_documentLocks.TryGetValue(xmlDocumentName, out versionFileLock))
 				{
-					xmlDocumentSpinLock = new SpinLock(enableThreadOwnerTracking: false);
-					_documentSpinLocks.Add(xmlDocumentName, xmlDocumentSpinLock);
+					versionFileLock = new ReaderWriterLockSlim();
+					_documentLocks.Add(xmlDocumentName, versionFileLock);
 				}
 
-				bool lockTaken = false;
-				xmlDocumentSpinLock.Enter(ref lockTaken);
+				try
+				{
+					versionFileLock.EnterWriteLock();
+					XDocument versionXmlDocument;
+					string versionXmlDocumentFilePath = Combine(Directory.CreateDirectory(Combine(DirectoryPath, "." + xmlDocumentName)).FullName, "versions.xml");
 
-				return new XmlTransaction(xmlDocument, () => _SaveXmlDocument(xmlDocument, xmlDocumentName, xmlSchemaSet), () => xmlDocumentSpinLock.Exit());
+					if (File.Exists(versionXmlDocumentFilePath))
+						versionXmlDocument = XDocument.Load(versionXmlDocumentFilePath);
+					else
+					{
+						FileInfo xmlDocumentFileInfo = new FileInfo(Combine(DirectoryPath, xmlDocumentName));
+
+						versionXmlDocument = new XDocument(new XElement("File",
+																		new XElement("Version",
+																					 new XAttribute("FileName", xmlDocumentFileInfo.CopyTo(Combine(DirectoryPath, "." + xmlDocumentName, xmlDocumentFileInfo.CreationTime.ToString("yyyy_MM_dd__HH_mm_ss_fffffff'.xml'"))).FullName),
+																					 new XAttribute("BeginDate", xmlDocumentFileInfo.CreationTime.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")))));
+						versionXmlDocument.Save(versionXmlDocumentFilePath);
+					}
+
+					XElement selectedVersionXElement = versionXmlDocument.Root.Elements("Version").TakeWhile(versionXmlElement => version >= DateTime.ParseExact(versionXmlElement.Attribute("BeginDate").Value, "yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz", null)).LastOrDefault();
+					if (selectedVersionXElement == null)
+						throw new ArgumentException("The specified version is before any known version of the file!", "version");
+
+					XDocument xmlDocument = XDocument.Load(selectedVersionXElement.Attribute("FileName").Value);
+
+					if (xmlSchemaSet != null)
+						Validate(xmlDocument, xmlSchemaSet);
+
+					return new XmlTransaction(xmlDocument,
+											  () =>
+											  {
+												  DateTime now = DateTime.Now;
+												  string xmlDocumentFileName = Combine(DirectoryPath, "." + xmlDocumentName, now.ToString("yyyy_MM_dd__HH_mm_ss_fffffff'.xml'"));
+
+												  if (selectedVersionXElement.Attribute("EndDate") == null)
+													  selectedVersionXElement.Add(new XAttribute("EndDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")));
+												  else
+													  versionXmlDocument.Root.Elements("Version").Last().Add(new XAttribute("EndDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")));
+												  versionXmlDocument.Root
+																	.Add(new XElement("Version",
+																					  new XAttribute("FileName", xmlDocumentFileName),
+																					  new XAttribute("BeginDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz"))));
+
+												  if (xmlSchemaSet != null)
+													  Validate(xmlDocument, xmlSchemaSet);
+
+												  xmlDocument.Save(xmlDocumentFileName);
+												  versionXmlDocument.Save(versionXmlDocumentFilePath);
+											  },
+											  () =>
+											  {
+												  versionFileLock.ExitWriteLock();
+											  });
+				}
+				catch
+				{
+					versionFileLock.ExitWriteLock();
+					throw;
+				}
+			}
+		}
+		public override ISharedXmlTransaction BeginSharedTransaction(string xmlDocumentName, DateTime version, XmlSchemaSet xmlSchemaSet = null)
+		{
+			if (xmlDocumentName == null)
+				throw new ArgumentNullException("xmlDocumentName");
+			if (string.IsNullOrWhiteSpace(xmlDocumentName))
+				throw new ArgumentException("Cannot be empty or whitespace!", "xmlDocumentName");
+
+			lock (_documentLocks)
+			{
+				ReaderWriterLockSlim versionFileLock;
+
+				if (!_documentLocks.TryGetValue(xmlDocumentName, out versionFileLock))
+				{
+					versionFileLock = new ReaderWriterLockSlim();
+					_documentLocks.Add(xmlDocumentName, versionFileLock);
+				}
+
+				try
+				{
+					versionFileLock.EnterReadLock();
+					XDocument versionXmlDocument;
+					string versionXmlDocumentFilePath = Combine(Directory.CreateDirectory(Combine(DirectoryPath, "." + xmlDocumentName)).FullName, "versions.xml");
+
+					if (File.Exists(versionXmlDocumentFilePath))
+						versionXmlDocument = XDocument.Load(versionXmlDocumentFilePath);
+					else
+					{
+						FileInfo xmlDocumentFileInfo = new FileInfo(Combine(DirectoryPath, xmlDocumentName));
+
+						versionXmlDocument = new XDocument(new XElement("File",
+																		new XElement("Version",
+																					 new XAttribute("FileName", xmlDocumentFileInfo.CopyTo(Combine(DirectoryPath, "." + xmlDocumentName, xmlDocumentFileInfo.CreationTime.ToString("yyyy_MM_dd__HH_mm_ss_fffffff"))).FullName),
+																					 new XAttribute("BeginDate", xmlDocumentFileInfo.CreationTime.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")))));
+						versionXmlDocument.Save(versionXmlDocumentFilePath);
+					}
+
+					XElement selectedVersionXElement = versionXmlDocument.Elements("Version").LastOrDefault(versionXmlElement => version >= DateTime.ParseExact(versionXmlElement.Attribute("BeginDate").Value, "yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz", null));
+					if (selectedVersionXElement == null)
+						throw new ArgumentException("The specified version is before any known version of the file!", "version");
+
+					XDocument xmlDocument = XDocument.Load(selectedVersionXElement.Attribute("FileName").Value);
+
+					if (xmlSchemaSet != null)
+						Validate(xmlDocument, xmlSchemaSet);
+
+					return new XmlTransaction(xmlDocument,
+											  disposeAction: () =>
+											  {
+												  versionFileLock.ExitReadLock();
+											  });
+				}
+				catch
+				{
+					versionFileLock.ExitReadLock();
+					throw;
+				}
 			}
 		}
 
@@ -46,8 +157,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Local
 		[Obsolete]
 		protected override void OnSaveXmlDocument(XDocument xDocument, string xmlDocumentFileName)
 		{
-			using (XmlWriter xmlWriter = XmlWriter.Create(xmlDocumentFileName, _xmlWriterSettings))
-				xDocument.Save(xmlWriter);
+			//using (XmlWriter xmlWriter = XmlWriter.Create(xmlDocumentFileName, _xmlWriterSettings))
+				//xDocument.Save(xmlWriter);
 		}
 
 		private void _SaveXmlDocument(XDocument xmlDocument, string xmlDocumentName, XmlSchemaSet xmlSchemaSet)
@@ -58,17 +169,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Local
 			xmlDocument.Save(xmlDocumentName);
 		}
 
-		private readonly object _documentSpinLocksLock = new object();
-		private readonly IDictionary<string, SpinLock> _documentSpinLocks = new SortedList<string, SpinLock>(StringComparer.OrdinalIgnoreCase);
-		private static readonly XmlWriterSettings _xmlWriterSettings = new XmlWriterSettings
-			{
-				ConformanceLevel = ConformanceLevel.Document,
-				Encoding = Encoding.UTF8,
-				Indent = true,
-				IndentChars = "\t",
-				NamespaceHandling = NamespaceHandling.OmitDuplicates,
-				NewLineChars = Environment.NewLine,
-				OmitXmlDeclaration = false,
-			};
+		private readonly IDictionary<string, ReaderWriterLockSlim> _documentLocks = new SortedList<string, ReaderWriterLockSlim>();
 	}
 }

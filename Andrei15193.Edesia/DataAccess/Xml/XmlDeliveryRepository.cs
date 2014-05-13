@@ -23,27 +23,28 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			_xmlDocumentFileName = xmlDocumentFileName;
 			_xmlDocumentProvider = xmlDocumentProvider;
 			_xmlDocumentSchemaSet = new XmlSchemaSet();
-			_xmlDocumentSchemaSet.Add("http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd", "http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd");
+			_xmlDocumentSchemaSet.Add("http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd", "http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd");
 		}
 
 		#region IDeliveryRepository Members
 		public IEnumerable<string> GetUnmappedAddresses()
 		{
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName))
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
 				return xmlTransaction.XmlDocument
 									 .Root
-									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
-									 .Select(addressXElement => addressXElement.Value);
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+									 .Select(addressXElement => addressXElement.Attribute("Address").Value);
 		}
 		public IEnumerable<DeliveryZone> GetDeliveryZones()
 		{
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName))
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
 				return xmlTransaction.XmlDocument
 									 .Root
-									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone")
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone")
 									 .Select(deliveryZoneXElement => new DeliveryZone(deliveryZoneXElement.Attribute("Name").Value,
 																					  Colour.Parse(deliveryZoneXElement.Attribute("Colour").Value),
-																					  deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address").Select(addressXElement => addressXElement.Value)));
+																					  deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+																										  .Select(addressXElement => addressXElement.Attribute("Address").Value)));
 		}
 		public void AddAddress(string addressName)
 		{
@@ -52,11 +53,12 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (string.IsNullOrEmpty(addressName) || string.IsNullOrWhiteSpace(addressName))
 				throw new ArgumentException("Cannot be empty or whitespace.", "addressName");
 
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				xmlTransaction.XmlDocument
 							  .Root
-							  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", addressName));
+							  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address",
+												new XAttribute("Address", addressName)));
 
 				xmlTransaction.Commit();
 			}
@@ -68,12 +70,13 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (string.IsNullOrEmpty(addressName) || string.IsNullOrWhiteSpace(addressName))
 				throw new ArgumentException("Cannot be empty or whitespace.", "addressName");
 
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				XElement addressXElement = xmlTransaction.XmlDocument
 														 .Root
-														 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
-														 .FirstOrDefault(addressXmlElement => string.Equals(addressXmlElement.Value, addressName, StringComparison.OrdinalIgnoreCase));
+														 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+														 .FirstOrDefault(addressXmlElement => string.Equals(addressXmlElement.Attribute("Address").Value, addressName, StringComparison.OrdinalIgnoreCase)
+																							  && !addressXmlElement.Elements().Any());
 
 				if (addressXElement != null)
 				{
@@ -87,20 +90,17 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (deliveryZone == null)
 				throw new ArgumentNullException("deliveryZone");
 
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				xmlTransaction.XmlDocument
 							  .Root
-							  .AddFirst(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone",
+							  .AddFirst(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone",
 													 new XAttribute("Name", deliveryZone.Name),
 													 new XAttribute("Colour", deliveryZone.Colour.ToString()),
-													 deliveryZone.Addresses.Select(address => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", address))));
-
-				xmlTransaction.XmlDocument
-							  .Root
-							  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
-							  .Where(addressXElement => deliveryZone.Addresses.Contains(addressXElement.Value))
-							  .Remove();
+																	xmlTransaction.XmlDocument
+																				  .Root
+																				  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+																				  .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Attribute("Address").Value))));
 
 				xmlTransaction.Commit();
 			}
@@ -115,30 +115,26 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (string.IsNullOrEmpty(deliveryZoneOldName) || string.IsNullOrWhiteSpace(deliveryZoneOldName))
 				throw new ArgumentException("Cannot be empty or whitespace.", "deliveryZoneOldName");
 
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				XElement deliveryZoneXElement = xmlTransaction.XmlDocument
 															  .Root
-															  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone")
+															  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone")
 															  .FirstOrDefault(deliveryZoneXmlElement => string.Equals(deliveryZoneXmlElement.Attribute("Name").Value, deliveryZoneOldName, StringComparison.OrdinalIgnoreCase));
 
 				if (deliveryZoneXElement != null)
 				{
+					deliveryZoneXElement.Add(xmlTransaction.XmlDocument
+														   .Root
+														   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+														   .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Attribute("Address").Value)));
+
 					xmlTransaction.XmlDocument
 								  .Root
-								  .Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
-														   .Select(addressXElement => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", addressXElement.Value)));
-
+								  .Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+														   .Where(unmappedAddressXElement => !deliveryZone.Addresses.Contains(unmappedAddressXElement.Attribute("Address").Value)));
 					deliveryZoneXElement.Attribute("Name").SetValue(deliveryZone.Name);
 					deliveryZoneXElement.Attribute("Colour").SetValue(deliveryZone.Colour.ToString());
-					deliveryZoneXElement.Elements().Remove();
-					deliveryZoneXElement.Add(deliveryZone.Addresses.Select(address => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address", address)));
-
-					xmlTransaction.XmlDocument
-								  .Root
-								  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address")
-								  .Where(addressXElement => deliveryZone.Addresses.Contains(addressXElement.Value))
-								  .Remove();
 
 					xmlTransaction.Commit();
 				}
@@ -151,18 +147,18 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (string.IsNullOrEmpty(deliveryZoneName) || string.IsNullOrWhiteSpace(deliveryZoneName))
 				throw new ArgumentException("Cannot be empty or whitespace.", "deliveryZoneName");
 
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				XElement deliveryZoneXElement = xmlTransaction.XmlDocument
 															  .Root
-															  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}DeliveryZone")
+															  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone")
 															  .FirstOrDefault(deliveryZoneXmlElement => string.Equals(deliveryZoneXmlElement.Attribute("Name").Value, deliveryZoneName, StringComparison.OrdinalIgnoreCase));
 
 				if (deliveryZoneXElement != null)
 				{
 					xmlTransaction.XmlDocument
 								  .Root
-								  .Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd}Address"));
+								  .Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address"));
 					deliveryZoneXElement.Remove();
 
 					xmlTransaction.Commit();

@@ -40,7 +40,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (registrationKey == null)
 				throw new ArgumentNullException("registrationKey");
 
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				_ClearTimedoutRegistrationKeys(xmlTransaction.XmlDocument);
 				xmlTransaction.XmlDocument
@@ -53,7 +53,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 		public ApplicationUser Find(string email, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
 		{
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				IEnumerable<XElement> userXElements = xmlTransaction.XmlDocument
 																	.Root
@@ -80,7 +80,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (authenticationToken == null)
 				throw new ArgumentNullException("authenticationKey");
 
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				XElement userXElement = xmlTransaction.XmlDocument
 													  .Root
@@ -112,7 +112,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (applicationUserEmail == null)
 				throw new ArgumentNullException("applicationUserEmail");
 
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				XElement userXElement = xmlTransaction.XmlDocument
 													  .Root
@@ -136,7 +136,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (userRegistrationKey == null)
 				throw new ArgumentNullException("userRegistrationKey");
 
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				_ClearTimedoutRegistrationKeys(xmlTransaction.XmlDocument);
 
@@ -162,7 +162,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		}
 		public IEnumerable<DetailedAddress> GetAddresses()
 		{
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName))
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
 				return xmlTransaction.XmlDocument
 									 .Root
 									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")

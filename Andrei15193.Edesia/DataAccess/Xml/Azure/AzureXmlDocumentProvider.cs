@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -23,33 +24,159 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 			_connectionStringCloudSettingName = connectionStringCloudSettingName;
 		}
 
-		public override IXmlTransaction BeginXmlTransaction(string xmlDocumentName, XmlSchemaSet xmlSchemaSet = null)
+		public override IExclusiveXmlTransaction BeginExclusiveTransaction(string xmlDocumentName, DateTime version, XmlSchemaSet xmlSchemaSet = null)
 		{
-			SpinLock xmlDocumentSpinLock;
-			CloudBlockBlob dataBlob = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(_connectionStringCloudSettingName))
-														 .CreateCloudBlobClient()
-														 .GetContainerReference("andrei15193")
-														 .GetBlockBlobReference(xmlDocumentName);
+			if (xmlDocumentName == null)
+				throw new ArgumentNullException("xmlDocumentName");
+			if (string.IsNullOrWhiteSpace(xmlDocumentName))
+				throw new ArgumentException("Cannot be empty or whitespace!", "xmlDocumentName");
 
-			lock (_documentSpinLocksLock)
-				using (Stream stream = dataBlob.OpenRead())
+			lock (_documentLocks)
+			{
+				ReaderWriterLockSlim versionFileLock;
+				CloudBlobContainer blobContainer = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(_connectionStringCloudSettingName))
+																	  .CreateCloudBlobClient()
+																	  .GetContainerReference("andrei15193");
+
+				if (!_documentLocks.TryGetValue(xmlDocumentName, out versionFileLock))
 				{
-					XDocument xmlDocument = XDocument.Load(stream);
+					versionFileLock = new ReaderWriterLockSlim();
+					_documentLocks.Add(xmlDocumentName, versionFileLock);
+				}
+
+				try
+				{
+					versionFileLock.EnterWriteLock();
+					XDocument versionXmlDocument;
+					CloudBlockBlob versionXmlDocumentBlob = blobContainer.GetBlockBlobReference(Combine(DirectoryPath, xmlDocumentName, "versions.xml"));
+
+					if (versionXmlDocumentBlob.Exists())
+						using (Stream readStream = versionXmlDocumentBlob.OpenRead())
+							versionXmlDocument = XDocument.Load(readStream);
+					else
+					{
+						CloudBlockBlob originalXmlDocumentBlob = blobContainer.GetBlockBlobReference(Combine(DirectoryPath, xmlDocumentName));
+						CloudBlockBlob xmlDocumentBlob = blobContainer.GetBlockBlobReference(Combine(DirectoryPath, xmlDocumentName, (originalXmlDocumentBlob.Properties.LastModified ?? DateTimeOffset.MinValue).DateTime.ToString("yyyy_MM_dd__HH_mm_ss_fffffff'.xml'")));
+
+						versionXmlDocument = new XDocument(new XElement("File",
+																		new XElement("Version",
+																					 new XAttribute("FileName", xmlDocumentBlob.Name),
+																					 new XAttribute("BeginDate", (originalXmlDocumentBlob.Properties.LastModified ?? DateTimeOffset.MinValue).DateTime.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")))));
+
+						xmlDocumentBlob.UploadText(originalXmlDocumentBlob.DownloadText());
+						versionXmlDocumentBlob.UploadText(versionXmlDocument.ToString());
+					}
+
+					XElement selectedVersionXElement = versionXmlDocument.Root.Elements("Version").TakeWhile(versionXmlElement => version >= DateTime.ParseExact(versionXmlElement.Attribute("BeginDate").Value, "yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz", null)).LastOrDefault();
+					if (selectedVersionXElement == null)
+						throw new ArgumentException("The specified version is before any known version of the file!", "version");
+
+					XDocument xmlDocument;
+					using (Stream readStream = blobContainer.GetBlockBlobReference(selectedVersionXElement.Attribute("FileName").Value).OpenRead())
+						xmlDocument = XDocument.Load(readStream);
 
 					if (xmlSchemaSet != null)
 						Validate(xmlDocument, xmlSchemaSet);
 
-					if (!_documentSpinLocks.TryGetValue(xmlDocumentName, out xmlDocumentSpinLock))
+					return new XmlTransaction(xmlDocument,
+											  () =>
+											  {
+												  DateTime now = DateTime.Now;
+												  CloudBlockBlob xmlDocumentBlob = blobContainer.GetBlockBlobReference(Combine(DirectoryPath, xmlDocumentName, now.ToString("yyyy_MM_dd__HH_mm_ss_fffffff'.xml'")));
+
+												  if (selectedVersionXElement.Attribute("EndDate") == null)
+													  selectedVersionXElement.Add(new XAttribute("EndDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")));
+												  else
+													  versionXmlDocument.Root.Elements("Version").Last().Add(new XAttribute("EndDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")));
+												  versionXmlDocument.Root
+																	.Add(new XElement("Version",
+																					  new XAttribute("FileName", xmlDocumentBlob.Name),
+																					  new XAttribute("BeginDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz"))));
+
+												  if (xmlSchemaSet != null)
+													  Validate(xmlDocument, xmlSchemaSet);
+
+												  xmlDocumentBlob.UploadText(xmlDocument.ToString());
+												  versionXmlDocumentBlob.UploadText(versionXmlDocument.ToString());
+											  },
+											  () =>
+											  {
+												  versionFileLock.ExitWriteLock();
+											  });
+				}
+				catch
+				{
+					versionFileLock.ExitWriteLock();
+					throw;
+				}
+			}
+		}
+		public override ISharedXmlTransaction BeginSharedTransaction(string xmlDocumentName, DateTime version, XmlSchemaSet xmlSchemaSet = null)
+		{
+			if (xmlDocumentName == null)
+				throw new ArgumentNullException("xmlDocumentName");
+			if (string.IsNullOrWhiteSpace(xmlDocumentName))
+				throw new ArgumentException("Cannot be empty or whitespace!", "xmlDocumentName");
+
+			lock (_documentLocks)
+			{
+				ReaderWriterLockSlim versionFileLock;
+				CloudBlobContainer blobContainer = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(_connectionStringCloudSettingName))
+																	  .CreateCloudBlobClient()
+																	  .GetContainerReference("andrei15193");
+
+				if (!_documentLocks.TryGetValue(xmlDocumentName, out versionFileLock))
+				{
+					versionFileLock = new ReaderWriterLockSlim();
+					_documentLocks.Add(xmlDocumentName, versionFileLock);
+				}
+
+				try
+				{
+					versionFileLock.EnterReadLock();
+					XDocument versionXmlDocument;
+					CloudBlockBlob versionXmlDocumentBlob = blobContainer.GetBlockBlobReference(Combine(DirectoryPath, xmlDocumentName, "Versions.xml"));
+					
+					if (versionXmlDocumentBlob.Exists())
+						using (Stream readStream = versionXmlDocumentBlob.OpenRead())
+							versionXmlDocument = XDocument.Load(readStream);
+					else
 					{
-						xmlDocumentSpinLock = new SpinLock(enableThreadOwnerTracking: false);
-						_documentSpinLocks.Add(xmlDocumentName, xmlDocumentSpinLock);
+						CloudBlockBlob originalXmlDocumentBlob = blobContainer.GetBlockBlobReference(Combine(DirectoryPath, xmlDocumentName));
+						CloudBlockBlob xmlDocumentBlob = blobContainer.GetBlockBlobReference(Combine(DirectoryPath, xmlDocumentName, (originalXmlDocumentBlob.Properties.LastModified ?? DateTimeOffset.MinValue).DateTime.ToString("yyyy_MM_dd__HH_mm_ss_fffffff'.xml'")));
+
+						versionXmlDocument = new XDocument(new XElement("File",
+																		new XElement("Version",
+																					 new XAttribute("FileName", xmlDocumentBlob.Name),
+																					 new XAttribute("BeginDate", (originalXmlDocumentBlob.Properties.LastModified ?? DateTimeOffset.MinValue).DateTime.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")))));
+
+						xmlDocumentBlob.UploadText(originalXmlDocumentBlob.DownloadText());
+						versionXmlDocumentBlob.UploadText(versionXmlDocument.ToString());
 					}
 
-					bool lockTaken = false;
-					xmlDocumentSpinLock.Enter(ref lockTaken);
+					XElement selectedVersionXElement = versionXmlDocument.Root.Elements("Version").TakeWhile(versionXmlElement => version >= DateTime.ParseExact(versionXmlElement.Attribute("BeginDate").Value, "yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz", null)).LastOrDefault();
+					if (selectedVersionXElement == null)
+						throw new ArgumentException("The specified version is before any known version of the file!", "version");
 
-					return new XmlTransaction(xmlDocument, _SaveXmlDocument(dataBlob, xmlDocument, xmlSchemaSet), _ReleaseSpinLock(xmlDocumentSpinLock));
+					XDocument xmlDocument;
+					using (Stream readStream = blobContainer.GetBlockBlobReference(selectedVersionXElement.Attribute("FileName").Value).OpenRead())
+						xmlDocument = XDocument.Load(readStream);
+
+					if (xmlSchemaSet != null)
+						Validate(xmlDocument, xmlSchemaSet);
+
+					return new XmlTransaction(xmlDocument,
+											  disposeAction: () =>
+											  {
+												  versionFileLock.ExitReadLock();
+											  });
 				}
+				catch
+				{
+					versionFileLock.ExitReadLock();
+					throw;
+				}
+			}
 		}
 
 		[Obsolete]
@@ -181,6 +308,9 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 			private readonly DateTimeOffset? _lastModifiedTime;
 			private readonly XDocument _xmlDocument;
 		}
+
+		private readonly IDictionary<string, ReaderWriterLockSlim> _documentLocks = new SortedList<string, ReaderWriterLockSlim>();
+
 
 		private int _readersWaitingForUpdate = 0;
 		private readonly string _connectionStringCloudSettingName;

@@ -28,7 +28,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		#region IProductRepository Members
 		public IEnumerable<Product> GetProducts()
 		{
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName))
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
 				return xmlTransaction.XmlDocument
 									 .Root
 									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product")
@@ -41,7 +41,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (product == null)
 				throw new ArgumentNullException("product");
 
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				if (xmlTransaction.XmlDocument
 								  .Root
@@ -72,7 +72,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		}
 		public void RemoveProduct(string productName)
 		{
-			using (IXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginXmlTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				XElement productXElement = xmlTransaction.XmlDocument
 														 .Root

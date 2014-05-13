@@ -3,23 +3,33 @@ using System.Xml.Linq;
 namespace Andrei15193.Edesia.DataAccess.Xml
 {
 	public class XmlTransaction
-		: IXmlTransaction
+		: IExclusiveXmlTransaction
 	{
-		public XmlTransaction(XDocument xmlDocument, Action saveAction, Action releaseLockAction)
+		public XmlTransaction(XDocument xmlDocument, Action commitAction = null, Action disposeAction = null)
 		{
 			if (xmlDocument == null)
 				throw new ArgumentNullException("xmlDocument");
-			if (saveAction == null)
-				throw new ArgumentNullException("saveAction");
-			if (releaseLockAction == null)
-				throw new ArgumentNullException("releaseLockAction");
 
 			_xmlDocument = xmlDocument;
-			_saveAction = saveAction;
-			_releaseLockAction = releaseLockAction;
+			_commit = commitAction;
+			_disposeAction = disposeAction;
 		}
 
-		#region IXmlTransaction Members
+		#region IExclusiveXmlTransaction Members
+		public void Commit()
+		{
+			try
+			{
+				if (_commit != null)
+					_commit();
+			}
+			finally
+			{
+				Dispose();
+			}
+		}
+		#endregion
+		#region ISharedXmlTransaction Members
 		public XDocument XmlDocument
 		{
 			get
@@ -30,24 +40,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				return _xmlDocument;
 			}
 		}
-		public void Commit()
-		{
-			try
-			{
-				_saveAction();
-			}
-			finally
-			{
-				Dispose();
-			}
-		}
 		#endregion
 		#region IDisposable Members
 		public void Dispose()
 		{
 			if (!_isDisposed)
 			{
-				_releaseLockAction();
+				if (_disposeAction != null)
+					_disposeAction();
 				_isDisposed = true;
 			}
 		}
@@ -55,7 +55,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 		private bool _isDisposed = false;
 		private readonly XDocument _xmlDocument;
-		private readonly Action _saveAction;
-		private readonly Action _releaseLockAction;
+		private readonly Action _commit;
+		private readonly Action _disposeAction;
 	}
 }
