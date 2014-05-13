@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 namespace Andrei15193.Edesia.DataAccess.Xml.Local
@@ -126,7 +124,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Local
 						versionXmlDocument.Save(versionXmlDocumentFilePath);
 					}
 
-					XElement selectedVersionXElement = versionXmlDocument.Elements("Version").LastOrDefault(versionXmlElement => version >= DateTime.ParseExact(versionXmlElement.Attribute("BeginDate").Value, "yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz", null));
+					XElement selectedVersionXElement = versionXmlDocument.Root.Elements("Version").LastOrDefault(versionXmlElement => version >= DateTime.ParseExact(versionXmlElement.Attribute("BeginDate").Value, "yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz", null));
 					if (selectedVersionXElement == null)
 						throw new ArgumentException("The specified version is before any known version of the file!", "version");
 
