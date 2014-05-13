@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Threading;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -24,30 +25,31 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 
 		public override IXmlTransaction BeginXmlTransaction(string xmlDocumentName, XmlSchemaSet xmlSchemaSet = null)
 		{
+			SpinLock xmlDocumentSpinLock;
 			CloudBlockBlob dataBlob = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(_connectionStringCloudSettingName))
 														 .CreateCloudBlobClient()
 														 .GetContainerReference("andrei15193")
 														 .GetBlockBlobReference(xmlDocumentName);
-			string leaseId = dataBlob.AcquireLease(null, null);
-			Action releaseLockAction = (() => dataBlob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId)));
 
-			try
-			{
-				using (Stream xmlDataFileInputStream = dataBlob.OpenRead())
+			lock (_documentSpinLocksLock)
+				using (Stream stream = dataBlob.OpenRead())
 				{
-					XDocument xmlDocument = XDocument.Load(xmlDataFileInputStream);
+					XDocument xmlDocument = XDocument.Load(stream);
 
 					if (xmlSchemaSet != null)
 						Validate(xmlDocument, xmlSchemaSet);
 
-					return new XmlTransaction(xmlDocument, () => _SaveXmlDocument(dataBlob, xmlDocument, xmlSchemaSet), releaseLockAction);
+					if (!_documentSpinLocks.TryGetValue(xmlDocumentName, out xmlDocumentSpinLock))
+					{
+						xmlDocumentSpinLock = new SpinLock(enableThreadOwnerTracking: false);
+						_documentSpinLocks.Add(xmlDocumentName, xmlDocumentSpinLock);
+					}
+
+					bool lockTaken = false;
+					xmlDocumentSpinLock.Enter(ref lockTaken);
+
+					return new XmlTransaction(xmlDocument, _SaveXmlDocument(dataBlob, xmlDocument, xmlSchemaSet), _ReleaseSpinLock(xmlDocumentSpinLock));
 				}
-			}
-			catch
-			{
-				releaseLockAction();
-				throw;
-			}
 		}
 
 		[Obsolete]
@@ -133,13 +135,23 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 			}
 		}
 
-		private void _SaveXmlDocument(CloudBlockBlob dataBlob, XDocument xmlDocument, XmlSchemaSet xmlSchemaSet)
+		private Action _SaveXmlDocument(CloudBlockBlob dataBlob, XDocument xmlDocument, XmlSchemaSet xmlSchemaSet)
 		{
-			if (xmlSchemaSet != null)
-				Validate(xmlDocument, xmlSchemaSet);
+			return () =>
+			{
+				if (xmlSchemaSet != null)
+					Validate(xmlDocument, xmlSchemaSet);
 
-			dataBlob.UploadText(xmlDocument.ToString());
+				dataBlob.UploadText(xmlDocument.ToString());
+			};
 		}
+		private Action _ReleaseSpinLock(SpinLock xmlDocumentSpinLock)
+		{
+			return () => xmlDocumentSpinLock.Exit();
+		}
+
+		private readonly object _documentSpinLocksLock = new object();
+		private readonly IDictionary<string, SpinLock> _documentSpinLocks = new SortedList<string, SpinLock>(StringComparer.OrdinalIgnoreCase);
 
 		private struct CachedXmlDocument
 		{

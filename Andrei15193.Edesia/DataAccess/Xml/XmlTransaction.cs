@@ -18,11 +18,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			_saveAction = saveAction;
 			_releaseLockAction = releaseLockAction;
 		}
-		~XmlTransaction()
-		{
-			if (_isDisposed)
-				_isDisposed = true;
-		}
 
 		#region IXmlTransaction Members
 		public XDocument XmlDocument
@@ -30,7 +25,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			get
 			{
 				if (_isDisposed)
-					throw new InvalidOperationException("Instance has been dispozed!");
+					throw new ObjectDisposedException("Instance has been dispozed!");
 
 				return _xmlDocument;
 			}
@@ -53,7 +48,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			if (!_isDisposed)
 			{
 				_releaseLockAction();
-				GC.SuppressFinalize(this);
 				_isDisposed = true;
 			}
 		}

@@ -19,22 +19,22 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Local
 
 			lock (_documentSpinLocksLock)
 			{
-				SpinLock spinLock;
+				SpinLock xmlDocumentSpinLock;
 				XDocument xmlDocument = XDocument.Load(xmlDocumentName);
 
 				if (xmlSchemaSet != null)
 					Validate(xmlDocument, xmlSchemaSet);
 
-				if (!_documentSpinLocks.TryGetValue(xmlDocumentName, out spinLock))
+				if (!_documentSpinLocks.TryGetValue(xmlDocumentName, out xmlDocumentSpinLock))
 				{
-					spinLock = new SpinLock(enableThreadOwnerTracking: false);
-					_documentSpinLocks.Add(xmlDocumentName, spinLock);
+					xmlDocumentSpinLock = new SpinLock(enableThreadOwnerTracking: false);
+					_documentSpinLocks.Add(xmlDocumentName, xmlDocumentSpinLock);
 				}
 
 				bool lockTaken = false;
-				spinLock.Enter(ref lockTaken);
+				xmlDocumentSpinLock.Enter(ref lockTaken);
 
-				return new XmlTransaction(xmlDocument, () => _SaveXmlDocument(xmlDocument, xmlDocumentName, xmlSchemaSet), () => spinLock.Exit());
+				return new XmlTransaction(xmlDocument, () => _SaveXmlDocument(xmlDocument, xmlDocumentName, xmlSchemaSet), () => xmlDocumentSpinLock.Exit());
 			}
 		}
 
