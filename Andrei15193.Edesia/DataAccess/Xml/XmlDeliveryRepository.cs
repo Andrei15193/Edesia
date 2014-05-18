@@ -35,16 +35,16 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
 									 .Select(addressXElement => addressXElement.Value);
 		}
-		public IEnumerable<DeliveryZone> GetDeliveryZones()
+		public IEnumerable<DeliveryZone> GetDeliveryZones(IApplicationUserProvider applicationUserProvider)
 		{
+			if (applicationUserProvider == null)
+				throw new ArgumentNullException("applicationUserProvider");
+
 			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
 				return xmlTransaction.XmlDocument
 									 .Root
 									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone")
-									 .Select(deliveryZoneXElement => new DeliveryZone(deliveryZoneXElement.Attribute("Name").Value,
-																					  Colour.Parse(deliveryZoneXElement.Attribute("Colour").Value),
-																					  deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-																										  .Select(addressXElement => addressXElement.Value)));
+									 .Select(deliveryZoneXmlElement => _GetDeliveryZone(deliveryZoneXmlElement, applicationUserProvider));
 		}
 		public void AddAddress(string addressName)
 		{
@@ -104,15 +104,20 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
+				XElement deliveryZoneXElement = new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone",
+															 new XAttribute("Name", deliveryZone.Name),
+															 new XAttribute("Colour", deliveryZone.Colour.ToString()),
+															 xmlTransaction.XmlDocument
+																		   .Root
+																		   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+																		   .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Value)));
+
+				if (deliveryZone.Assignee != null)
+					deliveryZoneXElement.Add(new XAttribute("AssigneeEMailAddress", deliveryZone.Assignee.EMailAddress));
+
 				xmlTransaction.XmlDocument
 							  .Root
-							  .AddFirst(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone",
-													 new XAttribute("Name", deliveryZone.Name),
-													 new XAttribute("Colour", deliveryZone.Colour.ToString()),
-																	xmlTransaction.XmlDocument
-																				  .Root
-																				  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-																				  .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Value))));
+							  .AddFirst(deliveryZoneXElement);
 				xmlTransaction.XmlDocument
 							  .Root
 							  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
@@ -151,6 +156,17 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 														   .Root
 														   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
 														   .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Value)));
+
+					XAttribute assigneeXAttribute = deliveryZoneXElement.Attribute("AssigneeEMailAddress");
+					if (deliveryZone.Assignee != null)
+						if (assigneeXAttribute == null)
+							deliveryZoneXElement.Add(new XAttribute("AssigneeEMailAddress", deliveryZone.Assignee.EMailAddress));
+						else
+							assigneeXAttribute.SetValue(deliveryZone.Assignee.EMailAddress);
+					else
+						if (assigneeXAttribute != null)
+							assigneeXAttribute.Remove();
+
 					xmlTransaction.XmlDocument
 								  .Root
 								  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
@@ -241,6 +257,20 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 		}
 
+		private DeliveryZone _GetDeliveryZone(XElement deliveryZoneXmlElement, IApplicationUserProvider applicationUserProvider)
+		{
+			XAttribute assigneeEMailAddressXAtribute = deliveryZoneXmlElement.Attribute("AssigneeEMailAddress");
+
+			DeliveryZone deliveryZone = new DeliveryZone(deliveryZoneXmlElement.Attribute("Name").Value,
+														 Colour.Parse(deliveryZoneXmlElement.Attribute("Colour").Value),
+														 deliveryZoneXmlElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+																			   .Select(addressXElement => addressXElement.Value));
+
+			if (assigneeEMailAddressXAtribute != null)
+				deliveryZone.Assignee = applicationUserProvider.GetEmployee(assigneeEMailAddressXAtribute.Value);
+
+			return deliveryZone;
+		}
 		private Exception _TranslateException(Exception exception)
 		{
 			XmlUniqueConstraintException xmlUniqueConstraintException = exception as XmlUniqueConstraintException;

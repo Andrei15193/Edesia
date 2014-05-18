@@ -30,6 +30,61 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			_xmlDocumentSchemaSet.Add("http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd", "http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd");
 		}
 
+		#region IApplicationUserProvider Members
+		public ApplicationUser GetUser(string eMailAddress, DateTime version)
+		{
+			if (eMailAddress == null)
+				throw new ArgumentNullException("eMailAddress");
+			if (string.IsNullOrWhiteSpace(eMailAddress))
+				throw new ArgumentException("Cannot be empty or whitespace!", "eMailAddress");
+
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(XmlDocumentFileName, version))
+			{
+				XElement applicationUserXElement = xmlTransaction.XmlDocument
+																 .Root
+																 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+																 .FirstOrDefault(applicationUserXmlElement => string.Equals(applicationUserXmlElement.Attribute("EMail").Value, eMailAddress, StringComparison.Ordinal));
+
+				if (applicationUserXElement == null)
+					return null;
+				return _TryGetAdministrator(_TryGetEmployee(_GetApplicationUser(applicationUserXElement), applicationUserXElement), applicationUserXElement);
+			}
+		}
+		public ApplicationUser GetUser(string eMailAddress)
+		{
+			return GetUser(eMailAddress, DateTime.Now);
+		}
+
+		public Employee GetEmployee(string eMailAddress, DateTime version)
+		{
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName, version))
+			{
+				XElement applicationUserXElement = xmlTransaction.XmlDocument
+																 .Root
+																 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+																 .First(applicationUserXmlElement => string.Equals(applicationUserXmlElement.Attribute("EMail").Value, eMailAddress, StringComparison.Ordinal)
+																									 && applicationUserXmlElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee") != null);
+
+				if (applicationUserXElement == null)
+					return null;
+				return (Employee)_TryGetEmployee(_TryGetAdministrator(_GetApplicationUser(applicationUserXElement), applicationUserXElement), applicationUserXElement);
+			}
+		}
+		public Employee GetEmployee(string eMailAddress)
+		{
+			return GetEmployee(eMailAddress, DateTime.Now);
+		}
+
+		public IEnumerable<Employee> GetEmployees()
+		{
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
+				return xmlTransaction.XmlDocument
+									 .Root
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+									 .Where(applicationUserXmlElement => applicationUserXmlElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee") != null)
+									 .Select(applicationUserXmlElement => (Employee)_TryGetEmployee(_TryGetAdministrator(_GetApplicationUser(applicationUserXmlElement), applicationUserXmlElement), applicationUserXmlElement));
+		}
+		#endregion
 		#region IUserStore Members
 		public void AddApplicationUser(ApplicationUser applicationUser, string password, string registrationKey)
 		{
@@ -55,22 +110,29 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		{
 			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
-				IEnumerable<XElement> userXElements = xmlTransaction.XmlDocument
-																	.Root
-																	.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser");
+				IEnumerable<XElement> applicationUserXElements = xmlTransaction.XmlDocument
+																			   .Root
+																			   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser");
+				XElement applicationUserXElement;
 				switch (authenticationTokenType)
 				{
 					case AuthenticationTokenType.Key:
-						return _GetApplicationUser(userXElements.FirstOrDefault(userXElement =>
+						applicationUserXElement = applicationUserXElements.FirstOrDefault(applicationUserXmlElement =>
 							{
-								XAttribute authenticationTokenXAttribute = userXElement.Attribute("AuthenticationToken");
+								XAttribute authenticationTokenXAttribute = applicationUserXmlElement.Attribute("AuthenticationToken");
 								return (authenticationTokenXAttribute != null && string.Equals(authenticationToken, authenticationTokenXAttribute.Value, StringComparison.Ordinal));
-							}));
+							});
+						break;
 					case AuthenticationTokenType.Password:
 					default:
 						string passwordHash = _ComputeHash(authenticationToken);
-						return _GetApplicationUser(userXElements.FirstOrDefault(userXElement => string.Equals(passwordHash, userXElement.Attribute("PasswordHash").Value, StringComparison.Ordinal)));
+						applicationUserXElement = applicationUserXElements.FirstOrDefault(userXElement => string.Equals(passwordHash, userXElement.Attribute("PasswordHash").Value, StringComparison.Ordinal));
+						break;
 				}
+
+				if (applicationUserXElement == null)
+					return null;
+				return _TryGetAdministrator(_TryGetEmployee(_GetApplicationUser(applicationUserXElement), applicationUserXElement), applicationUserXElement);
 			}
 		}
 		public void SetAuthenticationToken(ApplicationUser applicationUser, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
@@ -180,41 +242,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				return false;
 			}
 		}
-		public IEnumerable<DetailedAddress> GetAddresses()
-		{
-			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
-				return xmlTransaction.XmlDocument
-									 .Root
-									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
-									 .SelectMany(applicationUserXElement => applicationUserXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address"))
-									 .Select(_GetAddress);
-		}
-		#endregion
-		#region IApplicationUserProvider Members
-		public ApplicationUser GetUser(string eMailAddress, DateTime version)
-		{
-			if (eMailAddress == null)
-				throw new ArgumentNullException("eMailAddress");
-			if (string.IsNullOrWhiteSpace(eMailAddress))
-				throw new ArgumentException("Cannot be empty or whitespace!", "eMailAddress");
-			
-			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(XmlDocumentFileName, version))
-			{
-				XElement applicationUserXElement = xmlTransaction.XmlDocument
-																 .Root
-																 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
-																 .FirstOrDefault(applicationUserXmlElement => string.Equals(applicationUserXmlElement.Attribute("EMail").Value, eMailAddress, StringComparison.Ordinal));
-
-				if (applicationUserXElement == null)
-					return null;
-
-				return _GetApplicationUser(applicationUserXElement);
-			}
-		}
-		public ApplicationUser GetUser(string eMailAddress)
-		{
-			return GetUser(eMailAddress, DateTime.Now);
-		}
 		#endregion
 		public string XmlDocumentFileName
 		{
@@ -247,14 +274,28 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 		}
 
-		private ApplicationUser _GetApplicationUser(XElement userXElement)
+		private ApplicationUser _TryGetAdministrator(ApplicationUser applicationUser, XElement applicationUserXElement)
 		{
-			// remove, this check is inconsistent
-			if (userXElement == null)
-				return null;
+			XElement administratorXElement = applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Administrator");
 
+			if (administratorXElement != null)
+				return new Administrator(applicationUser);
+			else
+				return applicationUser;
+		}
+		private ApplicationUser _TryGetEmployee(ApplicationUser applicationUser, XElement applicationUserXElement)
+		{
+			XElement employeeXElement = applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee");
+
+			if (employeeXElement != null)
+				return new Employee(applicationUser, int.Parse(employeeXElement.Attribute("TransportCapacity").Value));
+			else
+				return applicationUser;
+		}
+		private ApplicationUser _GetApplicationUser(XElement applicationUserXElement)
+		{
 			string registrationKey;
-			ApplicationUser applicationUser = _GetApplicationUser(userXElement, out registrationKey);
+			ApplicationUser applicationUser = _GetApplicationUser(applicationUserXElement, out registrationKey);
 
 			if (registrationKey != null)
 				return null;
@@ -269,29 +310,10 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 																  XmlConvert.ToDateTime(userXElement.Attribute("RegistrationTime").Value, MvcApplication.DateTimeSerializationFormat));
 			XAttribute registrationKeyXAttribute = userXElement.Attribute("RegistrationKey");
 
-			if (registrationKeyXAttribute == null)
-				registrationKey = null;
-			else
+			if (registrationKeyXAttribute != null)
 				registrationKey = registrationKeyXAttribute.Value;
-
-			XElement addressXElement = userXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address");
-			if (addressXElement != null)
-				applicationUser.DetailedAddress = _GetAddress(addressXElement);
-
-			XElement employeeXElement = userXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee");
-			if (employeeXElement != null)
-			{
-				Employee employee = new Employee(applicationUser, int.Parse(employeeXElement.Attribute("TransportCapacity").Value));
-
-				foreach (XElement deliveryZoneXElement in employeeXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}DeliveryZone"))
-					employee.DeliveryZones.Add(deliveryZoneXElement.Value);
-
-				applicationUser = employee;
-			}
-
-			XElement administratorXElement = userXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Administrator");
-			if (administratorXElement != null)
-				applicationUser = new Administrator(applicationUser);
+			else
+				registrationKey = null;
 
 			return applicationUser;
 		}
@@ -308,8 +330,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				applicationUserXElement.Add(new XAttribute("RegistrationTime", XmlConvert.ToString(applicationUser.RegistrationTime, MvcApplication.DateTimeSerializationFormat)));
 				applicationUserXElement.Add(new XAttribute("RegistrationKey", registrationKey));
 			}
-			if (applicationUser.DetailedAddress != null)
-				applicationUserXElement.Add(_GetAddressXElement(applicationUser.DetailedAddress));
 
 			ApplicationUserRole applicationUserRole = applicationUser as ApplicationUserRole;
 
@@ -319,7 +339,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 				if (employee != null)
 					applicationUserXElement.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee",
-															 employee.DeliveryZones.Select(deliveryZone => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}DeliveryZone", deliveryZone))));
+															 new XAttribute("TransportCapacity", employee.TransportCapacity)));
 
 				Administrator administrator = applicationUserRole.TryGetRole<Administrator>();
 
@@ -328,25 +348,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 
 			return applicationUserXElement;
-		}
-		private XElement _GetAddressXElement(DetailedAddress address)
-		{
-			if (address.Details == null)
-				return new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}DetailedAddress",
-									new XAttribute("Address", address.Address));
-			else
-				return new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}DetailedAddress",
-									new XAttribute("Address", address.Address),
-									new XAttribute("Details", address.Details));
-		}
-		private DetailedAddress _GetAddress(XElement detailedAddressXElement)
-		{
-			XAttribute addressDetailsAttribute = detailedAddressXElement.Attribute("Details");
-
-			if (addressDetailsAttribute == null)
-				return new DetailedAddress(detailedAddressXElement.Attribute("Address").Value);
-			else
-				return new DetailedAddress(detailedAddressXElement.Attribute("Address").Value, addressDetailsAttribute.Value);
 		}
 
 		private string _ComputeHash(string authenticationToken)

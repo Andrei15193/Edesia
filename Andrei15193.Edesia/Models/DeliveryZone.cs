@@ -19,7 +19,8 @@ namespace Andrei15193.Edesia.Models
 
 			_name = name;
 			_colour = colour;
-			_addresses = addresses;
+			_addresses = new SortedSet<string>(addresses);
+			Assignee = null;
 		}
 		public DeliveryZone(string name, Colour colour, params string[] addresses)
 			: this(name, colour, (IEnumerable<string>)addresses)
@@ -46,6 +47,11 @@ namespace Andrei15193.Edesia.Models
 			{
 				return _addresses;
 			}
+		}
+		public Employee Assignee
+		{
+			get;
+			set;
 		}
 
 		private readonly string _name;

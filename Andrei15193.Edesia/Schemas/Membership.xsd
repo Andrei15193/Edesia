@@ -24,10 +24,6 @@
 
 	<xsd:complexType name="ApplicationUser">
 		<xsd:sequence>
-			<xsd:element name="DetailedAddress"
-						 type="membership:DetailedAddress"
-						 minOccurs="0"
-						 maxOccurs="1" />
 			<xsd:element name="Employee"
 						 type="membership:Employee"
 						 minOccurs="0"
@@ -67,12 +63,6 @@
 	</xsd:complexType>
 
 	<xsd:complexType name="Employee">
-		<xsd:sequence>
-			<xsd:element name="DeliveryZone"
-						 type="xsd:string"
-						 minOccurs="0"
-						 maxOccurs="unbounded" />
-		</xsd:sequence>
 		<xsd:attribute name="TransportCapacity"
 					   use="required">
 			<xsd:simpleType>
@@ -81,14 +71,5 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-	</xsd:complexType>
-
-	<xsd:complexType name="DetailedAddress">
-		<xsd:attribute name="Address"
-					   type="xsd:string"
-					   use="required" />
-		<xsd:attribute name="Details"
-					   type="xsd:string"
-					   use="optional"/>
 	</xsd:complexType>
 </xsd:schema>

@@ -14,62 +14,67 @@ namespace Andrei15193.Edesia.ViewModels.Delivery
 		{
 			IDictionary<string, Colour> allColours = new SortedList<string, Colour>(capacity: 43);
 
-			allColours.Add("Amber", Colours.Amber);
-			allColours.Add("Blue", Colours.Blue);
-			allColours.Add("Brown", Colours.Brown);
-			allColours.Add("Cobalt", Colours.Cobalt);
-			allColours.Add("Crimson", Colours.Crimson);
-			allColours.Add("Cyan", Colours.Cyan);
-			allColours.Add("Dark blue", Colours.DarkBlue);
-			allColours.Add("Dark brown", Colours.DarkBrown);
-			allColours.Add("Dark cobalt", Colours.DarkCobalt);
-			allColours.Add("Dark crimson", Colours.DarkCrimson);
-			allColours.Add("Dark cyan", Colours.DarkCyan);
-			allColours.Add("Dark emerald", Colours.DarkEmerald);
-			allColours.Add("Dark green", Colours.DarkGreen);
-			allColours.Add("Dark indigo", Colours.DarkIndigo);
-			allColours.Add("Dark magenta", Colours.DarkMagenta);
-			allColours.Add("Dark orange", Colours.DarkOrange);
-			allColours.Add("Dark pink", Colours.DarkPink);
-			allColours.Add("Dark red", Colours.DarkRed);
-			allColours.Add("Dark teal", Colours.DarkTeal);
-			allColours.Add("Dark violet", Colours.DarkViolet);
-			allColours.Add("Emerald", Colours.Emerald);
-			allColours.Add("Green", Colours.Green);
-			allColours.Add("Indigo", Colours.Indigo);
-			allColours.Add("Light blue", Colours.LightBlue);
-			allColours.Add("Lighter blue", Colours.LighterBlue);
-			allColours.Add("Light green", Colours.LightGreen);
-			allColours.Add("Light olive", Colours.LightOlive);
-			allColours.Add("Light orange", Colours.LightOrange);
-			allColours.Add("Light pink", Colours.LightPink);
-			allColours.Add("Light red", Colours.LightRed);
-			allColours.Add("Light teal", Colours.LightTeal);
-			allColours.Add("Lime", Colours.Lime);
-			allColours.Add("Magenta", Colours.Magenta);
-			allColours.Add("Mauve", Colours.Mauve);
-			allColours.Add("Olive", Colours.Olive);
-			allColours.Add("Orange", Colours.Orange);
-			allColours.Add("Pink", Colours.Pink);
-			allColours.Add("Red", Colours.Red);
-			allColours.Add("Steel", Colours.Steel);
-			allColours.Add("Taupe", Colours.Taupe);
-			allColours.Add("Teal", Colours.Teal);
-			allColours.Add("Violet", Colours.Violet);
-			allColours.Add("Yellow", Colours.Yellow);
+			allColours.Add(ColourNamesStrings.Amber, Colours.Amber);
+			allColours.Add(ColourNamesStrings.Blue, Colours.Blue);
+			allColours.Add(ColourNamesStrings.Brown, Colours.Brown);
+			allColours.Add(ColourNamesStrings.Cobalt, Colours.Cobalt);
+			allColours.Add(ColourNamesStrings.Crimson, Colours.Crimson);
+			allColours.Add(ColourNamesStrings.Cyan, Colours.Cyan);
+			allColours.Add(ColourNamesStrings.DarkBlue, Colours.DarkBlue);
+			allColours.Add(ColourNamesStrings.DarkBrown, Colours.DarkBrown);
+			allColours.Add(ColourNamesStrings.DarkCobalt, Colours.DarkCobalt);
+			allColours.Add(ColourNamesStrings.DarkCrimson, Colours.DarkCrimson);
+			allColours.Add(ColourNamesStrings.DarkCyan, Colours.DarkCyan);
+			allColours.Add(ColourNamesStrings.DarkEmerald, Colours.DarkEmerald);
+			allColours.Add(ColourNamesStrings.DarkGreen, Colours.DarkGreen);
+			allColours.Add(ColourNamesStrings.DarkIndigo, Colours.DarkIndigo);
+			allColours.Add(ColourNamesStrings.DarkMagenta, Colours.DarkMagenta);
+			allColours.Add(ColourNamesStrings.DarkOrange, Colours.DarkOrange);
+			allColours.Add(ColourNamesStrings.DarkPink, Colours.DarkPink);
+			allColours.Add(ColourNamesStrings.DarkRed, Colours.DarkRed);
+			allColours.Add(ColourNamesStrings.DarkTeal, Colours.DarkTeal);
+			allColours.Add(ColourNamesStrings.DarkViolet, Colours.DarkViolet);
+			allColours.Add(ColourNamesStrings.Emerald, Colours.Emerald);
+			allColours.Add(ColourNamesStrings.Green, Colours.Green);
+			allColours.Add(ColourNamesStrings.Indigo, Colours.Indigo);
+			allColours.Add(ColourNamesStrings.LightBlue, Colours.LightBlue);
+			allColours.Add(ColourNamesStrings.LighterBlue, Colours.LighterBlue);
+			allColours.Add(ColourNamesStrings.LightGreen, Colours.LightGreen);
+			allColours.Add(ColourNamesStrings.LightOlive, Colours.LightOlive);
+			allColours.Add(ColourNamesStrings.LightOrange, Colours.LightOrange);
+			allColours.Add(ColourNamesStrings.LightPink, Colours.LightPink);
+			allColours.Add(ColourNamesStrings.LightRed, Colours.LightRed);
+			allColours.Add(ColourNamesStrings.LightTeal, Colours.LightTeal);
+			allColours.Add(ColourNamesStrings.Lime, Colours.Lime);
+			allColours.Add(ColourNamesStrings.Magenta, Colours.Magenta);
+			allColours.Add(ColourNamesStrings.Mauve, Colours.Mauve);
+			allColours.Add(ColourNamesStrings.Olive, Colours.Olive);
+			allColours.Add(ColourNamesStrings.Orange, Colours.Orange);
+			allColours.Add(ColourNamesStrings.Pink, Colours.Pink);
+			allColours.Add(ColourNamesStrings.Red, Colours.Red);
+			allColours.Add(ColourNamesStrings.Steel, Colours.Steel);
+			allColours.Add(ColourNamesStrings.Taupe, Colours.Taupe);
+			allColours.Add(ColourNamesStrings.Teal, Colours.Teal);
+			allColours.Add(ColourNamesStrings.Violet, Colours.Violet);
+			allColours.Add(ColourNamesStrings.Yellow, Colours.Yellow);
 
 			_availableColours = new ReadOnlyDictionary<string, Colour>(allColours);
 		}
 
-		public DeliveryZoneViewModel(IEnumerable<KeyValuePair<string, bool>> availableAddresses)
+		public DeliveryZoneViewModel(IEnumerable<KeyValuePair<string, bool>> availableAddresses, IEnumerable<Employee> employees)
 		{
+			if (employees == null)
+				_employees = new SortedSet<Employee>(Comparer<Employee>.Create((first, second) => first.LastName.CompareTo(second.LastName)));
+			else
+				_employees = new SortedSet<Employee>(employees, Comparer<Employee>.Create((first, second) => first.LastName.CompareTo(second.LastName)));
+
 			if (availableAddresses == null)
 				_availableAddresses = new SortedSet<KeyValuePair<string, bool>>(new KeyComparer());
 			else
 				_availableAddresses = new SortedSet<KeyValuePair<string, bool>>(availableAddresses.Where(availableAddress => !string.IsNullOrEmpty(availableAddress.Key) && !string.IsNullOrWhiteSpace(availableAddress.Key)), new KeyComparer());
 		}
 		public DeliveryZoneViewModel()
-			: this(null)
+			: this(null, null)
 		{
 		}
 
@@ -115,7 +120,22 @@ namespace Andrei15193.Edesia.ViewModels.Delivery
 			set;
 		}
 
-		private ISet<KeyValuePair<string, bool>> _availableAddresses;
+		[Display(Name = DeliveryZoneDetailsViewKey.EmployeesComobBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.EmployeesComobBox_Hint, ResourceType = typeof(DeliveryZoneDetailsViewStrings))]
+		public ISet<Employee> Employees
+		{
+			get
+			{
+				return _employees;
+			}
+		}
+		public string SelectedEmployeeEMailAddress
+		{
+			get;
+			set;
+		}
+
+		private readonly ISet<KeyValuePair<string, bool>> _availableAddresses;
+		private readonly ISet<Employee> _employees;
 		private static IReadOnlyDictionary<string, Colour> _availableColours;
 
 		private sealed class KeyComparer

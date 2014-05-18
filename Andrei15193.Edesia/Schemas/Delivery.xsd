@@ -33,6 +33,9 @@
 						 minOccurs="0"
 						 maxOccurs="unbounded" />
 		</xsd:sequence>
+		<xsd:attribute name="AssigneeEMailAddress"
+					   type="xsd:string"
+					   use="optional" />
 		<xsd:attribute name="Name"
 					   type="xsd:string"
 					   use="required" />

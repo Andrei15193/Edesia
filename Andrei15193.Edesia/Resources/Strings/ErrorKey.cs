@@ -6,6 +6,7 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string AddressTextBox_MissingValue = "AddressTextBox_MissingValue";
 		internal const string CredentialControls_InvalidValues = "CredentialControls_InvalidValues";
 		internal const string DeliveryZoneAddressesListBox_NoValues = "DeliveryZoneAddressesListBox_NoValues";
+		internal const string DeliveryZoneAssigneeListBox_NoValues = "DeliveryZoneAssigneeListBox_NoValues";
 		internal const string DeliveryZoneColourTextBox_InvalidValue = "DeliveryZoneColourTextBox_InvalidValue";
 		internal const string DeliveryZoneNameComboBox_InvalidValue = "DeliveryZoneNameComboBox_InvalidValue";
 		internal const string DeliveryZoneNameTextBox_InvalidDuplicateValue_Format = "DeliveryZoneNameTextBox_InvalidDuplicateValue_Format";

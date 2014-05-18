@@ -26,6 +26,32 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			_xmlDocumentSchemaSet.Add("http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd", "http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd");
 		}
 
+		#region IProductProvider Members
+		public Product GetProduct(string name, DateTime version)
+		{
+			if (name == null)
+				throw new ArgumentNullException("name");
+			if (string.IsNullOrWhiteSpace(name))
+				throw new ArgumentException("Cannot be empty or whitespace!", "name");
+
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName, version))
+			{
+				XElement productXElement = xmlTransaction.XmlDocument
+														 .Root
+														 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd}Product")
+														 .FirstOrDefault(productXmlElement => string.Equals(productXmlElement.Attribute("Name").Value, name, StringComparison.Ordinal));
+
+				if (productXElement == null)
+					return null;
+
+				return _GetProduct(productXElement);
+			}
+		}
+		public Product GetProduct(string name)
+		{
+			return GetProduct(name, DateTime.Now);
+		}
+		#endregion
 		#region IProductRepository Members
 		public IEnumerable<Product> GetProducts()
 		{
@@ -77,32 +103,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 						throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
 					}
 			}
-		}
-		#endregion
-		#region IProductProvider Members
-		public Product GetProduct(string name, DateTime version)
-		{
-			if (name == null)
-				throw new ArgumentNullException("name");
-			if (string.IsNullOrWhiteSpace(name))
-				throw new ArgumentException("Cannot be empty or whitespace!", "name");
-
-			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName, version))
-			{
-				XElement productXElement = xmlTransaction.XmlDocument
-														 .Root
-														 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd}Product")
-														 .FirstOrDefault(productXmlElement => string.Equals(productXmlElement.Attribute("Name").Value, name, StringComparison.Ordinal));
-
-				if (productXElement == null)
-					return null;
-
-				return _GetProduct(productXElement);
-			}
-		}
-		public Product GetProduct(string name)
-		{
-			return GetProduct(name, DateTime.Now);
 		}
 		#endregion
 		public string XmlDocumentFileName

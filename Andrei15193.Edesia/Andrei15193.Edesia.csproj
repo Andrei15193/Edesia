@@ -153,6 +153,8 @@
     <Compile Include="Attributes\LocalizedEMailAddressAttribute.cs" />
     <Compile Include="Attributes\LocalizedRegularExpressionAttribute.cs" />
     <Compile Include="Attributes\LocalizedRequiredAttribute.cs" />
+    <Compile Include="Collections\Comparer.cs" />
+    <Compile Include="Collections\EqualityComparer.cs" />
     <Compile Include="Collections\ReadOnlyCollection.cs" />
     <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -202,6 +204,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AddDeliveryZoneViewStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ColourNamesStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ColourNamesStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\DeliveryZoneDetailsViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -221,6 +228,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeliveryPlanningViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DeliveryZoneViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeliveryZoneViewStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\EditDeliveryZoneViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -310,8 +322,10 @@
     <Compile Include="Resources\Strings\AddAddressViewKey.cs" />
     <Compile Include="Resources\Strings\AddDeliveryZoneViewKey.cs" />
     <Compile Include="Resources\Strings\AddProductViewKey.cs" />
+    <Compile Include="Resources\Strings\ColourNamesKey.cs" />
     <Compile Include="Resources\Strings\DeliveryPlanningViewKey.cs" />
     <Compile Include="Resources\Strings\DeliveryZoneDetailsViewKey.cs" />
+    <Compile Include="Resources\Strings\DeliveryZoneViewKey.cs" />
     <Compile Include="Resources\Strings\EditDeliveryZoneViewKey.cs" />
     <Compile Include="Resources\Strings\EMailNoticeKey.cs" />
     <Compile Include="Resources\Strings\ErrorKey.cs" />
@@ -448,6 +462,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AddDeliveryZoneViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ColourNamesStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ColourNamesStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\DeliveryZoneDetailsViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DeliveryZoneDetailsViewStrings.Designer.cs</LastGenOutput>
@@ -464,6 +482,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DeliveryPlanningViewStrings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DeliveryZoneViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeliveryZoneViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EditDeliveryZoneViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

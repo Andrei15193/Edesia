@@ -28,13 +28,6 @@ namespace Andrei15193.Edesia.Models
 				_transportCapacity = value;
 			}
 		}
-		public ISet<string> DeliveryZones
-		{
-			get
-			{
-				return _deliveryZones;
-			}
-		}
 
 		private int _transportCapacity;
 		private readonly ISet<string> _deliveryZones = new SortedSet<string>();

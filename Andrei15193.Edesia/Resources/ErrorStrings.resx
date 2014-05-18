@@ -129,6 +129,9 @@
   <data name="DeliveryZoneAddressesListBox_NoValues" xml:space="preserve">
     <value>Această zonă de livrare nu conține străzi!</value>
   </data>
+  <data name="DeliveryZoneAssigneeListBox_NoValues" xml:space="preserve">
+    <value>Această zonă nu are asociat un responsabil!</value>
+  </data>
   <data name="DeliveryZoneColourTextBox_InvalidValue" xml:space="preserve">
     <value>Culoarea trebuie introdusă în format hexazecimal (ex: #FA1519).</value>
   </data>

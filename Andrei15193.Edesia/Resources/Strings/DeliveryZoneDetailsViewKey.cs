@@ -9,5 +9,8 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string DeliveryZoneColourComboBox_Hint = "DeliveryZoneColourComboBox_Hint";
 		internal const string DeliveryZoneTextBox_DisplayName = "DeliveryZoneTextBox_DisplayName";
 		internal const string DeliveryZoneTextBox_Hint = "DeliveryZoneTextBox_Hint";
+		internal const string EmployeesComobBox_DisplayName = "EmployeesComobBox_DisplayName";
+		internal const string EmployeesComobBox_Hint = "EmployeesComobBox_Hint";
+		internal const string TransportCapacityLabel_DisplayName = "TransportCapacityLabel_DisplayName";
 	}
 }

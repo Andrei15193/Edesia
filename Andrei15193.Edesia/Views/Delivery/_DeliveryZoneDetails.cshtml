@@ -32,6 +32,27 @@
 			}
 		</select>
 	</div>
+	@Html.LabelFor(model => model.Employees)
+	<div class="input-control select">
+		<select name="SelectedEmployeeEMailAddress">
+			<option value=""></option>
+			@foreach (Employee employee in Model.Employees)
+			{
+				if (string.Equals(employee.EMailAddress, Model.SelectedEmployeeEMailAddress, StringComparison.Ordinal))
+				{
+					<option selected="selected" value="@employee.EMailAddress">
+						@employee.LastName, @employee.FirstName (@DeliveryZoneDetailsViewStrings.TransportCapacityLabel_DisplayName @employee.TransportCapacity)
+					</option>
+				}
+				else
+				{
+					<option value="@employee.EMailAddress">
+						@employee.LastName, @employee.FirstName (@DeliveryZoneDetailsViewStrings.TransportCapacityLabel_DisplayName @employee.TransportCapacity)
+					</option>
+				}
+			}
+		</select>
+	</div>
 	if (Model.AvailableAddresses.Any())
 	{
 		@Html.LabelFor(model => model.AvailableAddresses)

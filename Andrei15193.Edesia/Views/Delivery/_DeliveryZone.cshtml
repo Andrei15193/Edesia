@@ -2,25 +2,30 @@
 @model Andrei15193.Edesia.Models.DeliveryZone
 <div class="accordion with-marker" data-role="accordion">
 	<div class="accordion-frame">
-		@if (Model.Addresses.Any())
-		{
-			<a class="heading" style="cursor: pointer;"><i class="icon-stop" style="color: @Model.Colour.ToString();"></i> @Model.Name</a>
-			<div class="content">
-				<ul>
-					@foreach (string address in Model.Addresses)
-					{
-						<li>@address</li>
-					}
-				</ul>
-			</div>
-		}
-		else
-		{
-			<a class="heading">
+		<a class="heading" style="cursor: pointer;">
+			@if (!Model.Addresses.Any())
+			{
 				<span class="fg-red"><i class="icon-warning"></i> @ErrorStrings.DeliveryZoneAddressesListBox_NoValues</span><br />
-				<i class="icon-stop" style="color: @Model.Colour.ToString();"></i> @Model.Name
-			</a>
-			<div class="content"></div>
-		}
+			}
+			@if (Model.Assignee == null)
+			{
+				<span class="fg-red"><i class="icon-warning"></i> @ErrorStrings.DeliveryZoneAssigneeListBox_NoValues</span><br />
+			}
+			<i class="icon-stop" style="color: @Model.Colour.ToString();"></i> @Model.Name
+		</a>
+		<div class="content">
+			@if (Model.Assignee != null)
+			{
+				<small>
+					@string.Format(DeliveryZoneViewStrings.ResponsibleLabel_DisplayName_Format, Model.Assignee.FirstName, Model.Assignee.LastName, Model.Assignee.TransportCapacity)
+				</small>
+			}
+			<ul>
+				@foreach (string address in Model.Addresses)
+				{
+					<li>@address</li>
+				}
+			</ul>
+		</div>
 	</div>
 </div>

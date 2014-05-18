@@ -5,7 +5,7 @@ namespace Andrei15193.Edesia.DataAccess
 	public interface IDeliveryRepository
 	{
 		IEnumerable<string> GetUnmappedAddresses();
-		IEnumerable<DeliveryZone> GetDeliveryZones();
+		IEnumerable<DeliveryZone> GetDeliveryZones(IApplicationUserProvider applicationUserProvider);
 
 		void AddAddress(string addressName);
 		void RemoveAddress(string addressName);

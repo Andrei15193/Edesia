@@ -117,34 +117,160 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AvailableAddressesListBox_DisplayName" xml:space="preserve">
-    <value>Adrese incluse</value>
+  <data name="Amber" xml:space="preserve">
+    <value>Chihlimbar</value>
   </data>
-  <data name="AvailableAddressesListBox_Hint" xml:space="preserve">
-    <value />
+  <data name="Black" xml:space="preserve">
+    <value>Negru</value>
   </data>
-  <data name="CancelButton_DisplayName" xml:space="preserve">
-    <value>Renunță</value>
+  <data name="Blue" xml:space="preserve">
+    <value>Albastru</value>
   </data>
-  <data name="DeliveryZoneColourComboBox_DisplayName" xml:space="preserve">
-    <value>Culoarea zonei de livrare</value>
+  <data name="Brown" xml:space="preserve">
+    <value>Maro</value>
   </data>
-  <data name="DeliveryZoneColourComboBox_Hint" xml:space="preserve">
-    <value>Culoarea zonei de livrare este doar pentru a realiza o asociere vizuală cu destinația unui număr de livrări.</value>
+  <data name="Cobalt" xml:space="preserve">
+    <value>Cobalt</value>
   </data>
-  <data name="DeliveryZoneTextBox_DisplayName" xml:space="preserve">
-    <value>Numele zonei de livrare</value>
+  <data name="Crimson" xml:space="preserve">
+    <value>Purpuriu</value>
   </data>
-  <data name="DeliveryZoneTextBox_Hint" xml:space="preserve">
-    <value>un nume unic pentru a referi zona de livrare</value>
+  <data name="Cyan" xml:space="preserve">
+    <value>Cian</value>
   </data>
-  <data name="EmployeesComobBox_DisplayName" xml:space="preserve">
-    <value>Responsabilul zonei de livrare</value>
+  <data name="Dark" xml:space="preserve">
+    <value>Închis</value>
   </data>
-  <data name="EmployeesComobBox_Hint" xml:space="preserve">
-    <value />
+  <data name="DarkBlue" xml:space="preserve">
+    <value>Albastru închis</value>
   </data>
-  <data name="TransportCapacityLabel_DisplayName" xml:space="preserve">
-    <value>Capacitate transport:</value>
+  <data name="DarkBrown" xml:space="preserve">
+    <value>Maro închis</value>
+  </data>
+  <data name="DarkCobalt" xml:space="preserve">
+    <value>Cobalt închis</value>
+  </data>
+  <data name="DarkCrimson" xml:space="preserve">
+    <value>Purpuriu închis</value>
+  </data>
+  <data name="DarkCyan" xml:space="preserve">
+    <value>Cian închis</value>
+  </data>
+  <data name="DarkEmerald" xml:space="preserve">
+    <value>Smarald închis</value>
+  </data>
+  <data name="Darker" xml:space="preserve">
+    <value>Mai închis</value>
+  </data>
+  <data name="DarkGreen" xml:space="preserve">
+    <value>Verde închis</value>
+  </data>
+  <data name="DarkIndigo" xml:space="preserve">
+    <value>Indigo închis</value>
+  </data>
+  <data name="DarkMagenta" xml:space="preserve">
+    <value>Magenta închis</value>
+  </data>
+  <data name="DarkOrange" xml:space="preserve">
+    <value>Portocaliu închis</value>
+  </data>
+  <data name="DarkPink" xml:space="preserve">
+    <value>Roz închis</value>
+  </data>
+  <data name="DarkRed" xml:space="preserve">
+    <value>Roșu închis</value>
+  </data>
+  <data name="DarkTeal" xml:space="preserve">
+    <value>Turcoaz închis</value>
+  </data>
+  <data name="DarkViolet" xml:space="preserve">
+    <value>Violet închis</value>
+  </data>
+  <data name="Emerald" xml:space="preserve">
+    <value>Smarald</value>
+  </data>
+  <data name="Gray" xml:space="preserve">
+    <value>Gri</value>
+  </data>
+  <data name="GrayDark" xml:space="preserve">
+    <value>Gri închis</value>
+  </data>
+  <data name="GrayDarker" xml:space="preserve">
+    <value>Gri mai închis</value>
+  </data>
+  <data name="GrayLight" xml:space="preserve">
+    <value>Gri deschis</value>
+  </data>
+  <data name="GrayLighter" xml:space="preserve">
+    <value>Gri mai deschis</value>
+  </data>
+  <data name="Green" xml:space="preserve">
+    <value>Verde</value>
+  </data>
+  <data name="Indigo" xml:space="preserve">
+    <value>Indigo</value>
+  </data>
+  <data name="LightBlue" xml:space="preserve">
+    <value>Albastru deschis</value>
+  </data>
+  <data name="LighterBlue" xml:space="preserve">
+    <value>Albastru mai deschis</value>
+  </data>
+  <data name="LightGreen" xml:space="preserve">
+    <value>Verde deschis</value>
+  </data>
+  <data name="LightOlive" xml:space="preserve">
+    <value>Oliv deschis</value>
+  </data>
+  <data name="LightOrange" xml:space="preserve">
+    <value>Portocaliu deschis</value>
+  </data>
+  <data name="LightPink" xml:space="preserve">
+    <value>Roz deschis</value>
+  </data>
+  <data name="LightRed" xml:space="preserve">
+    <value>Roșu deschis</value>
+  </data>
+  <data name="LightTeal" xml:space="preserve">
+    <value>Turcoaz deschis</value>
+  </data>
+  <data name="Lime" xml:space="preserve">
+    <value>Galben-Verzui</value>
+  </data>
+  <data name="Magenta" xml:space="preserve">
+    <value>Magenta</value>
+  </data>
+  <data name="Mauve" xml:space="preserve">
+    <value>Mov</value>
+  </data>
+  <data name="Olive" xml:space="preserve">
+    <value>Oliv</value>
+  </data>
+  <data name="Orange" xml:space="preserve">
+    <value>Portocaliu</value>
+  </data>
+  <data name="Pink" xml:space="preserve">
+    <value>Roz</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Roșu</value>
+  </data>
+  <data name="Steel" xml:space="preserve">
+    <value>Argintiu</value>
+  </data>
+  <data name="Taupe" xml:space="preserve">
+    <value>Cafeniu</value>
+  </data>
+  <data name="Teal" xml:space="preserve">
+    <value>Turcoaz</value>
+  </data>
+  <data name="Violet" xml:space="preserve">
+    <value>Violet</value>
+  </data>
+  <data name="White" xml:space="preserve">
+    <value>Alb</value>
+  </data>
+  <data name="Yellow" xml:space="preserve">
+    <value>Galben</value>
   </data>
 </root>

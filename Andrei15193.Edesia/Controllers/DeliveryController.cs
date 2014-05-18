@@ -17,12 +17,12 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet]
 		public ActionResult Planning()
 		{
-			return View(new DeliveryPlanningViewModel(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedAddresses(), _deliveryRepository.GetDeliveryZones(), _GetUnuesdAddresses())));
+			return View(new DeliveryPlanningViewModel(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedAddresses(), _deliveryRepository.GetDeliveryZones(_applicationUserProvider), _GetUnuesdAddresses())));
 		}
 		[HttpGet]
 		public ActionResult ManageDeliveryZones()
 		{
-			return View(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedAddresses(), _deliveryRepository.GetDeliveryZones(), _GetUnuesdAddresses()));
+			return View(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedAddresses(), _deliveryRepository.GetDeliveryZones(_applicationUserProvider), _GetUnuesdAddresses()));
 		}
 
 		[HttpGet]
@@ -82,7 +82,8 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet]
 		public ActionResult AddDeliveryZone()
 		{
-			return View(new DeliveryZoneViewModel(_deliveryRepository.GetUnmappedAddresses().Select(unmappedAddress => new KeyValuePair<string, bool>(unmappedAddress, false)))
+			return View(new DeliveryZoneViewModel(_deliveryRepository.GetUnmappedAddresses().Select(unmappedAddress => new KeyValuePair<string, bool>(unmappedAddress, false)),
+												  _applicationUserProvider.GetEmployees())
 				{
 					SubmitButtonText = AddDeliveryZoneViewStrings.SubmitButton_DisplayName
 				});
@@ -119,22 +120,24 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet]
 		public ActionResult GetDeliveryZoneName()
 		{
-			return View(_deliveryRepository.GetDeliveryZones());
+			return View(_deliveryRepository.GetDeliveryZones(_applicationUserProvider));
 		}
 		[HttpGet]
 		public ActionResult EditDeliveryZone(string deliveryZoneName)
 		{
 			if (deliveryZoneName != null)
 			{
-				DeliveryZone deliveryZoneFound = _deliveryRepository.GetDeliveryZones().FirstOrDefault(deliveryZone => string.Equals(deliveryZoneName, deliveryZone.Name, StringComparison.OrdinalIgnoreCase));
+				DeliveryZone deliveryZoneFound = _deliveryRepository.GetDeliveryZones(_applicationUserProvider).FirstOrDefault(deliveryZone => string.Equals(deliveryZoneName, deliveryZone.Name, StringComparison.OrdinalIgnoreCase));
 				if (deliveryZoneFound != null)
 				{
 					DeliveryZoneViewModel deliveryZoneViewModel = new DeliveryZoneViewModel(deliveryZoneFound.Addresses.Select(address => new KeyValuePair<string, bool>(address, true))
-																											 .Concat(_deliveryRepository.GetUnmappedAddresses().Select(address => new KeyValuePair<string, bool>(address, false))))
+																											 .Concat(_deliveryRepository.GetUnmappedAddresses().Select(address => new KeyValuePair<string, bool>(address, false))),
+																							_applicationUserProvider.GetEmployees())
 					{
 						DeliveryZoneName = deliveryZoneFound.Name,
 						DeliveryZoneColour = deliveryZoneFound.Colour.ToString(),
 						DeliveryZoneOldName = deliveryZoneName,
+						SelectedEmployeeEMailAddress = (deliveryZoneFound.Assignee == null ? null : deliveryZoneFound.Assignee.EMailAddress),
 						SubmitButtonText = EditDeliveryZoneViewStrings.SubmitButton_DisplayName
 					};
 
@@ -144,7 +147,7 @@ namespace Andrei15193.Edesia.Controllers
 					ModelState.AddModelError("deliveryZoneName", ErrorStrings.DeliveryZoneNameComboBox_InvalidValue);
 			}
 
-			return View("GetDeliveryZoneName", _deliveryRepository.GetDeliveryZones());
+			return View("GetDeliveryZoneName", _deliveryRepository.GetDeliveryZones(_applicationUserProvider));
 		}
 		[HttpPost]
 		public ActionResult EditDeliveryZone(DeliveryZoneViewModel deliveryZoneViewModel)
@@ -168,7 +171,8 @@ namespace Andrei15193.Edesia.Controllers
 				}
 			}
 
-			DeliveryZone deliveryZoneFound = _deliveryRepository.GetDeliveryZones().FirstOrDefault(deliveryZone => string.Equals(deliveryZoneViewModel.DeliveryZoneOldName, deliveryZone.Name, StringComparison.OrdinalIgnoreCase));
+			DeliveryZone deliveryZoneFound = _deliveryRepository.GetDeliveryZones(_applicationUserProvider)
+																.FirstOrDefault(deliveryZone => string.Equals(deliveryZoneViewModel.DeliveryZoneOldName, deliveryZone.Name, StringComparison.OrdinalIgnoreCase));
 			if (deliveryZoneFound != null)
 			{
 				deliveryZoneViewModel.AvailableAddresses.Clear();
@@ -188,7 +192,7 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet]
 		public ActionResult RemoveDeliveryZone()
 		{
-			return View(_deliveryRepository.GetDeliveryZones());
+			return View(_deliveryRepository.GetDeliveryZones(_applicationUserProvider));
 		}
 		[HttpPost]
 		public ActionResult RemoveDeliveryZone(string deliveryZoneName)
@@ -230,8 +234,10 @@ namespace Andrei15193.Edesia.Controllers
 									Colour.Parse(deliveryZoneViewModel.DeliveryZoneColour),
 									Request.Form.Keys.Cast<string>()
 													 .Where(inputName => inputName.StartsWith("checkbox "))
-													 .Select(inputName => inputName.Substring(9)));
-
+													 .Select(inputName => inputName.Substring(9)))
+				{
+					Assignee = _applicationUserProvider.GetEmployees().FirstOrDefault(employee => string.Equals(employee.EMailAddress, deliveryZoneViewModel.SelectedEmployeeEMailAddress, StringComparison.Ordinal))
+				};
 		}
 
 		private readonly IOrderRepository _orderRepository = (IOrderRepository)MvcApplication.DependencyContainer["orderRepository"];
