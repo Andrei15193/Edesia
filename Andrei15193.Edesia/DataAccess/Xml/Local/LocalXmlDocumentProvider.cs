@@ -147,26 +147,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Local
 			}
 		}
 
-		[Obsolete]
-		protected override XDocument OnLoadXmlDocument(string xmlDocumentFileName)
-		{
-			return XDocument.Load(xmlDocumentFileName);
-		}
-		[Obsolete]
-		protected override void OnSaveXmlDocument(XDocument xDocument, string xmlDocumentFileName)
-		{
-			//using (XmlWriter xmlWriter = XmlWriter.Create(xmlDocumentFileName, _xmlWriterSettings))
-				//xDocument.Save(xmlWriter);
-		}
-
-		private void _SaveXmlDocument(XDocument xmlDocument, string xmlDocumentName, XmlSchemaSet xmlSchemaSet)
-		{
-			if (xmlSchemaSet != null)
-				Validate(xmlDocument, xmlSchemaSet);
-
-			xmlDocument.Save(xmlDocumentName);
-		}
-
 		private readonly IDictionary<string, ReaderWriterLockSlim> _documentLocks = new SortedList<string, ReaderWriterLockSlim>();
 	}
 }

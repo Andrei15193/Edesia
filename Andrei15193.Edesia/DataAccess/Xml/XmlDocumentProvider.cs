@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using Andrei15193.Edesia.Xml.Validation;
@@ -51,57 +50,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 		}
 
-		/// <summary>
-		/// Loads a XML document, optionally validating it, having the provided name.
-		/// This method is thread safe.
-		/// </summary>
-		/// <param name="xmlDocumentName">The name of the XML document to load.</param>
-		/// <param name="xmlSchemaSet">The XML schema to use to validate the loaded document.</param>
-		/// <returns>Returns a XML document.</returns>
-		/// <exception cref="System.AggregateException">
-		/// Thrown when xmlSchemaSet is provided and there is at least one XML schema inconsistency.
-		/// </exception>
-		[Obsolete("Use BeginXmlTransaction method to read/write to an XML document.")]
-		public XDocument LoadXmlDocument(string xmlDocumentName, XmlSchemaSet xmlSchemaSet = null)
-		{
-			if (xmlDocumentName == null)
-				throw new ArgumentNullException("xmlDocumentName");
-			if (string.IsNullOrEmpty(xmlDocumentName) || string.IsNullOrWhiteSpace(xmlDocumentName))
-				throw new ArgumentException("Cannot be empty or whitespace!", "xmlDocumentName");
-
-			XDocument xmlDocument = OnLoadXmlDocument(xmlDocumentName);
-			if (xmlDocument == null)
-				throw new InvalidOperationException();
-
-			if (xmlSchemaSet != null)
-				Validate(xmlDocument, xmlSchemaSet);
-
-			return xmlDocument;
-		}
-		/// <summary>
-		/// Saves the XML document, optionally validating it, using the given name.
-		/// This method is thread safe.
-		/// </summary>
-		/// <param name="xmlDocument">The XML document to save.</param>
-		/// <param name="xmlDocumentName">The name with which to save the XML document.</param>
-		/// <param name="xmlSchemaSet">The XML schema set to use when validating the document before actual save.</param>
-		/// <exception cref="System.AggregateException">
-		/// Thrown when xmlSchemaSet is provided and there is at least one XML schema inconsistency.
-		/// </exception>
-		[Obsolete("Use BeginXmlTransaction method to read/write to an XML document.")]
-		public void SaveXmlDocument(XDocument xmlDocument, string xmlDocumentName, XmlSchemaSet xmlSchemaSet = null)
-		{
-			if (xmlDocument == null)
-				throw new ArgumentNullException("xmlDocument");
-			if (xmlDocumentName == null)
-				throw new ArgumentNullException("xmlDocumentName");
-			if (string.IsNullOrEmpty(xmlDocumentName) || string.IsNullOrWhiteSpace(xmlDocumentName))
-				throw new ArgumentException("Cannot be empty or whitespace!", "xmlDocumentName");
-
-			if (xmlSchemaSet != null)
-				Validate(xmlDocument, xmlSchemaSet);
-			OnSaveXmlDocument(xmlDocument, xmlDocumentName);
-		}
 		/// <summary>
 		/// Returns a collection XML Schema Exception interpreters.
 		/// </summary>
@@ -167,42 +115,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			return BeginSharedTransaction(xmlDocumentName, DateTime.Now, xmlSchemaSet);
 		}
 
-		/// <summary>
-		/// When implemented in a derived class it loads a XML document with the given XML document name.
-		/// This methos is thread safe.
-		/// </summary>
-		/// <param name="xmlDocumentName">The XML document name to load.</param>
-		/// <returns>Returns an XML document.</returns>
-		[Obsolete("Use BeginXmlTransaction method to read/write to an XML document.")]
-		protected abstract XDocument OnLoadXmlDocument(string xmlDocumentName);
-		/// <summary>
-		/// When implemented in a derived class it saves the given XML document using the given XML document name.
-		/// This method is thread safe.
-		/// </summary>
-		/// <param name="xmlDocument">The XML document to save.</param>
-		/// <param name="xmlDocumentName">The name with which to save the XML document.</param>
-		[Obsolete("Use BeginXmlTransaction method to read/write to an XML document.")]
-		protected abstract void OnSaveXmlDocument(XDocument xmlDocument, string xmlDocumentName);
-
-		//protected string GetDocumentDirectoryPath(string xmlDocumentName)
-		//{
-		//	return new StringBuilder().Append(DirectoryPath.Trim(PathSeparator))
-		//							  .Append(PathSeparator)
-		//							  .Append(FilesDirectory.Trim(PathSeparator))
-		//							  .Append(PathSeparator)
-		//							  .Append(xmlDocumentName.Trim(' ', '\t', '\r', '\n', PathSeparator))
-		//							  .ToString();
-		//}
-		//protected string GetDocumentVersionFilePath(string xmlDocumentName)
-		//{
-		//	return new StringBuilder().Append(DirectoryPath.Trim(PathSeparator))
-		//							  .Append(PathSeparator)
-		//							  .Append(FilesDirectory.Trim(PathSeparator))
-		//							  .Append(PathSeparator)
-		//							  .Append(".")
-		//							  .Append(xmlDocumentName.Trim(' ', '\t', '\r', '\n', PathSeparator))
-		//							  .ToString();
-		//}
 		protected string Combine(params string[] paths)
 		{
 			if (paths == null)
