@@ -48,7 +48,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 				{
 					versionFileLock.EnterWriteLock();
 					XDocument versionXmlDocument;
-					CloudBlockBlob versionXmlDocumentBlob = blobContainer.GetBlockBlobReference(Combine(DirectoryPath, xmlDocumentName, "versions.xml"));
+					CloudBlockBlob versionXmlDocumentBlob = blobContainer.GetBlockBlobReference(Combine(DirectoryPath, xmlDocumentName, "Versions.xml"));
 
 					if (versionXmlDocumentBlob.Exists())
 						using (Stream readStream = versionXmlDocumentBlob.OpenRead())
