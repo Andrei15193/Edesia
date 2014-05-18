@@ -3,7 +3,7 @@ namespace Andrei15193.Edesia.Models
 {
 	public class Product
 	{
-		public Product(string name, double price, DateTime dateAdded, DateTime? dateRemoved = null)
+		public Product(string name, double price)
 		{
 			if (name == null)
 				throw new ArgumentNullException("name");
@@ -15,19 +15,6 @@ namespace Andrei15193.Edesia.Models
 
 			_name = name.Trim();
 			_price = price;
-
-			if (dateRemoved.HasValue)
-				if (dateRemoved.Value == dateAdded)
-					throw new ArgumentException("dateAdded and dateRemoved must be distict!");
-				else
-					if (dateRemoved.Value < dateAdded)
-					{
-						_dateAdded = dateRemoved.Value;
-						DateRemoved = dateRemoved;
-					}
-
-			_dateAdded = dateAdded;
-			DateRemoved = dateRemoved;
 		}
 
 		public string Name
@@ -60,21 +47,8 @@ namespace Andrei15193.Edesia.Models
 				_price = value;
 			}
 		}
-		public DateTime DateAdded
-		{
-			get
-			{
-				return _dateAdded;
-			}
-		}
-		public DateTime? DateRemoved
-		{
-			get;
-			set;
-		}
 
-		private double _price;
 		private string _name;
-		private readonly DateTime _dateAdded;
+		private double _price;
 	}
 }

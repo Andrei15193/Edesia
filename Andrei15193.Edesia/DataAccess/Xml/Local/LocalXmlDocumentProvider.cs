@@ -119,7 +119,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Local
 
 						versionXmlDocument = new XDocument(new XElement("File",
 																		new XElement("Version",
-																					 new XAttribute("FileName", xmlDocumentFileInfo.CopyTo(Combine(DirectoryPath, "." + xmlDocumentName, xmlDocumentFileInfo.CreationTime.ToString("yyyy_MM_dd__HH_mm_ss_fffffff"))).FullName),
+																					 new XAttribute("FileName", xmlDocumentFileInfo.CopyTo(Combine(DirectoryPath, "." + xmlDocumentName, xmlDocumentFileInfo.CreationTime.ToString("yyyy_MM_dd__HH_mm_ss_fffffff'.xml'"))).FullName),
 																					 new XAttribute("BeginDate", xmlDocumentFileInfo.CreationTime.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")))));
 						versionXmlDocument.Save(versionXmlDocumentFilePath);
 					}

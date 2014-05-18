@@ -102,8 +102,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 							userXElement.Attribute("Password").SetValue(_ComputeHash(authenticationToken));
 							break;
 					}
-
-					xmlTransaction.Commit();
+					try
+					{
+						xmlTransaction.Commit();
+					}
+					catch (AggregateException xmlExceptions)
+					{
+						throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
+					}
 				}
 			}
 		}
@@ -124,7 +130,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					if (authenticationTokenXAttribute != null)
 					{
 						authenticationTokenXAttribute.Remove();
-						xmlTransaction.Commit();
+						try
+						{
+							xmlTransaction.Commit();
+						}
+						catch (AggregateException xmlExceptions)
+						{
+							throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
+						}
 					}
 				}
 			}
@@ -153,7 +166,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				if (userXElement != null)
 				{
 					userXElement.Attribute("RegistrationKey").Remove();
-					xmlTransaction.Commit();
+					try
+					{
+						xmlTransaction.Commit();
+					}
+					catch (AggregateException xmlExceptions)
+					{
+						throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
+					}
 
 					return true;
 				}
@@ -168,6 +188,32 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
 									 .SelectMany(applicationUserXElement => applicationUserXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Address"))
 									 .Select(_GetAddress);
+		}
+		#endregion
+		#region IApplicationUserProvider Members
+		public ApplicationUser GetUser(string eMailAddress, DateTime version)
+		{
+			if (eMailAddress == null)
+				throw new ArgumentNullException("eMailAddress");
+			if (string.IsNullOrWhiteSpace(eMailAddress))
+				throw new ArgumentException("Cannot be empty or whitespace!", "eMailAddress");
+			
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(XmlDocumentFileName, version))
+			{
+				XElement applicationUserXElement = xmlTransaction.XmlDocument
+																 .Root
+																 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+																 .FirstOrDefault(applicationUserXmlElement => string.Equals(applicationUserXmlElement.Attribute("EMail").Value, eMailAddress, StringComparison.Ordinal));
+
+				if (applicationUserXElement == null)
+					return null;
+
+				return _GetApplicationUser(applicationUserXElement);
+			}
+		}
+		public ApplicationUser GetUser(string eMailAddress)
+		{
+			return GetUser(eMailAddress, DateTime.Now);
 		}
 		#endregion
 		public string XmlDocumentFileName
@@ -319,18 +365,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 																																	MvcApplication.DateTimeSerializationFormat)
 																							  ).TotalHours >= registrationSettings.RegistrationKeyHoursTimeout))
 				timedoutApplicationUser.Remove();
-		}
-		[Obsolete]
-		private void _SaveXmlDocument(XDocument xmlDocument)
-		{
-			try
-			{
-				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
-			}
-			catch (AggregateException xmlExceptions)
-			{
-				throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
-			}
 		}
 		private Exception _TranslateException(Exception exception)
 		{

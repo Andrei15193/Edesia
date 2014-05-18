@@ -117,22 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddProductButton_DisplayName" xml:space="preserve">
-    <value>Adaugă</value>
+  <data name="DeliveryAddressLabel_DisplayName" xml:space="preserve">
+    <value>Adresa de livrare:</value>
   </data>
-  <data name="AddToCartProductButton_Hint" xml:space="preserve">
-    <value>Adaugă în coș</value>
+  <data name="OrderAccordionFrameHeader_DisplayName_Format" xml:space="preserve">
+    <value>Comanda #{0}, {1:dd MMMM yyyy, HH:mm}</value>
   </data>
-  <data name="DeleteProductButton_Hint" xml:space="preserve">
-    <value>Șterge produs</value>
-  </data>
-  <data name="NoticeParagraph1" xml:space="preserve">
-    <value>„Edesia” este proiectul meu de licență. La suprafață este un magazin online, iar „în spate” este un motor de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web și să planifice sarcini pentru „angajați” (cum ar fi partiționarea comenzilor pe zone de livrare într-un mod optim).</value>
-  </data>
-  <data name="NoticeTitle" xml:space="preserve">
-    <value>Încă nu-i gata...</value>
-  </data>
-  <data name="ViewTitle" xml:space="preserve">
-    <value>Produse</value>
+  <data name="OrderedProductLabel_DisplayName_Format" xml:space="preserve">
+    <value>{1} x {0}, {2:0.00} RON (total: {3:0.00} RON)</value>
   </data>
 </root>

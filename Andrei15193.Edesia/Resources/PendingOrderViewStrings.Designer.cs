@@ -22,14 +22,14 @@ namespace Andrei15193.Edesia.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ProductsViewStrings {
+    public class PendingOrderViewStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ProductsViewStrings() {
+        internal PendingOrderViewStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Andrei15193.Edesia.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.ProductsViewStrings", typeof(ProductsViewStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.PendingOrderViewStrings", typeof(PendingOrderViewStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,29 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adaugă.
+        ///   Looks up a localized string similar to Adresa de livrare:.
         /// </summary>
-        public static string AddProductButton_DisplayName {
+        public static string DeliveryAddressLabel_DisplayName {
             get {
-                return ResourceManager.GetString("AddProductButton_DisplayName", resourceCulture);
+                return ResourceManager.GetString("DeliveryAddressLabel_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adaugă în coș.
+        ///   Looks up a localized string similar to Comanda #{0}, {1:dd MMMM yyyy, HH:mm}.
         /// </summary>
-        public static string AddToCartProductButton_Hint {
+        public static string OrderAccordionFrameHeader_DisplayName_Format {
             get {
-                return ResourceManager.GetString("AddToCartProductButton_Hint", resourceCulture);
+                return ResourceManager.GetString("OrderAccordionFrameHeader_DisplayName_Format", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Șterge produs.
+        ///   Looks up a localized string similar to {1} x {0}, {2:0.00} RON (total: {3:0.00} RON).
         /// </summary>
-        public static string DeleteProductButton_Hint {
+        public static string OrderedProductLabel_DisplayName_Format {
             get {
-                return ResourceManager.GetString("DeleteProductButton_Hint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to „Edesia” este proiectul meu de licență. La suprafață este un magazin online, iar „în spate” este un motor de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web și să planifice sarcini pentru „angajați” (cum ar fi partiționarea comenzilor pe zone de livrare într-un mod optim)..
-        /// </summary>
-        public static string NoticeParagraph1 {
-            get {
-                return ResourceManager.GetString("NoticeParagraph1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Încă nu-i gata....
-        /// </summary>
-        public static string NoticeTitle {
-            get {
-                return ResourceManager.GetString("NoticeTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Produse.
-        /// </summary>
-        public static string ViewTitle {
-            get {
-                return ResourceManager.GetString("ViewTitle", resourceCulture);
+                return ResourceManager.GetString("OrderedProductLabel_DisplayName_Format", resourceCulture);
             }
         }
     }

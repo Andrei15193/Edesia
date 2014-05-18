@@ -1,0 +1,10 @@
+﻿@using System.Globalization;
+@using Andrei15193.Edesia.Models;
+@model IEnumerable<Order>
+@{
+	Layout = null;
+}
+@foreach (Order order in Model)
+{
+	@Html.Partial("_PendingOrder", order)
+}

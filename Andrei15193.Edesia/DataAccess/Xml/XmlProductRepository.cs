@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using System.Xml.Schema;
 using Andrei15193.Edesia.Exceptions;
 using Andrei15193.Edesia.Models;
+using Andrei15193.Edesia.Xml.Validation;
 namespace Andrei15193.Edesia.DataAccess.Xml
 {
 	public class XmlProductRepository
@@ -22,7 +23,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			_xmlDocumentFileName = xmlDocumentFileName;
 			_xmlDocumentProvider = xmlDocumentProvider;
 			_xmlDocumentSchemaSet = new XmlSchemaSet();
-			_xmlDocumentSchemaSet.Add("http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd", "http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd");
+			_xmlDocumentSchemaSet.Add("http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd", "http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd");
 		}
 
 		#region IProductRepository Members
@@ -31,8 +32,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
 				return xmlTransaction.XmlDocument
 									 .Root
-									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product")
-									 .Where(productXElement => productXElement.Attribute("DateRemoved") == null)
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd}Product")
 									 .Select(_GetProduct);
 		}
 
@@ -43,31 +43,19 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
-				if (xmlTransaction.XmlDocument
-								  .Root
-								  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product")
-								  .Any(productXElement => string.Equals(productXElement.Attribute("Name").Value, product.Name, StringComparison.OrdinalIgnoreCase)
-														  && (productXElement.Attribute("DateRemoved") == null || DateTime.ParseExact(productXElement.Attribute("DateRemoved").Value, MvcApplication.DateTimeSerializationFormat, null) >= product.DateAdded)
-														  && (!product.DateRemoved.HasValue || product.DateRemoved.Value >= DateTime.ParseExact(productXElement.Attribute("DateAdded").Value, MvcApplication.DateTimeSerializationFormat, null))))
-					throw new AggregateException(new UniqueProductException(product.Name));
-
-				if (!product.DateRemoved.HasValue)
-					xmlTransaction.XmlDocument
-								  .Root
-								  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product",
-													new XAttribute("Name", product.Name),
-													new XAttribute("Price", product.Price),
-													new XAttribute("DateAdded", product.DateAdded.ToString(MvcApplication.DateTimeSerializationFormat))));
-				else
-					xmlTransaction.XmlDocument
-								  .Root
-								  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product",
-													new XAttribute("Name", product.Name),
-													new XAttribute("Price", product.Price),
-													new XAttribute("DateAdded", product.DateAdded.ToString(MvcApplication.DateTimeSerializationFormat)),
-													new XAttribute("DateRemoved", product.DateRemoved.Value.ToString(MvcApplication.DateTimeSerializationFormat))));
-
-				xmlTransaction.Commit();
+				xmlTransaction.XmlDocument
+							  .Root
+							  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd}Product",
+												new XAttribute("Name", product.Name),
+												new XAttribute("Price", product.Price)));
+				try
+				{
+					xmlTransaction.Commit();
+				}
+				catch (AggregateException xmlExceptions)
+				{
+					throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
+				}
 			}
 		}
 		public void RemoveProduct(string productName)
@@ -76,16 +64,45 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			{
 				XElement productXElement = xmlTransaction.XmlDocument
 														 .Root
-														 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Consumer.xsd}Product")
-														 .FirstOrDefault(productXmlElement => string.Equals(productXmlElement.Attribute("Name").Value, productName, StringComparison.OrdinalIgnoreCase)
-																							  && productXmlElement.Attribute("DateRemoved") == null);
+														 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd}Product")
+														 .FirstOrDefault(productXmlElement => string.Equals(productXmlElement.Attribute("Name").Value, productName, StringComparison.OrdinalIgnoreCase));
 
 				if (productXElement != null)
-				{
-					productXElement.Add(new XAttribute("DateRemoved", DateTime.Now.ToString(MvcApplication.DateTimeSerializationFormat)));
-					xmlTransaction.Commit();
-				}
+					try
+					{
+						xmlTransaction.Commit();
+					}
+					catch (AggregateException xmlExceptions)
+					{
+						throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
+					}
 			}
+		}
+		#endregion
+		#region IProductProvider Members
+		public Product GetProduct(string name, DateTime version)
+		{
+			if (name == null)
+				throw new ArgumentNullException("name");
+			if (string.IsNullOrWhiteSpace(name))
+				throw new ArgumentException("Cannot be empty or whitespace!", "name");
+
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName, version))
+			{
+				XElement productXElement = xmlTransaction.XmlDocument
+														 .Root
+														 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd}Product")
+														 .FirstOrDefault(productXmlElement => string.Equals(productXmlElement.Attribute("Name").Value, name, StringComparison.Ordinal));
+
+				if (productXElement == null)
+					return null;
+
+				return _GetProduct(productXElement);
+			}
+		}
+		public Product GetProduct(string name)
+		{
+			return GetProduct(name, DateTime.Now);
 		}
 		#endregion
 		public string XmlDocumentFileName
@@ -121,17 +138,17 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 		private Product _GetProduct(XElement productXElement)
 		{
-			XAttribute dateRemovedXAttribute = productXElement.Attribute("DateRemoved");
+			return new Product(productXElement.Attribute("Name").Value,
+							   double.Parse(productXElement.Attribute("Price").Value));
+		}
+		private Exception _TranslateException(Exception exception)
+		{
+			XmlUniqueConstraintException xmlUniqueConstraintException = exception as XmlUniqueConstraintException;
 
-			if (dateRemovedXAttribute == null)
-				return new Product(productXElement.Attribute("Name").Value,
-								   double.Parse(productXElement.Attribute("Price").Value),
-								   DateTime.ParseExact(productXElement.Attribute("DateAdded").Value, MvcApplication.DateTimeSerializationFormat, null));
-			else
-				return new Product(productXElement.Attribute("Name").Value,
-								   double.Parse(productXElement.Attribute("Price").Value),
-								   DateTime.ParseExact(productXElement.Attribute("DateAdded").Value, MvcApplication.DateTimeSerializationFormat, null),
-								   DateTime.ParseExact(dateRemovedXAttribute.Value, MvcApplication.DateTimeSerializationFormat, null));
+			if (xmlUniqueConstraintException != null && string.Equals("http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd:UniqueProductNames", xmlUniqueConstraintException.ConstraintName, StringComparison.Ordinal))
+					return new UniqueProductException(xmlUniqueConstraintException.ConflictingValue, xmlUniqueConstraintException);
+
+			return exception;
 		}
 
 		private string _xmlDocumentFileName;

@@ -213,11 +213,16 @@ namespace Andrei15193.Edesia.Controllers
 			return RemoveDeliveryZone();
 		}
 
+		[ChildActionOnly]
+		public ActionResult GetPendingOrders()
+		{
+			return View(_orderRepository.GetOrders(OrderState.Pending, _applicationUserProvider, _productProvider));
+		}
+
 		private IEnumerable<string> _GetUnuesdAddresses()
 		{
 			return _deliveryRepository.GetUnmappedAddresses()
-									  .Except(_applicationUserRepository.GetAddresses().Select(detailedAddress => detailedAddress.Address), StringComparer.OrdinalIgnoreCase)
-									  .OrderBy(address => address);
+									  .Except(_orderRepository.GetUsedAddresses());
 		}
 		private DeliveryZone _GetDeliveryZone(DeliveryZoneViewModel deliveryZoneViewModel)
 		{
@@ -229,7 +234,9 @@ namespace Andrei15193.Edesia.Controllers
 
 		}
 
-		private readonly IApplicationUserRepository _applicationUserRepository = (IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"];
+		private readonly IOrderRepository _orderRepository = (IOrderRepository)MvcApplication.DependencyContainer["orderRepository"];
+		private readonly IProductProvider _productProvider = (IProductProvider)MvcApplication.DependencyContainer["productRepository"];
 		private readonly IDeliveryRepository _deliveryRepository = (IDeliveryRepository)MvcApplication.DependencyContainer["deliveryRepository"];
+		private readonly IApplicationUserProvider _applicationUserProvider = (IApplicationUserProvider)MvcApplication.DependencyContainer["applicationUserRepository"];
 	}
 }

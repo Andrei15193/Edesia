@@ -20,6 +20,7 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string LastNameTextBox_MissingValue = "LastNameTextBox_MissingValue";
 		internal const string PasswordInput_InvalidVerificationValue = "PasswordInput_InvalidVerificationValue";
 		internal const string PasswordInput_MissingValue = "PasswordInput_MissingValue";
+		internal const string ProductNameTextBox_DuplicateValue_Format = "ProductNameTextBox_DuplicateValue_Format";
 		internal const string ProductNameTextBox_MissingValue = "ProductNameTextBox_MissingValue";
 		internal const string ProductPriceTextBox_InvalidValue = "ProductPriceTextBox_InvalidValue";
 		internal const string ProductPriceTextBox_MissingValue = "ProductPriceTextBox_MissingValue";

@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-			xmlns:deliveryMapping="http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd"
-			targetNamespace="http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd"
+			xmlns:delivery="http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd"
+			targetNamespace="http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd"
 			elementFormDefault="qualified">
 	<xsd:element name="DeliveryMapping">
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element name="DeliveryZone"
-							 type="deliveryMapping:DeliveryZone"
+							 type="delivery:DeliveryZone"
 							 minOccurs="0"
 							 maxOccurs="unbounded" />
 				<xsd:element name="Address"
@@ -17,11 +17,11 @@
 			</xsd:sequence>
 		</xsd:complexType>
 		<xsd:unique name="UniqueAddresses">
-			<xsd:selector xpath=".//deliveryMapping:Address" />
-			<xsd:field xpath="." />
+			<xsd:selector xpath=".//delivery:Address" />
+			<xsd:field xpath="@Address" />
 		</xsd:unique>
 		<xsd:unique name="UniqueDeliveryZoneNames">
-			<xsd:selector xpath="deliveryMapping:DeliveryZone" />
+			<xsd:selector xpath="delivery:DeliveryZone" />
 			<xsd:field xpath="@Name" />
 		</xsd:unique>
 	</xsd:element>
@@ -35,7 +35,7 @@
 		</xsd:sequence>
 		<xsd:attribute name="Name"
 					   type="xsd:string"
-					   use="required"/>
+					   use="required" />
 		<xsd:attribute name="Colour"
 					   use="required">
 			<xsd:simpleType>

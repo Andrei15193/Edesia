@@ -33,7 +33,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				return xmlTransaction.XmlDocument
 									 .Root
 									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-									 .Select(addressXElement => addressXElement.Attribute("Address").Value);
+									 .Select(addressXElement => addressXElement.Value);
 		}
 		public IEnumerable<DeliveryZone> GetDeliveryZones()
 		{
@@ -44,7 +44,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									 .Select(deliveryZoneXElement => new DeliveryZone(deliveryZoneXElement.Attribute("Name").Value,
 																					  Colour.Parse(deliveryZoneXElement.Attribute("Colour").Value),
 																					  deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-																										  .Select(addressXElement => addressXElement.Attribute("Address").Value)));
+																										  .Select(addressXElement => addressXElement.Value)));
 		}
 		public void AddAddress(string addressName)
 		{
@@ -57,10 +57,15 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			{
 				xmlTransaction.XmlDocument
 							  .Root
-							  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address",
-												new XAttribute("Address", addressName)));
-
-				xmlTransaction.Commit();
+							  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address", addressName));
+				try
+				{
+					xmlTransaction.Commit();
+				}
+				catch (AggregateException xmlExceptions)
+				{
+					throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
+				}
 			}
 		}
 		public void RemoveAddress(string addressName)
@@ -75,13 +80,20 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				XElement addressXElement = xmlTransaction.XmlDocument
 														 .Root
 														 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-														 .FirstOrDefault(addressXmlElement => string.Equals(addressXmlElement.Attribute("Address").Value, addressName, StringComparison.OrdinalIgnoreCase)
+														 .FirstOrDefault(addressXmlElement => string.Equals(addressXmlElement.Value, addressName, StringComparison.OrdinalIgnoreCase)
 																							  && !addressXmlElement.Elements().Any());
 
 				if (addressXElement != null)
 				{
 					addressXElement.Remove();
-					xmlTransaction.Commit();
+					try
+					{
+						xmlTransaction.Commit();
+					}
+					catch (AggregateException xmlExceptions)
+					{
+						throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
+					}
 				}
 			}
 		}
@@ -100,9 +112,20 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 																	xmlTransaction.XmlDocument
 																				  .Root
 																				  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-																				  .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Attribute("Address").Value))));
-
-				xmlTransaction.Commit();
+																				  .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Value))));
+				xmlTransaction.XmlDocument
+							  .Root
+							  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+							  .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Value))
+							  .Remove();
+				try
+				{
+					xmlTransaction.Commit();
+				}
+				catch (AggregateException xmlExceptions)
+				{
+					throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
+				}
 			}
 		}
 		public void UpdateDeliveryZone(DeliveryZone deliveryZone, string deliveryZoneOldName)
@@ -127,16 +150,31 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					deliveryZoneXElement.Add(xmlTransaction.XmlDocument
 														   .Root
 														   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-														   .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Attribute("Address").Value)));
+														   .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Value)));
+					xmlTransaction.XmlDocument
+								  .Root
+								  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+								  .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Value))
+								  .Remove();
 
 					xmlTransaction.XmlDocument
 								  .Root
 								  .Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-														   .Where(unmappedAddressXElement => !deliveryZone.Addresses.Contains(unmappedAddressXElement.Attribute("Address").Value)));
+														   .Where(unmappedAddressXElement => !deliveryZone.Addresses.Contains(unmappedAddressXElement.Value)));
+					deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+										.Where(unmappedAddressXElement => !deliveryZone.Addresses.Contains(unmappedAddressXElement.Value))
+										.Remove();
+
 					deliveryZoneXElement.Attribute("Name").SetValue(deliveryZone.Name);
 					deliveryZoneXElement.Attribute("Colour").SetValue(deliveryZone.Colour.ToString());
-
-					xmlTransaction.Commit();
+					try
+					{
+						xmlTransaction.Commit();
+					}
+					catch (AggregateException xmlExceptions)
+					{
+						throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
+					}
 				}
 			}
 		}
@@ -160,8 +198,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 								  .Root
 								  .Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address"));
 					deliveryZoneXElement.Remove();
-
-					xmlTransaction.Commit();
+					try
+					{
+						xmlTransaction.Commit();
+					}
+					catch (AggregateException xmlExceptions)
+					{
+						throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
+					}
 				}
 			}
 		}
@@ -197,18 +241,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 		}
 
-		[Obsolete]
-		private void _SaveXmlDocument(XDocument xmlDocument)
-		{
-			try
-			{
-				_xmlDocumentProvider.SaveXmlDocument(xmlDocument, _xmlDocumentFileName, _xmlDocumentSchemaSet);
-			}
-			catch (AggregateException xmlExceptions)
-			{
-				throw new AggregateException(xmlExceptions.InnerExceptions.Select(_TranslateException));
-			}
-		}
 		private Exception _TranslateException(Exception exception)
 		{
 			XmlUniqueConstraintException xmlUniqueConstraintException = exception as XmlUniqueConstraintException;

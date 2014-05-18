@@ -157,10 +157,14 @@
     <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="DataAccess\IDeliveryRepository.cs" />
+    <Compile Include="DataAccess\IOrderRepository.cs" />
+    <Compile Include="DataAccess\IProductProvider.cs" />
     <Compile Include="DataAccess\IProductRepository.cs" />
+    <Compile Include="DataAccess\IApplicationUserProvider.cs" />
     <Compile Include="DataAccess\Xml\IExclusiveXmlTransaction.cs" />
     <Compile Include="DataAccess\Xml\ISharedXmlTransaction.cs" />
     <Compile Include="DataAccess\Xml\XmlDeliveryRepository.cs" />
+    <Compile Include="DataAccess\Xml\XmlOrderRepository.cs" />
     <Compile Include="DataAccess\Xml\XmlProductRepository.cs" />
     <Compile Include="DataAccess\Xml\XmlTransaction.cs" />
     <Compile Include="Exceptions\DomainConstraintException.cs" />
@@ -171,6 +175,7 @@
     <Compile Include="Exceptions\UniqueProductException.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\ApplicationUserRole.cs" />
+    <Compile Include="Models\Collections\OrderedProductsCollection.cs" />
     <Compile Include="Models\Colour.cs" />
     <Compile Include="Models\Colours.cs" />
     <Compile Include="Models\DeliveryZone.cs" />
@@ -187,9 +192,11 @@
     <Compile Include="DataAccess\IApplicationUserRepository.cs" />
     <Compile Include="DataAccess\Xml\Azure\AzureXmlDocumentProvider.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetails.cs" />
+    <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\OrderState.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\ProductOrdered.cs" />
+    <Compile Include="Models\OrderedProduct.cs" />
     <Compile Include="Resources\AddDeliveryZoneViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -234,6 +241,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ManageDeliveryZonesViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\PendingOrderViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PendingOrderViewStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\RemoveDeliveryZoneViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -309,6 +321,7 @@
     <Compile Include="Resources\Strings\ManageDeliveryZonesViewKey.cs" />
     <Compile Include="Resources\Strings\NavigationViewKey.cs" />
     <Compile Include="Resources\Strings\NoticeKey.cs" />
+    <Compile Include="Resources\Strings\PendingOrderViewKey.cs" />
     <Compile Include="Resources\Strings\ProductsViewKey.cs" />
     <Compile Include="Resources\Strings\PurchaseViewKey.cs" />
     <Compile Include="Resources\Strings\RegisterViewKey.cs" />
@@ -375,7 +388,8 @@
     <None Include="Properties\PublishProfiles\edesia.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Schemas\Delivery.xsd" />
-    <None Include="Schemas\Consumer.xsd" />
+    <None Include="Schemas\Product.xsd" />
+    <None Include="Schemas\Order.xsd" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\metro-ui\jquery.ui.widget.js" />
@@ -423,6 +437,8 @@
     <Content Include="Views\Product\Default.cshtml" />
     <Content Include="Views\Product\_Product.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
+    <Content Include="Views\Delivery\GetPendingOrders.cshtml" />
+    <Content Include="Views\Delivery\_PendingOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -484,6 +500,10 @@
     <EmbeddedResource Include="Resources\NoticeStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>NoticeStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PendingOrderViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PendingOrderViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ProductsViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

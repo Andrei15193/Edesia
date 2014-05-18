@@ -30,7 +30,7 @@ namespace Andrei15193.Edesia.Controllers
 			if (ModelState.IsValid)
 				try
 				{
-					_productRepository.AddProduct(new Product(addProductViewModel.Name, addProductViewModel.Price, DateTime.Now));
+					_productRepository.AddProduct(new Product(addProductViewModel.Name, addProductViewModel.Price));
 					return RedirectToAction("Default", "Product");
 				}
 				catch (AggregateException aggregateException)
