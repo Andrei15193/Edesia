@@ -18,7 +18,7 @@
 		</xsd:complexType>
 		<xsd:unique name="UniqueAddresses">
 			<xsd:selector xpath=".//delivery:Address" />
-			<xsd:field xpath="@Address" />
+			<xsd:field xpath="." />
 		</xsd:unique>
 		<xsd:unique name="UniqueDeliveryZoneNames">
 			<xsd:selector xpath="delivery:DeliveryZone" />
