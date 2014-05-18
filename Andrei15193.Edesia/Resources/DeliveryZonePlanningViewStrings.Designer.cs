@@ -22,14 +22,14 @@ namespace Andrei15193.Edesia.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class DeliveryPlanningViewStrings {
+    public class DeliveryZonePlanningViewStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DeliveryPlanningViewStrings() {
+        internal DeliveryZonePlanningViewStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Andrei15193.Edesia.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.DeliveryPlanningViewStrings", typeof(DeliveryPlanningViewStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.DeliveryZonePlanningViewStrings", typeof(DeliveryZonePlanningViewStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,70 +61,25 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anulează comenzi.
+        ///   Looks up a localized string similar to Gestionează zone de livrare.
         /// </summary>
-        public static string CancelPendingTransportsButton_DisplayName {
+        public static string ManageDeliveryZonesButton_DisplayName {
             get {
-                return ResourceManager.GetString("CancelPendingTransportsButton_DisplayName", resourceCulture);
+                return ResourceManager.GetString("ManageDeliveryZonesButton_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anulează comenzi care nu sunt în curs de livrare..
+        ///   Looks up a localized string similar to Adaugă, modifică, șterge zone de livrare..
         /// </summary>
-        public static string CancelPendingTransportsButton_Hint {
+        public static string ManageDeliveryZonesButton_Hint {
             get {
-                return ResourceManager.GetString("CancelPendingTransportsButton_Hint", resourceCulture);
+                return ResourceManager.GetString("ManageDeliveryZonesButton_Hint", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stare livrare.
-        /// </summary>
-        public static string DeliveryStateLabel_DisplayName {
-            get {
-                return ResourceManager.GetString("DeliveryStateLabel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Comandă.
-        /// </summary>
-        public static string OrderLabel_DisplayName {
-            get {
-                return ResourceManager.GetString("OrderLabel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Comanda {0} la {1}..
-        /// </summary>
-        public static string OrderListItemLabel_DisplayName_Format {
-            get {
-                return ResourceManager.GetString("OrderListItemLabel_DisplayName_Format", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Comenzi.
-        /// </summary>
-        public static string OrdersLabel_DisplayName {
-            get {
-                return ResourceManager.GetString("OrdersLabel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Livrări planificate.
-        /// </summary>
-        public static string PendingDeliveriesLabel_DisplayName {
-            get {
-                return ResourceManager.GetString("PendingDeliveriesLabel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Planificare Livrări.
+        ///   Looks up a localized string similar to Zone de livrare.
         /// </summary>
         public static string ViewTitle {
             get {

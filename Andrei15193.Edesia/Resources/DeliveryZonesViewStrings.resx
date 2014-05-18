@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DeliveryAddressLabel_DisplayName" xml:space="preserve">
-    <value>Adresa de livrare:</value>
+  <data name="UngroupedAddressesLabel_DisplayName" xml:space="preserve">
+    <value>Adrese neorganizate</value>
   </data>
-  <data name="OrderAccordionFrameHeader_DisplayName_Format" xml:space="preserve">
-    <value>Comanda #{0}, {1:dd MMMM yyyy, HH:mm}</value>
+  <data name="UngroupedAddressesLabel_Hint" xml:space="preserve">
+    <value>Orice adresă neorganizată într-o zonă de livrare nu este inclusă în planificarea livrări comenzilor pentru acea adresă.</value>
   </data>
-  <data name="OrderedProductLabel_DisplayName_Format" xml:space="preserve">
-    <value>{1} x {0}, {2:0.00} RON (total: {3:0.00} RON)</value>
+  <data name="ViewTitle" xml:space="preserve">
+    <value>Zone de livrare</value>
   </data>
 </root>

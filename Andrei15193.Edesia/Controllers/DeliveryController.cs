@@ -24,6 +24,11 @@ namespace Andrei15193.Edesia.Controllers
 		{
 			return View(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedAddresses(), _deliveryRepository.GetDeliveryZones(_applicationUserProvider), _GetUnuesdAddresses()));
 		}
+		[ChildActionOnly]
+		public ActionResult DeliveryZones()
+		{
+			return View(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedAddresses(), _deliveryRepository.GetDeliveryZones(_applicationUserProvider), _GetUnuesdAddresses()));
+		}
 
 		[HttpGet]
 		public ActionResult AddAddress()
@@ -218,7 +223,7 @@ namespace Andrei15193.Edesia.Controllers
 		}
 
 		[ChildActionOnly]
-		public ActionResult GetPendingOrders()
+		public ActionResult PendingOrders()
 		{
 			return View(_orderRepository.GetOrders(OrderState.Pending, _applicationUserProvider, _productProvider));
 		}

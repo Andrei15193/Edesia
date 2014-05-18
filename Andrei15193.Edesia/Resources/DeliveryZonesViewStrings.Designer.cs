@@ -22,14 +22,14 @@ namespace Andrei15193.Edesia.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class PendingOrderViewStrings {
+    public class DeliveryZonesViewStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal PendingOrderViewStrings() {
+        internal DeliveryZonesViewStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Andrei15193.Edesia.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.PendingOrderViewStrings", typeof(PendingOrderViewStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.DeliveryZonesViewStrings", typeof(DeliveryZonesViewStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,29 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adresa de livrare:.
+        ///   Looks up a localized string similar to Adrese neorganizate.
         /// </summary>
-        public static string DeliveryAddressLabel_DisplayName {
+        public static string UngroupedAddressesLabel_DisplayName {
             get {
-                return ResourceManager.GetString("DeliveryAddressLabel_DisplayName", resourceCulture);
+                return ResourceManager.GetString("UngroupedAddressesLabel_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comanda #{0}, {1:dd MMMM yyyy, HH:mm}.
+        ///   Looks up a localized string similar to Orice adresă neorganizată într-o zonă de livrare nu este inclusă în planificarea livrări comenzilor pentru acea adresă..
         /// </summary>
-        public static string OrderAccordionFrameHeader_DisplayName_Format {
+        public static string UngroupedAddressesLabel_Hint {
             get {
-                return ResourceManager.GetString("OrderAccordionFrameHeader_DisplayName_Format", resourceCulture);
+                return ResourceManager.GetString("UngroupedAddressesLabel_Hint", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1} x {0}, {2:0.00} RON (total: {3:0.00} RON).
+        ///   Looks up a localized string similar to Zone de livrare.
         /// </summary>
-        public static string OrderedProductLabel_DisplayName_Format {
+        public static string ViewTitle {
             get {
-                return ResourceManager.GetString("OrderedProductLabel_DisplayName_Format", resourceCulture);
+                return ResourceManager.GetString("ViewTitle", resourceCulture);
             }
         }
     }

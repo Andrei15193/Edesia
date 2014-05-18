@@ -4,11 +4,11 @@
 <div class="accordion with-marker" data-role="accordion">
 	<div class="accordion-frame">
 		<a class="heading" style="cursor: pointer;">
-			@string.Format(PendingOrderViewStrings.OrderAccordionFrameHeader_DisplayName_Format, Model.OrderNumber, Model.DatePlaced)
+			@string.Format(PendingOrdersViewStrings.OrderAccordionFrameHeader_DisplayName_Format, Model.OrderNumber, Model.DatePlaced)
 		</a>
 		<div class="content">
 			<small>
-				@PendingOrderViewStrings.DeliveryAddressLabel_DisplayName @Model.DeliveryAddress
+				@PendingOrdersViewStrings.DeliveryAddressLabel_DisplayName @Model.DeliveryAddress
 				@if (Model.DeliveryAddressLine2 != null)
 				{
 					@(", " + @Model.DeliveryAddressLine2)
@@ -17,7 +17,7 @@
 			<ul>
 				@foreach (OrderedProduct orderedProduct in Model.OrderedProducts)
 				{
-					<li>@string.Format(PendingOrderViewStrings.OrderedProductLabel_DisplayName_Format, orderedProduct.Product.Name, orderedProduct.Quantity, orderedProduct.Product.Price, orderedProduct.Product.Price * orderedProduct.Quantity)</li>
+					<li>@string.Format(PendingOrdersViewStrings.OrderedProductLabel_DisplayName_Format, orderedProduct.Product.Name, orderedProduct.Quantity, orderedProduct.Product.Price, orderedProduct.Product.Price * orderedProduct.Quantity)</li>
 				}
 			</ul>
 		</div>

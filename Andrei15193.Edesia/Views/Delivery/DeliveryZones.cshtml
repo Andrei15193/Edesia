@@ -1,0 +1,11 @@
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.Resources;
+@model Andrei15193.Edesia.ViewModels.Delivery.DeliveryZonesViewModel
+@{
+	Layout = null;
+}
+@Html.Partial("_UnmappedAddresses", Model.UnmappedAddresses)
+@foreach (DeliveryZone deliveryZone in Model.DeliveryZones)
+{
+	@Html.Partial("_DeliveryZone", deliveryZone)
+}

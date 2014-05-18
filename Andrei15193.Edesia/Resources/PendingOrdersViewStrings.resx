@@ -117,28 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CancelPendingTransportsButton_DisplayName" xml:space="preserve">
-    <value>Anulează comenzi</value>
+  <data name="DeliveryAddressLabel_DisplayName" xml:space="preserve">
+    <value>Adresa de livrare:</value>
   </data>
-  <data name="CancelPendingTransportsButton_Hint" xml:space="preserve">
-    <value>Anulează comenzi care nu sunt în curs de livrare.</value>
+  <data name="OrderAccordionFrameHeader_DisplayName_Format" xml:space="preserve">
+    <value>Comanda #{0}, {1:dd MMMM yyyy, HH:mm}</value>
   </data>
-  <data name="DeliveryStateLabel_DisplayName" xml:space="preserve">
-    <value>Stare livrare</value>
+  <data name="OrderedProductLabel_DisplayName_Format" xml:space="preserve">
+    <value>{1} x {0}, {2:0.00} RON (total: {3:0.00} RON)</value>
   </data>
-  <data name="OrderLabel_DisplayName" xml:space="preserve">
-    <value>Comandă</value>
+  <data name="SchedulePendingOrdersButton_DisplayName" xml:space="preserve">
+    <value>Programează comenzi</value>
   </data>
-  <data name="OrderListItemLabel_DisplayName_Format" xml:space="preserve">
-    <value>Comanda {0} la {1}.</value>
-  </data>
-  <data name="OrdersLabel_DisplayName" xml:space="preserve">
-    <value>Comenzi</value>
-  </data>
-  <data name="PendingDeliveriesLabel_DisplayName" xml:space="preserve">
-    <value>Livrări planificate</value>
+  <data name="SchedulePendingOrdersButton_Hint" xml:space="preserve">
+    <value>Planifică manual comenzi pentru a fi livrate.</value>
   </data>
   <data name="ViewTitle" xml:space="preserve">
-    <value>Planificare Livrări</value>
+    <value>Comenzi în așteptare</value>
   </data>
 </root>

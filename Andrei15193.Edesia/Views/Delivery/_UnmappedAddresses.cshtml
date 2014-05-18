@@ -1,0 +1,18 @@
+﻿@using Andrei15193.Edesia.Resources;
+@model IEnumerable<string>
+@if (Model.Any())
+{
+	<div class="accordion with-marker" data-role="accordion">
+		<div class="accordion-frame">
+			<a class="heading active fg-red" style="cursor: pointer;" title="@DeliveryZonesViewStrings.UngroupedAddressesLabel_Hint"><i class="icon-warning"></i> @DeliveryZonesViewStrings.UngroupedAddressesLabel_DisplayName</a>
+			<div class="content">
+				<ul>
+					@foreach (string unmappedAddress in Model)
+					{
+						<li>@unmappedAddress</li>
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+}

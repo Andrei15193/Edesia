@@ -229,6 +229,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeliveryPlanningViewStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\DeliveryZonePlanningViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeliveryZonePlanningViewStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DeliveryZonesViewStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeliveryZonesViewStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\DeliveryZoneViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -254,10 +264,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ManageDeliveryZonesViewStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\PendingOrderViewStrings.Designer.cs">
+    <Compile Include="Resources\PendingOrdersViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PendingOrderViewStrings.resx</DependentUpon>
+      <DependentUpon>PendingOrdersViewStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\RemoveDeliveryZoneViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -325,6 +335,8 @@
     <Compile Include="Resources\Strings\ColourNamesKey.cs" />
     <Compile Include="Resources\Strings\DeliveryPlanningViewKey.cs" />
     <Compile Include="Resources\Strings\DeliveryZoneDetailsViewKey.cs" />
+    <Compile Include="Resources\Strings\DeliveryZonePlanningViewKey.cs" />
+    <Compile Include="Resources\Strings\DeliveryZonesViewKey.cs" />
     <Compile Include="Resources\Strings\DeliveryZoneViewKey.cs" />
     <Compile Include="Resources\Strings\EditDeliveryZoneViewKey.cs" />
     <Compile Include="Resources\Strings\EMailNoticeKey.cs" />
@@ -335,7 +347,7 @@
     <Compile Include="Resources\Strings\ManageDeliveryZonesViewKey.cs" />
     <Compile Include="Resources\Strings\NavigationViewKey.cs" />
     <Compile Include="Resources\Strings\NoticeKey.cs" />
-    <Compile Include="Resources\Strings\PendingOrderViewKey.cs" />
+    <Compile Include="Resources\Strings\PendingOrdersViewKey.cs" />
     <Compile Include="Resources\Strings\ProductsViewKey.cs" />
     <Compile Include="Resources\Strings\PurchaseViewKey.cs" />
     <Compile Include="Resources\Strings\RegisterViewKey.cs" />
@@ -438,7 +450,7 @@
     <Content Include="Views\Shared\_ModelErrorNotice.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Delivery\Planning.cshtml" />
-    <Content Include="Views\Delivery\_DeliveryZones.cshtml" />
+    <Content Include="Views\Delivery\DeliveryZones.cshtml" />
     <Content Include="Views\Delivery\_DeliveryZone.cshtml" />
     <Content Include="Views\Delivery\ManageDeliveryZones.cshtml" />
     <Content Include="Views\Delivery\AddAddress.cshtml" />
@@ -451,8 +463,10 @@
     <Content Include="Views\Product\Default.cshtml" />
     <Content Include="Views\Product\_Product.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
-    <Content Include="Views\Delivery\GetPendingOrders.cshtml" />
+    <Content Include="Views\Delivery\PendingOrders.cshtml" />
     <Content Include="Views\Delivery\_PendingOrder.cshtml" />
+    <Content Include="Views\Delivery\_DeliveryZonePlanning.cshtml" />
+    <Content Include="Views\Delivery\_UnmappedAddresses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -482,6 +496,14 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DeliveryPlanningViewStrings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DeliveryZonePlanningViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeliveryZonePlanningViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DeliveryZonesViewStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeliveryZonesViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\DeliveryZoneViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -523,9 +545,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>NoticeStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\PendingOrderViewStrings.resx">
+    <EmbeddedResource Include="Resources\PendingOrdersViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>PendingOrderViewStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>PendingOrdersViewStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ProductsViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
