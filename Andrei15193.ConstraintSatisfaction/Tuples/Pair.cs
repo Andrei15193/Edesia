@@ -73,9 +73,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-
 				_first = first;
 			}
 
@@ -93,15 +90,15 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst> variables = obj as IPair<TFirst>;
 
 				return (variables != null
-						&& _first.Equals(variables.First));
+						&& object.Equals(_first, variables.First));
 			}
 			public override int GetHashCode()
 			{
-				return _first.GetHashCode();
+				return (_first == null ? 0 : _first.GetHashCode());
 			}
 			public override string ToString()
 			{
-				return ("First = " + _first.ToString());
+				return ("First = " + (_first == null ? string.Empty : _first.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -111,11 +108,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-
 				_first = first;
 				_second = second;
 			}
@@ -143,18 +135,19 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond> variables = obj as IPair<TFirst, TSecond>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -165,13 +158,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -209,20 +195,22 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird> variables = obj as IPair<TFirst, TSecond, TThird>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -234,15 +222,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -290,22 +269,25 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth> variables = obj as IPair<TFirst, TSecond, TThird, TFourth>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -318,17 +300,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth, TFifth fifth)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-				if (fifth == null)
-					throw new ArgumentNullException("fifth");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -386,24 +357,28 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth, TFifth> variables = obj as IPair<TFirst, TSecond, TThird, TFourth, TFifth>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth)
-						&& _fifth.Equals(variables.Fifth));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth)
+						&& object.Equals(_fifth, variables.Fifth));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode() ^ _fifth.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode())
+						^ (_fifth == null ? 0 : _fifth.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString(),
-								   "Fifth = " + _fifth.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()),
+								   "Fifth = " + (_fifth == null ? string.Empty : _fifth.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -417,19 +392,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth, TFifth fifth, TSixth sixth)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-				if (fifth == null)
-					throw new ArgumentNullException("fifth");
-				if (sixth == null)
-					throw new ArgumentNullException("sixth");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -497,26 +459,31 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth> variables = obj as IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth)
-						&& _fifth.Equals(variables.Fifth)
-						&& _sixth.Equals(variables.Sixth));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth)
+						&& object.Equals(_fifth, variables.Fifth)
+						&& object.Equals(_sixth, variables.Sixth));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode() ^ _fifth.GetHashCode() ^ _sixth.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode())
+						^ (_fifth == null ? 0 : _fifth.GetHashCode())
+						^ (_sixth == null ? 0 : _sixth.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString(),
-								   "Fifth = " + _fifth.ToString(),
-								   "Sixth = " + _sixth.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()),
+								   "Fifth = " + (_fifth == null ? string.Empty : _fifth.ToString()),
+								   "Sixth = " + (_sixth == null ? string.Empty : _sixth.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -531,21 +498,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth, TFifth fifth, TSixth sixth, TSeventh seventh)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-				if (fifth == null)
-					throw new ArgumentNullException("fifth");
-				if (sixth == null)
-					throw new ArgumentNullException("sixth");
-				if (seventh == null)
-					throw new ArgumentNullException("seventh");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -623,28 +575,34 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh> variables = obj as IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth)
-						&& _fifth.Equals(variables.Fifth)
-						&& _sixth.Equals(variables.Sixth)
-						&& _seventh.Equals(variables.Seventh));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth)
+						&& object.Equals(_fifth, variables.Fifth)
+						&& object.Equals(_sixth, variables.Sixth)
+						&& object.Equals(_seventh, variables.Seventh));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode() ^ _fifth.GetHashCode() ^ _sixth.GetHashCode() ^ _seventh.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode())
+						^ (_fifth == null ? 0 : _fifth.GetHashCode())
+						^ (_sixth == null ? 0 : _sixth.GetHashCode())
+						^ (_seventh == null ? 0 : _seventh.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString(),
-								   "Fifth = " + _fifth.ToString(),
-								   "Sixth = " + _sixth.ToString(),
-								   "Seventh = " + _seventh.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()),
+								   "Fifth = " + (_fifth == null ? string.Empty : _fifth.ToString()),
+								   "Sixth = " + (_sixth == null ? string.Empty : _sixth.ToString()),
+								   "Seventh = " + (_seventh == null ? string.Empty : _seventh.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -660,23 +618,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth, TFifth fifth, TSixth sixth, TSeventh seventh, TEighth eighth)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-				if (fifth == null)
-					throw new ArgumentNullException("fifth");
-				if (sixth == null)
-					throw new ArgumentNullException("sixth");
-				if (seventh == null)
-					throw new ArgumentNullException("seventh");
-				if (eighth == null)
-					throw new ArgumentNullException("eighth");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -764,30 +705,37 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth> variables = obj as IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth)
-						&& _fifth.Equals(variables.Fifth)
-						&& _sixth.Equals(variables.Sixth)
-						&& _seventh.Equals(variables.Seventh)
-						&& _eighth.Equals(variables.Eighth));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth)
+						&& object.Equals(_fifth, variables.Fifth)
+						&& object.Equals(_sixth, variables.Sixth)
+						&& object.Equals(_seventh, variables.Seventh)
+						&& object.Equals(_eighth, variables.Eighth));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode() ^ _fifth.GetHashCode() ^ _sixth.GetHashCode() ^ _seventh.GetHashCode() ^ _eighth.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode())
+						^ (_fifth == null ? 0 : _fifth.GetHashCode())
+						^ (_sixth == null ? 0 : _sixth.GetHashCode())
+						^ (_seventh == null ? 0 : _seventh.GetHashCode())
+						^ (_eighth == null ? 0 : _eighth.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString(),
-								   "Fifth = " + _fifth.ToString(),
-								   "Sixth = " + _sixth.ToString(),
-								   "Seventh = " + _seventh.ToString(),
-								   "Eighth = " + _eighth.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()),
+								   "Fifth = " + (_fifth == null ? string.Empty : _fifth.ToString()),
+								   "Sixth = " + (_sixth == null ? string.Empty : _sixth.ToString()),
+								   "Seventh = " + (_seventh == null ? string.Empty : _seventh.ToString()),
+								   "Eighth = " + (_eighth == null ? string.Empty : _eighth.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -804,25 +752,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth, TFifth fifth, TSixth sixth, TSeventh seventh, TEighth eighth, TNineth nineth)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-				if (fifth == null)
-					throw new ArgumentNullException("fifth");
-				if (sixth == null)
-					throw new ArgumentNullException("sixth");
-				if (seventh == null)
-					throw new ArgumentNullException("seventh");
-				if (eighth == null)
-					throw new ArgumentNullException("eighth");
-				if (nineth == null)
-					throw new ArgumentNullException("nineth");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -920,32 +849,40 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth> variables = obj as IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth)
-						&& _fifth.Equals(variables.Fifth)
-						&& _sixth.Equals(variables.Sixth)
-						&& _seventh.Equals(variables.Seventh)
-						&& _eighth.Equals(variables.Eighth)
-						&& _nineth.Equals(variables.Nineth));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth)
+						&& object.Equals(_fifth, variables.Fifth)
+						&& object.Equals(_sixth, variables.Sixth)
+						&& object.Equals(_seventh, variables.Seventh)
+						&& object.Equals(_eighth, variables.Eighth)
+						&& object.Equals(_nineth, variables.Nineth));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode() ^ _fifth.GetHashCode() ^ _sixth.GetHashCode() ^ _seventh.GetHashCode() ^ _eighth.GetHashCode() ^ _nineth.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode())
+						^ (_fifth == null ? 0 : _fifth.GetHashCode())
+						^ (_sixth == null ? 0 : _sixth.GetHashCode())
+						^ (_seventh == null ? 0 : _seventh.GetHashCode())
+						^ (_eighth == null ? 0 : _eighth.GetHashCode())
+						^ (_nineth == null ? 0 : _nineth.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString(),
-								   "Fifth = " + _fifth.ToString(),
-								   "Sixth = " + _sixth.ToString(),
-								   "Seventh = " + _seventh.ToString(),
-								   "Eighth = " + _eighth.ToString(),
-								   "Nineth = " + _nineth.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()),
+								   "Fifth = " + (_fifth == null ? string.Empty : _fifth.ToString()),
+								   "Sixth = " + (_sixth == null ? string.Empty : _sixth.ToString()),
+								   "Seventh = " + (_seventh == null ? string.Empty : _seventh.ToString()),
+								   "Eighth = " + (_eighth == null ? string.Empty : _eighth.ToString()),
+								   "Nineth = " + (_nineth == null ? string.Empty : _nineth.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -963,27 +900,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth, TFifth fifth, TSixth sixth, TSeventh seventh, TEighth eighth, TNineth nineth, TTenth tenth)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-				if (fifth == null)
-					throw new ArgumentNullException("fifth");
-				if (sixth == null)
-					throw new ArgumentNullException("sixth");
-				if (seventh == null)
-					throw new ArgumentNullException("seventh");
-				if (eighth == null)
-					throw new ArgumentNullException("eighth");
-				if (nineth == null)
-					throw new ArgumentNullException("nineth");
-				if (tenth == null)
-					throw new ArgumentNullException("tenth");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -1091,34 +1007,43 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth> variables = obj as IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth)
-						&& _fifth.Equals(variables.Fifth)
-						&& _sixth.Equals(variables.Sixth)
-						&& _seventh.Equals(variables.Seventh)
-						&& _eighth.Equals(variables.Eighth)
-						&& _nineth.Equals(variables.Nineth)
-						&& _tenth.Equals(variables.Tenth));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth)
+						&& object.Equals(_fifth, variables.Fifth)
+						&& object.Equals(_sixth, variables.Sixth)
+						&& object.Equals(_seventh, variables.Seventh)
+						&& object.Equals(_eighth, variables.Eighth)
+						&& object.Equals(_nineth, variables.Nineth)
+						&& object.Equals(_tenth, variables.Tenth));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode() ^ _fifth.GetHashCode() ^ _sixth.GetHashCode() ^ _seventh.GetHashCode() ^ _eighth.GetHashCode() ^ _nineth.GetHashCode() ^ _tenth.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode())
+						^ (_fifth == null ? 0 : _fifth.GetHashCode())
+						^ (_sixth == null ? 0 : _sixth.GetHashCode())
+						^ (_seventh == null ? 0 : _seventh.GetHashCode())
+						^ (_eighth == null ? 0 : _eighth.GetHashCode())
+						^ (_nineth == null ? 0 : _nineth.GetHashCode())
+						^ (_tenth == null ? 0 : _tenth.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString(),
-								   "Fifth = " + _fifth.ToString(),
-								   "Sixth = " + _sixth.ToString(),
-								   "Seventh = " + _seventh.ToString(),
-								   "Eighth = " + _eighth.ToString(),
-								   "Nineth = " + _nineth.ToString(),
-								   "Tenth = " + _tenth.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()),
+								   "Fifth = " + (_fifth == null ? string.Empty : _fifth.ToString()),
+								   "Sixth = " + (_sixth == null ? string.Empty : _sixth.ToString()),
+								   "Seventh = " + (_seventh == null ? string.Empty : _seventh.ToString()),
+								   "Eighth = " + (_eighth == null ? string.Empty : _eighth.ToString()),
+								   "Nineth = " + (_nineth == null ? string.Empty : _nineth.ToString()),
+								   "Tenth = " + (_tenth == null ? string.Empty : _tenth.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -1137,29 +1062,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth, TFifth fifth, TSixth sixth, TSeventh seventh, TEighth eighth, TNineth nineth, TTenth tenth, TEleventh eleventh)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-				if (fifth == null)
-					throw new ArgumentNullException("fifth");
-				if (sixth == null)
-					throw new ArgumentNullException("sixth");
-				if (seventh == null)
-					throw new ArgumentNullException("seventh");
-				if (eighth == null)
-					throw new ArgumentNullException("eighth");
-				if (nineth == null)
-					throw new ArgumentNullException("nineth");
-				if (tenth == null)
-					throw new ArgumentNullException("tenth");
-				if (eleventh == null)
-					throw new ArgumentNullException("eleventh");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -1277,36 +1179,46 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth, TEleventh> variables = obj as IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth, TEleventh>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth)
-						&& _fifth.Equals(variables.Fifth)
-						&& _sixth.Equals(variables.Sixth)
-						&& _seventh.Equals(variables.Seventh)
-						&& _eighth.Equals(variables.Eighth)
-						&& _nineth.Equals(variables.Nineth)
-						&& _tenth.Equals(variables.Tenth)
-						&& _eleventh.Equals(variables.Eleventh));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth)
+						&& object.Equals(_fifth, variables.Fifth)
+						&& object.Equals(_sixth, variables.Sixth)
+						&& object.Equals(_seventh, variables.Seventh)
+						&& object.Equals(_eighth, variables.Eighth)
+						&& object.Equals(_nineth, variables.Nineth)
+						&& object.Equals(_tenth, variables.Tenth)
+						&& object.Equals(_eleventh, variables.Eleventh));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode() ^ _fifth.GetHashCode() ^ _sixth.GetHashCode() ^ _seventh.GetHashCode() ^ _eighth.GetHashCode() ^ _nineth.GetHashCode() ^ _tenth.GetHashCode() ^ _eleventh.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode())
+						^ (_fifth == null ? 0 : _fifth.GetHashCode())
+						^ (_sixth == null ? 0 : _sixth.GetHashCode())
+						^ (_seventh == null ? 0 : _seventh.GetHashCode())
+						^ (_eighth == null ? 0 : _eighth.GetHashCode())
+						^ (_nineth == null ? 0 : _nineth.GetHashCode())
+						^ (_tenth == null ? 0 : _tenth.GetHashCode())
+						^ (_eleventh == null ? 0 : _eleventh.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString(),
-								   "Fifth = " + _fifth.ToString(),
-								   "Sixth = " + _sixth.ToString(),
-								   "Seventh = " + _seventh.ToString(),
-								   "Eighth = " + _eighth.ToString(),
-								   "Nineth = " + _nineth.ToString(),
-								   "Tenth = " + _tenth.ToString(),
-								   "Eleventh = " + _eleventh.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()),
+								   "Fifth = " + (_fifth == null ? string.Empty : _fifth.ToString()),
+								   "Sixth = " + (_sixth == null ? string.Empty : _sixth.ToString()),
+								   "Seventh = " + (_seventh == null ? string.Empty : _seventh.ToString()),
+								   "Eighth = " + (_eighth == null ? string.Empty : _eighth.ToString()),
+								   "Nineth = " + (_nineth == null ? string.Empty : _nineth.ToString()),
+								   "Tenth = " + (_tenth == null ? string.Empty : _tenth.ToString()),
+								   "Eleventh = " + (_eleventh == null ? string.Empty : _eleventh.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -1326,31 +1238,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth, TFifth fifth, TSixth sixth, TSeventh seventh, TEighth eighth, TNineth nineth, TTenth tenth, TEleventh eleventh, TTwelfth twelfth)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-				if (fifth == null)
-					throw new ArgumentNullException("fifth");
-				if (sixth == null)
-					throw new ArgumentNullException("sixth");
-				if (seventh == null)
-					throw new ArgumentNullException("seventh");
-				if (eighth == null)
-					throw new ArgumentNullException("eighth");
-				if (nineth == null)
-					throw new ArgumentNullException("nineth");
-				if (tenth == null)
-					throw new ArgumentNullException("tenth");
-				if (eleventh == null)
-					throw new ArgumentNullException("eleventh");
-				if (twelfth == null)
-					throw new ArgumentNullException("twelfth");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -1478,38 +1365,49 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth, TEleventh, TTwelfth> variables = obj as IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth, TEleventh, TTwelfth>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth)
-						&& _fifth.Equals(variables.Fifth)
-						&& _sixth.Equals(variables.Sixth)
-						&& _seventh.Equals(variables.Seventh)
-						&& _eighth.Equals(variables.Eighth)
-						&& _nineth.Equals(variables.Nineth)
-						&& _tenth.Equals(variables.Tenth)
-						&& _eleventh.Equals(variables.Eleventh)
-						&& _twelfth.Equals(variables.Twelfth));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth)
+						&& object.Equals(_fifth, variables.Fifth)
+						&& object.Equals(_sixth, variables.Sixth)
+						&& object.Equals(_seventh, variables.Seventh)
+						&& object.Equals(_eighth, variables.Eighth)
+						&& object.Equals(_nineth, variables.Nineth)
+						&& object.Equals(_tenth, variables.Tenth)
+						&& object.Equals(_eleventh, variables.Eleventh)
+						&& object.Equals(_twelfth, variables.Twelfth));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode() ^ _fifth.GetHashCode() ^ _sixth.GetHashCode() ^ _seventh.GetHashCode() ^ _eighth.GetHashCode() ^ _nineth.GetHashCode() ^ _tenth.GetHashCode() ^ _eleventh.GetHashCode() ^ _twelfth.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode())
+						^ (_fifth == null ? 0 : _fifth.GetHashCode())
+						^ (_sixth == null ? 0 : _sixth.GetHashCode())
+						^ (_seventh == null ? 0 : _seventh.GetHashCode())
+						^ (_eighth == null ? 0 : _eighth.GetHashCode())
+						^ (_nineth == null ? 0 : _nineth.GetHashCode())
+						^ (_tenth == null ? 0 : _tenth.GetHashCode())
+						^ (_eleventh == null ? 0 : _eleventh.GetHashCode())
+						^ (_twelfth == null ? 0 : _twelfth.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString(),
-								   "Fifth = " + _fifth.ToString(),
-								   "Sixth = " + _sixth.ToString(),
-								   "Seventh = " + _seventh.ToString(),
-								   "Eighth = " + _eighth.ToString(),
-								   "Nineth = " + _nineth.ToString(),
-								   "Tenth = " + _tenth.ToString(),
-								   "Eleventh = " + _eleventh.ToString(),
-								   "Twelfth = " + _twelfth.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()),
+								   "Fifth = " + (_fifth == null ? string.Empty : _fifth.ToString()),
+								   "Sixth = " + (_sixth == null ? string.Empty : _sixth.ToString()),
+								   "Seventh = " + (_seventh == null ? string.Empty : _seventh.ToString()),
+								   "Eighth = " + (_eighth == null ? string.Empty : _eighth.ToString()),
+								   "Nineth = " + (_nineth == null ? string.Empty : _nineth.ToString()),
+								   "Tenth = " + (_tenth == null ? string.Empty : _tenth.ToString()),
+								   "Eleventh = " + (_eleventh == null ? string.Empty : _eleventh.ToString()),
+								   "Twelfth = " + (_twelfth == null ? string.Empty : _twelfth.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -1530,33 +1428,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth, TFifth fifth, TSixth sixth, TSeventh seventh, TEighth eighth, TNineth nineth, TTenth tenth, TEleventh eleventh, TTwelfth twelfth, TThirteenth thirteenth)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-				if (fifth == null)
-					throw new ArgumentNullException("fifth");
-				if (sixth == null)
-					throw new ArgumentNullException("sixth");
-				if (seventh == null)
-					throw new ArgumentNullException("seventh");
-				if (eighth == null)
-					throw new ArgumentNullException("eighth");
-				if (nineth == null)
-					throw new ArgumentNullException("nineth");
-				if (tenth == null)
-					throw new ArgumentNullException("tenth");
-				if (eleventh == null)
-					throw new ArgumentNullException("eleventh");
-				if (twelfth == null)
-					throw new ArgumentNullException("twelfth");
-				if (thirteenth == null)
-					throw new ArgumentNullException("thirteenth");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -1694,40 +1565,52 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth, TEleventh, TTwelfth, TThirteenth> variables = obj as IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth, TEleventh, TTwelfth, TThirteenth>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth)
-						&& _fifth.Equals(variables.Fifth)
-						&& _sixth.Equals(variables.Sixth)
-						&& _seventh.Equals(variables.Seventh)
-						&& _eighth.Equals(variables.Eighth)
-						&& _nineth.Equals(variables.Nineth)
-						&& _tenth.Equals(variables.Tenth)
-						&& _eleventh.Equals(variables.Eleventh)
-						&& _twelfth.Equals(variables.Twelfth)
-						&& _thirteenth.Equals(variables.Thirteenth));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth)
+						&& object.Equals(_fifth, variables.Fifth)
+						&& object.Equals(_sixth, variables.Sixth)
+						&& object.Equals(_seventh, variables.Seventh)
+						&& object.Equals(_eighth, variables.Eighth)
+						&& object.Equals(_nineth, variables.Nineth)
+						&& object.Equals(_tenth, variables.Tenth)
+						&& object.Equals(_eleventh, variables.Eleventh)
+						&& object.Equals(_twelfth, variables.Twelfth)
+						&& object.Equals(_thirteenth, variables.Thirteenth));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode() ^ _fifth.GetHashCode() ^ _sixth.GetHashCode() ^ _seventh.GetHashCode() ^ _eighth.GetHashCode() ^ _nineth.GetHashCode() ^ _tenth.GetHashCode() ^ _eleventh.GetHashCode() ^ _twelfth.GetHashCode() ^ _thirteenth.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode())
+						^ (_fifth == null ? 0 : _fifth.GetHashCode())
+						^ (_sixth == null ? 0 : _sixth.GetHashCode())
+						^ (_seventh == null ? 0 : _seventh.GetHashCode())
+						^ (_eighth == null ? 0 : _eighth.GetHashCode())
+						^ (_nineth == null ? 0 : _nineth.GetHashCode())
+						^ (_tenth == null ? 0 : _tenth.GetHashCode())
+						^ (_eleventh == null ? 0 : _eleventh.GetHashCode())
+						^ (_twelfth == null ? 0 : _twelfth.GetHashCode())
+						^ (_thirteenth == null ? 0 : _thirteenth.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString(),
-								   "Fifth = " + _fifth.ToString(),
-								   "Sixth = " + _sixth.ToString(),
-								   "Seventh = " + _seventh.ToString(),
-								   "Eighth = " + _eighth.ToString(),
-								   "Nineth = " + _nineth.ToString(),
-								   "Tenth = " + _tenth.ToString(),
-								   "Eleventh = " + _eleventh.ToString(),
-								   "Twelfth = " + _twelfth.ToString(),
-								   "Thirteenth = " + _thirteenth.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()),
+								   "Fifth = " + (_fifth == null ? string.Empty : _fifth.ToString()),
+								   "Sixth = " + (_sixth == null ? string.Empty : _sixth.ToString()),
+								   "Seventh = " + (_seventh == null ? string.Empty : _seventh.ToString()),
+								   "Eighth = " + (_eighth == null ? string.Empty : _eighth.ToString()),
+								   "Nineth = " + (_nineth == null ? string.Empty : _nineth.ToString()),
+								   "Tenth = " + (_tenth == null ? string.Empty : _tenth.ToString()),
+								   "Eleventh = " + (_eleventh == null ? string.Empty : _eleventh.ToString()),
+								   "Twelfth = " + (_twelfth == null ? string.Empty : _twelfth.ToString()),
+								   "Thirteenth = " + (_thirteenth == null ? string.Empty : _thirteenth.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -1749,35 +1632,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth, TFifth fifth, TSixth sixth, TSeventh seventh, TEighth eighth, TNineth nineth, TTenth tenth, TEleventh eleventh, TTwelfth twelfth, TThirteenth thirteenth, TFourteenth fourteenth)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-				if (fifth == null)
-					throw new ArgumentNullException("fifth");
-				if (sixth == null)
-					throw new ArgumentNullException("sixth");
-				if (seventh == null)
-					throw new ArgumentNullException("seventh");
-				if (eighth == null)
-					throw new ArgumentNullException("eighth");
-				if (nineth == null)
-					throw new ArgumentNullException("nineth");
-				if (tenth == null)
-					throw new ArgumentNullException("tenth");
-				if (eleventh == null)
-					throw new ArgumentNullException("eleventh");
-				if (twelfth == null)
-					throw new ArgumentNullException("twelfth");
-				if (thirteenth == null)
-					throw new ArgumentNullException("thirteenth");
-				if (fourteenth == null)
-					throw new ArgumentNullException("fourteenth");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -1925,42 +1779,55 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth, TEleventh, TTwelfth, TThirteenth, TFourteenth> variables = obj as IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth, TEleventh, TTwelfth, TThirteenth, TFourteenth>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth)
-						&& _fifth.Equals(variables.Fifth)
-						&& _sixth.Equals(variables.Sixth)
-						&& _seventh.Equals(variables.Seventh)
-						&& _eighth.Equals(variables.Eighth)
-						&& _nineth.Equals(variables.Nineth)
-						&& _tenth.Equals(variables.Tenth)
-						&& _eleventh.Equals(variables.Eleventh)
-						&& _twelfth.Equals(variables.Twelfth)
-						&& _thirteenth.Equals(variables.Thirteenth)
-						&& _fourteenth.Equals(variables.Fourteenth));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth)
+						&& object.Equals(_fifth, variables.Fifth)
+						&& object.Equals(_sixth, variables.Sixth)
+						&& object.Equals(_seventh, variables.Seventh)
+						&& object.Equals(_eighth, variables.Eighth)
+						&& object.Equals(_nineth, variables.Nineth)
+						&& object.Equals(_tenth, variables.Tenth)
+						&& object.Equals(_eleventh, variables.Eleventh)
+						&& object.Equals(_twelfth, variables.Twelfth)
+						&& object.Equals(_thirteenth, variables.Thirteenth)
+						&& object.Equals(_fourteenth, variables.Fourteenth));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode() ^ _fifth.GetHashCode() ^ _sixth.GetHashCode() ^ _seventh.GetHashCode() ^ _eighth.GetHashCode() ^ _nineth.GetHashCode() ^ _tenth.GetHashCode() ^ _eleventh.GetHashCode() ^ _twelfth.GetHashCode() ^ _thirteenth.GetHashCode() ^ _fourteenth.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode())
+						^ (_fifth == null ? 0 : _fifth.GetHashCode())
+						^ (_sixth == null ? 0 : _sixth.GetHashCode())
+						^ (_seventh == null ? 0 : _seventh.GetHashCode())
+						^ (_eighth == null ? 0 : _eighth.GetHashCode())
+						^ (_nineth == null ? 0 : _nineth.GetHashCode())
+						^ (_tenth == null ? 0 : _tenth.GetHashCode())
+						^ (_eleventh == null ? 0 : _eleventh.GetHashCode())
+						^ (_twelfth == null ? 0 : _twelfth.GetHashCode())
+						^ (_thirteenth == null ? 0 : _thirteenth.GetHashCode())
+						^ (_fourteenth == null ? 0 : _fourteenth.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString(),
-								   "Fifth = " + _fifth.ToString(),
-								   "Sixth = " + _sixth.ToString(),
-								   "Seventh = " + _seventh.ToString(),
-								   "Eighth = " + _eighth.ToString(),
-								   "Nineth = " + _nineth.ToString(),
-								   "Tenth = " + _tenth.ToString(),
-								   "Eleventh = " + _eleventh.ToString(),
-								   "Twelfth = " + _twelfth.ToString(),
-								   "Thirteenth = " + _thirteenth.ToString(),
-								   "Fourteenth = " + _fourteenth.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()),
+								   "Fifth = " + (_fifth == null ? string.Empty : _fifth.ToString()),
+								   "Sixth = " + (_sixth == null ? string.Empty : _sixth.ToString()),
+								   "Seventh = " + (_seventh == null ? string.Empty : _seventh.ToString()),
+								   "Eighth = " + (_eighth == null ? string.Empty : _eighth.ToString()),
+								   "Nineth = " + (_nineth == null ? string.Empty : _nineth.ToString()),
+								   "Tenth = " + (_tenth == null ? string.Empty : _tenth.ToString()),
+								   "Eleventh = " + (_eleventh == null ? string.Empty : _eleventh.ToString()),
+								   "Twelfth = " + (_twelfth == null ? string.Empty : _twelfth.ToString()),
+								   "Thirteenth = " + (_thirteenth == null ? string.Empty : _thirteenth.ToString()),
+								   "Fourteenth = " + (_fourteenth == null ? string.Empty : _fourteenth.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -1983,37 +1850,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth, TFifth fifth, TSixth sixth, TSeventh seventh, TEighth eighth, TNineth nineth, TTenth tenth, TEleventh eleventh, TTwelfth twelfth, TThirteenth thirteenth, TFourteenth fourteenth, TFifteenth fifteenth)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-				if (fifth == null)
-					throw new ArgumentNullException("fifth");
-				if (sixth == null)
-					throw new ArgumentNullException("sixth");
-				if (seventh == null)
-					throw new ArgumentNullException("seventh");
-				if (eighth == null)
-					throw new ArgumentNullException("eighth");
-				if (nineth == null)
-					throw new ArgumentNullException("nineth");
-				if (tenth == null)
-					throw new ArgumentNullException("tenth");
-				if (eleventh == null)
-					throw new ArgumentNullException("eleventh");
-				if (twelfth == null)
-					throw new ArgumentNullException("twelfth");
-				if (thirteenth == null)
-					throw new ArgumentNullException("thirteenth");
-				if (fourteenth == null)
-					throw new ArgumentNullException("fourteenth");
-				if (fifteenth == null)
-					throw new ArgumentNullException("fifteenth");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -2171,44 +2007,58 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth, TEleventh, TTwelfth, TThirteenth, TFourteenth, TFifteenth> variables = obj as IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth, TEleventh, TTwelfth, TThirteenth, TFourteenth, TFifteenth>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth)
-						&& _fifth.Equals(variables.Fifth)
-						&& _sixth.Equals(variables.Sixth)
-						&& _seventh.Equals(variables.Seventh)
-						&& _eighth.Equals(variables.Eighth)
-						&& _nineth.Equals(variables.Nineth)
-						&& _tenth.Equals(variables.Tenth)
-						&& _eleventh.Equals(variables.Eleventh)
-						&& _twelfth.Equals(variables.Twelfth)
-						&& _thirteenth.Equals(variables.Thirteenth)
-						&& _fourteenth.Equals(variables.Fourteenth)
-						&& _fifteenth.Equals(variables.Fifteenth));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth)
+						&& object.Equals(_fifth, variables.Fifth)
+						&& object.Equals(_sixth, variables.Sixth)
+						&& object.Equals(_seventh, variables.Seventh)
+						&& object.Equals(_eighth, variables.Eighth)
+						&& object.Equals(_nineth, variables.Nineth)
+						&& object.Equals(_tenth, variables.Tenth)
+						&& object.Equals(_eleventh, variables.Eleventh)
+						&& object.Equals(_twelfth, variables.Twelfth)
+						&& object.Equals(_thirteenth, variables.Thirteenth)
+						&& object.Equals(_fourteenth, variables.Fourteenth)
+						&& object.Equals(_fifteenth, variables.Fifteenth));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode() ^ _fifth.GetHashCode() ^ _sixth.GetHashCode() ^ _seventh.GetHashCode() ^ _eighth.GetHashCode() ^ _nineth.GetHashCode() ^ _tenth.GetHashCode() ^ _eleventh.GetHashCode() ^ _twelfth.GetHashCode() ^ _thirteenth.GetHashCode() ^ _fourteenth.GetHashCode() ^ _fifteenth.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode())
+						^ (_fifth == null ? 0 : _fifth.GetHashCode())
+						^ (_sixth == null ? 0 : _sixth.GetHashCode())
+						^ (_seventh == null ? 0 : _seventh.GetHashCode())
+						^ (_eighth == null ? 0 : _eighth.GetHashCode())
+						^ (_nineth == null ? 0 : _nineth.GetHashCode())
+						^ (_tenth == null ? 0 : _tenth.GetHashCode())
+						^ (_eleventh == null ? 0 : _eleventh.GetHashCode())
+						^ (_twelfth == null ? 0 : _twelfth.GetHashCode())
+						^ (_thirteenth == null ? 0 : _thirteenth.GetHashCode())
+						^ (_fourteenth == null ? 0 : _fourteenth.GetHashCode())
+						^ (_fifteenth == null ? 0 : _fifteenth.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString(),
-								   "Fifth = " + _fifth.ToString(),
-								   "Sixth = " + _sixth.ToString(),
-								   "Seventh = " + _seventh.ToString(),
-								   "Eighth = " + _eighth.ToString(),
-								   "Nineth = " + _nineth.ToString(),
-								   "Tenth = " + _tenth.ToString(),
-								   "Eleventh = " + _eleventh.ToString(),
-								   "Twelfth = " + _twelfth.ToString(),
-								   "Thirteenth = " + _thirteenth.ToString(),
-								   "Fourteenth = " + _fourteenth.ToString(),
-								   "Fifteenth = " + _fifteenth.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()),
+								   "Fifth = " + (_fifth == null ? string.Empty : _fifth.ToString()),
+								   "Sixth = " + (_sixth == null ? string.Empty : _sixth.ToString()),
+								   "Seventh = " + (_seventh == null ? string.Empty : _seventh.ToString()),
+								   "Eighth = " + (_eighth == null ? string.Empty : _eighth.ToString()),
+								   "Nineth = " + (_nineth == null ? string.Empty : _nineth.ToString()),
+								   "Tenth = " + (_tenth == null ? string.Empty : _tenth.ToString()),
+								   "Eleventh = " + (_eleventh == null ? string.Empty : _eleventh.ToString()),
+								   "Twelfth = " + (_twelfth == null ? string.Empty : _twelfth.ToString()),
+								   "Thirteenth = " + (_thirteenth == null ? string.Empty : _thirteenth.ToString()),
+								   "Fourteenth = " + (_fourteenth == null ? string.Empty : _fourteenth.ToString()),
+								   "Fifteenth = " + (_fifteenth == null ? string.Empty : _fifteenth.ToString()));
 			}
 
 			private readonly TFirst _first;
@@ -2232,39 +2082,6 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 		{
 			public VariablesPair(TFirst first, TSecond second, TThird third, TFourth forth, TFifth fifth, TSixth sixth, TSeventh seventh, TEighth eighth, TNineth nineth, TTenth tenth, TEleventh eleventh, TTwelfth twelfth, TThirteenth thirteenth, TFourteenth fourteenth, TFifteenth fifteenth, TSixteenth sixteenth)
 			{
-				if (first == null)
-					throw new ArgumentNullException("first");
-				if (second == null)
-					throw new ArgumentNullException("second");
-				if (third == null)
-					throw new ArgumentNullException("third");
-				if (forth == null)
-					throw new ArgumentNullException("forth");
-				if (fifth == null)
-					throw new ArgumentNullException("fifth");
-				if (sixth == null)
-					throw new ArgumentNullException("sixth");
-				if (seventh == null)
-					throw new ArgumentNullException("seventh");
-				if (eighth == null)
-					throw new ArgumentNullException("eighth");
-				if (nineth == null)
-					throw new ArgumentNullException("nineth");
-				if (tenth == null)
-					throw new ArgumentNullException("tenth");
-				if (eleventh == null)
-					throw new ArgumentNullException("eleventh");
-				if (twelfth == null)
-					throw new ArgumentNullException("twelfth");
-				if (thirteenth == null)
-					throw new ArgumentNullException("thirteenth");
-				if (fourteenth == null)
-					throw new ArgumentNullException("fourteenth");
-				if (fifteenth == null)
-					throw new ArgumentNullException("fifteenth");
-				if (sixteenth == null)
-					throw new ArgumentNullException("sixteenth");
-
 				_first = first;
 				_second = second;
 				_third = third;
@@ -2432,46 +2249,61 @@ namespace Andrei15193.ConstraintSatisfaction.Tuples
 				IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth, TEleventh, TTwelfth, TThirteenth, TFourteenth, TFifteenth, TSixteenth> variables = obj as IPair<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNineth, TTenth, TEleventh, TTwelfth, TThirteenth, TFourteenth, TFifteenth, TSixteenth>;
 
 				return (variables != null
-						&& _first.Equals(variables.First)
-						&& _second.Equals(variables.Second)
-						&& _third.Equals(variables.Third)
-						&& _fourth.Equals(variables.Fourth)
-						&& _fifth.Equals(variables.Fifth)
-						&& _sixth.Equals(variables.Sixth)
-						&& _seventh.Equals(variables.Seventh)
-						&& _eighth.Equals(variables.Eighth)
-						&& _nineth.Equals(variables.Nineth)
-						&& _tenth.Equals(variables.Tenth)
-						&& _eleventh.Equals(variables.Eleventh)
-						&& _twelfth.Equals(variables.Twelfth)
-						&& _thirteenth.Equals(variables.Thirteenth)
-						&& _fourteenth.Equals(variables.Fourteenth)
-						&& _fifteenth.Equals(variables.Fifteenth)
-						&& _sixteenth.Equals(variables.Sixteenth));
+						&& object.Equals(_first, variables.First)
+						&& object.Equals(_second, variables.Second)
+						&& object.Equals(_third, variables.Third)
+						&& object.Equals(_fourth, variables.Fourth)
+						&& object.Equals(_fifth, variables.Fifth)
+						&& object.Equals(_sixth, variables.Sixth)
+						&& object.Equals(_seventh, variables.Seventh)
+						&& object.Equals(_eighth, variables.Eighth)
+						&& object.Equals(_nineth, variables.Nineth)
+						&& object.Equals(_tenth, variables.Tenth)
+						&& object.Equals(_eleventh, variables.Eleventh)
+						&& object.Equals(_twelfth, variables.Twelfth)
+						&& object.Equals(_thirteenth, variables.Thirteenth)
+						&& object.Equals(_fourteenth, variables.Fourteenth)
+						&& object.Equals(_fifteenth, variables.Fifteenth)
+						&& object.Equals(_sixteenth, variables.Sixteenth));
 			}
 			public override int GetHashCode()
 			{
-				return (_first.GetHashCode() ^ _second.GetHashCode() ^ _third.GetHashCode() ^ _fourth.GetHashCode() ^ _fifth.GetHashCode() ^ _sixth.GetHashCode() ^ _seventh.GetHashCode() ^ _eighth.GetHashCode() ^ _nineth.GetHashCode() ^ _tenth.GetHashCode() ^ _eleventh.GetHashCode() ^ _twelfth.GetHashCode() ^ _thirteenth.GetHashCode() ^ _fourteenth.GetHashCode() ^ _fifteenth.GetHashCode() ^ _sixteenth.GetHashCode());
+				return ((_first == null ? 0 : _first.GetHashCode())
+						^ (_second == null ? 0 : _second.GetHashCode())
+						^ (_third == null ? 0 : _third.GetHashCode())
+						^ (_fourth == null ? 0 : _fourth.GetHashCode())
+						^ (_fifth == null ? 0 : _fifth.GetHashCode())
+						^ (_sixth == null ? 0 : _sixth.GetHashCode())
+						^ (_seventh == null ? 0 : _seventh.GetHashCode())
+						^ (_eighth == null ? 0 : _eighth.GetHashCode())
+						^ (_nineth == null ? 0 : _nineth.GetHashCode())
+						^ (_tenth == null ? 0 : _tenth.GetHashCode())
+						^ (_eleventh == null ? 0 : _eleventh.GetHashCode())
+						^ (_twelfth == null ? 0 : _twelfth.GetHashCode())
+						^ (_thirteenth == null ? 0 : _thirteenth.GetHashCode())
+						^ (_fourteenth == null ? 0 : _fourteenth.GetHashCode())
+						^ (_fifteenth == null ? 0 : _fifteenth.GetHashCode())
+						^ (_sixteenth == null ? 0 : _sixteenth.GetHashCode()));
 			}
 			public override string ToString()
 			{
 				return string.Join(Environment.NewLine,
-								   "First = " + _first.ToString(),
-								   "Second = " + _second.ToString(),
-								   "Third = " + _third.ToString(),
-								   "Fourth = " + _fourth.ToString(),
-								   "Fifth = " + _fifth.ToString(),
-								   "Sixth = " + _sixth.ToString(),
-								   "Seventh = " + _seventh.ToString(),
-								   "Eighth = " + _eighth.ToString(),
-								   "Nineth = " + _nineth.ToString(),
-								   "Tenth = " + _tenth.ToString(),
-								   "Eleventh = " + _eleventh.ToString(),
-								   "Twelfth = " + _twelfth.ToString(),
-								   "Thirteenth = " + _thirteenth.ToString(),
-								   "Fourteenth = " + _fourteenth.ToString(),
-								   "Fifteenth = " + _fifteenth.ToString(),
-								   "Sixteenth = " + _sixteenth.ToString());
+								   "First = " + (_first == null ? string.Empty : _first.ToString()),
+								   "Second = " + (_second == null ? string.Empty : _second.ToString()),
+								   "Third = " + (_third == null ? string.Empty : _third.ToString()),
+								   "Fourth = " + (_fourth == null ? string.Empty : _fourth.ToString()),
+								   "Fifth = " + (_fifth == null ? string.Empty : _fifth.ToString()),
+								   "Sixth = " + (_sixth == null ? string.Empty : _sixth.ToString()),
+								   "Seventh = " + (_seventh == null ? string.Empty : _seventh.ToString()),
+								   "Eighth = " + (_eighth == null ? string.Empty : _eighth.ToString()),
+								   "Nineth = " + (_nineth == null ? string.Empty : _nineth.ToString()),
+								   "Tenth = " + (_tenth == null ? string.Empty : _tenth.ToString()),
+								   "Eleventh = " + (_eleventh == null ? string.Empty : _eleventh.ToString()),
+								   "Twelfth = " + (_twelfth == null ? string.Empty : _twelfth.ToString()),
+								   "Thirteenth = " + (_thirteenth == null ? string.Empty : _thirteenth.ToString()),
+								   "Fourteenth = " + (_fourteenth == null ? string.Empty : _fourteenth.ToString()),
+								   "Fifteenth = " + (_fifteenth == null ? string.Empty : _fifteenth.ToString()),
+								   "Sixteenth = " + (_sixteenth == null ? string.Empty : _sixteenth.ToString()));
 			}
 
 			private readonly TFirst _first;
