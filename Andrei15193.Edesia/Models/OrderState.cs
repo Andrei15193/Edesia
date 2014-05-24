@@ -3,6 +3,7 @@
 	public enum OrderState
 	{
 		Pending,
+		Scheduled,
 		EnRoute,
 		Delivered
 	}

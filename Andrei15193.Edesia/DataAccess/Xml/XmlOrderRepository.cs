@@ -24,6 +24,28 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			_xmlDocumentSchemaSet.Add("http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd", "http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd");
 		}
 
+		#region IOrderProvider Members
+		public Order GetOrder(IApplicationUserProvider applicationUserProvider, IProductProvider productProvider, int orderNumber, DateTime version)
+		{
+			if (applicationUserProvider == null)
+				throw new ArgumentNullException("applicationUserProvider");
+			if (productProvider == null)
+				throw new ArgumentNullException("productProvider");
+
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName, version))
+			{
+				XElement orderXElement = xmlTransaction.XmlDocument
+													   .Root
+													   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}Order")
+													   .FirstOrDefault(orderXmlElement => (orderNumber == int.Parse(orderXmlElement.Attribute("OrderNumber").Value)));
+
+				if (orderXElement == null)
+					return null;
+				else
+					return _GetOrder(orderXElement, applicationUserProvider, productProvider);
+			}
+		}
+		#endregion
 		#region IOrderRepository Members
 		public Order PlaceOrder(OrderDetails orderDetails)
 		{
@@ -72,33 +94,29 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									 .Root
 									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}Order")
 									 .Where(orderXmlElement => (orderState == (OrderState)Enum.Parse(typeof(OrderState), orderXmlElement.Attribute("State").Value)))
-									 .Select(orderXmlElement =>
-										 {
-											 XAttribute deliveryAddressLine2XmlAttribute = orderXmlElement.Attribute("DeliveryAddressLine2");
-											 DateTime datePlaced = DateTime.ParseExact(orderXmlElement.Attribute("DatePlaced").Value, MvcApplication.DateTimeSerializationFormat, null);
-
-											 Order order;
-											 if (deliveryAddressLine2XmlAttribute != null)
-												 order = new Order(int.Parse(orderXmlElement.Attribute("OrderNumber").Value),
-																   datePlaced,
-																   applicationUserProvider.GetUser(orderXmlElement.Attribute("RecipientEMailAddress").Value, datePlaced),
-																   orderXmlElement.Attribute("DeliveryAddress").Value,
-																   deliveryAddressLine2XmlAttribute.Value,
-																   orderState);
-											 else
-												 order = new Order(int.Parse(orderXmlElement.Attribute("OrderNumber").Value),
-																   datePlaced,
-																   applicationUserProvider.GetUser(orderXmlElement.Attribute("RecipientEMailAddress").Value, datePlaced),
-																   orderXmlElement.Attribute("DeliveryAddress").Value,
-																   orderState: orderState);
-
-											 foreach (XElement orderedProductXElement in orderXmlElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}ProductOrdered"))
-												 order.OrderedProducts.Add(new OrderedProduct(productProvider.GetProduct(orderedProductXElement.Attribute("Name").Value, datePlaced),
-																							  int.Parse(orderedProductXElement.Attribute("Quantity").Value)));
-
-											 return order;
-										 });
+									 .Select(orderXmlElement => _GetOrder(orderXmlElement, applicationUserProvider, productProvider));
 		}
+		public void UpdateOrders(IEnumerable<Order> orders, OrderState orderState)
+		{
+			if (orders == null)
+				throw new ArgumentNullException("orders");
+
+			IDictionary<int, Order> indexedOrders = new SortedList<int, Order>(orders.Count());
+			foreach (Order order in orders)
+				indexedOrders.Add(order.OrderNumber, order);
+
+			using (IExclusiveXmlTransaction xmlTransacion = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			{
+				foreach (XElement orderXElement in xmlTransacion.XmlDocument
+																.Root
+																.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}Order")
+																.Where(orderXmlElement => indexedOrders.ContainsKey(int.Parse(orderXmlElement.Attribute("OrderNumber").Value))))
+					orderXElement.Attribute("State").SetValue(orderState.ToString());
+
+				xmlTransacion.Commit();
+			}
+		}
+
 		public IEnumerable<string> GetUsedAddresses()
 		{
 			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
@@ -137,6 +155,33 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 				_xmlDocumentProvider = value;
 			}
+		}
+
+		private Order _GetOrder(XElement orderXElement, IApplicationUserProvider applicationUserProvider, IProductProvider productProvider)
+		{
+			XAttribute deliveryAddressLine2XmlAttribute = orderXElement.Attribute("DeliveryAddressLine2");
+			DateTime datePlaced = DateTime.ParseExact(orderXElement.Attribute("DatePlaced").Value, MvcApplication.DateTimeSerializationFormat, null);
+
+			Order order;
+			if (deliveryAddressLine2XmlAttribute != null)
+				order = new Order(int.Parse(orderXElement.Attribute("OrderNumber").Value),
+								  datePlaced,
+								  applicationUserProvider.GetUser(orderXElement.Attribute("RecipientEMailAddress").Value, datePlaced),
+								  orderXElement.Attribute("DeliveryAddress").Value,
+								  deliveryAddressLine2XmlAttribute.Value,
+								  (OrderState)Enum.Parse(typeof(OrderState), orderXElement.Attribute("State").Value));
+			else
+				order = new Order(int.Parse(orderXElement.Attribute("OrderNumber").Value),
+								  datePlaced,
+								  applicationUserProvider.GetUser(orderXElement.Attribute("RecipientEMailAddress").Value, datePlaced),
+								  orderXElement.Attribute("DeliveryAddress").Value,
+								  orderState: (OrderState)Enum.Parse(typeof(OrderState), orderXElement.Attribute("State").Value));
+
+			foreach (XElement orderedProductXElement in orderXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}ProductOrdered"))
+				order.OrderedProducts.Add(new OrderedProduct(productProvider.GetProduct(orderedProductXElement.Attribute("Name").Value, datePlaced),
+															 int.Parse(orderedProductXElement.Attribute("Quantity").Value)));
+
+			return order;
 		}
 
 		private Exception _TranslateException(Exception exception)

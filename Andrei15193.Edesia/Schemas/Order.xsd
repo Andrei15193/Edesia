@@ -45,6 +45,7 @@
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
 					<xsd:enumeration value="Pending" />
+					<xsd:enumeration value="Scheduled" />
 					<xsd:enumeration value="EnRoute" />
 					<xsd:enumeration value="Delivered" />
 				</xsd:restriction>

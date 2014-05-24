@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 namespace Andrei15193.Edesia.Models
 {
 	public class Order
@@ -16,6 +17,7 @@ namespace Andrei15193.Edesia.Models
 
 			_orderNumber = orderNumber;
 			_datePlaced = datePlaced;
+			_recipient = recipient;
 			_deliveryAddress = deliveryAddress.Trim();
 			State = orderState;
 
@@ -69,7 +71,22 @@ namespace Andrei15193.Edesia.Models
 		{
 			get
 			{
-				return _productOrdered;
+				return _orderedProducts;
+			}
+		}
+
+		public int TotalCapacity
+		{
+			get
+			{
+				return _orderedProducts.Sum(orderedProduct => orderedProduct.Product.Capacity * orderedProduct.Quantity);
+			}
+		}
+		public double TotalCost
+		{
+			get
+			{
+				return _orderedProducts.Sum(orderedProduct => orderedProduct.Product.Price * orderedProduct.Quantity);
 			}
 		}
 
@@ -78,6 +95,6 @@ namespace Andrei15193.Edesia.Models
 		private readonly ApplicationUser _recipient;
 		private readonly string _deliveryAddress;
 		private readonly string _deliveryAddressLine2;
-		private readonly ISet<OrderedProduct> _productOrdered = new HashSet<OrderedProduct>();
+		private readonly ISet<OrderedProduct> _orderedProducts = new HashSet<OrderedProduct>();
 	}
 }

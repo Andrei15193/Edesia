@@ -8,10 +8,10 @@ using Andrei15193.Edesia.Models;
 using Andrei15193.Edesia.Xml.Validation;
 namespace Andrei15193.Edesia.DataAccess.Xml
 {
-	public class XmlDeliveryRepository
-		: IDeliveryRepository
+	public class XmlDeliveryZoneRepository
+		: IDeliveryZoneRepository
 	{
-		public XmlDeliveryRepository(string xmlDocumentFileName, XmlDocumentProvider xmlDocumentProvider)
+		public XmlDeliveryZoneRepository(string xmlDocumentFileName, XmlDocumentProvider xmlDocumentProvider)
 		{
 			if (xmlDocumentFileName == null)
 				throw new ArgumentNullException("xmlDocumentFileName");
@@ -26,6 +26,30 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			_xmlDocumentSchemaSet.Add("http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd", "http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd");
 		}
 
+		#region IDeliveryZoneProvider Members
+		public DeliveryZone GetDeliveryZone(IApplicationUserProvider applicationUserProvider, string deliveryZoneName, DateTime version)
+		{
+			if (applicationUserProvider == null)
+				throw new ArgumentNullException("applicationUserProvider");
+			if (deliveryZoneName == null)
+				throw new ArgumentException("deliveryZoneName");
+			if (string.IsNullOrWhiteSpace(deliveryZoneName))
+				throw new ArgumentException("Cannot be empty or whitespace!", "deliveryZoneName");
+
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName, version))
+			{
+				XElement deliveryZoneXElement = xmlTransaction.XmlDocument
+															  .Root
+															  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone")
+															  .FirstOrDefault(deliveryZoneXmlElement => string.Equals(deliveryZoneName, deliveryZoneXmlElement.Attribute("Name").Value, StringComparison.Ordinal));
+
+				if (deliveryZoneXElement == null)
+					return null;
+				else
+					return _GetDeliveryZone(deliveryZoneXElement, applicationUserProvider);
+			}
+		}
+		#endregion
 		#region IDeliveryRepository Members
 		public IEnumerable<string> GetUnmappedAddresses()
 		{
@@ -46,6 +70,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone")
 									 .Select(deliveryZoneXmlElement => _GetDeliveryZone(deliveryZoneXmlElement, applicationUserProvider));
 		}
+
 		public void AddAddress(string addressName)
 		{
 			if (addressName == null)
@@ -97,6 +122,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				}
 			}
 		}
+
 		public void AddDeliveryZone(DeliveryZone deliveryZone)
 		{
 			if (deliveryZone == null)

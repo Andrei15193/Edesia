@@ -134,10 +134,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Local
 						Validate(xmlDocument, xmlSchemaSet);
 
 					return new XmlTransaction(xmlDocument,
-											  disposeAction: () =>
-											  {
-												  versionFileLock.ExitReadLock();
-											  });
+											  disposeAction: () =>  versionFileLock.ExitReadLock());
 				}
 				catch
 				{

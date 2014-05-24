@@ -2,7 +2,8 @@
 using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.DataAccess
 {
-	public interface IDeliveryRepository
+	public interface IDeliveryZoneRepository
+		: IDeliveryZoneProvider
 	{
 		IEnumerable<string> GetUnmappedAddresses();
 		IEnumerable<DeliveryZone> GetDeliveryZones(IApplicationUserProvider applicationUserProvider);

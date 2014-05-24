@@ -13,8 +13,12 @@ namespace Andrei15193.Edesia.Models
 			if (price <= 0)
 				throw new ArgumentException("Must be strictly positive!", "price");
 
+			//if (capacity <= 0)
+			//	throw new ArgumentException("Must be strictly positive!", "capacity");
+
 			_name = name.Trim();
 			_price = price;
+			_capacity = 1;
 		}
 
 		public string Name
@@ -47,8 +51,16 @@ namespace Andrei15193.Edesia.Models
 				_price = value;
 			}
 		}
+		public int Capacity
+		{
+			get
+			{
+				return _capacity;
+			}
+		}
 
 		private string _name;
 		private double _price;
+		private int _capacity;
 	}
 }

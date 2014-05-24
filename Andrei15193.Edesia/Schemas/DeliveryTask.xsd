@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:deliveryTask="http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryTask.xsd"
+			targetNamespace="http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryTask.xsd"
+			elementFormDefault="qualified">
+	<xsd:element name="DeliveryTasks">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="DeliveryTask"
+							 type="deliveryTask:DeliveryTask"
+							 minOccurs="0"
+							 maxOccurs="unbounded" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="DeliveryTask">
+		<xsd:sequence>
+			<xsd:element name="OrderToDeliver"
+						 type="xsd:int"
+						 minOccurs="0"
+						 maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="TaskNumber"
+					   type="xsd:int" />
+		<xsd:attribute name="DateScheduled"
+					   type="xsd:dateTime" />
+		<xsd:attribute name="Title"
+					   type="xsd:string" />
+		<xsd:attribute name="Description"
+					   type="xsd:string" />
+		<xsd:attribute name="DeliveryZone"
+					   type="xsd:string" />
+	</xsd:complexType>
+</xsd:schema>

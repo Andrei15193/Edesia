@@ -15,15 +15,14 @@
 		<div class="span12">
 			@if (pendingOrdersCount == 0)
 			{
-				<a class="command-button action disabled" style="width: 100%;">
-					<i class="icon-bars on-left"></i>
-					@PendingOrdersViewStrings.SchedulePendingOrdersButton_DisplayName
+				<a href="@Url.Action("ScheduleTasks", "Delivery")" class="command-button action disabled" style="width: 100%;">
+					<i class="icon-bars on-left"></i> @PendingOrdersViewStrings.SchedulePendingOrdersButton_DisplayName
 					<small>@PendingOrdersViewStrings.SchedulePendingOrdersButton_Hint</small>
 				</a>
 			}
 			else
 			{
-				<a class="command-button action" style="width: 100%;">
+				<a href="@Url.Action("ScheduleTasks", "Delivery")" class="command-button action" style="width: 100%;">
 					<i class="icon-bars on-left"></i>
 					@PendingOrdersViewStrings.SchedulePendingOrdersButton_DisplayName
 					<small>@PendingOrdersViewStrings.SchedulePendingOrdersButton_Hint</small>

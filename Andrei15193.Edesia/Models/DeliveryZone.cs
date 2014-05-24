@@ -19,7 +19,7 @@ namespace Andrei15193.Edesia.Models
 
 			_name = name;
 			_colour = colour;
-			_addresses = new SortedSet<string>(addresses);
+			_addresses = new SortedSet<string>(addresses, StringComparer.Ordinal);
 			Assignee = null;
 		}
 		public DeliveryZone(string name, Colour colour, params string[] addresses)

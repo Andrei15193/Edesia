@@ -10,61 +10,7 @@
 			@Html.Partial("_DeliveryZonePlanning")
 		</div>
 		<div class="span4">
-			<div class="row">
-				<div class="span12">
-					<h2>@DeliveryPlanningViewStrings.PendingDeliveriesLabel_DisplayName</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="span12">
-					<a class="command-button action" style="width: 100%;">
-						<i class="icon-cancel on-left"></i>
-						@DeliveryPlanningViewStrings.CancelPendingTransportsButton_DisplayName
-						<small>@DeliveryPlanningViewStrings.CancelPendingTransportsButton_Hint</small>
-					</a>
-				</div>
-			</div>
-			<div class="row">
-				<div class="span12">
-					<div class="accordion with-marker" data-role="accordion">
-						<div class="accordion-frame">
-							<a class="heading active">
-								<i class="icon-stop fg-red"></i> Transport 1
-							</a>
-							<div class="content">
-								<p>
-									<strong>@DeliveryPlanningViewStrings.DeliveryStateLabel_DisplayName:</strong> en route<br />
-									<strong>@DeliveryPlanningViewStrings.OrdersLabel_DisplayName:</strong>
-									<ul>
-										<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, @Guid.NewGuid(), "asd"))</li>
-										<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, @Guid.NewGuid(), "asd"))</li>
-										<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, @Guid.NewGuid(), "asd"))</li>
-									</ul>
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<div class="accordion with-marker" data-role="accordion">
-						<div class="accordion-frame">
-							<a class="heading">
-								<i class="icon-stop fg-red"></i> Transport 2
-							</a>
-							<div class="content">
-								<p>
-									<strong>@DeliveryPlanningViewStrings.DeliveryStateLabel_DisplayName:</strong> scheduled<br />
-									<strong>@DeliveryPlanningViewStrings.OrdersLabel_DisplayName:</strong>
-									<ul>
-										<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, @Guid.NewGuid(), "asd"))</li>
-										<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, @Guid.NewGuid(), "asd"))</li>
-										<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, @Guid.NewGuid(), "asd"))</li>
-									</ul>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			@Html.Action("PendingTasks", "Delivery")
 		</div>
 		<div class="span4">
 			@Html.Action("PendingOrders", "Delivery")
