@@ -73,7 +73,9 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 							  .Root
 							  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd}Product",
 												new XAttribute("Name", product.Name),
-												new XAttribute("Price", product.Price)));
+												new XAttribute("Price", product.Price.ToString("0.00")),
+												new XAttribute("Capacity", product.Capacity),
+												new XAttribute("ImageLocation", product.ImageLocation.AbsoluteUri)));
 				try
 				{
 					xmlTransaction.Commit();
@@ -96,6 +98,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				if (productXElement != null)
 					try
 					{
+						productXElement.Remove();
 						xmlTransaction.Commit();
 					}
 					catch (AggregateException xmlExceptions)
@@ -139,14 +142,16 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		private Product _GetProduct(XElement productXElement)
 		{
 			return new Product(productXElement.Attribute("Name").Value,
-							   double.Parse(productXElement.Attribute("Price").Value));
+							   double.Parse(productXElement.Attribute("Price").Value),
+							   int.Parse(productXElement.Attribute("Capacity").Value),
+							   new Uri(productXElement.Attribute("ImageLocation").Value));
 		}
 		private Exception _TranslateException(Exception exception)
 		{
 			XmlUniqueConstraintException xmlUniqueConstraintException = exception as XmlUniqueConstraintException;
 
 			if (xmlUniqueConstraintException != null && string.Equals("http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd:UniqueProductNames", xmlUniqueConstraintException.ConstraintName, StringComparison.Ordinal))
-					return new UniqueProductException(xmlUniqueConstraintException.ConflictingValue, xmlUniqueConstraintException);
+				return new UniqueProductException(xmlUniqueConstraintException.ConflictingValue, xmlUniqueConstraintException);
 
 			return exception;
 		}

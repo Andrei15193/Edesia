@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -37,6 +39,14 @@ namespace Andrei15193.Edesia
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 			_dependencyContainer.CreateAllSingletons();
+		}
+
+		protected void Application_BeginRequest()
+		{
+			CultureInfo culture = new CultureInfo("ro-RO");
+
+			Thread.CurrentThread.CurrentCulture = culture;
+			Thread.CurrentThread.CurrentUICulture = culture;
 		}
 
 		private static IDictionary<string, object> _emptyArrays = new Dictionary<string, object>();

@@ -30,7 +30,12 @@ namespace Andrei15193.Edesia.Controllers
 			if (ModelState.IsValid)
 				try
 				{
-					_productRepository.AddProduct(new Product(addProductViewModel.Name, addProductViewModel.Price));
+					Uri imageLocation;
+					_imageUploader.Upload(addProductViewModel.Image.InputStream,
+										  addProductViewModel.Image.FileName.Substring(Math.Max(addProductViewModel.Image.FileName.LastIndexOf('\\'), addProductViewModel.Image.FileName.LastIndexOf('/')) + 1),
+										  out imageLocation);
+
+					_productRepository.AddProduct(new Product(addProductViewModel.Name, double.Parse(addProductViewModel.Price), int.Parse(addProductViewModel.Capacity), imageLocation));
 					return RedirectToAction("Default", "Product");
 				}
 				catch (AggregateException aggregateException)
@@ -40,9 +45,7 @@ namespace Andrei15193.Edesia.Controllers
 						UniqueProductException uniqueProductException = aggregatedException as UniqueProductException;
 
 						if (uniqueProductException != null)
-						{
 							ModelState.AddModelError("Name", string.Format(ErrorStrings.ProductNameTextBox_DuplicateValue_Format, uniqueProductException.ConflictingValue));
-						}
 					}
 				}
 
@@ -57,5 +60,6 @@ namespace Andrei15193.Edesia.Controllers
 		}
 
 		private readonly IProductRepository _productRepository = (IProductRepository)MvcApplication.DependencyContainer["productRepository"];
+		private readonly IImageUploader _imageUploader = (IImageUploader)MvcApplication.DependencyContainer["imageUploader"];
 	}
 }

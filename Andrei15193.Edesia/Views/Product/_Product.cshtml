@@ -1,8 +1,8 @@
 ﻿@using Andrei15193.Edesia.Resources;
 @model Andrei15193.Edesia.ViewModels.Product.ProductViewModel
 <div class="panel">
-	<div class="panel-content" style="min-height: 130px; padding-left: 5px;">
-		<span style="float: right;">@Model.Product.Price RON</span>
+	<div class="panel-content" style="min-height: 130px; padding-left: 5px; background:url('@Model.Product.ImageLocation.AbsoluteUri') no-repeat right bottom">
+		<span style="float: right;">@string.Format("{0:0.00}", Model.Product.Price) RON</span>
 		<a href="#" class="right action padding5" title="@ProductsViewStrings.AddToCartProductButton_Hint"><i class="icon-cart"></i></a>
 		@if (Model.IsUserAdministrator)
 		{

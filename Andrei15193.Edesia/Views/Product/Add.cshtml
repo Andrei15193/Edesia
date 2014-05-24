@@ -7,20 +7,39 @@
 	<div class="row">
 		<div class="span4 offset4">
 			<h1>@AddProductViewStrings.ViewTitle</h1>
-			@using (Html.BeginForm())
+			@using (Html.BeginForm("Add", "Product", FormMethod.Post, new
+								   {
+									   enctype = "multipart/form-data"
+								   }))
 			{
 				@Html.LabelFor(model => model.Name)
 				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Name"])
 				<div class="input-control text">
 					@Html.EditorFor(model => model.Name)
 				</div>
-				
+
 				@Html.LabelFor(model => model.Price)
 				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Price"])
 				<div class="input-control text">
 					@Html.EditorFor(model => model.Price)
 				</div>
-				
+
+				@Html.LabelFor(model => model.Capacity)
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Capacity"])
+				<div class="input-control text">
+					@Html.EditorFor(model => model.Capacity)
+				</div>
+
+				@Html.LabelFor(model => model.Image)
+				if (ViewData.ModelState.ContainsKey("Image"))
+				{
+					@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Image"])
+				}
+				<div class="input-control file">
+					<input name="Image" type="file" />
+					<button class="btn-file"></button>
+				</div>
+
 				<input class="action" type="submit" value="@AddProductViewStrings.SubmitButton_DisplayName" />
 				<a class="button cancelAction" href="@Url.Action("Default", "Product")">@AddProductViewStrings.CancelButton_DisplayName</a>
 			}

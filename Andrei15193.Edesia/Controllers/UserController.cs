@@ -102,18 +102,18 @@ namespace Andrei15193.Edesia.Controllers
 			return RedirectToAction("Default", "Product");
 		}
 
-		[HttpGet]
-		public ActionResult ChangeLanguage(string languageId, string returnUrl)
-		{
-			if (languageId == null || returnUrl == null)
-				return RedirectToAction("Default", "Home");
+		//[HttpGet]
+		//public ActionResult ChangeLanguage(string languageId, string returnUrl)
+		//{
+		//	if (languageId == null || returnUrl == null)
+		//		return RedirectToAction("Default", "Home");
 
-			Response.SetCookie(GetLanguageCookie(languageId));
-			if (Url.IsLocalUrl(returnUrl))
-				return Redirect(returnUrl);
-			else
-				return RedirectToAction("Default", "Home");
-		}
+		//	Response.SetCookie(GetLanguageCookie(languageId));
+		//	if (Url.IsLocalUrl(returnUrl))
+		//		return Redirect(returnUrl);
+		//	else
+		//		return RedirectToAction("Default", "Home");
+		//}
 
 		[ChildActionOnly]
 		public ActionResult NavigationBar()

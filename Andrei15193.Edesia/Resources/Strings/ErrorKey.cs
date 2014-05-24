@@ -2,6 +2,9 @@ namespace Andrei15193.Edesia.Resources.Strings
 {
 	internal static class ErrorKey
 	{
+		internal const string ProductImageTextBox_InvalidValue = "ProductImageTextBox_InvalidValue";
+		internal const string ProductImageTextBox_MissingValue = "ProductImageTextBox_MissingValue";
+		internal const string ProductCapacityTextBox_MissingValue = "ProductCapacityTextBox_MissingValue";
 		internal const string AddressTextBox_InvalidDuplicateValue_Format = "AddressTextBox_InvalidDuplicateValue_Format";
 		internal const string AddressTextBox_MissingValue = "AddressTextBox_MissingValue";
 		internal const string CredentialControls_InvalidValues = "CredentialControls_InvalidValues";

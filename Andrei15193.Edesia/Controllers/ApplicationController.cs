@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -40,23 +38,6 @@ namespace Andrei15193.Edesia.Controllers
 			return ((IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"]).Find(httpContext.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
 		}
 
-		protected override void OnResultExecuting(ResultExecutingContext filterContext)
-		{
-			base.OnResultExecuting(filterContext);
-			Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(GetSelectedLanguageId());
-		}
-		protected HttpCookie GetLanguageCookie(string languageId)
-		{
-			return new HttpCookie(_languageCookieName, languageId ?? "RO");
-		}
-		protected string GetSelectedLanguageId()
-		{
-			HttpCookie languageCookie = HttpContext.Request.Cookies[_languageCookieName];
-
-			if (languageCookie != null)
-				return languageCookie.Value;
-			return "RO";
-		}
 		protected ApplicationUser ApplicationUser
 		{
 			get
@@ -71,7 +52,5 @@ namespace Andrei15193.Edesia.Controllers
 				return ((IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"]).Find(User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
 			}
 		}
-
-		private const string _languageCookieName = "DisplayLanguage";
 	}
 }

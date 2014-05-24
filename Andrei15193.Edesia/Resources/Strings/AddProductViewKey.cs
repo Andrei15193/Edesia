@@ -9,5 +9,9 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string ProductPriceTextBox_Hint = "ProductPriceTextBox_Hint";
 		internal const string SubmitButton_DisplayName = "SubmitButton_DisplayName";
 		internal const string ViewTitle = "ViewTitle";
+		internal const string ProductCapacityTextBox_DisplayName = "ProductCapacityTextBox_DisplayName";
+		internal const string ProductCapacityTextBox_Hint = "ProductCapacityTextBox_Hint";
+		internal const string ProductImageTextBox_DisplayName = "ProductImageTextBox_DisplayName";
+		internal const string ProductImageTextBox_Hint = "ProductImageTextBox_Hint";
 	}
 }

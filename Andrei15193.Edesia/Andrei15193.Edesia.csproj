@@ -161,12 +161,15 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="DataAccess\IDeliveryZoneProvider.cs" />
     <Compile Include="DataAccess\IDeliveryZoneRepository.cs" />
+    <Compile Include="DataAccess\Azure\ImageUploader.cs" />
+    <Compile Include="DataAccess\IImageUploader.cs" />
     <Compile Include="DataAccess\IOrderProvider.cs" />
     <Compile Include="DataAccess\IOrderRepository.cs" />
     <Compile Include="DataAccess\IProductProvider.cs" />
     <Compile Include="DataAccess\IProductRepository.cs" />
     <Compile Include="DataAccess\IApplicationUserProvider.cs" />
     <Compile Include="DataAccess\IDeliveryTaskRepository.cs" />
+    <Compile Include="DataAccess\Local\ImageUploader.cs" />
     <Compile Include="DataAccess\Xml\IExclusiveXmlTransaction.cs" />
     <Compile Include="DataAccess\Xml\ISharedXmlTransaction.cs" />
     <Compile Include="DataAccess\Xml\XmlDeliveryZoneRepository.cs" />

@@ -25,5 +25,11 @@
 		<xsd:attribute name="Price"
 					   type="xsd:double"
 					   use="required" />
+		<xsd:attribute name="Capacity"
+					   type="xsd:int"
+					   use="required" />
+		<xsd:attribute name="ImageLocation"
+					   type="xsd:string"
+					   use="required" />
 	</xsd:complexType>
 </xsd:schema>
