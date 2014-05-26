@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddProductButton_DisplayName" xml:space="preserve">
-    <value>Adaugă</value>
+    <value>Adaugă produs</value>
   </data>
   <data name="AddToCartProductButton_Hint" xml:space="preserve">
     <value>Adaugă în coș</value>

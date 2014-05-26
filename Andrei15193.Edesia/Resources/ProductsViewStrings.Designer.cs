@@ -61,7 +61,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adaugă.
+        ///   Looks up a localized string similar to Adaugă produs.
         /// </summary>
         public static string AddProductButton_DisplayName {
             get {
