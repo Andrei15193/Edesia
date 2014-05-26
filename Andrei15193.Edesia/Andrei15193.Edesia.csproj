@@ -460,23 +460,17 @@
     <Content Include="Views\Shared\_ModelErrorNotice.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Delivery\Planning.cshtml" />
-    <Content Include="Views\Delivery\DeliveryZones.cshtml" />
     <Content Include="Views\Delivery\_DeliveryZone.cshtml" />
-    <Content Include="Views\Delivery\ManageDeliveryZones.cshtml" />
     <Content Include="Views\Delivery\AddAddress.cshtml" />
-    <Content Include="Views\Delivery\RemoveAddress.cshtml" />
     <Content Include="Views\Delivery\AddDeliveryZone.cshtml" />
-    <Content Include="Views\Delivery\_DeliveryZoneDetails.cshtml" />
-    <Content Include="Views\Delivery\GetDeliveryZoneName.cshtml" />
     <Content Include="Views\Delivery\EditDeliveryZone.cshtml" />
-    <Content Include="Views\Delivery\RemoveDeliveryZone.cshtml" />
     <Content Include="Views\Product\Default.cshtml" />
     <Content Include="Views\Product\_Product.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
     <Content Include="Views\Delivery\PendingOrders.cshtml" />
     <Content Include="Views\Delivery\_PendingOrder.cshtml" />
-    <Content Include="Views\Delivery\_DeliveryZonePlanning.cshtml" />
-    <Content Include="Views\Delivery\_UnmappedAddresses.cshtml" />
+    <Content Include="Views\Delivery\DeliveryZones.cshtml" />
+    <Content Include="Views\Delivery\UnmappedAddresses.cshtml" />
     <Content Include="Views\Delivery\ScheduleTasks.cshtml" />
     <Content Include="Views\Delivery\PendingTasks.cshtml" />
   </ItemGroup>

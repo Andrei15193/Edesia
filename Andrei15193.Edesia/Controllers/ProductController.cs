@@ -55,7 +55,9 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet]
 		public ActionResult Remove(string productName)
 		{
-			_productRepository.RemoveProduct(productName);
+			if (productName != null)
+				_productRepository.RemoveProduct(productName);
+
 			return RedirectToAction("Default", "Product");
 		}
 

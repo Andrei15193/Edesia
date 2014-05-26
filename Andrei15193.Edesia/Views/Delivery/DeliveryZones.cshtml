@@ -1,11 +1,36 @@
 ﻿@using Andrei15193.Edesia.Models;
 @using Andrei15193.Edesia.Resources;
-@model Andrei15193.Edesia.ViewModels.Delivery.DeliveryZonesViewModel
+@model IEnumerable<DeliveryZone>
 @{
 	Layout = null;
 }
-@Html.Partial("_UnmappedAddresses", Model.UnmappedAddresses)
-@foreach (DeliveryZone deliveryZone in Model.DeliveryZones)
-{
-	@Html.Partial("_DeliveryZone", deliveryZone)
-}
+<div class="grid fluid">
+	<div class="row">
+		<div class="span12">
+			<nav class="horizontal-menu">
+				<ul class="no-margin no-padding">
+					<li>
+						<h2 class="dropdown-toggle dropdown-toggle-h2">@DeliveryZonePlanningViewStrings.ViewTitle (@Model.Count())</h2>
+						<ul class="dropdown-menu inverse" data-role="dropdown" data-effect="fade">
+							<li class="fg-emerald">
+								<a href="@Url.Action("AddAddress", "Delivery")">@ManageDeliveryZonesViewStrings.AddAddressButton_DisplayName</a>
+							</li>
+							<li class="fg-emerald">
+								<a href="@Url.Action("AddDeliveryZone", "Delivery")">@ManageDeliveryZonesViewStrings.AddDeliveryZoneButton_DisplayName</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span12">
+			@Html.Action("UnmappedAddresses", "Delivery")
+			@foreach (DeliveryZone deliveryZone in Model)
+			{
+				@Html.Partial("_DeliveryZone", deliveryZone)
+			}
+		</div>
+	</div>
+</div>

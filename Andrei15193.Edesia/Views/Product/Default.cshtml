@@ -4,10 +4,24 @@
 @{
 	ViewBag.Title = ProductsViewStrings.ViewTitle;
 }
-<h1>@ProductsViewStrings.ViewTitle</h1>
 @if (Model.IsUserAdministrator)
 {
-	<a href="@Url.Action("Add", "Product")" class="actionLink padding5 border bd-grayLighter"><i class="icon-plus-2"></i> @ProductsViewStrings.AddProductButton_DisplayName</a>
+	<nav class="horizontal-menu">
+		<ul class="no-margin no-padding">
+			<li>
+				<h1 class="dropdown-toggle" style="cursor: pointer;">@ProductsViewStrings.ViewTitle</h1>
+				<ul class="dropdown-menu inverse" data-role="dropdown" data-effect="fade">
+					<li class="fg-emerald">
+						<a href="@Url.Action("Add", "Product")">@ProductsViewStrings.AddProductButton_DisplayName</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+}
+else
+{
+	<h1 class="dropdown-toggle" style="cursor: pointer;">@ProductsViewStrings.ViewTitle</h1>
 }
 
 <div class="grid fluid">
@@ -44,7 +58,8 @@
 			padding: 10,
 			content: '',
 			draggable: true,
-			onShow: function(_dialog){
+			onShow: function (_dialog)
+			{
 				var content = _dialog.children('.content');
 				content.html("@ProductsViewStrings.NoticeParagraph1.Replace("\"", "\\\"")");
 			}

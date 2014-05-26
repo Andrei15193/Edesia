@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using Andrei15193.ConstraintSatisfaction;
 using Andrei15193.ConstraintSatisfaction.Tuples;
@@ -24,15 +23,19 @@ namespace Andrei15193.Edesia.Controllers
 		{
 			return View(new DeliveryPlanningViewModel(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedAddresses(), _deliveryRepository.GetDeliveryZones(_applicationUserProvider), _GetUnuesdAddresses())));
 		}
-		[HttpGet]
-		public ActionResult ManageDeliveryZones()
-		{
-			return View(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedAddresses(), _deliveryRepository.GetDeliveryZones(_applicationUserProvider), _GetUnuesdAddresses()));
-		}
+
 		[ChildActionOnly]
 		public ActionResult DeliveryZones()
 		{
-			return View(new DeliveryZonesViewModel(_deliveryRepository.GetUnmappedAddresses(), _deliveryRepository.GetDeliveryZones(_applicationUserProvider), _GetUnuesdAddresses()));
+			return View(_deliveryRepository.GetDeliveryZones(_applicationUserProvider));
+		}
+		[ChildActionOnly]
+		public ActionResult UnmappedAddresses()
+		{
+			IEnumerable<string> unusedAddress = new SortedSet<string>(_GetUnuesdAddresses(), StringComparer.Ordinal);
+
+			return View(_deliveryRepository.GetUnmappedAddresses()
+										   .Select(address => KeyValuePair.Create(address, unusedAddress.Contains(address))));
 		}
 
 		[HttpGet]
@@ -48,7 +51,7 @@ namespace Andrei15193.Edesia.Controllers
 				try
 				{
 					_deliveryRepository.AddAddress(addAddressViewModel.Address);
-					return Redirect(Url.Action("ManageDeliveryZones", "Delivery"));
+					return Redirect(Url.Action("Planning", "Delivery"));
 				}
 				catch (AggregateException aggregateException)
 				{
@@ -68,25 +71,12 @@ namespace Andrei15193.Edesia.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult RemoveAddress()
+		public ActionResult RemoveAddress(string address)
 		{
-			RemoveAddressViewModel removeAddressesViewModel = new RemoveAddressViewModel();
+			if (address != null)
+				_deliveryRepository.RemoveAddress(address);
 
-			foreach (string unusedAddress in _GetUnuesdAddresses())
-				removeAddressesViewModel.UnusedAddresses.Add(unusedAddress);
-
-			return View(removeAddressesViewModel);
-		}
-		[HttpPost]
-		public ActionResult RemoveAddress(RemoveAddressViewModel removeAddressViewModel)
-		{
-			if (ModelState.IsValid)
-			{
-				_deliveryRepository.RemoveAddress(removeAddressViewModel.AddressToRemove);
-				return Redirect(Url.Action("ManageDeliveryZones", "Delivery"));
-			}
-			else
-				return View(removeAddressViewModel);
+			return RedirectToAction("Planning", "Delivery");
 		}
 
 		[HttpGet]
@@ -106,7 +96,7 @@ namespace Andrei15193.Edesia.Controllers
 				try
 				{
 					_deliveryRepository.AddDeliveryZone(_GetDeliveryZone(deliveryZoneViewModel));
-					return Redirect(Url.Action("ManageDeliveryZones", "Delivery"));
+					return Redirect(Url.Action("Planning", "Delivery"));
 				}
 				catch (AggregateException aggregateException)
 				{
@@ -124,40 +114,33 @@ namespace Andrei15193.Edesia.Controllers
 			foreach (string unmappedAddress in _deliveryRepository.GetUnmappedAddresses())
 				deliveryZoneViewModel.AvailableAddresses.Add(new KeyValuePair<string, bool>(unmappedAddress, Request.Form.AllKeys.Contains("checkbox " + unmappedAddress)));
 
+			foreach (Employee employee in _applicationUserProvider.GetEmployees())
+				deliveryZoneViewModel.Employees.Add(employee);
+
 			return View(deliveryZoneViewModel);
 		}
 
 		[HttpGet]
-		public ActionResult GetDeliveryZoneName()
+		public ActionResult EditDeliveryZone(string deliveryZone)
 		{
-			return View(_deliveryRepository.GetDeliveryZones(_applicationUserProvider));
-		}
-		[HttpGet]
-		public ActionResult EditDeliveryZone(string deliveryZoneName)
-		{
-			if (deliveryZoneName != null)
+			if (deliveryZone != null)
 			{
-				DeliveryZone deliveryZoneFound = _deliveryRepository.GetDeliveryZones(_applicationUserProvider).FirstOrDefault(deliveryZone => string.Equals(deliveryZoneName, deliveryZone.Name, StringComparison.OrdinalIgnoreCase));
-				if (deliveryZoneFound != null)
-				{
-					DeliveryZoneViewModel deliveryZoneViewModel = new DeliveryZoneViewModel(deliveryZoneFound.Addresses.Select(address => new KeyValuePair<string, bool>(address, true))
-																											 .Concat(_deliveryRepository.GetUnmappedAddresses().Select(address => new KeyValuePair<string, bool>(address, false))),
-																							_applicationUserProvider.GetEmployees())
-					{
-						DeliveryZoneName = deliveryZoneFound.Name,
-						DeliveryZoneColour = deliveryZoneFound.Colour.ToString(),
-						DeliveryZoneOldName = deliveryZoneName,
-						SelectedEmployeeEMailAddress = (deliveryZoneFound.Assignee == null ? null : deliveryZoneFound.Assignee.EMailAddress),
-						SubmitButtonText = EditDeliveryZoneViewStrings.SubmitButton_DisplayName
-					};
+				DeliveryZone deliveryZoneFound = _deliveryRepository.GetDeliveryZones(_applicationUserProvider).FirstOrDefault(storedDeiveryZone => string.Equals(deliveryZone, storedDeiveryZone.Name, StringComparison.OrdinalIgnoreCase));
 
-					return View(deliveryZoneViewModel);
-				}
-				else
-					ModelState.AddModelError("deliveryZoneName", ErrorStrings.DeliveryZoneNameComboBox_InvalidValue);
+				if (deliveryZoneFound != null)
+					return View(new DeliveryZoneViewModel(deliveryZoneFound.Addresses.Select(address => new KeyValuePair<string, bool>(address, true))
+																					 .Concat(_deliveryRepository.GetUnmappedAddresses().Select(address => new KeyValuePair<string, bool>(address, false))),
+																							_applicationUserProvider.GetEmployees())
+								{
+									DeliveryZoneName = deliveryZoneFound.Name,
+									DeliveryZoneColour = deliveryZoneFound.Colour.ToString(),
+									DeliveryZoneOldName = deliveryZone,
+									SelectedEmployeeEMailAddress = (deliveryZoneFound.Assignee == null ? null : deliveryZoneFound.Assignee.EMailAddress),
+									SubmitButtonText = EditDeliveryZoneViewStrings.SubmitButton_DisplayName
+								});
 			}
 
-			return View("GetDeliveryZoneName", _deliveryRepository.GetDeliveryZones(_applicationUserProvider));
+			return View("Planning", "Delivery");
 		}
 		[HttpPost]
 		public ActionResult EditDeliveryZone(DeliveryZoneViewModel deliveryZoneViewModel)
@@ -167,7 +150,7 @@ namespace Andrei15193.Edesia.Controllers
 				try
 				{
 					_deliveryRepository.UpdateDeliveryZone(_GetDeliveryZone(deliveryZoneViewModel), deliveryZoneViewModel.DeliveryZoneOldName);
-					return Redirect(Url.Action("ManageDeliveryZones", "Delivery"));
+					return Redirect(Url.Action("Planning", "Delivery"));
 				}
 				catch (AggregateException aggregateException)
 				{
@@ -183,48 +166,31 @@ namespace Andrei15193.Edesia.Controllers
 
 			DeliveryZone deliveryZoneFound = _deliveryRepository.GetDeliveryZones(_applicationUserProvider)
 																.FirstOrDefault(deliveryZone => string.Equals(deliveryZoneViewModel.DeliveryZoneOldName, deliveryZone.Name, StringComparison.OrdinalIgnoreCase));
-			if (deliveryZoneFound != null)
-			{
-				deliveryZoneViewModel.AvailableAddresses.Clear();
-				foreach (KeyValuePair<string, bool> address in deliveryZoneFound.Addresses.Select(address => new KeyValuePair<string, bool>(address, true))
-																						  .Concat(Request.Form.Keys.Cast<string>()
-																												   .Where(inputName => inputName.StartsWith("checkbox "))
-																												   .Select(inputName => new KeyValuePair<string, bool>(inputName.Substring(9), true)))
-																						  .Concat(_deliveryRepository.GetUnmappedAddresses().Select(address => new KeyValuePair<string, bool>(address, false))))
-					deliveryZoneViewModel.AvailableAddresses.Add(address);
-			}
-			else
-				return EditDeliveryZone(deliveryZoneViewModel.DeliveryZoneName);
+			if (deliveryZoneFound == null)
+				return RedirectToAction("Planning", "Delivery");
+
+			deliveryZoneViewModel.AvailableAddresses.Clear();
+			foreach (KeyValuePair<string, bool> address in deliveryZoneFound.Addresses.Select(address => new KeyValuePair<string, bool>(address, true))
+																					  .Concat(Request.Form.Keys.Cast<string>()
+																											   .Where(inputName => inputName.StartsWith("checkbox "))
+																											   .Select(inputName => new KeyValuePair<string, bool>(inputName.Substring(9), true)))
+																					  .Concat(_deliveryRepository.GetUnmappedAddresses().Select(address => new KeyValuePair<string, bool>(address, false))))
+				deliveryZoneViewModel.AvailableAddresses.Add(address);
+
+			foreach (Employee employee in _applicationUserProvider.GetEmployees())
+				deliveryZoneViewModel.Employees.Add(employee);
 
 			deliveryZoneViewModel.SubmitButtonText = EditDeliveryZoneViewStrings.SubmitButton_DisplayName;
 			return View(deliveryZoneViewModel);
 		}
+
 		[HttpGet]
-		public ActionResult RemoveDeliveryZone()
+		public ActionResult RemoveDeliveryZone(string deliveryZone)
 		{
-			return View(_deliveryRepository.GetDeliveryZones(_applicationUserProvider));
-		}
-		[HttpPost]
-		public ActionResult RemoveDeliveryZone(string deliveryZoneName)
-		{
-			if (deliveryZoneName != null)
-				try
-				{
-					_deliveryRepository.RemoveDeliveryZone(deliveryZoneName);
-					return Redirect(Url.Action("ManageDeliveryZones", "Delivery"));
-				}
-				catch (AggregateException aggregateException)
-				{
-					foreach (Exception aggregatedException in aggregateException.InnerExceptions)
-					{
-						UniqueDeliveryZoneNameException uniqueDeliveryZoneNameException = aggregatedException as UniqueDeliveryZoneNameException;
+			if (deliveryZone != null)
+				_deliveryRepository.RemoveDeliveryZone(deliveryZone);
 
-						if (uniqueDeliveryZoneNameException != null)
-							ModelState.AddModelError("DeliveryZoneName", string.Format(ErrorStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueDeliveryZoneNameException.ConflictingValue));
-					}
-				}
-
-			return RemoveDeliveryZone();
+			return RedirectToAction("Planning", "Delivery");
 		}
 
 		[HttpGet]

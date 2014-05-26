@@ -1,4 +1,5 @@
-﻿@using Andrei15193.Edesia.Resources;
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.Resources;
 @model Andrei15193.Edesia.ViewModels.Delivery.DeliveryZoneViewModel
 @{
 	ViewBag.Title = AddDeliveryZoneViewStrings.ViewTitle;
@@ -7,8 +8,85 @@
 	<div class="row">
 		<div class="span4 offset4">
 			<h1>@AddDeliveryZoneViewStrings.ViewTitle</h1>
-
-			@Html.Partial("_DeliveryZoneDetails", Model)
+			@using (Html.BeginForm())
+			{
+				@Html.HiddenFor(model => model.DeliveryZoneOldName)
+				@Html.LabelFor(model => model.DeliveryZoneName)
+				if (ViewData.ModelState.ContainsKey("DeliveryZoneName"))
+				{
+					@Html.Partial("_ModelErrorNotice", ViewData.ModelState["DeliveryZoneName"])
+				}
+				<div class="input-control text">
+					@Html.EditorFor(model => model.DeliveryZoneName)
+				</div>
+				@Html.LabelFor(model => model.DeliveryZoneColour)
+				if (ViewData.ModelState.ContainsKey("DeliveryZoneColour"))
+				{
+					@Html.Partial("_ModelErrorNotice", ViewData.ModelState["DeliveryZoneColour"])
+				}
+				<div class="input-control select">
+					<select name="DeliveryZoneColour">
+						@foreach (KeyValuePair<string, Colour> colour in Model.AvailableColours)
+						{
+							if (string.Equals(Model.DeliveryZoneColour, colour.Value.ToString(), StringComparison.OrdinalIgnoreCase))
+							{
+								<option selected="selected" style="color: @colour.Value.ToString();" value="@colour.Value.ToString()">@colour.Key</option>
+							}
+							else
+							{
+								<option style="color: @colour.Value.ToString();" value="@colour.Value.ToString()">@colour.Key</option>
+							}
+						}
+					</select>
+				</div>
+				@Html.LabelFor(model => model.Employees)
+				<div class="input-control select">
+					<select name="SelectedEmployeeEMailAddress">
+						<option value=""></option>
+						@foreach (Employee employee in Model.Employees)
+						{
+							if (string.Equals(employee.EMailAddress, Model.SelectedEmployeeEMailAddress, StringComparison.Ordinal))
+							{
+								<option selected="selected" value="@employee.EMailAddress">
+									@employee.LastName, @employee.FirstName (@DeliveryZoneDetailsViewStrings.TransportCapacityLabel_DisplayName @employee.TransportCapacity)
+								</option>
+							}
+							else
+							{
+								<option value="@employee.EMailAddress">
+									@employee.LastName, @employee.FirstName (@DeliveryZoneDetailsViewStrings.TransportCapacityLabel_DisplayName @employee.TransportCapacity)
+								</option>
+							}
+						}
+					</select>
+				</div>
+				if (Model.AvailableAddresses.Any())
+				{
+					@Html.LabelFor(model => model.AvailableAddresses)
+					<div class="padding5" style="margin-bottom: 20px; border: 1px solid lightgray; max-height: 300px; overflow: auto;">
+						@foreach (KeyValuePair<string, bool> availableAddresses in Model.AvailableAddresses)
+						{
+							<div class="input-control checkbox" style="display: block;">
+								<label>
+									@if (availableAddresses.Value)
+									{
+										<input type="checkbox" checked="checked" name="checkbox @availableAddresses.Key" />
+									}
+									else
+									{
+										<input type="checkbox" name="checkbox @availableAddresses.Key" />
+									}
+									<span class="check"></span>
+									@availableAddresses.Key
+								</label>
+							</div>
+						}
+					</div>
+				}
+				<input type="submit" class="action" value="@Model.SubmitButtonText" />
+				<a class="button cancelAction" href="@Url.Action("Planning", "Delivery")">@DeliveryZoneDetailsViewStrings.CancelButton_DisplayName</a>
+			}
+			<p class="text-justify"><i class="icon-info-2 fg-emerald"></i> <small>@DeliveryZoneDetailsViewStrings.DeliveryZoneColourComboBox_Hint</small></p>
 		</div>
 	</div>
 </div>

@@ -8,26 +8,18 @@
 <div class="grid fluid">
 	<div class="row">
 		<div class="span12">
-			<h2>@PendingOrdersViewStrings.ViewTitle (@pendingOrdersCount)</h2>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span12">
-			@if (pendingOrdersCount == 0)
-			{
-				<a href="@Url.Action("ScheduleTasks", "Delivery")" class="command-button action disabled" style="width: 100%;">
-					<i class="icon-bars on-left"></i> @PendingOrdersViewStrings.SchedulePendingOrdersButton_DisplayName
-					<small>@PendingOrdersViewStrings.SchedulePendingOrdersButton_Hint</small>
-				</a>
-			}
-			else
-			{
-				<a href="@Url.Action("ScheduleTasks", "Delivery")" class="command-button action" style="width: 100%;">
-					<i class="icon-bars on-left"></i>
-					@PendingOrdersViewStrings.SchedulePendingOrdersButton_DisplayName
-					<small>@PendingOrdersViewStrings.SchedulePendingOrdersButton_Hint</small>
-				</a>
-			}
+			<nav class="horizontal-menu">
+				<ul class="no-margin no-padding">
+					<li>
+						<h2 class="dropdown-toggle dropdown-toggle-h2">@PendingOrdersViewStrings.ViewTitle (@pendingOrdersCount)</h2>
+						<ul class="dropdown-menu inverse" data-role="dropdown" data-effect="fade">
+							<li class="fg-emerald @(pendingOrdersCount == 0 ? "disabled" : string.Empty)">
+								<a class="@(pendingOrdersCount == 0 ? "disabledActionLink" : string.Empty)" href="@Url.Action("ScheduleTasks", "Delivery")">@PendingOrdersViewStrings.SchedulePendingOrdersButton_DisplayName</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
 		</div>
 	</div>
 	<div class="row">

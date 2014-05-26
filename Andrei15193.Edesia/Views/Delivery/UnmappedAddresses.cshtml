@@ -1,0 +1,28 @@
+﻿@using Andrei15193.Edesia.Resources;
+@model IEnumerable<KeyValuePair<string, bool>>
+@{
+	Layout = null;
+}
+@if (Model.Any())
+{
+	<div class="accordion with-marker" data-role="accordion">
+		<div class="accordion-frame">
+			<span class="heading active fg-red" style="cursor: pointer;" title="@DeliveryZonesViewStrings.UngroupedAddressesLabel_Hint">
+				<i class="icon-warning"></i> @DeliveryZonesViewStrings.UngroupedAddressesLabel_DisplayName (@Model.Count())
+			</span>
+			<div class="content">
+				<ul>
+					@foreach (KeyValuePair<string, bool> unmappedAddress in Model)
+					{
+						<li>
+							@unmappedAddress.Key
+							<a href="@Url.Action("RemoveAddress", "Delivery")?address=@Url.Encode(unmappedAddress.Key)" class="@(unmappedAddress.Value ? "actionLink" : "disabledActionLink")">
+								<i class="icon-remove" style="float: right;"></i>
+							</a>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+}

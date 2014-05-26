@@ -7,16 +7,18 @@
 <div class="grid fluid">
 	<div class="row">
 		<div class="span12">
-			<h2>@DeliveryPlanningViewStrings.PendingDeliveriesLabel_DisplayName</h2>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span12">
-			<a class="command-button action disabled" style="width: 100%;">
-				<i class="icon-cancel on-left"></i>
-				@DeliveryPlanningViewStrings.CancelPendingTransportsButton_DisplayName
-				<small>@DeliveryPlanningViewStrings.CancelPendingTransportsButton_Hint</small>
-			</a>
+			<nav class="horizontal-menu">
+				<ul class="no-margin no-padding">
+					<li>
+						<h2 class="dropdown-toggle dropdown-toggle-h2">@DeliveryPlanningViewStrings.PendingDeliveriesLabel_DisplayName (@Model.Count())</h2>
+						<ul class="dropdown-menu inverse" data-role="dropdown" data-effect="fade">
+							<li class="fg-emerald @(!Model.Any() ? "disabled" : string.Empty)">
+								<a class="@(!Model.Any() ? "disabledActionLink" : string.Empty)">@DeliveryPlanningViewStrings.CancelPendingTransportsButton_DisplayName</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
 		</div>
 	</div>
 	<div class="row">

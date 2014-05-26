@@ -7,6 +7,14 @@
 	width: 100%;
 }
 
+h2.dropdown-toggle-h2
+{
+	cursor: pointer;
+	margin-bottom: 5px !important;
+	margin-top: 10px !important;
+	padding-top: 0 !important;
+}
+
 .action
 {
 	background-color: #008A00 !important;
