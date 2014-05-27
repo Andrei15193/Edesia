@@ -18,10 +18,6 @@ namespace Andrei15193.Edesia.Attributes
 				ErrorMessageResourceType = typeof(ErrorStrings)
 			};
 		}
-		public LocalizedEMailAddressAttribute()
-			: this(ErrorKey.EMailTextBox_MissingValue)
-		{
-		}
 
 		new public string ErrorMessage
 		{

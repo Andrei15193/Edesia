@@ -126,23 +126,47 @@
   <data name="ProductCapacityTextBox_Hint" xml:space="preserve">
     <value>un număr natural diferit de 0 (zero)</value>
   </data>
+  <data name="ProductCapacityTextBox_InvalidValue" xml:space="preserve">
+    <value>Prețul introdus trebuie să fie un număr pozitiv.</value>
+  </data>
+  <data name="ProductCapacityTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să introduceți un preț.</value>
+  </data>
   <data name="ProductImageTextBox_DisplayName" xml:space="preserve">
     <value>Imaginea asociată produsului</value>
   </data>
   <data name="ProductImageTextBox_Hint" xml:space="preserve">
     <value />
   </data>
+  <data name="ProductImageTextBox_InvalidValue" xml:space="preserve">
+    <value>Imaginea trebuie să fie .jpg, .jpeg, .gif sau .png.</value>
+  </data>
+  <data name="ProductImageTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să funizați o imagine care să fie asociată produsului.</value>
+  </data>
   <data name="ProductNameTextBox_DisplayName" xml:space="preserve">
     <value>Numele produsului</value>
   </data>
+  <data name="ProductNameTextBox_DuplicateValue_Format" xml:space="preserve">
+    <value>Ne pare rău dar produsul {0} este deja existent.</value>
+  </data>
   <data name="ProductNameTextBox_Hint" xml:space="preserve">
     <value />
+  </data>
+  <data name="ProductNameTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să introduceți numele unui produs.</value>
   </data>
   <data name="ProductPriceTextBox_DisplayName" xml:space="preserve">
     <value>Prețul produsului (RON)</value>
   </data>
   <data name="ProductPriceTextBox_Hint" xml:space="preserve">
     <value>un număr real pozitiv cu maximum două zecimale</value>
+  </data>
+  <data name="ProductPriceTextBox_InvalidValue" xml:space="preserve">
+    <value>Trebuie să intorduceți un numar mai mare sau egal cu 0.</value>
+  </data>
+  <data name="ProductPriceTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să introduceți un preț.</value>
   </data>
   <data name="SubmitButton_DisplayName" xml:space="preserve">
     <value>Adaugă</value>

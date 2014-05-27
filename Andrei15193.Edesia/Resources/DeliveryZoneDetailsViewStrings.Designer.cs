@@ -88,6 +88,24 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Această zonă de livrare nu conține străzi!.
+        /// </summary>
+        public static string DeliveryZoneAddressesListBox_NoValues {
+            get {
+                return ResourceManager.GetString("DeliveryZoneAddressesListBox_NoValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Această zonă nu are asociat un responsabil!.
+        /// </summary>
+        public static string DeliveryZoneAssigneeListBox_NoValues {
+            get {
+                return ResourceManager.GetString("DeliveryZoneAssigneeListBox_NoValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Culoarea zonei de livrare.
         /// </summary>
         public static string DeliveryZoneColourComboBox_DisplayName {
@@ -106,6 +124,33 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Culoarea trebuie introdusă în format hexazecimal (ex: #FA1519)..
+        /// </summary>
+        public static string DeliveryZoneColourTextBox_InvalidValue {
+            get {
+                return ResourceManager.GetString("DeliveryZoneColourTextBox_InvalidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zona de livrare selectată nu există..
+        /// </summary>
+        public static string DeliveryZoneNameComboBox_InvalidValue {
+            get {
+                return ResourceManager.GetString("DeliveryZoneNameComboBox_InvalidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ne pare rau dar zona de livrare {0} este deja memorată..
+        /// </summary>
+        public static string DeliveryZoneNameTextBox_InvalidDuplicateValue_Format {
+            get {
+                return ResourceManager.GetString("DeliveryZoneNameTextBox_InvalidDuplicateValue_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Numele zonei de livrare.
         /// </summary>
         public static string DeliveryZoneTextBox_DisplayName {
@@ -120,6 +165,15 @@ namespace Andrei15193.Edesia.Resources {
         public static string DeliveryZoneTextBox_Hint {
             get {
                 return ResourceManager.GetString("DeliveryZoneTextBox_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trebuie să introduceți numele zonei de livrare..
+        /// </summary>
+        public static string DeliveryZoneTextBox_MissingValue {
+            get {
+                return ResourceManager.GetString("DeliveryZoneTextBox_MissingValue", resourceCulture);
             }
         }
         

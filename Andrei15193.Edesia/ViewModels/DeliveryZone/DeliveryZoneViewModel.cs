@@ -78,7 +78,7 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 		{
 		}
 
-		[LocalizedRequired(ErrorKey.DeliveryZoneTextBox_MissingValue, AllowEmptyStrings = false)]
+		[LocalizedRequired(DeliveryZoneDetailsViewKey.DeliveryZoneTextBox_MissingValue, AllowEmptyStrings = false)]
 		[Display(Name = DeliveryZoneDetailsViewKey.DeliveryZoneTextBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.DeliveryZoneTextBox_Hint, ResourceType = typeof(DeliveryZoneDetailsViewStrings))]
 		public string DeliveryZoneName
 		{
@@ -91,7 +91,7 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 			set;
 		}
 
-		[LocalizedRegularExpression("#([0-90a-fA-F]{6})", ErrorKey.DeliveryZoneColourTextBox_InvalidValue)]
+		[LocalizedRegularExpression("#([0-90a-fA-F]{6})", DeliveryZoneDetailsViewKey.DeliveryZoneColourTextBox_InvalidValue)]
 		[Display(Name = DeliveryZoneDetailsViewKey.DeliveryZoneColourComboBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.DeliveryZoneColourComboBox_Hint, ResourceType = typeof(DeliveryZoneDetailsViewStrings))]
 		public string DeliveryZoneColour
 		{

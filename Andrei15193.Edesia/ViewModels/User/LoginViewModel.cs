@@ -6,8 +6,8 @@ namespace Andrei15193.Edesia.ViewModels.User
 {
 	public sealed class LoginViewModel
 	{
-		[LocalizedEMailAddress(ErrorKey.EMailTextBox_InvalidValue)]
-		[LocalizedRequired(ErrorKey.EMailTextBox_MissingValue)]
+		[LocalizedEMailAddress(RegisterViewKey.EMailTextBox_InvalidValue)]
+		[LocalizedRequired(RegisterViewKey.EMailTextBox_MissingValue)]
 		[Display(Name = LoginViewKey.EMailTextBox_DisplayName, Prompt = LoginViewKey.EMailTextBox_Hint, ResourceType = typeof(LoginViewStrings))]
 		public string EMailAddress
 		{
@@ -15,7 +15,7 @@ namespace Andrei15193.Edesia.ViewModels.User
 			set;
 		}
 		[Password]
-		[LocalizedRequired(ErrorKey.PasswordInput_MissingValue)]
+		[LocalizedRequired(RegisterViewKey.PasswordInput_MissingValue)]
 		[Display(Name = LoginViewKey.PasswordInput_DisplayName, Prompt = LoginViewKey.PasswordInput_Hint, ResourceType = typeof(LoginViewStrings))]
 		public string Password
 		{

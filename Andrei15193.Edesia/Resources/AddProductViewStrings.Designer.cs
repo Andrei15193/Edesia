@@ -88,6 +88,24 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prețul introdus trebuie să fie un număr pozitiv..
+        /// </summary>
+        public static string ProductCapacityTextBox_InvalidValue {
+            get {
+                return ResourceManager.GetString("ProductCapacityTextBox_InvalidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trebuie să introduceți un preț..
+        /// </summary>
+        public static string ProductCapacityTextBox_MissingValue {
+            get {
+                return ResourceManager.GetString("ProductCapacityTextBox_MissingValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Imaginea asociată produsului.
         /// </summary>
         public static string ProductImageTextBox_DisplayName {
@@ -106,6 +124,24 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Imaginea trebuie să fie .jpg, .jpeg, .gif sau .png..
+        /// </summary>
+        public static string ProductImageTextBox_InvalidValue {
+            get {
+                return ResourceManager.GetString("ProductImageTextBox_InvalidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trebuie să funizați o imagine care să fie asociată produsului..
+        /// </summary>
+        public static string ProductImageTextBox_MissingValue {
+            get {
+                return ResourceManager.GetString("ProductImageTextBox_MissingValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Numele produsului.
         /// </summary>
         public static string ProductNameTextBox_DisplayName {
@@ -115,11 +151,29 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ne pare rău dar produsul {0} este deja existent..
+        /// </summary>
+        public static string ProductNameTextBox_DuplicateValue_Format {
+            get {
+                return ResourceManager.GetString("ProductNameTextBox_DuplicateValue_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string ProductNameTextBox_Hint {
             get {
                 return ResourceManager.GetString("ProductNameTextBox_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trebuie să introduceți numele unui produs..
+        /// </summary>
+        public static string ProductNameTextBox_MissingValue {
+            get {
+                return ResourceManager.GetString("ProductNameTextBox_MissingValue", resourceCulture);
             }
         }
         
@@ -138,6 +192,24 @@ namespace Andrei15193.Edesia.Resources {
         public static string ProductPriceTextBox_Hint {
             get {
                 return ResourceManager.GetString("ProductPriceTextBox_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trebuie să intorduceți un numar mai mare sau egal cu 0..
+        /// </summary>
+        public static string ProductPriceTextBox_InvalidValue {
+            get {
+                return ResourceManager.GetString("ProductPriceTextBox_InvalidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trebuie să introduceți un preț..
+        /// </summary>
+        public static string ProductPriceTextBox_MissingValue {
+            get {
+                return ResourceManager.GetString("ProductPriceTextBox_MissingValue", resourceCulture);
             }
         }
         

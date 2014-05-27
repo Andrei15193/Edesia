@@ -50,7 +50,7 @@ namespace Andrei15193.Edesia.Controllers
 						UniqueEMailAddressException uniqueEMailAddressException = aggregatedException as UniqueEMailAddressException;
 
 						if (uniqueEMailAddressException != null)
-							ModelState.AddModelError("EMailAddress", string.Format(ErrorStrings.EMailTextBox_DuplicateValue_Format, uniqueEMailAddressException.ConflictingValue));
+							ModelState.AddModelError("EMailAddress", string.Format(RegisterViewStrings.EMailTextBox_DuplicateValue_Format, uniqueEMailAddressException.ConflictingValue));
 					}
 
 					return View(registerViewModel);
@@ -84,7 +84,7 @@ namespace Andrei15193.Edesia.Controllers
 						return RedirectToAction("Default", "Product");
 				}
 				else
-					ModelState.AddModelError("EMailAddress", ErrorStrings.CredentialControls_InvalidValues);
+					ModelState.AddModelError("EMailAddress", LoginViewStrings.CredentialControls_InvalidValues);
 			}
 
 			return View(loginViewModel);

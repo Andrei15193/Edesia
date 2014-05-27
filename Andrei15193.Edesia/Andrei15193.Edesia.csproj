@@ -269,6 +269,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EMailNoticeStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ErrorStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\GetDeliveryZoneNameViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -284,6 +289,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PendingOrdersViewStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\RegisterController.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RegisterController.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\RemoveDeliveryZoneViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -293,11 +303,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RemoveAddressViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\ErrorStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ErrorStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\LayoutViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -565,6 +570,10 @@
     <EmbeddedResource Include="Resources\PurchaseViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PurchaseViewStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\RegisterController.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RegisterController.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\RegisterViewStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -44,7 +44,7 @@ namespace Andrei15193.Edesia.Controllers
 						UniqueDeliveryZoneNameException uniqueDeliveryZoneNameException = aggregatedException as UniqueDeliveryZoneNameException;
 
 						if (uniqueDeliveryZoneNameException != null)
-							ModelState.AddModelError("DeliveryZoneName", string.Format(ErrorStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueDeliveryZoneNameException.ConflictingValue));
+							ModelState.AddModelError("DeliveryZoneName", string.Format(DeliveryZoneDetailsViewStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueDeliveryZoneNameException.ConflictingValue));
 					}
 				}
 			}
@@ -98,7 +98,7 @@ namespace Andrei15193.Edesia.Controllers
 						UniqueDeliveryZoneNameException uniqueDeliveryZoneNameException = aggregatedException as UniqueDeliveryZoneNameException;
 
 						if (uniqueDeliveryZoneNameException != null)
-							ModelState.AddModelError("DeliveryZoneName", string.Format(ErrorStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueDeliveryZoneNameException.ConflictingValue));
+							ModelState.AddModelError("DeliveryZoneName", string.Format(DeliveryZoneDetailsViewStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueDeliveryZoneNameException.ConflictingValue));
 					}
 				}
 			}

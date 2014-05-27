@@ -45,7 +45,7 @@ namespace Andrei15193.Edesia.Controllers
 						UniqueProductException uniqueProductException = aggregatedException as UniqueProductException;
 
 						if (uniqueProductException != null)
-							ModelState.AddModelError("Name", string.Format(ErrorStrings.ProductNameTextBox_DuplicateValue_Format, uniqueProductException.ConflictingValue));
+							ModelState.AddModelError("Name", string.Format(AddProductViewStrings.ProductNameTextBox_DuplicateValue_Format, uniqueProductException.ConflictingValue));
 					}
 				}
 

@@ -6,7 +6,7 @@ namespace Andrei15193.Edesia.ViewModels.Address
 {
 	public class AddAddressViewModel
 	{
-		[LocalizedRequired(ErrorKey.AddressTextBox_MissingValue, AllowEmptyStrings = false)]
+		[LocalizedRequired(AddAddressViewKey.AddressTextBox_MissingValue, AllowEmptyStrings = false)]
 		[Display(Name = AddAddressViewKey.AddressTextBox_DisplayName, Prompt = AddAddressViewKey.AddressTextBox_Hint, ResourceType = typeof(AddAddressViewStrings))]
 		public string Address
 		{
