@@ -2,7 +2,7 @@
 using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.Resources;
 using Andrei15193.Edesia.Resources.Strings;
-namespace Andrei15193.Edesia.ViewModels.Delivery
+namespace Andrei15193.Edesia.ViewModels.Address
 {
 	public class AddAddressViewModel
 	{

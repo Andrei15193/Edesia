@@ -1,5 +1,5 @@
 ﻿@using Andrei15193.Edesia.Resources;
-@model Andrei15193.Edesia.ViewModels.Delivery.AddAddressViewModel
+@model Andrei15193.Edesia.ViewModels.Address.AddAddressViewModel
 @{
 	ViewBag.Title = AddAddressViewStrings.ViewTitle;
 }
@@ -15,7 +15,7 @@
 					@Html.EditorFor(model => model.Address)
 				</div>
 				<input class="action" type="submit" value="@AddAddressViewStrings.SubmitButton_DisplayName" />
-				<a class="button cancelAction" href="@Url.Action("Planning", "Delivery")">@AddAddressViewStrings.CancelButton_DisplayName</a>
+				<a class="button cancelAction" href="@Url.Action("Default", "Delivery")">@AddAddressViewStrings.CancelButton_DisplayName</a>
 			}
 		</div>
 	</div>

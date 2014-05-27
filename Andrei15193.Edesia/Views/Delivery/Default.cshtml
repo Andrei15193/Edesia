@@ -1,5 +1,4 @@
 ﻿@using Andrei15193.Edesia.Resources;
-@model Andrei15193.Edesia.ViewModels.Delivery.DeliveryPlanningViewModel
 @{
 	ViewBag.Title = DeliveryPlanningViewStrings.ViewTitle;
 }
@@ -7,13 +6,13 @@
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4">
-			@Html.Action("DeliveryZones", "Delivery")
+			@Html.Action("Default", "DeliveryZone")
 		</div>
 		<div class="span4">
-			@Html.Action("PendingTasks", "Delivery")
+			@Html.Action("Default", "DeliveryTask")
 		</div>
 		<div class="span4">
-			@Html.Action("PendingOrders", "Delivery")
+			@Html.Action("Default", "Order")
 		</div>
 	</div>
 </div>

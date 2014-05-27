@@ -157,7 +157,11 @@
     <Compile Include="Collections\EqualityComparer.cs" />
     <Compile Include="Collections\KeyValuePair.cs" />
     <Compile Include="Collections\ReadOnlyCollection.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\DeliveryController.cs" />
+    <Compile Include="Controllers\DeliveryTaskController.cs" />
+    <Compile Include="Controllers\DeliveryZoneController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="DataAccess\IDeliveryZoneProvider.cs" />
     <Compile Include="DataAccess\IDeliveryZoneRepository.cs" />
@@ -186,6 +190,7 @@
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\ApplicationUserRole.cs" />
     <Compile Include="Models\Collections\OrderedProductsCollection.cs" />
+    <Compile Include="Models\Collections\OrdersPartition.cs" />
     <Compile Include="Models\Colour.cs" />
     <Compile Include="Models\Colours.cs" />
     <Compile Include="Models\DeliveryTask.cs" />
@@ -208,6 +213,7 @@
     <Compile Include="Models\OrderState.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\OrderedProduct.cs" />
+    <Compile Include="Models\TaskState.cs" />
     <Compile Include="Resources\AddDeliveryZoneViewStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -374,11 +380,8 @@
     <Compile Include="Settings\IRegistrationSettings.cs" />
     <Compile Include="Settings\Local\LocalEMailSettings.cs" />
     <Compile Include="Settings\RegistrationSettings.cs" />
-    <Compile Include="ViewModels\Delivery\DeliveryZoneViewModel.cs" />
-    <Compile Include="ViewModels\Delivery\AddAddressViewModel.cs" />
-    <Compile Include="ViewModels\Delivery\DeliveryPlanningViewModel.cs" />
-    <Compile Include="ViewModels\Delivery\DeliveryZonesViewModel.cs" />
-    <Compile Include="ViewModels\Delivery\RemoveAddressViewModel.cs" />
+    <Compile Include="ViewModels\DeliveryZone\DeliveryZoneViewModel.cs" />
+    <Compile Include="ViewModels\Address\AddAddressViewModel.cs" />
     <Compile Include="ViewModels\Product\AddProductViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductsViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductViewModel.cs" />
@@ -459,20 +462,20 @@
     <Content Include="Views\Shared\_LanguageDropdown.cshtml" />
     <Content Include="Views\Shared\_ModelErrorNotice.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
-    <Content Include="Views\Delivery\Planning.cshtml" />
-    <Content Include="Views\Delivery\_DeliveryZone.cshtml" />
-    <Content Include="Views\Delivery\AddAddress.cshtml" />
-    <Content Include="Views\Delivery\AddDeliveryZone.cshtml" />
-    <Content Include="Views\Delivery\EditDeliveryZone.cshtml" />
+    <Content Include="Views\Delivery\Default.cshtml" />
+    <Content Include="Views\DeliveryZone\_DeliveryZone.cshtml" />
+    <Content Include="Views\Address\Add.cshtml" />
+    <Content Include="Views\DeliveryZone\Add.cshtml" />
+    <Content Include="Views\DeliveryZone\Edit.cshtml" />
     <Content Include="Views\Product\Default.cshtml" />
     <Content Include="Views\Product\_Product.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
-    <Content Include="Views\Delivery\PendingOrders.cshtml" />
-    <Content Include="Views\Delivery\_PendingOrder.cshtml" />
-    <Content Include="Views\Delivery\DeliveryZones.cshtml" />
-    <Content Include="Views\Delivery\UnmappedAddresses.cshtml" />
-    <Content Include="Views\Delivery\ScheduleTasks.cshtml" />
-    <Content Include="Views\Delivery\PendingTasks.cshtml" />
+    <Content Include="Views\Order\Default.cshtml" />
+    <Content Include="Views\Order\_Order.cshtml" />
+    <Content Include="Views\DeliveryZone\Default.cshtml" />
+    <Content Include="Views\Address\Unmapped.cshtml" />
+    <Content Include="Views\DeliveryTask\Schedule.cshtml" />
+    <Content Include="Views\DeliveryTask\Default.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

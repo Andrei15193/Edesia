@@ -14,9 +14,9 @@
 				<ul>
 					@foreach (KeyValuePair<string, bool> unmappedAddress in Model)
 					{
-						<li>
+						<li class="@(unmappedAddress.Value ? "disabled" : string.Empty)">
 							@unmappedAddress.Key
-							<a href="@Url.Action("RemoveAddress", "Delivery")?address=@Url.Encode(unmappedAddress.Key)" class="@(unmappedAddress.Value ? "actionLink" : "disabledActionLink")">
+							<a href="@Url.Action("Remove", "Address")?address=@Url.Encode(unmappedAddress.Key)" class="@(unmappedAddress.Value ? "actionLink" : "disabledActionLink")">
 								<i class="icon-remove" style="float: right;"></i>
 							</a>
 						</li>

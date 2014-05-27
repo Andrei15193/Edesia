@@ -14,7 +14,7 @@
 						<h2 class="dropdown-toggle dropdown-toggle-h2">@PendingOrdersViewStrings.ViewTitle (@pendingOrdersCount)</h2>
 						<ul class="dropdown-menu inverse" data-role="dropdown" data-effect="fade">
 							<li class="fg-emerald @(pendingOrdersCount == 0 ? "disabled" : string.Empty)">
-								<a class="@(pendingOrdersCount == 0 ? "disabledActionLink" : string.Empty)" href="@Url.Action("ScheduleTasks", "Delivery")">@PendingOrdersViewStrings.SchedulePendingOrdersButton_DisplayName</a>
+								<a class="@(pendingOrdersCount == 0 ? "disabledActionLink" : string.Empty)" href="@Url.Action("Schedule", "DeliveryTask")">@PendingOrdersViewStrings.SchedulePendingOrdersButton_DisplayName</a>
 							</li>
 						</ul>
 					</li>
@@ -26,7 +26,7 @@
 		<div class="span12">
 			@foreach (Order order in Model)
 			{
-				@Html.Partial("_PendingOrder", order)
+				@Html.Partial("_Order", order)
 			}
 		</div>
 	</div>
