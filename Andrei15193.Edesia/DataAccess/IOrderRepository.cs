@@ -6,7 +6,7 @@ namespace Andrei15193.Edesia.DataAccess
 		: IOrderProvider
 	{
 		Order PlaceOrder(OrderDetails orderDateils);
-		IEnumerable<Order> GetOrders(OrderState orderState, IApplicationUserProvider applicationUserProvider, IProductProvider productProvider);
+		IEnumerable<Order> GetOrders(IApplicationUserProvider applicationUserProvider, IProductProvider productProvider, params OrderState[] orderStates);
 		void UpdateOrders(IEnumerable<Order> orders, OrderState orderState);
 
 		IEnumerable<string> GetUsedAddresses();

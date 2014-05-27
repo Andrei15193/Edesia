@@ -25,11 +25,15 @@
 					   type="xsd:int" />
 		<xsd:attribute name="DateScheduled"
 					   type="xsd:dateTime" />
-		<xsd:attribute name="Title"
-					   type="xsd:string" />
-		<xsd:attribute name="Description"
-					   type="xsd:string" />
 		<xsd:attribute name="DeliveryZone"
 					   type="xsd:string" />
+		<xsd:attribute name="Cancelled"
+					   use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="Cancelled" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
 	</xsd:complexType>
 </xsd:schema>

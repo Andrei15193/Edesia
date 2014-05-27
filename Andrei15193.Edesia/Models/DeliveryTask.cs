@@ -1,22 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Andrei15193.Edesia.Collections;
 namespace Andrei15193.Edesia.Models
 {
 	public class DeliveryTask
 	{
-		public DeliveryTask(int deliveryTaskNumber, DateTime dateScheduled, string title, string description, DeliveryZone deliveryZone, IEnumerable<Order> ordersToDeliver)
+		public DeliveryTask(int deliveryTaskNumber, DateTime dateScheduled, DeliveryZone deliveryZone, bool isCancelled, IEnumerable<Order> ordersToDeliver)
 		{
-			if (title == null)
-				throw new ArgumentNullException("title");
-			if (string.IsNullOrWhiteSpace(title))
-				throw new ArgumentException("Cannot be empty or whitespace!", "title");
-
-			if (description == null)
-				throw new ArgumentNullException("description");
-			if (string.IsNullOrWhiteSpace(description))
-				throw new ArgumentException("Cannot be empty or whitespace!", "description");
-
 			if (deliveryZone == null)
 				throw new ArgumentNullException("deliveryZone");
 
@@ -27,16 +18,44 @@ namespace Andrei15193.Edesia.Models
 
 			_deliveryTaskNumber = deliveryTaskNumber;
 			_dateScheduled = dateScheduled;
-			_title = title;
-			_description = description;
 			_deliveryZone = deliveryZone;
-			_ordersToDeliver = ordersToDeliver.Where(orderToDeliver => ordersToDeliver != null).ToList();
+			_isCancelled = isCancelled;
+			_ordersToDeliver = new ReadOnlyCollection<Order>(ordersToDeliver.Where(orderToDeliver => orderToDeliver != null));
 		}
-		public DeliveryTask(int deliveryTaskNumber, DateTime dateScheduled, string title, string description, DeliveryZone deliveryZone, params Order[] ordersToDeliver)
-			: this(deliveryTaskNumber, dateScheduled, title, description, deliveryZone, (IEnumerable<Order>)ordersToDeliver)
+		public DeliveryTask(int deliveryTaskNumber, DateTime dateScheduled, DeliveryZone deliveryZone, bool isCancelled, params Order[] ordersToDeliver)
+			: this(deliveryTaskNumber, dateScheduled, deliveryZone, isCancelled, (IEnumerable<Order>)ordersToDeliver)
 		{
 		}
 
+		public bool IsCancelled
+		{
+			get
+			{
+				return _isCancelled;
+			}
+		}
+		public TaskState State
+		{
+			get
+			{
+				if (_isCancelled)
+					return TaskState.Cancelled;
+
+				ISet<OrderState> orderStates = new SortedSet<OrderState>(_ordersToDeliver.Select(orderToDelvier => orderToDelvier.State));
+
+				if (orderStates.Count == 1)
+				{
+					if (orderStates.Contains(OrderState.Scheduled))
+						return TaskState.Scheduled;
+					if (orderStates.Contains(OrderState.EnRoute))
+						return TaskState.InProgress;
+					if (orderStates.Contains(OrderState.Delivered))
+						return TaskState.Completed;
+				}
+
+				return TaskState.Unknown;
+			}
+		}
 		public int DeliveryTaskNumber
 		{
 			get
@@ -49,20 +68,6 @@ namespace Andrei15193.Edesia.Models
 			get
 			{
 				return _dateScheduled;
-			}
-		}
-		public string Title
-		{
-			get
-			{
-				return _title;
-			}
-		}
-		public string Description
-		{
-			get
-			{
-				return _description;
 			}
 		}
 		public DeliveryZone DeliveryZone
@@ -79,10 +84,31 @@ namespace Andrei15193.Edesia.Models
 				return _ordersToDeliver;
 			}
 		}
+		public void StartTask()
+		{
+			if (_isCancelled)
+				throw new InvalidOperationException("The current delivery task is cancelled!");
 
+			foreach (Order orderToDeliver in _ordersToDeliver)
+				orderToDeliver.State = OrderState.EnRoute;
+		}
+		public void CompleteTask()
+		{
+			if (_isCancelled)
+				throw new InvalidOperationException("The current delivery task is cancelled!");
+
+			foreach (Order orderToDeliver in _ordersToDeliver)
+				orderToDeliver.State = OrderState.Delivered;
+		}
+		public void CancelTask()
+		{
+			_isCancelled = true;
+			foreach (Order orderToDeliver in _ordersToDeliver)
+				orderToDeliver.State = OrderState.Pending;
+		}
+
+		private bool _isCancelled;
 		private readonly int _deliveryTaskNumber;
-		private readonly string _title;
-		private readonly string _description;
 		private readonly DateTime _dateScheduled;
 		private readonly DeliveryZone _deliveryZone;
 		private readonly IReadOnlyCollection<Order> _ordersToDeliver;

@@ -38,9 +38,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				{
 					DeliveryTask deliveryTask = new DeliveryTask(xmlTransaction.XmlDocument.Root.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryTask.xsd}DeliveryTask").Count() + 1,
 																 deliveryTaskDetails.DateScheduled,
-																 deliveryTaskDetails.Title,
-																 deliveryTaskDetails.Description,
 																 deliveryTaskDetails.DeliveryZone,
+																 false,
 																 deliveryTaskDetails.OrdersToDeliver);
 
 					xmlTransaction.XmlDocument
@@ -48,8 +47,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 								  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryTask.xsd}DeliveryTask",
 													new XAttribute("TaskNumber", deliveryTask.DeliveryTaskNumber),
 													new XAttribute("DateScheduled", deliveryTask.DateScheduled.ToString(MvcApplication.DateTimeSerializationFormat)),
-													new XAttribute("Title", deliveryTask.Title),
-													new XAttribute("Description", deliveryTask.Description),
 													new XAttribute("DeliveryZone", deliveryTask.DeliveryZone.Name),
 													deliveryTask.OrdersToDeliver.Select(orderToDeliver => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryTask.xsd}OrderToDeliver", orderToDeliver.OrderNumber))));
 
@@ -65,20 +62,29 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			return AddDeliveryTasks((IEnumerable<DeliveryTaskDetails>)deliveryTasksDetails);
 		}
 
-		public IEnumerable<DeliveryTask> GetUndergoingDeliveryTasks(IApplicationUserProvider applicationUserProvider, IDeliveryZoneProvider deliveryZoneProvider, IProductProvider productProvider, IOrderProvider orderProvider)
+		public IEnumerable<DeliveryTask> GetDeliveryTasks(IApplicationUserProvider applicationUserProvider, IDeliveryZoneProvider deliveryZoneProvider, IProductProvider productProvider, IOrderProvider orderProvider, params TaskState[] taskStates)
 		{
 			if (applicationUserProvider == null)
 				throw new ArgumentNullException("applicationUserProvider");
+
 			if (deliveryZoneProvider == null)
 				throw new ArgumentNullException("deliveryZoneProvider");
+
 			if (orderProvider == null)
 				throw new ArgumentNullException("orderProvider");
+
+			if (taskStates == null)
+				throw new ArgumentNullException("taskStates");
+			if (taskStates.Length == 0)
+				throw new ArgumentException("Cannot be empty!", "taskStates");
 
 			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 				return xmlTransaction.XmlDocument
 									 .Root
 									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryTask.xsd}DeliveryTask")
-									 .Select(deliveryTaskXElement => _GetDeliveryTask(deliveryTaskXElement, applicationUserProvider, deliveryZoneProvider, productProvider, orderProvider));
+									 .Select(deliveryTaskXElement => _GetDeliveryTask(deliveryTaskXElement, applicationUserProvider, deliveryZoneProvider, productProvider, orderProvider))
+									 .Where(deliveryTask => taskStates.Contains(deliveryTask.State))
+									 .OrderBy(deliveryTask => taskStates.TakeWhile(taskState => deliveryTask.State != taskState).Count());
 		}
 		#endregion
 		public string XmlDocumentFileName
@@ -118,9 +124,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			return new DeliveryTask(int.Parse(deliveryTaskXElement.Attribute("TaskNumber").Value),
 									scheduleTime,
-									deliveryTaskXElement.Attribute("Title").Value,
-									deliveryTaskXElement.Attribute("Description").Value,
 									deliveryZoneProvider.GetDeliveryZone(applicationUserProvider, deliveryTaskXElement.Attribute("DeliveryZone").Value, scheduleTime),
+									deliveryTaskXElement.Attribute("Cancelled") != null,
 									deliveryTaskXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryTask.xsd}OrderToDeliver")
 														.Select(orderToDeliverXElement => orderProvider.GetOrder(applicationUserProvider, productProvider, int.Parse(orderToDeliverXElement.Value), scheduleTime)));
 		}

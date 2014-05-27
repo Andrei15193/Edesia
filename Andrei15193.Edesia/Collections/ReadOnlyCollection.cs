@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 namespace Andrei15193.Edesia.Collections
 {
 	public sealed class ReadOnlyCollection<TItem>
 				: IReadOnlyCollection<TItem>
 	{
-		public ReadOnlyCollection(ICollection<TItem> collection)
+		public ReadOnlyCollection(IEnumerable<TItem> collection)
 		{
 			if (collection == null)
 				throw new ArgumentNullException("collection");
 
 			_collection = collection;
+		}
+		public ReadOnlyCollection(params TItem[] collection)
+			: this((IEnumerable<TItem>)collection)
+		{
 		}
 
 		#region IReadOnlyCollection<string> Members
@@ -19,7 +24,7 @@ namespace Andrei15193.Edesia.Collections
 		{
 			get
 			{
-				return _collection.Count;
+				return _collection.Count();
 			}
 		}
 		#endregion
@@ -36,6 +41,6 @@ namespace Andrei15193.Edesia.Collections
 		}
 		#endregion
 
-		private readonly ICollection<TItem> _collection;
+		private readonly IEnumerable<TItem> _collection;
 	}
 }

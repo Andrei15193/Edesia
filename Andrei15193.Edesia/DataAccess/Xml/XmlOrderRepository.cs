@@ -87,13 +87,24 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				}
 			}
 		}
-		public IEnumerable<Order> GetOrders(OrderState orderState, IApplicationUserProvider applicationUserProvider, IProductProvider productProvider)
+		public IEnumerable<Order> GetOrders(IApplicationUserProvider applicationUserProvider, IProductProvider productProvider, params OrderState[] orderStates)
 		{
+			if (applicationUserProvider == null)
+				throw new ArgumentNullException("applicationUserProvider");
+
+			if (productProvider == null)
+				throw new ArgumentNullException("productProvider");
+
+			if (orderStates == null)
+				throw new ArgumentNullException("orderStates");
+			if (orderStates.Length == 0)
+				throw new ArgumentException("Cannot be empty!", "orderStates");
+
 			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
 				return xmlTransaction.XmlDocument
 									 .Root
 									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}Order")
-									 .Where(orderXmlElement => (orderState == (OrderState)Enum.Parse(typeof(OrderState), orderXmlElement.Attribute("State").Value)))
+									 .Where(orderXmlElement => (orderStates.Contains((OrderState)Enum.Parse(typeof(OrderState), orderXmlElement.Attribute("State").Value))))
 									 .Select(orderXmlElement => _GetOrder(orderXmlElement, applicationUserProvider, productProvider));
 		}
 		public void UpdateOrders(IEnumerable<Order> orders, OrderState orderState)
