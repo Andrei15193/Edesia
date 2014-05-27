@@ -24,9 +24,9 @@ namespace Andrei15193.Edesia.Controllers
 				return View();
 			else
 				if (_applicationUserRepository.ClearRegistrationKey(email, key))
-					return View("_Notice", new Notice(RegisterViewStrings.ViewTitle, null, NoticeStrings.Registration_Completed_Paragraph1));
+					return View("_Notice", new Notice(UserControllerStrings.RegisterViewTitle, null, UserControllerStrings.Registration_Completed_Paragraph1));
 				else
-					return View("_Notice", new Notice(RegisterViewStrings.ViewTitle, null, NoticeStrings.Registration_TokenExpired_Paragraph1, NoticeStrings.Registration_TokenExpired_Paragraph2));
+					return View("_Notice", new Notice(UserControllerStrings.RegisterViewTitle, null, UserControllerStrings.Registration_TokenExpired_Paragraph1, UserControllerStrings.Registration_TokenExpired_Paragraph2));
 		}
 		[HttpPost]
 		public ActionResult Register(RegisterViewModel registerViewModel)
@@ -41,7 +41,7 @@ namespace Andrei15193.Edesia.Controllers
 																  registrationKey);
 					_SendRegistrationEMail(registerViewModel, registrationKey);
 
-					return View("_Notice", new Notice(RegisterViewStrings.ViewTitle, null, NoticeStrings.Registration_ConfirmationMailSent_Paragraph1));
+					return View("_Notice", new Notice(UserControllerStrings.RegisterViewTitle, null, UserControllerStrings.Registration_ConfirmationMailSent_Paragraph1));
 				}
 				catch (AggregateException aggregateException)
 				{
@@ -50,7 +50,7 @@ namespace Andrei15193.Edesia.Controllers
 						UniqueEMailAddressException uniqueEMailAddressException = aggregatedException as UniqueEMailAddressException;
 
 						if (uniqueEMailAddressException != null)
-							ModelState.AddModelError("EMailAddress", string.Format(RegisterViewStrings.EMailTextBox_DuplicateValue_Format, uniqueEMailAddressException.ConflictingValue));
+							ModelState.AddModelError("EMailAddress", string.Format(UserControllerStrings.EMailTextBox_DuplicateValue_Format, uniqueEMailAddressException.ConflictingValue));
 					}
 
 					return View(registerViewModel);
@@ -84,7 +84,7 @@ namespace Andrei15193.Edesia.Controllers
 						return RedirectToAction("Default", "Product");
 				}
 				else
-					ModelState.AddModelError("EMailAddress", LoginViewStrings.CredentialControls_InvalidValues);
+					ModelState.AddModelError("EMailAddress", UserControllerStrings.CredentialControls_InvalidValues);
 			}
 
 			return View(loginViewModel);
@@ -121,11 +121,11 @@ namespace Andrei15193.Edesia.Controllers
 			IList<NavigationBarAction> userActions = new List<NavigationBarAction>();
 
 			if (User.Identity.IsAuthenticated)
-				userActions.Add(new NavigationBarAction(NavigationViewStrings.LogoutButton_DisplayName, "Logout", "User", Icons.User));
+				userActions.Add(new NavigationBarAction(UserControllerStrings.LogoutMenuItem_DisplayName, "Logout", "User", Icons.User));
 			else
 			{
-				userActions.Add(new NavigationBarAction(NavigationViewStrings.LoginButton_DisplayName, "Login", "User", Icons.User));
-				userActions.Add(new NavigationBarAction(NavigationViewStrings.RegisterButton_DisplayName, "Register", "User", Icons.New));
+				userActions.Add(new NavigationBarAction(UserControllerStrings.LoginButton_DisplayName, "Login", "User", Icons.User));
+				userActions.Add(new NavigationBarAction(UserControllerStrings.RegisterButton_DisplayName, "Register", "User", Icons.New));
 			}
 			return View("_NavigationBar", userActions);
 		}
@@ -173,7 +173,7 @@ namespace Andrei15193.Edesia.Controllers
 				Credentials = emailSettings.Credentials
 			}.Send(new MailMessage
 			{
-				Subject = "Edesia - " + RegisterViewStrings.ViewTitle,
+				Subject = "Edesia - " + UserControllerStrings.RegisterViewTitle,
 				From = emailSettings.SenderMailAddress,
 				To =
 				{
@@ -182,7 +182,7 @@ namespace Andrei15193.Edesia.Controllers
 				DeliveryNotificationOptions = DeliveryNotificationOptions.Never,
 				IsBodyHtml = true,
 				BodyEncoding = Encoding.UTF8,
-				Body = string.Format(EMailNoticeStrings.Register_MailBody_Format,
+				Body = string.Format(UserControllerStrings.Register_MailBody_Format,
 									 new StringBuilder(Request.Url.Scheme).Append(Uri.SchemeDelimiter)
 																		  .Append(Request.Url.Host)
 																		  .Append(Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port)

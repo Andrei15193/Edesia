@@ -2,17 +2,17 @@
 @using Andrei15193.Edesia.Resources;
 @model ProductsViewModel
 @{
-	ViewBag.Title = ProductsViewStrings.ViewTitle;
+	ViewBag.Title = ProductControllerStrings.DefaultViewTitle;
 }
 @if (Model.IsUserAdministrator)
 {
 	<nav class="horizontal-menu">
 		<ul class="no-margin no-padding">
 			<li>
-				<h1 class="dropdown-toggle" style="cursor: pointer;">@ProductsViewStrings.ViewTitle</h1>
+				<h1 class="dropdown-toggle" style="cursor: pointer;">@ProductControllerStrings.DefaultViewTitle</h1>
 				<ul class="dropdown-menu inverse" data-role="dropdown" data-effect="fade">
 					<li class="fg-emerald">
-						<a href="@Url.Action("Add", "Product")">@ProductsViewStrings.AddProductButton_DisplayName</a>
+						<a href="@Url.Action("Add", "Product")">@ProductControllerStrings.AddProductButton_DisplayName</a>
 					</li>
 				</ul>
 			</li>
@@ -21,7 +21,7 @@
 }
 else
 {
-	<h1>@ProductsViewStrings.ViewTitle</h1>
+	<h1>@ProductControllerStrings.DefaultViewTitle</h1>
 }
 
 <div class="grid fluid">
@@ -53,7 +53,7 @@ else
 			overlay: false,
 			flat: true,
 			icon: '<span class="icon-info-2 fg-emerald"></span>',
-			title: "<span class=\"fg-emerald\">@ProductsViewStrings.NoticeTitle.Replace("\"", "\\\"")</span>",
+			title: "<span class=\"fg-emerald\">@ProductControllerStrings.NoticeTitle.Replace("\"", "\\\"")</span>",
 			width: 500,
 			padding: 10,
 			content: '',
@@ -61,7 +61,7 @@ else
 			onShow: function (_dialog)
 			{
 				var content = _dialog.children('.content');
-				content.html("@ProductsViewStrings.NoticeParagraph1.Replace("\"", "\\\"")");
+				content.html("@ProductControllerStrings.NoticeParagraph1.Replace("\"", "\\\"")");
 			}
 
 		});

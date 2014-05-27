@@ -1,12 +1,12 @@
 ﻿@using Andrei15193.Edesia.Resources;
 @model Andrei15193.Edesia.ViewModels.Address.AddAddressViewModel
 @{
-	ViewBag.Title = AddAddressViewStrings.ViewTitle;
+	ViewBag.Title = AddressControllerStrings.AddAddressViewTitle;
 }
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4 offset4">
-			<h1>@AddAddressViewStrings.ViewTitle</h1>
+			<h1>@AddressControllerStrings.AddAddressViewTitle</h1>
 			@using (Html.BeginForm())
 			{
 				@Html.LabelFor(model => model.Address)
@@ -14,8 +14,8 @@
 				<div class="input-control text">
 					@Html.EditorFor(model => model.Address)
 				</div>
-				<input class="action" type="submit" value="@AddAddressViewStrings.SubmitButton_DisplayName" />
-				<a class="button cancelAction" href="@Url.Action("Default", "Delivery")">@AddAddressViewStrings.CancelButton_DisplayName</a>
+				<input class="action" type="submit" value="@AddressControllerStrings.AddAddressButton_DisplayName" />
+				<a class="button cancelAction" href="@Url.Action("Default", "Delivery")">@AddressControllerStrings.CancelButton_DisplayName</a>
 			}
 		</div>
 	</div>

@@ -8,14 +8,14 @@ namespace Andrei15193.Edesia.Attributes
 	public class LocalizedEMailAddressAttribute
 		: DataTypeAttribute
 	{
-		public LocalizedEMailAddressAttribute(string errorMessageResourceName)
+		public LocalizedEMailAddressAttribute(string errorMessageResourceName, Type errorMessageResourceType)
 			: base(DataType.EmailAddress)
 		{
 			_emailAddressAttribute = new EmailAddressAttribute
 			{
 				ErrorMessage = null,
 				ErrorMessageResourceName = errorMessageResourceName,
-				ErrorMessageResourceType = typeof(ErrorStrings)
+				ErrorMessageResourceType = errorMessageResourceType
 			};
 		}
 

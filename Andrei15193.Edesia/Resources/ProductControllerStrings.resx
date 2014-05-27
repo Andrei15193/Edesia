@@ -117,7 +117,79 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RegistrationTokenInput_ExpiredValue" xml:space="preserve">
-    <value>Ne pare rău dar codul de înregistrare este prea vechi pentru a mai putea fi folosit. Trebuie sa vă reînregistrați.</value>
+  <data name="AddProductButton_DisplayName" xml:space="preserve">
+    <value>Adaugă</value>
+  </data>
+  <data name="AddProductMenuItem_DisplayName" xml:space="preserve">
+    <value>Adaugă produs</value>
+  </data>
+  <data name="AddProductViewTitle" xml:space="preserve">
+    <value>Adaugă produs</value>
+  </data>
+  <data name="AddToCartProductButton_Hint" xml:space="preserve">
+    <value>Adaugă în coș</value>
+  </data>
+  <data name="CancelButton_DisplayName" xml:space="preserve">
+    <value>Renunță</value>
+  </data>
+  <data name="DefaultViewTitle" xml:space="preserve">
+    <value>Produse</value>
+  </data>
+  <data name="DeleteProductButton_Hint" xml:space="preserve">
+    <value>Șterge produs</value>
+  </data>
+  <data name="NoticeParagraph1" xml:space="preserve">
+    <value>„Edesia” este proiectul meu de licență. La suprafață este un magazin online, iar „în spate” este un motor de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web și să planifice sarcini pentru „angajați” (cum ar fi partiționarea comenzilor pe zone de livrare într-un mod optim).</value>
+  </data>
+  <data name="NoticeTitle" xml:space="preserve">
+    <value>Încă nu-i gata...</value>
+  </data>
+  <data name="ProductCapacityTextBox_DisplayName" xml:space="preserve">
+    <value>Capacitatea produsului</value>
+  </data>
+  <data name="ProductCapacityTextBox_Hint" xml:space="preserve">
+    <value>un număr natural diferit de 0 (zero)</value>
+  </data>
+  <data name="ProductCapacityTextBox_InvalidValue" xml:space="preserve">
+    <value>Prețul introdus trebuie să fie un număr pozitiv.</value>
+  </data>
+  <data name="ProductCapacityTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să introduceți un preț.</value>
+  </data>
+  <data name="ProductImageTextBox_DisplayName" xml:space="preserve">
+    <value>Imaginea asociată produsului</value>
+  </data>
+  <data name="ProductImageTextBox_Hint" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductImageTextBox_InvalidValue" xml:space="preserve">
+    <value>Imaginea trebuie să fie .jpg, .jpeg, .gif sau .png.</value>
+  </data>
+  <data name="ProductImageTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să funizați o imagine care să fie asociată produsului.</value>
+  </data>
+  <data name="ProductNameTextBox_DisplayName" xml:space="preserve">
+    <value>Numele produsului</value>
+  </data>
+  <data name="ProductNameTextBox_DuplicateValue_Format" xml:space="preserve">
+    <value>Ne pare rău dar produsul {0} este deja existent.</value>
+  </data>
+  <data name="ProductNameTextBox_Hint" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductNameTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să introduceți numele unui produs.</value>
+  </data>
+  <data name="ProductPriceTextBox_DisplayName" xml:space="preserve">
+    <value>Prețul produsului (RON)</value>
+  </data>
+  <data name="ProductPriceTextBox_Hint" xml:space="preserve">
+    <value>un număr real pozitiv cu maximum două zecimale</value>
+  </data>
+  <data name="ProductPriceTextBox_InvalidValue" xml:space="preserve">
+    <value>Trebuie să intorduceți un numar mai mare sau egal cu 0.</value>
+  </data>
+  <data name="ProductPriceTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să introduceți un preț.</value>
   </data>
 </root>

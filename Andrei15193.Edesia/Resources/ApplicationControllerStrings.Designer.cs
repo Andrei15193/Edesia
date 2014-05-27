@@ -22,14 +22,14 @@ namespace Andrei15193.Edesia.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AddAddressViewStrings {
+    public class ApplicationControllerStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AddAddressViewStrings() {
+        internal ApplicationControllerStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Andrei15193.Edesia.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.AddAddressViewStrings", typeof(AddAddressViewStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.ApplicationControllerStrings", typeof(ApplicationControllerStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,38 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adresa.
+        ///   Looks up a localized string similar to Edesia.
         /// </summary>
-        public static string AddressTextBox_DisplayName {
+        public static string ApplicationName {
             get {
-                return ResourceManager.GetString("AddressTextBox_DisplayName", resourceCulture);
+                return ResourceManager.GetString("ApplicationName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Edesia, creat de Fangli Andrei. Toate drepturile rezervate..
         /// </summary>
-        public static string AddressTextBox_Hint {
+        public static string FooterText {
             get {
-                return ResourceManager.GetString("AddressTextBox_Hint", resourceCulture);
+                return ResourceManager.GetString("FooterText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ne pare rau dar adresa {0} este deja memorată..
+        ///   Looks up a localized string similar to http://www.andrei15193.ro/.
         /// </summary>
-        public static string AddressTextBox_InvalidDuplicateValue_Format {
+        public static string FooterUrl {
             get {
-                return ResourceManager.GetString("AddressTextBox_InvalidDuplicateValue_Format", resourceCulture);
+                return ResourceManager.GetString("FooterUrl", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trebuie să introduceți o adresă..
+        ///   Looks up a localized string similar to www.Andrei15193.ro.
         /// </summary>
-        public static string AddressTextBox_MissingValue {
+        public static string FooterUrlText {
             get {
-                return ResourceManager.GetString("AddressTextBox_MissingValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Renunță.
-        /// </summary>
-        public static string CancelButton_DisplayName {
-            get {
-                return ResourceManager.GetString("CancelButton_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adaugă.
-        /// </summary>
-        public static string SubmitButton_DisplayName {
-            get {
-                return ResourceManager.GetString("SubmitButton_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adăugare stradă.
-        /// </summary>
-        public static string ViewTitle {
-            get {
-                return ResourceManager.GetString("ViewTitle", resourceCulture);
+                return ResourceManager.GetString("FooterUrlText", resourceCulture);
             }
         }
     }

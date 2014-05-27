@@ -22,14 +22,14 @@ namespace Andrei15193.Edesia.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class RegisterViewStrings {
+    public class UserControllerStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal RegisterViewStrings() {
+        internal UserControllerStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Andrei15193.Edesia.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.RegisterViewStrings", typeof(RegisterViewStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.UserControllerStrings", typeof(UserControllerStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,29 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adresa de e-mail sau parola nu sunt valide..
+        /// </summary>
+        public static string CredentialControls_InvalidValues {
+            get {
+                return ResourceManager.GetString("CredentialControls_InvalidValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adresa de E-Mail.
         /// </summary>
         public static string EMailTextBox_DisplayName {
             get {
                 return ResourceManager.GetString("EMailTextBox_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adresa de E-Mail.
+        /// </summary>
+        public static string EMailTextBox_DisplayName1 {
+            get {
+                return ResourceManager.GetString("EMailTextBox_DisplayName1", resourceCulture);
             }
         }
         
@@ -84,6 +102,15 @@ namespace Andrei15193.Edesia.Resources {
         public static string EMailTextBox_Hint {
             get {
                 return ResourceManager.GetString("EMailTextBox_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to nume@exemplu.ro.
+        /// </summary>
+        public static string EMailTextBox_Hint1 {
+            get {
+                return ResourceManager.GetString("EMailTextBox_Hint1", resourceCulture);
             }
         }
         
@@ -169,6 +196,15 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Limba.
+        /// </summary>
+        public static string LanguageDropDown_DisplayName {
+            get {
+                return ResourceManager.GetString("LanguageDropDown_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nume.
         /// </summary>
         public static string LastNameTextBox_DisplayName {
@@ -205,6 +241,42 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Autentificare.
+        /// </summary>
+        public static string LoginButton_DisplayName {
+            get {
+                return ResourceManager.GetString("LoginButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autentificare.
+        /// </summary>
+        public static string LoginMenuItemButton_DisplayName {
+            get {
+                return ResourceManager.GetString("LoginMenuItemButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autentificare.
+        /// </summary>
+        public static string LoginViewTitle {
+            get {
+                return ResourceManager.GetString("LoginViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deconectare.
+        /// </summary>
+        public static string LogoutMenuItem_DisplayName {
+            get {
+                return ResourceManager.GetString("LogoutMenuItem_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parola.
         /// </summary>
         public static string PasswordInput_DisplayName {
@@ -214,11 +286,29 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parola.
+        /// </summary>
+        public static string PasswordInput_DisplayName1 {
+            get {
+                return ResourceManager.GetString("PasswordInput_DisplayName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string PasswordInput_Hint {
             get {
                 return ResourceManager.GetString("PasswordInput_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PasswordInput_Hint1 {
+            get {
+                return ResourceManager.GetString("PasswordInput_Hint1", resourceCulture);
             }
         }
         
@@ -259,6 +349,44 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!doctype html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///	&lt;meta charset=&quot;utf-8&quot;&gt;
+        ///	&lt;title&gt;Edesia - Înregistrare&lt;/title&gt;
+        ///	&lt;style&gt;
+        ///		body
+        ///		{{
+        ///			margin: 0;
+        ///			color: #000000;
+        ///			text-align: justify;
+        ///			font-family: &apos;Segoe UI Light_&apos;, &apos;Open Sans Light&apos;, Verdana, Arial, Helvetica, sans-serif;
+        ///			font-size: 10pt;
+        ///		}}
+        ///
+        ///		h1
+        ///		{{
+        ///			margin: 0;
+        ///			padding: 10px;
+        ///			background-color: #008A00;
+        ///			color: #FFFFFF;
+        ///			font-size: 24pt;
+        ///			font-weight: 300;
+        ///		}}
+        ///
+        ///		a
+        ///		{{
+        ///			color: #60A917;
+        ///			text-decoration: none;
+        ///		 [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Register_MailBody_Format {
+            get {
+                return ResourceManager.GetString("Register_MailBody_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Înregistrare.
         /// </summary>
         public static string RegisterButton_DisplayName {
@@ -270,9 +398,63 @@ namespace Andrei15193.Edesia.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Înregistrare.
         /// </summary>
-        public static string ViewTitle {
+        public static string RegisterButton_DisplayName1 {
             get {
-                return ResourceManager.GetString("ViewTitle", resourceCulture);
+                return ResourceManager.GetString("RegisterButton_DisplayName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Înregistrare.
+        /// </summary>
+        public static string RegisterViewTitle {
+            get {
+                return ResourceManager.GetString("RegisterViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Înregistrarea s-a încheiat cu succes. Vă puteți autentifica și începe să cumpărați!.
+        /// </summary>
+        public static string Registration_Completed_Paragraph1 {
+            get {
+                return ResourceManager.GetString("Registration_Completed_Paragraph1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Am trimis un e-mail la adresa oferită cu detalii despre următorii pași care trebuie urmați pentru a vă înregistra..
+        /// </summary>
+        public static string Registration_ConfirmationMailSent_Paragraph1 {
+            get {
+                return ResourceManager.GetString("Registration_ConfirmationMailSent_Paragraph1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ne pare rău dar nu am putut finaliza crearea contului dumneavoastră deoarece s-a scurs timpul în care vă puteați confirma adresa de e-mail..
+        /// </summary>
+        public static string Registration_TokenExpired_Paragraph1 {
+            get {
+                return ResourceManager.GetString("Registration_TokenExpired_Paragraph1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pentru a vă crea cont trebuie să urmați pașii de înregistrare de la început..
+        /// </summary>
+        public static string Registration_TokenExpired_Paragraph2 {
+            get {
+                return ResourceManager.GetString("Registration_TokenExpired_Paragraph2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ne pare rău dar codul de înregistrare este prea vechi pentru a mai putea fi folosit. Trebuie sa vă reînregistrați..
+        /// </summary>
+        public static string RegistrationTokenInput_ExpiredValue {
+            get {
+                return ResourceManager.GetString("RegistrationTokenInput_ExpiredValue", resourceCulture);
             }
         }
     }

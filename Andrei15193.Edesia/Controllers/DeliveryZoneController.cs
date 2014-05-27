@@ -24,7 +24,7 @@ namespace Andrei15193.Edesia.Controllers
 			return View(new DeliveryZoneViewModel(_deliveryRepository.GetUnmappedAddresses().Select(unmappedAddress => new KeyValuePair<string, bool>(unmappedAddress, false)),
 												  _applicationUserProvider.GetEmployees())
 						{
-							SubmitButtonText = AddDeliveryZoneViewStrings.SubmitButton_DisplayName
+							SubmitButtonText = DeliveryZoneControllerStrings.AddDeliveryZoneButton_DisplayName
 						});
 		}
 		[HttpPost]
@@ -44,7 +44,7 @@ namespace Andrei15193.Edesia.Controllers
 						UniqueDeliveryZoneNameException uniqueDeliveryZoneNameException = aggregatedException as UniqueDeliveryZoneNameException;
 
 						if (uniqueDeliveryZoneNameException != null)
-							ModelState.AddModelError("DeliveryZoneName", string.Format(DeliveryZoneDetailsViewStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueDeliveryZoneNameException.ConflictingValue));
+							ModelState.AddModelError("DeliveryZoneName", string.Format(DeliveryZoneControllerStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueDeliveryZoneNameException.ConflictingValue));
 					}
 				}
 			}
@@ -75,7 +75,7 @@ namespace Andrei15193.Edesia.Controllers
 						DeliveryZoneColour = deliveryZoneFound.Colour.ToString(),
 						DeliveryZoneOldName = deliveryZone,
 						SelectedEmployeeEMailAddress = (deliveryZoneFound.Assignee == null ? null : deliveryZoneFound.Assignee.EMailAddress),
-						SubmitButtonText = EditDeliveryZoneViewStrings.SubmitButton_DisplayName
+						SubmitButtonText = DeliveryZoneControllerStrings.EditDeliveryZoneButton_DisplayName
 					});
 			}
 
@@ -98,7 +98,7 @@ namespace Andrei15193.Edesia.Controllers
 						UniqueDeliveryZoneNameException uniqueDeliveryZoneNameException = aggregatedException as UniqueDeliveryZoneNameException;
 
 						if (uniqueDeliveryZoneNameException != null)
-							ModelState.AddModelError("DeliveryZoneName", string.Format(DeliveryZoneDetailsViewStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueDeliveryZoneNameException.ConflictingValue));
+							ModelState.AddModelError("DeliveryZoneName", string.Format(DeliveryZoneControllerStrings.DeliveryZoneNameTextBox_InvalidDuplicateValue_Format, uniqueDeliveryZoneNameException.ConflictingValue));
 					}
 				}
 			}
@@ -119,7 +119,7 @@ namespace Andrei15193.Edesia.Controllers
 			foreach (Employee employee in _applicationUserProvider.GetEmployees())
 				deliveryZoneViewModel.Employees.Add(employee);
 
-			deliveryZoneViewModel.SubmitButtonText = EditDeliveryZoneViewStrings.SubmitButton_DisplayName;
+			deliveryZoneViewModel.SubmitButtonText = DeliveryZoneControllerStrings.EditDeliveryZoneButton_DisplayName;
 			return View(deliveryZoneViewModel);
 		}
 

@@ -14,49 +14,49 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 		{
 			IDictionary<string, Colour> allColours = new SortedList<string, Colour>(capacity: 43);
 
-			allColours.Add(ColourNamesStrings.Amber, Colours.Amber);
-			allColours.Add(ColourNamesStrings.Blue, Colours.Blue);
-			allColours.Add(ColourNamesStrings.Brown, Colours.Brown);
-			allColours.Add(ColourNamesStrings.Cobalt, Colours.Cobalt);
-			allColours.Add(ColourNamesStrings.Crimson, Colours.Crimson);
-			allColours.Add(ColourNamesStrings.Cyan, Colours.Cyan);
-			allColours.Add(ColourNamesStrings.DarkBlue, Colours.DarkBlue);
-			allColours.Add(ColourNamesStrings.DarkBrown, Colours.DarkBrown);
-			allColours.Add(ColourNamesStrings.DarkCobalt, Colours.DarkCobalt);
-			allColours.Add(ColourNamesStrings.DarkCrimson, Colours.DarkCrimson);
-			allColours.Add(ColourNamesStrings.DarkCyan, Colours.DarkCyan);
-			allColours.Add(ColourNamesStrings.DarkEmerald, Colours.DarkEmerald);
-			allColours.Add(ColourNamesStrings.DarkGreen, Colours.DarkGreen);
-			allColours.Add(ColourNamesStrings.DarkIndigo, Colours.DarkIndigo);
-			allColours.Add(ColourNamesStrings.DarkMagenta, Colours.DarkMagenta);
-			allColours.Add(ColourNamesStrings.DarkOrange, Colours.DarkOrange);
-			allColours.Add(ColourNamesStrings.DarkPink, Colours.DarkPink);
-			allColours.Add(ColourNamesStrings.DarkRed, Colours.DarkRed);
-			allColours.Add(ColourNamesStrings.DarkTeal, Colours.DarkTeal);
-			allColours.Add(ColourNamesStrings.DarkViolet, Colours.DarkViolet);
-			allColours.Add(ColourNamesStrings.Emerald, Colours.Emerald);
-			allColours.Add(ColourNamesStrings.Green, Colours.Green);
-			allColours.Add(ColourNamesStrings.Indigo, Colours.Indigo);
-			allColours.Add(ColourNamesStrings.LightBlue, Colours.LightBlue);
-			allColours.Add(ColourNamesStrings.LighterBlue, Colours.LighterBlue);
-			allColours.Add(ColourNamesStrings.LightGreen, Colours.LightGreen);
-			allColours.Add(ColourNamesStrings.LightOlive, Colours.LightOlive);
-			allColours.Add(ColourNamesStrings.LightOrange, Colours.LightOrange);
-			allColours.Add(ColourNamesStrings.LightPink, Colours.LightPink);
-			allColours.Add(ColourNamesStrings.LightRed, Colours.LightRed);
-			allColours.Add(ColourNamesStrings.LightTeal, Colours.LightTeal);
-			allColours.Add(ColourNamesStrings.Lime, Colours.Lime);
-			allColours.Add(ColourNamesStrings.Magenta, Colours.Magenta);
-			allColours.Add(ColourNamesStrings.Mauve, Colours.Mauve);
-			allColours.Add(ColourNamesStrings.Olive, Colours.Olive);
-			allColours.Add(ColourNamesStrings.Orange, Colours.Orange);
-			allColours.Add(ColourNamesStrings.Pink, Colours.Pink);
-			allColours.Add(ColourNamesStrings.Red, Colours.Red);
-			allColours.Add(ColourNamesStrings.Steel, Colours.Steel);
-			allColours.Add(ColourNamesStrings.Taupe, Colours.Taupe);
-			allColours.Add(ColourNamesStrings.Teal, Colours.Teal);
-			allColours.Add(ColourNamesStrings.Violet, Colours.Violet);
-			allColours.Add(ColourNamesStrings.Yellow, Colours.Yellow);
+			allColours.Add(ColourStrings.Amber, Colours.Amber);
+			allColours.Add(ColourStrings.Blue, Colours.Blue);
+			allColours.Add(ColourStrings.Brown, Colours.Brown);
+			allColours.Add(ColourStrings.Cobalt, Colours.Cobalt);
+			allColours.Add(ColourStrings.Crimson, Colours.Crimson);
+			allColours.Add(ColourStrings.Cyan, Colours.Cyan);
+			allColours.Add(ColourStrings.DarkBlue, Colours.DarkBlue);
+			allColours.Add(ColourStrings.DarkBrown, Colours.DarkBrown);
+			allColours.Add(ColourStrings.DarkCobalt, Colours.DarkCobalt);
+			allColours.Add(ColourStrings.DarkCrimson, Colours.DarkCrimson);
+			allColours.Add(ColourStrings.DarkCyan, Colours.DarkCyan);
+			allColours.Add(ColourStrings.DarkEmerald, Colours.DarkEmerald);
+			allColours.Add(ColourStrings.DarkGreen, Colours.DarkGreen);
+			allColours.Add(ColourStrings.DarkIndigo, Colours.DarkIndigo);
+			allColours.Add(ColourStrings.DarkMagenta, Colours.DarkMagenta);
+			allColours.Add(ColourStrings.DarkOrange, Colours.DarkOrange);
+			allColours.Add(ColourStrings.DarkPink, Colours.DarkPink);
+			allColours.Add(ColourStrings.DarkRed, Colours.DarkRed);
+			allColours.Add(ColourStrings.DarkTeal, Colours.DarkTeal);
+			allColours.Add(ColourStrings.DarkViolet, Colours.DarkViolet);
+			allColours.Add(ColourStrings.Emerald, Colours.Emerald);
+			allColours.Add(ColourStrings.Green, Colours.Green);
+			allColours.Add(ColourStrings.Indigo, Colours.Indigo);
+			allColours.Add(ColourStrings.LightBlue, Colours.LightBlue);
+			allColours.Add(ColourStrings.LighterBlue, Colours.LighterBlue);
+			allColours.Add(ColourStrings.LightGreen, Colours.LightGreen);
+			allColours.Add(ColourStrings.LightOlive, Colours.LightOlive);
+			allColours.Add(ColourStrings.LightOrange, Colours.LightOrange);
+			allColours.Add(ColourStrings.LightPink, Colours.LightPink);
+			allColours.Add(ColourStrings.LightRed, Colours.LightRed);
+			allColours.Add(ColourStrings.LightTeal, Colours.LightTeal);
+			allColours.Add(ColourStrings.Lime, Colours.Lime);
+			allColours.Add(ColourStrings.Magenta, Colours.Magenta);
+			allColours.Add(ColourStrings.Mauve, Colours.Mauve);
+			allColours.Add(ColourStrings.Olive, Colours.Olive);
+			allColours.Add(ColourStrings.Orange, Colours.Orange);
+			allColours.Add(ColourStrings.Pink, Colours.Pink);
+			allColours.Add(ColourStrings.Red, Colours.Red);
+			allColours.Add(ColourStrings.Steel, Colours.Steel);
+			allColours.Add(ColourStrings.Taupe, Colours.Taupe);
+			allColours.Add(ColourStrings.Teal, Colours.Teal);
+			allColours.Add(ColourStrings.Violet, Colours.Violet);
+			allColours.Add(ColourStrings.Yellow, Colours.Yellow);
 
 			_availableColours = new ReadOnlyDictionary<string, Colour>(allColours);
 		}
@@ -78,8 +78,8 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 		{
 		}
 
-		[LocalizedRequired(DeliveryZoneDetailsViewKey.DeliveryZoneTextBox_MissingValue, AllowEmptyStrings = false)]
-		[Display(Name = DeliveryZoneDetailsViewKey.DeliveryZoneTextBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.DeliveryZoneTextBox_Hint, ResourceType = typeof(DeliveryZoneDetailsViewStrings))]
+		[LocalizedRequired(DeliveryZoneDetailsViewKey.DeliveryZoneTextBox_MissingValue, typeof(DeliveryZoneControllerStrings), AllowEmptyStrings = false)]
+		[Display(Name = DeliveryZoneDetailsViewKey.DeliveryZoneTextBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.DeliveryZoneTextBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
 		public string DeliveryZoneName
 		{
 			get;
@@ -91,8 +91,8 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 			set;
 		}
 
-		[LocalizedRegularExpression("#([0-90a-fA-F]{6})", DeliveryZoneDetailsViewKey.DeliveryZoneColourTextBox_InvalidValue)]
-		[Display(Name = DeliveryZoneDetailsViewKey.DeliveryZoneColourComboBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.DeliveryZoneColourComboBox_Hint, ResourceType = typeof(DeliveryZoneDetailsViewStrings))]
+		[LocalizedRegularExpression("#([0-90a-fA-F]{6})", DeliveryZoneDetailsViewKey.DeliveryZoneColourTextBox_InvalidValue, typeof(DeliveryZoneControllerStrings))]
+		[Display(Name = DeliveryZoneDetailsViewKey.DeliveryZoneColourComboBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.DeliveryZoneColourComboBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
 		public string DeliveryZoneColour
 		{
 			get;
@@ -106,7 +106,7 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 			}
 		}
 
-		[Display(Name = DeliveryZoneDetailsViewKey.AvailableAddressesListBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.AvailableAddressesListBox_Hint, ResourceType = typeof(DeliveryZoneDetailsViewStrings))]
+		[Display(Name = DeliveryZoneDetailsViewKey.AvailableAddressesListBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.AvailableAddressesListBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
 		public ISet<KeyValuePair<string, bool>> AvailableAddresses
 		{
 			get
@@ -120,7 +120,7 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 			set;
 		}
 
-		[Display(Name = DeliveryZoneDetailsViewKey.EmployeesComobBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.EmployeesComobBox_Hint, ResourceType = typeof(DeliveryZoneDetailsViewStrings))]
+		[Display(Name = DeliveryZoneDetailsViewKey.EmployeesComobBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.EmployeesComobBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
 		public ISet<Employee> Employees
 		{
 			get

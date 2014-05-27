@@ -8,17 +8,17 @@
 @if (Model.Skip(1).Any())
 {
 	<div class="element">
-		<a class="dropdown-toggle" style="cursor: pointer;">@NavigationViewStrings.LanguageDropDown_DisplayName</a>
+		<a class="dropdown-toggle" style="cursor: pointer;">@UserControllerStrings.LanguageDropDown_DisplayName</a>
 		<ul class="dropdown-menu inverse" data-role="dropdown">
 			@foreach (DisplayLanguage displayLanguage in Model)
 			{
 				if (displayLanguage.IsSelected)
 				{
-					<li class="disabled"><a href="@Url.Action("ChangeLanguage", "User")?languageId=@Server.UrlEncode(displayLanguage.LanguageId)&returnUrl=@Server.UrlEncode(Request.Path)">@displayLanguage.LanguageDisplayName</a></li>
+					<li class="disabled"><a href="@Url.Action("ChangeLanguage", "User")?languageId=@Url.Encode(displayLanguage.LanguageId)&returnUrl=@Url.Encode(Request.Path)">@displayLanguage.LanguageDisplayName</a></li>
 				}
 				else
 				{
-					<li><a href="@Url.Action("ChangeLanguage", "User")?languageId=@Server.UrlEncode(displayLanguage.LanguageId)&returnUrl=@Server.UrlEncode(Request.Path)">@displayLanguage.LanguageDisplayName</a></li>
+					<li><a href="@Url.Action("ChangeLanguage", "User")?languageId=@Url.Encode(displayLanguage.LanguageId)&returnUrl=@Url.Encode(Request.Path)">@displayLanguage.LanguageDisplayName</a></li>
 				}
 			}
 		</ul>

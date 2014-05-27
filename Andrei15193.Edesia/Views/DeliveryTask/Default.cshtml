@@ -10,10 +10,10 @@
 			<nav class="horizontal-menu">
 				<ul class="no-margin no-padding">
 					<li>
-						<h2 class="dropdown-toggle dropdown-toggle-h2">@DeliveryPlanningViewStrings.PendingDeliveriesLabel_DisplayName (@Model.Count())</h2>
+						<h2 class="dropdown-toggle dropdown-toggle-h2">@DeliveryTaskControllerStrings.PendingDeliveriesLabel_DisplayName (@Model.Count())</h2>
 						<ul class="dropdown-menu inverse" data-role="dropdown" data-effect="fade">
 							<li class="fg-emerald @(!Model.Any() ? "disabled" : string.Empty)">
-								<a class="@(!Model.Any() ? "disabledActionLink" : string.Empty)">@DeliveryPlanningViewStrings.CancelPendingTransportsButton_DisplayName</a>
+								<a class="@(!Model.Any() ? "disabledActionLink" : string.Empty)">@DeliveryTaskControllerStrings.CancelPendingTransportsButton_DisplayName</a>
 							</li>
 						</ul>
 					</li>
@@ -32,12 +32,12 @@
 						</a>
 						<div class="content">
 							<p>
-								<small>@DeliveryPlanningViewStrings.DeliveryStateLabel_DisplayName: scheduled</small><br />
-								<strong>@DeliveryPlanningViewStrings.OrdersLabel_DisplayName:</strong>
+								<small>@DeliveryTaskControllerStrings.DeliveryStateLabel_DisplayName: scheduled</small><br />
+								<strong>@DeliveryTaskControllerStrings.OrdersLabel_DisplayName:</strong>
 								<ul>
 									@foreach (Order order in deliveryTask.OrdersToDeliver)
 									{
-										<li>@(string.Format(DeliveryPlanningViewStrings.OrderListItemLabel_DisplayName_Format, order.OrderNumber, order.DeliveryAddress))</li>
+										<li>@(string.Format(DeliveryTaskControllerStrings.OrderListItemLabel_DisplayName_Format, order.OrderNumber, order.DeliveryAddress))</li>
 									}
 								</ul>
 							</p>

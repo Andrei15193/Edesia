@@ -1,12 +1,12 @@
 ﻿@using Andrei15193.Edesia.Resources;
 @model Andrei15193.Edesia.ViewModels.User.LoginViewModel
 @{
-	ViewBag.Title = LoginViewStrings.ViewTitle;
+	ViewBag.Title = UserControllerStrings.LoginViewTitle;
 }
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4 offset4">
-			<h1>@LoginViewStrings.ViewTitle</h1>
+			<h1>@UserControllerStrings.LoginViewTitle</h1>
 			@using (Html.BeginForm())
 			{
 				@Html.LabelFor(model => model.EMailAddress)
@@ -19,7 +19,7 @@
 				<div class="input-control password">
 					@Html.EditorFor(model => model.Password)
 				</div>
-				<input class="action" type="submit" value="@LoginViewStrings.SubmitButton_DisplayName" />
+				<input class="action" type="submit" value="@UserControllerStrings.LoginButton_DisplayName" />
 			}
 		</div>
 	</div>

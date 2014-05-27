@@ -7,12 +7,12 @@ namespace Andrei15193.Edesia.Attributes
 	public class LocalizedRequiredAttribute
 		: RequiredAttribute
 	{
-		public LocalizedRequiredAttribute(string errorMessageResourceName)
+		public LocalizedRequiredAttribute(string errorMessageResourceName, Type errorMessageResourceType)
 		{
 			AllowEmptyStrings = false;
 			ErrorMessage = null;
 			ErrorMessageResourceName = errorMessageResourceName;
-			ErrorMessageResourceType = typeof(ErrorStrings);
+			ErrorMessageResourceType = errorMessageResourceType;
 		}
 	}
 }

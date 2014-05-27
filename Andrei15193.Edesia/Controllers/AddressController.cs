@@ -43,7 +43,7 @@ namespace Andrei15193.Edesia.Controllers
 						UniqueAddressException uniqueAddressException = aggregatedException as UniqueAddressException;
 
 						if (uniqueAddressException != null)
-							ModelState.AddModelError("Address", string.Format(AddAddressViewStrings.AddressTextBox_InvalidDuplicateValue_Format, uniqueAddressException.ConflictingValue));
+							ModelState.AddModelError("Address", string.Format(AddressControllerStrings.AddressTextBox_InvalidDuplicateValue_Format, uniqueAddressException.ConflictingValue));
 					}
 
 					return View(addAddressViewModel);

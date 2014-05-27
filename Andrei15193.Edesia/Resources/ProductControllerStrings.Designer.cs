@@ -22,14 +22,14 @@ namespace Andrei15193.Edesia.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AddProductViewStrings {
+    public class ProductControllerStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AddProductViewStrings() {
+        internal ProductControllerStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Andrei15193.Edesia.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.AddProductViewStrings", typeof(AddProductViewStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.ProductControllerStrings", typeof(ProductControllerStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,83 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adaugă.
+        /// </summary>
+        public static string AddProductButton_DisplayName {
+            get {
+                return ResourceManager.GetString("AddProductButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adaugă produs.
+        /// </summary>
+        public static string AddProductMenuItem_DisplayName {
+            get {
+                return ResourceManager.GetString("AddProductMenuItem_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adaugă produs.
+        /// </summary>
+        public static string AddProductViewTitle {
+            get {
+                return ResourceManager.GetString("AddProductViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adaugă în coș.
+        /// </summary>
+        public static string AddToCartProductButton_Hint {
+            get {
+                return ResourceManager.GetString("AddToCartProductButton_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Renunță.
         /// </summary>
         public static string CancelButton_DisplayName {
             get {
                 return ResourceManager.GetString("CancelButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produse.
+        /// </summary>
+        public static string DefaultViewTitle {
+            get {
+                return ResourceManager.GetString("DefaultViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Șterge produs.
+        /// </summary>
+        public static string DeleteProductButton_Hint {
+            get {
+                return ResourceManager.GetString("DeleteProductButton_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to „Edesia” este proiectul meu de licență. La suprafață este un magazin online, iar „în spate” este un motor de planificare. Sarcina principală a aplicației este să strângă comenzi folosind interfața web și să planifice sarcini pentru „angajați” (cum ar fi partiționarea comenzilor pe zone de livrare într-un mod optim)..
+        /// </summary>
+        public static string NoticeParagraph1 {
+            get {
+                return ResourceManager.GetString("NoticeParagraph1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Încă nu-i gata....
+        /// </summary>
+        public static string NoticeTitle {
+            get {
+                return ResourceManager.GetString("NoticeTitle", resourceCulture);
             }
         }
         
@@ -210,24 +282,6 @@ namespace Andrei15193.Edesia.Resources {
         public static string ProductPriceTextBox_MissingValue {
             get {
                 return ResourceManager.GetString("ProductPriceTextBox_MissingValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adaugă.
-        /// </summary>
-        public static string SubmitButton_DisplayName {
-            get {
-                return ResourceManager.GetString("SubmitButton_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adaugă produs.
-        /// </summary>
-        public static string ViewTitle {
-            get {
-                return ResourceManager.GetString("ViewTitle", resourceCulture);
             }
         }
     }

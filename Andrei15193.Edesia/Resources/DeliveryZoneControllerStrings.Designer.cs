@@ -22,14 +22,14 @@ namespace Andrei15193.Edesia.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class DeliveryZoneDetailsViewStrings {
+    public class DeliveryZoneControllerStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DeliveryZoneDetailsViewStrings() {
+        internal DeliveryZoneControllerStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Andrei15193.Edesia.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.DeliveryZoneDetailsViewStrings", typeof(DeliveryZoneDetailsViewStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Andrei15193.Edesia.Resources.DeliveryZoneControllerStrings", typeof(DeliveryZoneControllerStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,42 @@ namespace Andrei15193.Edesia.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adaugă adresă.
+        /// </summary>
+        public static string AddAddressMenuItem_DisplayName {
+            get {
+                return ResourceManager.GetString("AddAddressMenuItem_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adaugă.
+        /// </summary>
+        public static string AddDeliveryZoneButton_DisplayName {
+            get {
+                return ResourceManager.GetString("AddDeliveryZoneButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adaugă zona de livrare.
+        /// </summary>
+        public static string AddDeliveryZoneMenuItem_DisplayName {
+            get {
+                return ResourceManager.GetString("AddDeliveryZoneMenuItem_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adaugare zonă de livrare.
+        /// </summary>
+        public static string AddDeliveryZoneViewTitle {
+            get {
+                return ResourceManager.GetString("AddDeliveryZoneViewTitle", resourceCulture);
             }
         }
         
@@ -84,6 +120,15 @@ namespace Andrei15193.Edesia.Resources {
         public static string CancelButton_DisplayName {
             get {
                 return ResourceManager.GetString("CancelButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zone de livrare.
+        /// </summary>
+        public static string DefaultViewTitle {
+            get {
+                return ResourceManager.GetString("DefaultViewTitle", resourceCulture);
             }
         }
         
@@ -133,6 +178,15 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Numele zonei de livrare.
+        /// </summary>
+        public static string DeliveryZoneLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("DeliveryZoneLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zona de livrare selectată nu există..
         /// </summary>
         public static string DeliveryZoneNameComboBox_InvalidValue {
@@ -178,6 +232,24 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modifică.
+        /// </summary>
+        public static string EditDeliveryZoneButton_DisplayName {
+            get {
+                return ResourceManager.GetString("EditDeliveryZoneButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modificare zonă de livrare.
+        /// </summary>
+        public static string EditDeliveryZoneViewTitle {
+            get {
+                return ResourceManager.GetString("EditDeliveryZoneViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Responsabilul zonei de livrare.
         /// </summary>
         public static string EmployeesComobBox_DisplayName {
@@ -192,6 +264,51 @@ namespace Andrei15193.Edesia.Resources {
         public static string EmployeesComobBox_Hint {
             get {
                 return ResourceManager.GetString("EmployeesComobBox_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestionează zone de livrare.
+        /// </summary>
+        public static string ManageDeliveryZonesButton_DisplayName {
+            get {
+                return ResourceManager.GetString("ManageDeliveryZonesButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adaugă, modifică, șterge zone de livrare..
+        /// </summary>
+        public static string ManageDeliveryZonesButton_Hint {
+            get {
+                return ResourceManager.GetString("ManageDeliveryZonesButton_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Șterge.
+        /// </summary>
+        public static string RemoveDeliveryZoneButton_DisplayName {
+            get {
+                return ResourceManager.GetString("RemoveDeliveryZoneButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ștergere zonă de livrare.
+        /// </summary>
+        public static string RemoveDeliveryZoneViewTitle {
+            get {
+                return ResourceManager.GetString("RemoveDeliveryZoneViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Responsabil: {1}, {0} (capacitate transport: {2}).
+        /// </summary>
+        public static string ResponsibleLabel_DisplayName_Format {
+            get {
+                return ResourceManager.GetString("ResponsibleLabel_DisplayName_Format", resourceCulture);
             }
         }
         

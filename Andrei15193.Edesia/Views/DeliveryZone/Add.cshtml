@@ -2,12 +2,12 @@
 @using Andrei15193.Edesia.Resources;
 @model Andrei15193.Edesia.ViewModels.DeliveryZone.DeliveryZoneViewModel
 @{
-	ViewBag.Title = AddDeliveryZoneViewStrings.ViewTitle;
+	ViewBag.Title = DeliveryZoneControllerStrings.AddDeliveryZoneViewTitle;
 }
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4 offset4">
-			<h1>@AddDeliveryZoneViewStrings.ViewTitle</h1>
+			<h1>@DeliveryZoneControllerStrings.AddDeliveryZoneViewTitle</h1>
 			@using (Html.BeginForm())
 			{
 				@Html.HiddenFor(model => model.DeliveryZoneOldName)
@@ -48,13 +48,13 @@
 							if (string.Equals(employee.EMailAddress, Model.SelectedEmployeeEMailAddress, StringComparison.Ordinal))
 							{
 								<option selected="selected" value="@employee.EMailAddress">
-									@employee.LastName, @employee.FirstName (@DeliveryZoneDetailsViewStrings.TransportCapacityLabel_DisplayName @employee.TransportCapacity)
+									@employee.LastName, @employee.FirstName (@DeliveryZoneControllerStrings.TransportCapacityLabel_DisplayName @employee.TransportCapacity)
 								</option>
 							}
 							else
 							{
 								<option value="@employee.EMailAddress">
-									@employee.LastName, @employee.FirstName (@DeliveryZoneDetailsViewStrings.TransportCapacityLabel_DisplayName @employee.TransportCapacity)
+									@employee.LastName, @employee.FirstName (@DeliveryZoneControllerStrings.TransportCapacityLabel_DisplayName @employee.TransportCapacity)
 								</option>
 							}
 						}
@@ -83,10 +83,10 @@
 						}
 					</div>
 				}
-				<input type="submit" class="action" value="@Model.SubmitButtonText" />
-				<a class="button cancelAction" href="@Url.Action("Default", "Delivery")">@DeliveryZoneDetailsViewStrings.CancelButton_DisplayName</a>
+				<input type="submit" class="action" value="@DeliveryZoneControllerStrings.AddDeliveryZoneButton_DisplayName" />
+				<a class="button cancelAction" href="@Url.Action("Default", "Delivery")">@DeliveryZoneControllerStrings.CancelButton_DisplayName</a>
 			}
-			<p class="text-justify"><i class="icon-info-2 fg-emerald"></i> <small>@DeliveryZoneDetailsViewStrings.DeliveryZoneColourComboBox_Hint</small></p>
+			<p class="text-justify"><i class="icon-info-2 fg-emerald"></i> <small>@DeliveryZoneControllerStrings.DeliveryZoneColourComboBox_Hint</small></p>
 		</div>
 	</div>
 </div>

@@ -1,12 +1,12 @@
 ﻿@using Andrei15193.Edesia.Resources;
 @model Andrei15193.Edesia.ViewModels.User.RegisterViewModel
 @{
-	ViewBag.Title = RegisterViewStrings.ViewTitle;
+	ViewBag.Title = UserControllerStrings.RegisterViewTitle;
 }
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4 offset4">
-			<h1>@RegisterViewStrings.ViewTitle</h1>
+			<h1>@UserControllerStrings.RegisterViewTitle</h1>
 			@using (Html.BeginForm())
 			{
 				@Html.LabelFor(model => model.FirstName)
@@ -37,7 +37,7 @@
 				<div class="input-control text">
 					@Html.EditorFor(model => model.PasswordCopy)
 				</div>
-				<input type="submit" class="action" value="@RegisterViewStrings.RegisterButton_DisplayName" />
+				<input type="submit" class="action" value="@UserControllerStrings.RegisterButton_DisplayName" />
 			}
 		</div>
 	</div>

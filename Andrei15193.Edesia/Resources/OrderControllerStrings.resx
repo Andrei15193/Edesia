@@ -117,16 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CancelButton_DisplayName" xml:space="preserve">
-    <value>Renunță</value>
+  <data name="DefaultViewTitle" xml:space="preserve">
+    <value>Comenzi în așteptare</value>
   </data>
-  <data name="DeliveryZoneLabel_DisplayName" xml:space="preserve">
-    <value>Numele zonei de livrare</value>
+  <data name="DeliveryAddressLabel_DisplayName" xml:space="preserve">
+    <value>Adresa de livrare:</value>
   </data>
-  <data name="SubmitButton_DisplayName" xml:space="preserve">
-    <value>Șterge</value>
+  <data name="OrderAccordionFrameHeader_DisplayName_Format" xml:space="preserve">
+    <value>Comanda #{0}, {1:dd MMMM yyyy, HH:mm}</value>
   </data>
-  <data name="ViewTitle" xml:space="preserve">
-    <value>Ștergere zonă de livrare</value>
+  <data name="OrderedProductLabel_DisplayName_Format" xml:space="preserve">
+    <value>{1} x {0}, {2:0.00} RON (total: {3:0.00} RON)</value>
+  </data>
+  <data name="OrderLabel_DisplayName" xml:space="preserve">
+    <value>Comandă</value>
+  </data>
+  <data name="SchedulePendingOrdersButton_DisplayName" xml:space="preserve">
+    <value>Programează comenzi</value>
+  </data>
+  <data name="SchedulePendingOrdersButton_Hint" xml:space="preserve">
+    <value>Planifică manual comenzi pentru a fi livrate.</value>
   </data>
 </root>

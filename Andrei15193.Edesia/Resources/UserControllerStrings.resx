@@ -123,19 +123,191 @@
   <data name="EMailTextBox_DisplayName" xml:space="preserve">
     <value>Adresa de E-Mail</value>
   </data>
+  <data name="EMailTextBox_DisplayName1" xml:space="preserve">
+    <value>Adresa de E-Mail</value>
+  </data>
+  <data name="EMailTextBox_DuplicateValue_Format" xml:space="preserve">
+    <value>Ne pare rău dar adresa de e-mail {0} este deja folosită.</value>
+  </data>
   <data name="EMailTextBox_Hint" xml:space="preserve">
     <value>nume@exemplu.ro</value>
   </data>
+  <data name="EMailTextBox_Hint1" xml:space="preserve">
+    <value>nume@exemplu.ro</value>
+  </data>
+  <data name="EMailTextBox_InvalidValue" xml:space="preserve">
+    <value>Nu ați introdus o adresă de e-mail validă.</value>
+  </data>
+  <data name="EMailTextBox_InvalidVerificationValue" xml:space="preserve">
+    <value>Adresele de e-mail trebuie să fie aceleași.</value>
+  </data>
+  <data name="EMailTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să introduceți o adresă de e-mail.</value>
+  </data>
+  <data name="EMailVerificationTextBox_DisplayName" xml:space="preserve">
+    <value>Verificați adresa de E-Mail</value>
+  </data>
+  <data name="EMailVerificationTextBox_Hint" xml:space="preserve">
+    <value>reintroduceți adresa de e-mail (verificare)</value>
+  </data>
+  <data name="FirstNameTextBox_DisplayName" xml:space="preserve">
+    <value>Prenume</value>
+  </data>
+  <data name="FirstNameTextBox_Hint" xml:space="preserve">
+    <value>prenumele dumneavoastră</value>
+  </data>
+  <data name="FirstNameTextBox_InvalidValue" xml:space="preserve">
+    <value>Nu ați introdus un prenume corect.</value>
+  </data>
+  <data name="FirstNameTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să introduceți un prenume.</value>
+  </data>
+  <data name="LanguageDropDown_DisplayName" xml:space="preserve">
+    <value>Limba</value>
+  </data>
+  <data name="LastNameTextBox_DisplayName" xml:space="preserve">
+    <value>Nume</value>
+  </data>
+  <data name="LastNameTextBox_Hint" xml:space="preserve">
+    <value>numele dumneavoastră (de familie)</value>
+  </data>
+  <data name="LastNameTextBox_InvalidValue" xml:space="preserve">
+    <value>Nu ați introdus un nume corect.</value>
+  </data>
+  <data name="LastNameTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să introduceți un nume.</value>
+  </data>
+  <data name="LoginButton_DisplayName" xml:space="preserve">
+    <value>Autentificare</value>
+  </data>
+  <data name="LoginMenuItemButton_DisplayName" xml:space="preserve">
+    <value>Autentificare</value>
+  </data>
+  <data name="LoginViewTitle" xml:space="preserve">
+    <value>Autentificare</value>
+  </data>
+  <data name="LogoutMenuItem_DisplayName" xml:space="preserve">
+    <value>Deconectare</value>
+  </data>
   <data name="PasswordInput_DisplayName" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="PasswordInput_DisplayName1" xml:space="preserve">
     <value>Parola</value>
   </data>
   <data name="PasswordInput_Hint" xml:space="preserve">
     <value />
   </data>
-  <data name="SubmitButton_DisplayName" xml:space="preserve">
-    <value>Autentificare</value>
+  <data name="PasswordInput_Hint1" xml:space="preserve">
+    <value />
   </data>
-  <data name="ViewTitle" xml:space="preserve">
-    <value>Autentificare</value>
+  <data name="PasswordInput_InvalidVerificationValue" xml:space="preserve">
+    <value>Parolele trebuie să fie aceleași.</value>
+  </data>
+  <data name="PasswordInput_MissingValue" xml:space="preserve">
+    <value>Trebuie să introduceți o parolă.</value>
+  </data>
+  <data name="PasswordVerificationInput_DisplayName" xml:space="preserve">
+    <value>Verificați parola</value>
+  </data>
+  <data name="PasswordVerificationInput_Hint" xml:space="preserve">
+    <value>reintroduceți parola (verificare)</value>
+  </data>
+  <data name="RegisterButton_DisplayName" xml:space="preserve">
+    <value>Înregistrare</value>
+  </data>
+  <data name="RegisterButton_DisplayName1" xml:space="preserve">
+    <value>Înregistrare</value>
+  </data>
+  <data name="RegisterViewTitle" xml:space="preserve">
+    <value>Înregistrare</value>
+  </data>
+  <data name="Register_MailBody_Format" xml:space="preserve">
+    <value>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Edesia - Înregistrare&lt;/title&gt;
+	&lt;style&gt;
+		body
+		{{
+			margin: 0;
+			color: #000000;
+			text-align: justify;
+			font-family: 'Segoe UI Light_', 'Open Sans Light', Verdana, Arial, Helvetica, sans-serif;
+			font-size: 10pt;
+		}}
+
+		h1
+		{{
+			margin: 0;
+			padding: 10px;
+			background-color: #008A00;
+			color: #FFFFFF;
+			font-size: 24pt;
+			font-weight: 300;
+		}}
+
+		a
+		{{
+			color: #60A917;
+			text-decoration: none;
+		}}
+
+			a:hover
+			{{
+				color: #7AD61D;
+				text-decoration: none;
+			}}
+
+		.content
+		{{
+			padding-left: 15px;
+			padding-right: 15px;
+		}}
+
+		#signature
+		{{
+			margin-top: 30px;
+			padding-top: 15px;
+			height: 65px;
+			background-color: #008A00;
+			color: #FFFFFF;
+		}}
+	&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;h1&gt;Edesia - Înregistrare&lt;/h1&gt;
+	&lt;div class="content"&gt;
+		&lt;p&gt;
+			Bună ziua! Pentru a putea finaliza înregistrarea trebuie să confirmați adresa de e-mail.
+			Aceasta se face destul de simplu, trebuie doar să faceți un click pe linkul de
+			mai jos. În caz că aveți probleme nu ezitați să ne contactați la adresa de e-mail:
+			&lt;small&gt;andrei_fangli@hotmail.com&lt;/small&gt;. Vă mulțumim!
+		&lt;/p&gt;
+		&lt;p&gt;
+			&lt;a href="{0}?email={1}&amp;key={2}"&gt;{0}?email={1}&amp;key={2}&lt;/a&gt;
+		&lt;/p&gt;
+	&lt;/div&gt;
+	&lt;p id="signature" class="content"&gt;
+		Vă dorim o zi superbă!
+	&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="RegistrationTokenInput_ExpiredValue" xml:space="preserve">
+    <value>Ne pare rău dar codul de înregistrare este prea vechi pentru a mai putea fi folosit. Trebuie sa vă reînregistrați.</value>
+  </data>
+  <data name="Registration_Completed_Paragraph1" xml:space="preserve">
+    <value>Înregistrarea s-a încheiat cu succes. Vă puteți autentifica și începe să cumpărați!</value>
+  </data>
+  <data name="Registration_ConfirmationMailSent_Paragraph1" xml:space="preserve">
+    <value>Am trimis un e-mail la adresa oferită cu detalii despre următorii pași care trebuie urmați pentru a vă înregistra.</value>
+  </data>
+  <data name="Registration_TokenExpired_Paragraph1" xml:space="preserve">
+    <value>Ne pare rău dar nu am putut finaliza crearea contului dumneavoastră deoarece s-a scurs timpul în care vă puteați confirma adresa de e-mail.</value>
+  </data>
+  <data name="Registration_TokenExpired_Paragraph2" xml:space="preserve">
+    <value>Pentru a vă crea cont trebuie să urmați pașii de înregistrare de la început.</value>
   </data>
 </root>

@@ -7,12 +7,12 @@ namespace Andrei15193.Edesia.Attributes
 	public class LocalizedRegularExpressionAttribute
 		: RegularExpressionAttribute
 	{
-		public LocalizedRegularExpressionAttribute(string pattern, string errorMessageResourceName)
+		public LocalizedRegularExpressionAttribute(string pattern, string errorMessageResourceName, Type errorMessageResourceType)
 			: base(pattern)
 		{
 			ErrorMessage = null;
 			ErrorMessageResourceName = errorMessageResourceName;
-			ErrorMessageResourceType = typeof(ErrorStrings);
+			ErrorMessageResourceType = errorMessageResourceType;
 		}
 	}
 }

@@ -10,13 +10,13 @@
 			<nav class="horizontal-menu">
 				<ul class="no-margin no-padding">
 					<li>
-						<h2 class="dropdown-toggle dropdown-toggle-h2">@DeliveryZonePlanningViewStrings.ViewTitle (@Model.Count())</h2>
+						<h2 class="dropdown-toggle dropdown-toggle-h2">@DeliveryZoneControllerStrings.DefaultViewTitle (@Model.Count())</h2>
 						<ul class="dropdown-menu inverse" data-role="dropdown" data-effect="fade">
 							<li class="fg-emerald">
-								<a href="@Url.Action("Add", "Address")">@ManageDeliveryZonesViewStrings.AddAddressButton_DisplayName</a>
+								<a href="@Url.Action("Add", "Address")">@DeliveryZoneControllerStrings.AddAddressMenuItem_DisplayName</a>
 							</li>
 							<li class="fg-emerald">
-								<a href="@Url.Action("Add", "DeliveryZone")">@ManageDeliveryZonesViewStrings.AddDeliveryZoneButton_DisplayName</a>
+								<a href="@Url.Action("Add", "DeliveryZone")">@DeliveryZoneControllerStrings.AddDeliveryZoneMenuItem_DisplayName</a>
 							</li>
 						</ul>
 					</li>

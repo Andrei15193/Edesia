@@ -214,140 +214,50 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\OrderedProduct.cs" />
     <Compile Include="Models\TaskState.cs" />
-    <Compile Include="Resources\AddDeliveryZoneViewStrings.Designer.cs">
+    <Compile Include="Resources\DeliveryTaskControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AddDeliveryZoneViewStrings.resx</DependentUpon>
+      <DependentUpon>DeliveryTaskControllerStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\ColourNamesStrings.Designer.cs">
+    <Compile Include="Resources\DeliveryZoneControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ColourNamesStrings.resx</DependentUpon>
+      <DependentUpon>DeliveryZoneControllerStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\DeliveryZoneDetailsViewStrings.Designer.cs">
+    <Compile Include="Resources\ColourStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeliveryZoneDetailsViewStrings.resx</DependentUpon>
+      <DependentUpon>ColourStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\AddProductViewStrings.Designer.cs">
+    <Compile Include="Resources\ProductControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AddProductViewStrings.resx</DependentUpon>
+      <DependentUpon>ProductControllerStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\AddAddressViewStrings.Designer.cs">
+    <Compile Include="Resources\AddressControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AddAddressViewStrings.resx</DependentUpon>
+      <DependentUpon>AddressControllerStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\DeliveryPlanningViewStrings.Designer.cs">
+    <Compile Include="Resources\DeliveryControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeliveryPlanningViewStrings.resx</DependentUpon>
+      <DependentUpon>DeliveryControllerStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\DeliveryZonePlanningViewStrings.Designer.cs">
+    <Compile Include="Resources\OrderControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeliveryZonePlanningViewStrings.resx</DependentUpon>
+      <DependentUpon>OrderControllerStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\DeliveryZonesViewStrings.Designer.cs">
+    <Compile Include="Resources\ApplicationControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeliveryZonesViewStrings.resx</DependentUpon>
+      <DependentUpon>ApplicationControllerStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\DeliveryZoneViewStrings.Designer.cs">
+    <Compile Include="Resources\UserControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeliveryZoneViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\EditDeliveryZoneViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EditDeliveryZoneViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\EMailNoticeStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EMailNoticeStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\ErrorStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ErrorStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\GetDeliveryZoneNameViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GetDeliveryZoneNameViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\ManageDeliveryZonesViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ManageDeliveryZonesViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\PendingOrdersViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PendingOrdersViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\RegisterController.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RegisterController.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\RemoveDeliveryZoneViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RemoveDeliveryZoneViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\RemoveAddressViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RemoveAddressViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\LayoutViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LayoutViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\LoginViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LoginViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\NavigationViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NavigationViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\NoticeStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NoticeStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\ProductsViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductsViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\PurchaseViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PurchaseViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\RegisterViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RegisterViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\ScheduleDeliveriesViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ScheduleDeliveriesViewStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\ShoppingCartViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ShoppingCartViewStrings.resx</DependentUpon>
+      <DependentUpon>UserControllerStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Strings\AddAddressViewKey.cs" />
     <Compile Include="Resources\Strings\AddDeliveryZoneViewKey.cs" />
@@ -375,11 +285,6 @@
     <Compile Include="Resources\Strings\RemoveDeliveryZoneViewKey.cs" />
     <Compile Include="Resources\Strings\ScheduleDeliveriesViewKey.cs" />
     <Compile Include="Resources\Strings\ShoppingCartViewKey.cs" />
-    <Compile Include="Resources\TasksViewStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TasksViewStrings.resx</DependentUpon>
-    </Compile>
     <Compile Include="Settings\Azure\AzureEMailSettings.cs" />
     <Compile Include="Settings\IEMailSettings.cs" />
     <Compile Include="Settings\IRegistrationSettings.cs" />
@@ -479,125 +384,48 @@
     <Content Include="Views\Order\_Order.cshtml" />
     <Content Include="Views\DeliveryZone\Default.cshtml" />
     <Content Include="Views\Address\Unmapped.cshtml" />
-    <Content Include="Views\DeliveryTask\Schedule.cshtml" />
     <Content Include="Views\DeliveryTask\Default.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\AddDeliveryZoneViewStrings.resx">
+    <EmbeddedResource Include="Resources\DeliveryTaskControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AddDeliveryZoneViewStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>DeliveryTaskControllerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ColourNamesStrings.resx">
+    <EmbeddedResource Include="Resources\DeliveryZoneControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ColourNamesStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>DeliveryZoneControllerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DeliveryZoneDetailsViewStrings.resx">
+    <EmbeddedResource Include="Resources\ColourStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>DeliveryZoneDetailsViewStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>ColourStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\AddProductViewStrings.resx">
+    <EmbeddedResource Include="Resources\ProductControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AddProductViewStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>ProductControllerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\AddAddressViewStrings.resx">
+    <EmbeddedResource Include="Resources\AddressControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AddAddressViewStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>AddressControllerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DeliveryPlanningViewStrings.resx">
+    <EmbeddedResource Include="Resources\DeliveryControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>DeliveryPlanningViewStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>DeliveryControllerStrings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DeliveryZonePlanningViewStrings.resx">
+    <EmbeddedResource Include="Resources\ApplicationControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>DeliveryZonePlanningViewStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>ApplicationControllerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DeliveryZonesViewStrings.resx">
+    <EmbeddedResource Include="Resources\UserControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>DeliveryZonesViewStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>UserControllerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DeliveryZoneViewStrings.resx">
+    <EmbeddedResource Include="Resources\OrderControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>DeliveryZoneViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\EditDeliveryZoneViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>EditDeliveryZoneViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\EMailNoticeStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>EMailNoticeStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ErrorStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\GetDeliveryZoneNameViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>GetDeliveryZoneNameViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\LayoutViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>LayoutViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\LoginViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>LoginViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ManageDeliveryZonesViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ManageDeliveryZonesViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\NavigationViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>NavigationViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\NoticeStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>NoticeStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\PendingOrdersViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>PendingOrdersViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ProductsViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ProductsViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\PurchaseViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>PurchaseViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\RegisterController.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>RegisterController.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\RegisterViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>RegisterViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\RemoveDeliveryZoneViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>RemoveDeliveryZoneViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\RemoveAddressViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>RemoveAddressViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ScheduleDeliveriesViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ScheduleDeliveriesViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ShoppingCartViewStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ShoppingCartViewStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\TasksViewStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TasksViewStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>OrderControllerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

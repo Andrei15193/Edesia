@@ -11,10 +11,10 @@
 			<nav class="horizontal-menu">
 				<ul class="no-margin no-padding">
 					<li>
-						<h2 class="dropdown-toggle dropdown-toggle-h2">@PendingOrdersViewStrings.ViewTitle (@pendingOrdersCount)</h2>
+						<h2 class="dropdown-toggle dropdown-toggle-h2">@OrderControllerStrings.DefaultViewTitle (@pendingOrdersCount)</h2>
 						<ul class="dropdown-menu inverse" data-role="dropdown" data-effect="fade">
 							<li class="fg-emerald @(pendingOrdersCount == 0 ? "disabled" : string.Empty)">
-								<a class="@(pendingOrdersCount == 0 ? "disabledActionLink" : string.Empty)" href="@Url.Action("Schedule", "DeliveryTask")">@PendingOrdersViewStrings.SchedulePendingOrdersButton_DisplayName</a>
+								<a class="@(pendingOrdersCount == 0 ? "disabledActionLink" : string.Empty)" href="@Url.Action("Schedule", "DeliveryTask")">@OrderControllerStrings.SchedulePendingOrdersButton_DisplayName</a>
 							</li>
 						</ul>
 					</li>

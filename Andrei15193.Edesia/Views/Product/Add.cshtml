@@ -1,12 +1,12 @@
 ﻿@using Andrei15193.Edesia.Resources;
 @model Andrei15193.Edesia.ViewModels.Product.AddProductViewModel
 @{
-	ViewBag.Title = AddProductViewStrings.ViewTitle;
+	ViewBag.Title = ProductControllerStrings.AddProductViewTitle;
 }
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4 offset4">
-			<h1>@AddProductViewStrings.ViewTitle</h1>
+			<h1>@ProductControllerStrings.AddProductViewTitle</h1>
 			@using (Html.BeginForm("Add", "Product", FormMethod.Post, new
 								   {
 									   enctype = "multipart/form-data"
@@ -40,8 +40,8 @@
 					<button class="btn-file"></button>
 				</div>
 
-				<input class="action" type="submit" value="@AddProductViewStrings.SubmitButton_DisplayName" />
-				<a class="button cancelAction" href="@Url.Action("Default", "Product")">@AddProductViewStrings.CancelButton_DisplayName</a>
+				<input class="action" type="submit" value="@ProductControllerStrings.AddProductButton_DisplayName" />
+				<a class="button cancelAction" href="@Url.Action("Default", "Product")">@ProductControllerStrings.CancelButton_DisplayName</a>
 			}
 		</div>
 	</div>
