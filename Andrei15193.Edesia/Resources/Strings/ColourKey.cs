@@ -1,6 +1,6 @@
 namespace Andrei15193.Edesia.Resources.Strings
 {
-	internal static class ColourNamesKey
+	internal static class ColourKey
 	{
 		internal const string Amber = "Amber";
 		internal const string Black = "Black";

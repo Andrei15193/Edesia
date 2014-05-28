@@ -26,32 +26,32 @@ namespace Andrei15193.Edesia.ViewModels.Product
 		}
 		#endregion
 
-		[LocalizedRequired(AddProductViewKey.ProductNameTextBox_MissingValue, typeof(ProductControllerStrings), AllowEmptyStrings = false)]
-		[Display(Name = AddProductViewKey.ProductNameTextBox_DisplayName, Prompt = AddProductViewKey.ProductNameTextBox_Hint, ResourceType = typeof(ProductControllerStrings))]
+		[LocalizedRequired(ProductControllerKey.ProductNameTextBox_MissingValue, typeof(ProductControllerStrings), AllowEmptyStrings = false)]
+		[Display(Name = ProductControllerKey.ProductNameTextBox_DisplayName, Prompt = ProductControllerKey.ProductNameTextBox_Hint, ResourceType = typeof(ProductControllerStrings))]
 		public string Name
 		{
 			get;
 			set;
 		}
 
-		[LocalizedRequired(AddProductViewKey.ProductPriceTextBox_MissingValue, typeof(ProductControllerStrings))]
-		[Display(Name = AddProductViewKey.ProductPriceTextBox_DisplayName, Prompt = AddProductViewKey.ProductPriceTextBox_Hint, ResourceType = typeof(ProductControllerStrings))]
+		[LocalizedRequired(ProductControllerKey.ProductPriceTextBox_MissingValue, typeof(ProductControllerStrings))]
+		[Display(Name = ProductControllerKey.ProductPriceTextBox_DisplayName, Prompt = ProductControllerKey.ProductPriceTextBox_Hint, ResourceType = typeof(ProductControllerStrings))]
 		public string Price
 		{
 			get;
 			set;
 		}
 
-		[LocalizedRequired(AddProductViewKey.ProductCapacityTextBox_MissingValue, typeof(ProductControllerStrings))]
-		[Display(Name = AddProductViewKey.ProductCapacityTextBox_DisplayName, Prompt = AddProductViewKey.ProductCapacityTextBox_Hint, ResourceType = typeof(ProductControllerStrings))]
+		[LocalizedRequired(ProductControllerKey.ProductCapacityTextBox_MissingValue, typeof(ProductControllerStrings))]
+		[Display(Name = ProductControllerKey.ProductCapacityTextBox_DisplayName, Prompt = ProductControllerKey.ProductCapacityTextBox_Hint, ResourceType = typeof(ProductControllerStrings))]
 		public string Capacity
 		{
 			get;
 			set;
 		}
 
-		[LocalizedRequired(AddProductViewKey.ProductImageTextBox_MissingValue, typeof(ProductControllerStrings))]
-		[Display(Name = AddProductViewKey.ProductImageTextBox_DisplayName, Prompt = AddProductViewKey.ProductImageTextBox_Hint, ResourceType = typeof(ProductControllerStrings))]
+		[LocalizedRequired(ProductControllerKey.ProductImageTextBox_MissingValue, typeof(ProductControllerStrings))]
+		[Display(Name = ProductControllerKey.ProductImageTextBox_DisplayName, Prompt = ProductControllerKey.ProductImageTextBox_Hint, ResourceType = typeof(ProductControllerStrings))]
 		public HttpPostedFileBase Image
 		{
 			get;

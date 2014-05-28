@@ -78,8 +78,8 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 		{
 		}
 
-		[LocalizedRequired(DeliveryZoneDetailsViewKey.DeliveryZoneTextBox_MissingValue, typeof(DeliveryZoneControllerStrings), AllowEmptyStrings = false)]
-		[Display(Name = DeliveryZoneDetailsViewKey.DeliveryZoneTextBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.DeliveryZoneTextBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
+		[LocalizedRequired(DeliveryZoneControllerKey.DeliveryZoneTextBox_MissingValue, typeof(DeliveryZoneControllerStrings), AllowEmptyStrings = false)]
+		[Display(Name = DeliveryZoneControllerKey.DeliveryZoneTextBox_DisplayName, Prompt = DeliveryZoneControllerKey.DeliveryZoneTextBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
 		public string DeliveryZoneName
 		{
 			get;
@@ -91,8 +91,8 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 			set;
 		}
 
-		[LocalizedRegularExpression("#([0-90a-fA-F]{6})", DeliveryZoneDetailsViewKey.DeliveryZoneColourTextBox_InvalidValue, typeof(DeliveryZoneControllerStrings))]
-		[Display(Name = DeliveryZoneDetailsViewKey.DeliveryZoneColourComboBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.DeliveryZoneColourComboBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
+		[LocalizedRegularExpression("#([0-90a-fA-F]{6})", DeliveryZoneControllerKey.DeliveryZoneColourTextBox_InvalidValue, typeof(DeliveryZoneControllerStrings))]
+		[Display(Name = DeliveryZoneControllerKey.DeliveryZoneColourComboBox_DisplayName, Prompt = DeliveryZoneControllerKey.DeliveryZoneColourComboBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
 		public string DeliveryZoneColour
 		{
 			get;
@@ -106,7 +106,7 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 			}
 		}
 
-		[Display(Name = DeliveryZoneDetailsViewKey.AvailableAddressesListBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.AvailableAddressesListBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
+		[Display(Name = DeliveryZoneControllerKey.AvailableAddressesListBox_DisplayName, Prompt = DeliveryZoneControllerKey.AvailableAddressesListBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
 		public ISet<KeyValuePair<string, bool>> AvailableAddresses
 		{
 			get
@@ -120,7 +120,7 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 			set;
 		}
 
-		[Display(Name = DeliveryZoneDetailsViewKey.EmployeesComobBox_DisplayName, Prompt = DeliveryZoneDetailsViewKey.EmployeesComobBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
+		[Display(Name = DeliveryZoneControllerKey.EmployeesComobBox_DisplayName, Prompt = DeliveryZoneControllerKey.EmployeesComobBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
 		public ISet<Employee> Employees
 		{
 			get

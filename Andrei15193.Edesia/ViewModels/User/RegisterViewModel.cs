@@ -18,51 +18,51 @@ namespace Andrei15193.Edesia.ViewModels.User
 				yield return new ValidationResult(UserControllerStrings.PasswordInput_InvalidVerificationValue, new[] { "PasswordCopy" });
 		}
 		#endregion
-		[LocalizedRequired(RegisterViewKey.FirstNameTextBox_MissingValue, typeof(UserControllerStrings), AllowEmptyStrings = false)]
-		[LocalizedRegularExpression(@"\s*\w+([ \-]\w+)*\s*", RegisterViewKey.FirstNameTextBox_InvalidValue, typeof(UserControllerStrings))]
+		[LocalizedRequired(UserControllerKey.FirstNameTextBox_MissingValue, typeof(UserControllerStrings), AllowEmptyStrings = false)]
+		[LocalizedRegularExpression(@"\s*\w+([ \-]\w+)*\s*", UserControllerKey.FirstNameTextBox_InvalidValue, typeof(UserControllerStrings))]
 		[Display(Name = "FirstNameTextBox_DisplayName", Prompt = "FirstNameTextBox_Hint", ResourceType = typeof(UserControllerStrings))]
 		public string FirstName
 		{
 			get;
 			set;
 		}
-		[LocalizedRequired(RegisterViewKey.LastNameTextBox_MissingValue, typeof(UserControllerStrings), AllowEmptyStrings = false)]
-		[LocalizedRegularExpression(@"\s*\w+([ \-]\w+)*\s*", RegisterViewKey.LastNameTextBox_InvalidValue, typeof(UserControllerStrings))]
-		[Display(Name = RegisterViewKey.LastNameTextBox_DisplayName, Prompt = RegisterViewKey.LastNameTextBox_Hint, ResourceType = typeof(UserControllerStrings))]
+		[LocalizedRequired(UserControllerKey.LastNameTextBox_MissingValue, typeof(UserControllerStrings), AllowEmptyStrings = false)]
+		[LocalizedRegularExpression(@"\s*\w+([ \-]\w+)*\s*", UserControllerKey.LastNameTextBox_InvalidValue, typeof(UserControllerStrings))]
+		[Display(Name = UserControllerKey.LastNameTextBox_DisplayName, Prompt = UserControllerKey.LastNameTextBox_Hint, ResourceType = typeof(UserControllerStrings))]
 		public string LastName
 		{
 			get;
 			set;
 		}
 
-		[LocalizedEMailAddress(RegisterViewKey.EMailTextBox_InvalidValue, typeof(UserControllerStrings))]
-		[LocalizedRequired(RegisterViewKey.EMailTextBox_MissingValue, typeof(UserControllerStrings), AllowEmptyStrings = false)]
-		[Display(Name = RegisterViewKey.EMailTextBox_DisplayName, Prompt = RegisterViewKey.EMailTextBox_Hint, ResourceType = typeof(UserControllerStrings))]
+		[LocalizedEMailAddress(UserControllerKey.EMailTextBox_InvalidValue, typeof(UserControllerStrings))]
+		[LocalizedRequired(UserControllerKey.EMailTextBox_MissingValue, typeof(UserControllerStrings), AllowEmptyStrings = false)]
+		[Display(Name = UserControllerKey.EMailTextBox_DisplayName, Prompt = UserControllerKey.EMailTextBox_Hint, ResourceType = typeof(UserControllerStrings))]
 		public string EMailAddress
 		{
 			get;
 			set;
 		}
-		[LocalizedEMailAddress(RegisterViewKey.EMailTextBox_InvalidValue, typeof(UserControllerStrings))]
-		[LocalizedRequired(RegisterViewKey.EMailTextBox_MissingValue, typeof(UserControllerStrings))]
-		[Display(Name = RegisterViewKey.EMailVerificationTextBox_DisplayName, Prompt = RegisterViewKey.EMailVerificationTextBox_Hint, ResourceType = typeof(UserControllerStrings))]
+		[LocalizedEMailAddress(UserControllerKey.EMailTextBox_InvalidValue, typeof(UserControllerStrings))]
+		[LocalizedRequired(UserControllerKey.EMailTextBox_MissingValue, typeof(UserControllerStrings))]
+		[Display(Name = UserControllerKey.EMailVerificationTextBox_DisplayName, Prompt = UserControllerKey.EMailVerificationTextBox_Hint, ResourceType = typeof(UserControllerStrings))]
 		public string EMailAddressCopy
 		{
 			get;
 			set;
 		}
 
-		[LocalizedRequired(RegisterViewKey.PasswordInput_MissingValue, typeof(UserControllerStrings), AllowEmptyStrings = false)]
+		[LocalizedRequired(UserControllerKey.PasswordInput_MissingValue, typeof(UserControllerStrings), AllowEmptyStrings = false)]
 		[Password]
-		[Display(Name = RegisterViewKey.PasswordInput_DisplayName, Prompt = RegisterViewKey.PasswordInput_Hint, ResourceType = typeof(UserControllerStrings))]
+		[Display(Name = UserControllerKey.PasswordInput_DisplayName, Prompt = UserControllerKey.PasswordInput_Hint, ResourceType = typeof(UserControllerStrings))]
 		public string Password
 		{
 			get;
 			set;
 		}
 		[Password]
-		[LocalizedRequired(RegisterViewKey.PasswordInput_MissingValue, typeof(UserControllerStrings), AllowEmptyStrings = false)]
-		[Display(Name = RegisterViewKey.PasswordVerificationInput_DisplayName, Prompt = RegisterViewKey.PasswordVerificationInput_Hint, ResourceType = typeof(UserControllerStrings))]
+		[LocalizedRequired(UserControllerKey.PasswordInput_MissingValue, typeof(UserControllerStrings), AllowEmptyStrings = false)]
+		[Display(Name = UserControllerKey.PasswordVerificationInput_DisplayName, Prompt = UserControllerKey.PasswordVerificationInput_Hint, ResourceType = typeof(UserControllerStrings))]
 		public string PasswordCopy
 		{
 			get;

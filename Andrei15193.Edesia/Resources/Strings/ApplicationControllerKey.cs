@@ -1,6 +1,6 @@
 namespace Andrei15193.Edesia.Resources.Strings
 {
-	internal static class LayoutViewKey
+	internal static class ApplicationControllerKey
 	{
 		internal const string ApplicationName = "ApplicationName";
 		internal const string FooterText = "FooterText";
