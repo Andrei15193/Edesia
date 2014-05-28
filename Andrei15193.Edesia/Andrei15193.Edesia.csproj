@@ -148,7 +148,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
-    <Folder Include="Views\ShoppingCart\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\LocalizedEMailAddressAttribute.cs" />
@@ -216,6 +215,7 @@
     <Compile Include="Models\OrderState.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\OrderedProduct.cs" />
+    <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\TaskState.cs" />
     <Compile Include="Resources\DeliveryTaskControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -257,6 +257,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ApplicationControllerStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ShoppingCartControllerStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ShoppingCartControllerStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Strings\AddressControllerKey.cs" />
     <Compile Include="Resources\Strings\ApplicationControllerKey.cs" />
     <Compile Include="Resources\Strings\ColourKey.cs" />
@@ -265,6 +270,7 @@
     <Compile Include="Resources\Strings\DeliveryZoneControllerKey.cs" />
     <Compile Include="Resources\Strings\OrderControllerKey.cs" />
     <Compile Include="Resources\Strings\ProductControllerKey.cs" />
+    <Compile Include="Resources\Strings\ShoppingCartControllerKey.cs" />
     <Compile Include="Resources\Strings\UserControllerKey.cs" />
     <Compile Include="Resources\UserControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -280,6 +286,7 @@
     <Compile Include="ViewModels\Address\AddAddressViewModel.cs" />
     <Compile Include="ViewModels\Product\AddProductViewModel.cs" />
     <Compile Include="Views\ApplicationWebViewPage.cs" />
+    <Compile Include="Resources\HtmlElementId.cs" />
     <Compile Include="Xml\Validation\XmlUniqueConstraintException.cs" />
     <Compile Include="Xml\Validation\IXmlSchemaExceptionInterpreter.cs" />
     <Compile Include="Xml\Validation\XmlUniqueConstraintExceptionInterpreter.cs" />
@@ -370,6 +377,8 @@
     <Content Include="Views\DeliveryZone\Default.cshtml" />
     <Content Include="Views\Address\Unmapped.cshtml" />
     <Content Include="Views\DeliveryTask\Default.cshtml" />
+    <Content Include="Views\ShoppingCart\Default.cshtml" />
+    <Content Include="Views\ShoppingCart\_OrderedProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -403,6 +412,10 @@
     <EmbeddedResource Include="Resources\ApplicationControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ApplicationControllerStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ShoppingCartControllerStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ShoppingCartControllerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\UserControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

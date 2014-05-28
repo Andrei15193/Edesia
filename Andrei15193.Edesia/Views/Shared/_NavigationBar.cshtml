@@ -7,8 +7,12 @@
 }
 <nav class="navigation-bar fixed-top green" style="border:1px solid white; border-width: 0 0 1px;">
 	<nav class="navigation-bar-content">
-		<a href="/" class="element">
-			<i class="icon-cart"></i> <strong>@ApplicationControllerStrings.ApplicationName</strong>
+		<a href="@Url.Action("Default", "Product")" class="element">
+			<strong>@ApplicationControllerStrings.ApplicationName</strong>
+		</a>
+		<span class="element-divider"></span>
+		<a href="@Url.Action("Default", "ShoppingCart")" class="element">
+			<i class="icon-cart-2"></i> <span id="@HtmlElementId.ShoppingCartTotalPrice"></span> RON (<span id="@HtmlElementId.ShoppingCartCount"></span>)
 		</a>
 		@Html.Action("LanguageDropdown", "User")
 

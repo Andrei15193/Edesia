@@ -14,8 +14,8 @@
 			<i class="icon-stop" style="color: @Model.Colour.ToString();"></i> @Model.Name
 		</span>
 		<div style="float: right; z-index: 2; position: relative; top: -30px; margin-right: 10px;">
-			<a class="actionLink" href="@Url.Action("Edit", "DeliveryZone")?deliveryZone=@Url.Encode(Model.Name)"><i class="icon-pencil"></i></a>
-			<a class="actionLink" href="@Url.Action("Remove", "DeliveryZone")?deliveryZone=@Url.Encode(Model.Name)"><i class="icon-remove"></i></a>
+			<a class="actionLink padding5" href="@Url.Action("Edit", "DeliveryZone")?deliveryZone=@Url.Encode(Model.Name)"><i class="icon-pencil"></i></a>
+			<a class="actionLink padding5" href="@Url.Action("Remove", "DeliveryZone")?deliveryZone=@Url.Encode(Model.Name)"><i class="icon-remove"></i></a>
 		</div>
 		<div class="content">
 			@if (Model.Assignee != null)

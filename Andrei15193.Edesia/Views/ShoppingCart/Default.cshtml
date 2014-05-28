@@ -1,0 +1,45 @@
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.Resources;
+@model ShoppingCart
+@{
+	ViewBag.Title = ShoppingCartControllerStrings.DefaultViewTitle;
+}
+<div class="grid fluid">
+	<div class="row">
+		<div class="span8 offset4">
+			<h1>@ShoppingCartControllerStrings.DefaultViewTitle</h1>
+		</div>
+	</div>
+	@foreach (OrderedProduct orderedProduct in Model)
+	{
+		<div class="row">
+			<div class="span4 offset4">
+				@Html.Partial("_OrderedProduct", orderedProduct)
+			</div>
+		</div>
+	}
+	<div class="row">
+		<div class="span4 offset4">
+			<div class="grid fluid">
+				<div class="row">
+					<div class="span12">
+						<div>@ShoppingCartControllerStrings.TotalProductsLabel_DisplayName<span style="float: right;">@Model.Count</span></div>
+						<div><strong>@ShoppingCartControllerStrings.TotalPriceLabel_DisplayName</strong> <strong style="float: right;">@Model.TotoalPrice RON</strong></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span12">
+						@if (Model.Count == 0)
+						{
+							<a class="action button large disabled" style="float: right;">@ShoppingCartControllerStrings.CheckoutButton_DisplayName</a>
+						}
+						else
+						{
+							<a href="@Url.Action("Checkout", "Order")" class="action button large" style="float: right;">@ShoppingCartControllerStrings.CheckoutButton_DisplayName</a>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

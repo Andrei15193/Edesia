@@ -55,12 +55,16 @@ namespace Andrei15193.Edesia.Controllers
 		public ActionResult Remove(string productName)
 		{
 			if (productName != null)
+			{
+				_applicationUserRepository.RemoveFromCarts(_productRepository.GetProduct(productName));
 				_productRepository.RemoveProduct(productName);
+			}
 
 			return RedirectToAction("Default", "Product");
 		}
 
-		private readonly IProductRepository _productRepository = (IProductRepository)MvcApplication.DependencyContainer["productRepository"];
 		private readonly IImageUploader _imageUploader = (IImageUploader)MvcApplication.DependencyContainer["imageUploader"];
+		private readonly IProductRepository _productRepository = (IProductRepository)MvcApplication.DependencyContainer["productRepository"];
+		private readonly IApplicationUserRepository _applicationUserRepository = (IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"];
 	}
 }

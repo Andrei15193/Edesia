@@ -1,0 +1,37 @@
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.Resources;
+@model OrderedProduct
+@using (Html.BeginForm("Update", "ShoppingCart", FormMethod.Get, new
+																 {
+																	 id = Url.Encode(Model.Product.Name)
+																 }))
+{
+	<input type="hidden" name="product" value="@Url.Encode(Model.Product.Name)" />
+	<div style="margin-bottom: 10px;">
+		<div style="display: inline;">
+			<img class="rounded span3 margin5" style="background:url('@Model.Product.ImageLocation.AbsoluteUri') no-repeat center center" />
+		</div>
+		<div style="display: inline;">
+			<div>
+				<small>
+					<a href="@Url.Action("Remove", "ShoppingCart")?product=@Url.Encode(Model.Product.Name)" class="actionLink" style="float: right;">
+						<i class="icon-cancel-2" style="float: right;"></i>
+					</a>
+				</small>
+				<h2 style="margin: 0 0 5px;">@Model.Product.Name</h2>
+			</div>
+			<div style="margin-bottom: 40px;">
+				<div style="float: left; padding-top: 4px;">
+					@ShoppingCartControllerStrings.QuantityLabel_DisplayName
+				</div>
+				<div style="float: right;">
+					<div class="input-control text size1 no-margin">
+						<input type="text" onblur="document.forms['@Url.Encode(Model.Product.Name)'].submit()" style="text-align: right;" name="quantity" value="@Model.Quantity" />
+					</div>
+				</div>
+			</div>
+			<div>@ShoppingCartControllerStrings.PriceLabel_DisplayName<span style="float: right;">@Model.Product.Price RON</span></div>
+			<div><strong>@ShoppingCartControllerStrings.TotalPriceLabel_DisplayName</strong><strong style="float: right;">@(Model.Product.Price * Model.Quantity) RON</strong></div>
+		</div>
+	</div>
+}

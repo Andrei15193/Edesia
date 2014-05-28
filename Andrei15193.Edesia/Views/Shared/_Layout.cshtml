@@ -1,4 +1,5 @@
-﻿@using Andrei15193.Edesia.Resources;
+﻿@using System.Threading;
+@using Andrei15193.Edesia.Resources;
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,39 @@
 	@Styles.Render("~/Content/css")
 	@Styles.Render("~/Content/metro-ui/css")
 	@Scripts.Render("~/bundles/modernizr")
+
+	<script>
+		var shoppingCartTotalPriceElement;
+		var shoppingCartCountElement;
+
+		function toFixed(number, fractionDifits)
+		{
+			return number.toFixed(2).replace(".", "@Thread.CurrentThread.CurrentUICulture.NumberFormat.NumberDecimalSeparator");
+		}
+
+		function updateShoppingCartNav()
+		{
+			$.getJSON("@Url.Action("DefaultJson", "ShoppingCart")")
+			 .success(function (shoppingCart)
+			 {
+			 	shoppingCartTotalPriceElement.innerHTML = toFixed(parseFloat(shoppingCart.TotalPrice), 2);
+
+			 	if (parseInt(shoppingCart.Count) == 1)
+			 		shoppingCartCountElement.innerHTML = shoppingCart.Count + " " + "@ShoppingCartControllerStrings.ProductLabel_DisplayName";
+			 	else
+			 		shoppingCartCountElement.innerHTML = shoppingCart.Count + " " + "@ShoppingCartControllerStrings.ProductsLabel_DisplayName";
+			 });
+		}
+
+		function addToCart(product)
+		{
+			$.ajax("@Url.Action("Add", "ShoppingCart")?product=" + product)
+			 .success(function ()
+			 {
+			 	updateShoppingCartNav();
+			 });
+		}
+	</script>
 </head>
 <body lang="ro" class="metro" style="margin: 0; padding: 0; height: 100%;">
 	<div style="position: relative; margin: 0; padding: 0; min-height: 100%;">
@@ -25,6 +59,12 @@
 		@Scripts.Render("~/bundles/jquery")
 		@Scripts.Render("~/bundles/metro-ui")
 		@RenderSection("scripts", required: false)
+		<script>
+			shoppingCartTotalPriceElement = document.getElementById("@HtmlElementId.ShoppingCartTotalPrice");
+			shoppingCartCountElement = document.getElementById("@HtmlElementId.ShoppingCartCount");
+
+			updateShoppingCartNav();
+		</script>
 	</div>
 </body>
 </html>

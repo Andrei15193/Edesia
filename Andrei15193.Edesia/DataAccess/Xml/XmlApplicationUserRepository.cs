@@ -74,7 +74,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		{
 			return GetEmployee(eMailAddress, DateTime.Now);
 		}
-
 		public IEnumerable<Employee> GetEmployees()
 		{
 			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
@@ -84,8 +83,146 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									 .Where(applicationUserXmlElement => applicationUserXmlElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee") != null)
 									 .Select(applicationUserXmlElement => (Employee)_TryGetEmployee(_TryGetAdministrator(_GetApplicationUser(applicationUserXmlElement), applicationUserXmlElement), applicationUserXmlElement));
 		}
+
+		public ShoppingCart GetShoppingCart(ApplicationUser applicationUser, IProductProvider productProvider)
+		{
+			if (applicationUser == null)
+				throw new ArgumentNullException("applicationUser");
+			if (productProvider == null)
+				throw new ArgumentNullException("productProvider");
+
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			{
+				XElement applicationUserXElement = xmlTransaction.XmlDocument
+																 .Root
+																 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+																 .FirstOrDefault(applicationXmlElement => string.Equals(applicationXmlElement.Attribute("EMail").Value, applicationUser.EMailAddress, StringComparison.OrdinalIgnoreCase));
+
+				if (applicationUserXElement == null)
+					throw new InvalidOperationException("The specified user does not exist!");
+
+				return new ShoppingCart(applicationUser,
+										applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ShoppingCart")
+															   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Product")
+															   .Select(productXElement => _GetOrderedProduct(productXElement, productProvider)));
+			}
+		}
 		#endregion
-		#region IUserStore Members
+		#region IApplicationUserRepository Members
+		public void AddToCart(ApplicationUser applicationUser, OrderedProduct orderedProduct)
+		{
+			if (applicationUser == null)
+				throw new ArgumentNullException("applicationUser");
+
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			{
+				XElement applicationUserXElement = xmlTransaction.XmlDocument
+																 .Root
+																 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+																 .FirstOrDefault(applicationXmlElement => string.Equals(applicationXmlElement.Attribute("EMail").Value, applicationUser.EMailAddress, StringComparison.OrdinalIgnoreCase));
+
+				if (applicationUserXElement == null)
+					throw new InvalidOperationException("The specified user does not exist!");
+
+				XElement shoppingCartXElement = applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ShoppingCart");
+				XElement productXElement = shoppingCartXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Product")
+															   .FirstOrDefault(productXmlElement => string.Equals(productXmlElement.Attribute("Name").Value, orderedProduct.Product.Name, StringComparison.Ordinal));
+
+				if (productXElement == null)
+					shoppingCartXElement.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Product",
+														  new XAttribute("Name", orderedProduct.Product.Name),
+														  new XAttribute("Quantity", orderedProduct.Quantity)));
+				else
+				{
+					int quantity = (int.Parse(productXElement.Attribute("Quantity").Value) + orderedProduct.Quantity);
+
+					if (quantity > 0)
+						productXElement.Attribute("Quantity").SetValue(quantity);
+					else
+						productXElement.Remove();
+				}
+
+				xmlTransaction.Commit();
+			}
+		}
+		public void UpdateCart(ApplicationUser applicationUser, OrderedProduct orderedProduct)
+		{
+			if (applicationUser == null)
+				throw new ArgumentNullException("applicationUser");
+
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			{
+				XElement applicationUserXElement = xmlTransaction.XmlDocument
+																 .Root
+																 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+																 .FirstOrDefault(applicationXmlElement => string.Equals(applicationXmlElement.Attribute("EMail").Value, applicationUser.EMailAddress, StringComparison.OrdinalIgnoreCase));
+
+				if (applicationUserXElement == null)
+					throw new InvalidOperationException("The specified user does not exist!");
+
+				XElement shoppingCartXElement = applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ShoppingCart");
+				XElement productXElement = shoppingCartXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Product")
+															   .FirstOrDefault(productXmlElement => string.Equals(productXmlElement.Attribute("Name").Value, orderedProduct.Product.Name, StringComparison.Ordinal));
+
+				if (productXElement == null)
+				{
+					productXElement = new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Product",
+												   new XAttribute("Name", orderedProduct.Product.Name),
+												   new XAttribute("Quantity", orderedProduct.Quantity));
+					shoppingCartXElement.Add(orderedProduct);
+				}
+				else
+					productXElement.Attribute("Quantity").SetValue(orderedProduct.Quantity);
+
+				xmlTransaction.Commit();
+			}
+		}
+		public void RemoveFromCart(ApplicationUser applicationUser, Product product)
+		{
+			if (applicationUser == null)
+				throw new ArgumentNullException("applicationUser");
+			if (product == null)
+				throw new ArgumentNullException("product");
+
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			{
+				XElement applicationUserXElement = xmlTransaction.XmlDocument
+																 .Root
+																 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+																 .FirstOrDefault(applicationXmlElement => string.Equals(applicationXmlElement.Attribute("EMail").Value, applicationUser.EMailAddress, StringComparison.OrdinalIgnoreCase));
+
+				if (applicationUserXElement == null)
+					throw new InvalidOperationException("The specified user does not exist!");
+
+				XElement shoppingCartXElement = applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ShoppingCart");
+				XElement productXElement = shoppingCartXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Product")
+															   .FirstOrDefault(productXmlElement => string.Equals(productXmlElement.Attribute("Name").Value, product.Name, StringComparison.Ordinal));
+
+				if (productXElement != null)
+					productXElement.Remove();
+
+				xmlTransaction.Commit();
+			}
+		}
+		public void RemoveFromCarts(Product product)
+		{
+			if (product == null)
+				throw new ArgumentNullException("product");
+
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			{
+				xmlTransaction.XmlDocument
+							  .Root
+							  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+							  .SelectMany(applicationUserXmlElement => applicationUserXmlElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ShoppingCart")
+																								.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Product"))
+							  .Where(productXmlElement => string.Equals(productXmlElement.Attribute("Name").Value, product.Name, StringComparison.Ordinal))
+							  .Remove();
+
+				xmlTransaction.Commit();
+			}
+		}
+
 		public void AddApplicationUser(ApplicationUser applicationUser, string password, string registrationKey)
 		{
 			if (applicationUser == null)
@@ -106,32 +243,39 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 		}
 
-		public ApplicationUser Find(string email, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
+		public ApplicationUser Find(string eMail, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
 		{
+			if (eMail == null)
+				throw new ArgumentNullException("eMail");
+			if (authenticationToken == null)
+				throw new ArgumentNullException("authenticationToken");
+
 			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
-				IEnumerable<XElement> applicationUserXElements = xmlTransaction.XmlDocument
-																			   .Root
-																			   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser");
-				XElement applicationUserXElement;
+				XElement applicationUserXElement = xmlTransaction.XmlDocument
+																 .Root
+																 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+																 .FirstOrDefault(applicationUserXmlElement => string.Equals(applicationUserXmlElement.Attribute("EMail").Value, eMail, StringComparison.OrdinalIgnoreCase));
+				if (applicationUserXElement == null)
+					return null;
+
 				switch (authenticationTokenType)
 				{
 					case AuthenticationTokenType.Key:
-						applicationUserXElement = applicationUserXElements.FirstOrDefault(applicationUserXmlElement =>
-							{
-								XAttribute authenticationTokenXAttribute = applicationUserXmlElement.Attribute("AuthenticationToken");
-								return (authenticationTokenXAttribute != null && string.Equals(authenticationToken, authenticationTokenXAttribute.Value, StringComparison.Ordinal));
-							});
+						XAttribute authenticationTokenXAttribute = applicationUserXElement.Attribute("AuthenticationToken");
+
+						if (authenticationTokenXAttribute == null || !string.Equals(authenticationToken, authenticationTokenXAttribute.Value, StringComparison.Ordinal))
+							return null;
 						break;
 					case AuthenticationTokenType.Password:
 					default:
 						string passwordHash = _ComputeHash(authenticationToken);
-						applicationUserXElement = applicationUserXElements.FirstOrDefault(userXElement => string.Equals(passwordHash, userXElement.Attribute("PasswordHash").Value, StringComparison.Ordinal));
+
+						if (!string.Equals(passwordHash, applicationUserXElement.Attribute("PasswordHash").Value, StringComparison.Ordinal))
+							return null;
 						break;
 				}
 
-				if (applicationUserXElement == null)
-					return null;
 				return _TryGetAdministrator(_TryGetEmployee(_GetApplicationUser(applicationUserXElement), applicationUserXElement), applicationUserXElement);
 			}
 		}
@@ -323,7 +467,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 															new XAttribute("EMail", applicationUser.EMailAddress),
 															new XAttribute("FirstName", applicationUser.FirstName),
 															new XAttribute("LastName", applicationUser.LastName),
-															new XAttribute("PasswordHash", _ComputeHash(password)));
+															new XAttribute("PasswordHash", _ComputeHash(password)),
+															new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ShoppingCart"));
 
 			if (registrationKey != null)
 			{
@@ -348,6 +493,12 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 
 			return applicationUserXElement;
+		}
+
+		private OrderedProduct _GetOrderedProduct(XElement productXElement, IProductProvider productProvider)
+		{
+			return new OrderedProduct(productProvider.GetProduct(productXElement.Attribute("Name").Value),
+									  int.Parse(productXElement.Attribute("Quantity").Value));
 		}
 
 		private string _ComputeHash(string authenticationToken)

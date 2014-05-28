@@ -1,13 +1,17 @@
-﻿using System.Collections.Generic;
-using Andrei15193.Edesia.Models;
+﻿using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.DataAccess
 {
 	public interface IApplicationUserRepository
 		: IApplicationUserProvider
 	{
+		void AddToCart(ApplicationUser applicationUser, OrderedProduct orderedProduct);
+		void UpdateCart(ApplicationUser applicationUser, OrderedProduct orderedProduct);
+		void RemoveFromCart(ApplicationUser applicationUser, Product product);
+		void RemoveFromCarts(Product product);
+
 		void AddApplicationUser(ApplicationUser applicationUser, string password, string registrationKey);
 
-		ApplicationUser Find(string email, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password);
+		ApplicationUser Find(string eMail, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password);
 
 		void SetAuthenticationToken(ApplicationUser applicationUser, string authenticationToken, AuthenticationTokenType authenticationMethod = AuthenticationTokenType.Password);
 		void ClearAuthenticationKey(string applicationUserEmail);

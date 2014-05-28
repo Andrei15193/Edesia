@@ -2,15 +2,15 @@
 @using Andrei15193.Edesia.Resources;
 @model Product
 <div class="panel">
-	<div class="panel-content" style="min-height: 130px; padding-left: 5px; background:url('@Model.Product.ImageLocation.AbsoluteUri') no-repeat right bottom">
-		<span style="float: right;">@string.Format("{0:0.00}", Model.Product.Price) RON</span>
-		<a href="#" class="right action padding5" title="@ProductControllerStrings.AddToCartProductButton_Hint"><i class="icon-cart"></i></a>
-		@if (User.IsInRole<Administrator>())
+	<div class="panel-content" style="min-height: 130px; padding-left: 5px; background:url('@Model.ImageLocation.AbsoluteUri') no-repeat center center">
+		<span style="float: right;">@string.Format("{0:0.00}", Model.Price) RON</span>
+		<a onclick="addToCart('@Url.Encode(Model.Name)')" style="cursor: pointer;" class="right actionLink padding5" title="@ProductControllerStrings.AddToCartProductButton_Hint"><i class="icon-cart"></i></a>
+		@if (User != null && User.IsInRole<Administrator>())
 		{
-			<a href="@Url.Action("Remove","Product")?productName=@Model.Product.Name" class="right action padding5" title="@ProductControllerStrings.DeleteProductButton_Hint"><i class="icon-remove"></i></a>
+			<a href="@Url.Action("Remove","Product")?productName=@Url.Encode(Model.Name)" class="right actionLink padding5" title="@ProductControllerStrings.DeleteProductButton_Hint"><i class="icon-remove"></i></a>
 		}
 	</div>
 	<div class="panel-header bg-emerald fg-white">
-		<small>@Model.Product.Name</small>
+		<small>@Model.Name</small>
 	</div>
 </div>
