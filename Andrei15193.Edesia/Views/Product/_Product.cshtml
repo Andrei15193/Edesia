@@ -1,10 +1,11 @@
-﻿@using Andrei15193.Edesia.Resources;
-@model Andrei15193.Edesia.ViewModels.Product.ProductViewModel
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.Resources;
+@model Product
 <div class="panel">
 	<div class="panel-content" style="min-height: 130px; padding-left: 5px; background:url('@Model.Product.ImageLocation.AbsoluteUri') no-repeat right bottom">
 		<span style="float: right;">@string.Format("{0:0.00}", Model.Product.Price) RON</span>
 		<a href="#" class="right action padding5" title="@ProductControllerStrings.AddToCartProductButton_Hint"><i class="icon-cart"></i></a>
-		@if (Model.IsUserAdministrator)
+		@if (User.IsInRole<Administrator>())
 		{
 			<a href="@Url.Action("Remove","Product")?productName=@Model.Product.Name" class="right action padding5" title="@ProductControllerStrings.DeleteProductButton_Hint"><i class="icon-remove"></i></a>
 		}

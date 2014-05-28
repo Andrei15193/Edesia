@@ -188,6 +188,7 @@
     <Compile Include="Exceptions\UniqueEMailAddressException.cs" />
     <Compile Include="Exceptions\UniqueProductException.cs" />
     <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\ApplicationUserExtensions.cs" />
     <Compile Include="Models\ApplicationUserRole.cs" />
     <Compile Include="Models\Collections\OrderedProductsCollection.cs" />
     <Compile Include="Models\Collections\OrdersPartition.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\OrderedProduct.cs" />
     <Compile Include="Models\TaskState.cs" />
+    <Compile Include="Principal.cs" />
     <Compile Include="Resources\DeliveryTaskControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -293,8 +295,7 @@
     <Compile Include="ViewModels\DeliveryZone\DeliveryZoneViewModel.cs" />
     <Compile Include="ViewModels\Address\AddAddressViewModel.cs" />
     <Compile Include="ViewModels\Product\AddProductViewModel.cs" />
-    <Compile Include="ViewModels\Product\ProductsViewModel.cs" />
-    <Compile Include="ViewModels\Product\ProductViewModel.cs" />
+    <Compile Include="Views\ApplicationWebViewPage.cs" />
     <Compile Include="Xml\Validation\XmlUniqueConstraintException.cs" />
     <Compile Include="Xml\Validation\IXmlSchemaExceptionInterpreter.cs" />
     <Compile Include="Xml\Validation\XmlUniqueConstraintExceptionInterpreter.cs" />

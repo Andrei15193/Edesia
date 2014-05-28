@@ -1,10 +1,10 @@
-﻿@using Andrei15193.Edesia.ViewModels.Product;
+﻿@using Andrei15193.Edesia.Models;
 @using Andrei15193.Edesia.Resources;
-@model ProductsViewModel
+@model IEnumerable<Product>
 @{
 	ViewBag.Title = ProductControllerStrings.DefaultViewTitle;
 }
-@if (Model.IsUserAdministrator)
+@if (User.IsInRole<Administrator>())
 {
 	<nav class="horizontal-menu">
 		<ul class="no-margin no-padding">
@@ -25,20 +25,19 @@ else
 }
 
 <div class="grid fluid">
-	@foreach (IGrouping<int, ProductViewModel> productsOnRow in Model.ProductViewModels
-																	 .Select((product, index) => new
-																			 {
-																				 Row = index / 4,
-																				 Product = product
-																			 })
+	@foreach (IGrouping<int, Product> productsOnRow in Model.Select((product, index) => new
+																		{
+																			Row = index / 4,
+																			Product = product
+																		})
 																	 .GroupBy(productWithRow => productWithRow.Row,
 																			  productWithRow => productWithRow.Product))
 	{
 		<div class="row">
-			@foreach (ProductViewModel productViewModel in productsOnRow)
+			@foreach (Product product in productsOnRow)
 			{
 				<div class="span3">
-					@Html.Partial("_Product", productViewModel)
+					@Html.Partial("_Product", product)
 				</div>
 			}
 		</div>

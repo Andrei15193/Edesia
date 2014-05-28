@@ -38,19 +38,21 @@ namespace Andrei15193.Edesia.Controllers
 			return ((IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"]).Find(httpContext.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
 		}
 
-		protected ApplicationUser ApplicationUser
+		new protected ApplicationUser User
 		{
 			get
 			{
-				if (!User.Identity.IsAuthenticated)
-					return null;
+				if (_applicationUser == null && base.User.Identity.IsAuthenticated)
+				{
+					HttpCookie authenticationCookie = HttpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
+					if (authenticationCookie != null)
+						_applicationUser = ((IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"]).Find(base.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
+				}
 
-				HttpCookie authenticationCookie = HttpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
-				if (authenticationCookie == null)
-					return null;
-
-				return ((IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"]).Find(User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
+				return _applicationUser;
 			}
 		}
+
+		private ApplicationUser _applicationUser = null;
 	}
 }

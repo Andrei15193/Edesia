@@ -93,12 +93,13 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet, ConfirmAccess]
 		public ActionResult Logout()
 		{
-			if (User.Identity.IsAuthenticated)
+			if (User != null)
 			{
-				_applicationUserRepository.ClearAuthenticationKey(User.Identity.Name);
+				_applicationUserRepository.ClearAuthenticationKey(User.EMailAddress);
 				FormsAuthentication.SignOut();
+				Session.Abandon();
 			}
-			Session.Abandon();
+
 			return RedirectToAction("Default", "Product");
 		}
 
@@ -120,13 +121,14 @@ namespace Andrei15193.Edesia.Controllers
 		{
 			IList<NavigationBarAction> userActions = new List<NavigationBarAction>();
 
-			if (User.Identity.IsAuthenticated)
+			if (User != null)
 				userActions.Add(new NavigationBarAction(UserControllerStrings.LogoutMenuItem_DisplayName, "Logout", "User", Icons.User));
 			else
 			{
 				userActions.Add(new NavigationBarAction(UserControllerStrings.LoginButton_DisplayName, "Login", "User", Icons.User));
 				userActions.Add(new NavigationBarAction(UserControllerStrings.RegisterButton_DisplayName, "Register", "User", Icons.New));
 			}
+
 			return View("_NavigationBar", userActions);
 		}
 		[ChildActionOnly]

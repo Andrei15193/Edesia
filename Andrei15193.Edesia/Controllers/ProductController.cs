@@ -15,8 +15,7 @@ namespace Andrei15193.Edesia.Controllers
 		[AllowAnonymous]
 		public ActionResult Default()
 		{
-			ApplicationUserRole applicationUserRole = GetApplicationUser(HttpContext) as ApplicationUserRole;
-			return View(new ProductsViewModel(_productRepository.GetProducts(), applicationUserRole != null && applicationUserRole.IsInRole<Administrator>()));
+			return View(_productRepository.GetProducts());
 		}
 
 		[HttpGet]
