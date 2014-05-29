@@ -138,4 +138,49 @@
   <data name="SchedulePendingOrdersButton_Hint" xml:space="preserve">
     <value>Planifică manual comenzi pentru a fi livrate.</value>
   </data>
+  <data name="AddressDetailsTextBox_DisplayName" xml:space="preserve">
+    <value>Detalii pentru adresa de livrare</value>
+  </data>
+  <data name="AddressDetailsTextBox_Hint" xml:space="preserve">
+    <value>doar daca este cazul</value>
+  </data>
+  <data name="BackToShoppingCart_DisplayName" xml:space="preserve">
+    <value>Înapoi</value>
+  </data>
+  <data name="CheckoutViewTitle" xml:space="preserve">
+    <value>Completare comandă</value>
+  </data>
+  <data name="DeliveryDetailsLabel_DisplayName" xml:space="preserve">
+    <value>Detalii livrare</value>
+  </data>
+  <data name="OrderDetailsLabel_DisplayName" xml:space="preserve">
+    <value>Detalii produse</value>
+  </data>
+  <data name="OrderedProductsLabel_DisplayName" xml:space="preserve">
+    <value>Produse comandate</value>
+  </data>
+  <data name="SelectedAddressListBox_DisplayName" xml:space="preserve">
+    <value>Adresa pentru livrare</value>
+  </data>
+  <data name="SelectedAddressListBox_NoSelectedItem" xml:space="preserve">
+    <value>Trebuie să alegeți o adresă pentru livrare.</value>
+  </data>
+  <data name="SubmitOrderButton_DisplayName" xml:space="preserve">
+    <value>Finalizează comandă</value>
+  </data>
+  <data name="ThanksNoticeAuthor" xml:space="preserve">
+    <value>- Andrei</value>
+  </data>
+  <data name="ThanksNoticeParagraph1" xml:space="preserve">
+    <value>Mulțumesc pentru timpul acordat realizării acestei comenzi, alături de altele realizate de alți utilizatori vor forma datele de test pentru motorul de planificare din spatele aplicației. Este foarte important ca aceste comenzi să fie cât mai apropiate de  comenzi reale pentru rezultate cât mai precise.</value>
+  </data>
+  <data name="ThanksNoticeParagraph2" xml:space="preserve">
+    <value>Mulțumesc încă odata și spor în continuare!</value>
+  </data>
+  <data name="TotalPriceLabel_DisplayName" xml:space="preserve">
+    <value>Preț total</value>
+  </data>
+  <data name="TotalProductsLabel_DisplayName" xml:space="preserve">
+    <value>Total produse:</value>
+  </data>
 </root>

@@ -1,0 +1,19 @@
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.Resources;
+@model OrderedProduct
+<div style="margin-bottom: 10px;">
+	<div style="display: inline;">
+		<img class="rounded span3 margin5" style="background:url('@Model.Product.ImageLocation.AbsoluteUri') no-repeat center center" />
+	</div>
+	<h2>@Model.Product.Name</h2>
+	<div>
+		@ShoppingCartControllerStrings.QuantityLabel_DisplayName
+		<span style="float: right;">@Model.Quantity</span>
+	</div>
+	<div>
+		@ShoppingCartControllerStrings.PriceLabel_DisplayName<span style="float: right;">@Model.Product.Price RON</span>
+	</div>
+	<div>
+		<strong>@ShoppingCartControllerStrings.TotalPriceLabel_DisplayName</strong><strong style="float: right;">@(Model.Product.Price * Model.Quantity) RON</strong>
+	</div>
+</div>

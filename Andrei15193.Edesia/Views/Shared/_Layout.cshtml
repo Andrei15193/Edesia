@@ -32,16 +32,30 @@
 			 		shoppingCartCountElement.innerHTML = shoppingCart.Count + " " + "@ShoppingCartControllerStrings.ProductsLabel_DisplayName";
 			 });
 		}
-
-		function addToCart(product)
-		{
-			$.ajax("@Url.Action("Add", "ShoppingCart")?product=" + product)
-			 .success(function ()
-			 {
-			 	updateShoppingCartNav();
-			 });
-		}
 	</script>
+	@if (User != null)
+	{
+		<script>
+			function addToCart(product)
+			{
+				$.ajax({
+					async: false,
+					url: "@Url.Action("Add", "ShoppingCart")?product=" + product,
+					dataType: "text"
+				});
+					updateShoppingCartNav();
+			}
+		</script>
+	}
+	else
+	{
+		<script>
+			function addToCart(product)
+			{
+				window.location = "@Url.Action("Login", "User")?ReturnUrl=@Url.Encode(Request.Url.AbsoluteUri)";
+			}
+		</script>
+	}
 </head>
 <body lang="ro" class="metro" style="margin: 0; padding: 0; height: 100%;">
 	<div style="position: relative; margin: 0; padding: 0; min-height: 100%;">

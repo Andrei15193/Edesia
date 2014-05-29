@@ -79,15 +79,6 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adresa de E-Mail.
-        /// </summary>
-        public static string EMailTextBox_DisplayName1 {
-            get {
-                return ResourceManager.GetString("EMailTextBox_DisplayName1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ne pare rău dar adresa de e-mail {0} este deja folosită..
         /// </summary>
         public static string EMailTextBox_DuplicateValue_Format {
@@ -102,15 +93,6 @@ namespace Andrei15193.Edesia.Resources {
         public static string EMailTextBox_Hint {
             get {
                 return ResourceManager.GetString("EMailTextBox_Hint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to nume@exemplu.ro.
-        /// </summary>
-        public static string EMailTextBox_Hint1 {
-            get {
-                return ResourceManager.GetString("EMailTextBox_Hint1", resourceCulture);
             }
         }
         
@@ -286,15 +268,6 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parola.
-        /// </summary>
-        public static string PasswordInput_DisplayName1 {
-            get {
-                return ResourceManager.GetString("PasswordInput_DisplayName1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string PasswordInput_Hint {
@@ -387,20 +360,20 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Înregistrare.
+        ///   Looks up a localized string similar to Nu aveți cont? Înregistrațivă aici.
         /// </summary>
-        public static string RegisterButton_DisplayName {
+        public static string RegisterAccountButton_DisplayName {
             get {
-                return ResourceManager.GetString("RegisterButton_DisplayName", resourceCulture);
+                return ResourceManager.GetString("RegisterAccountButton_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Înregistrare.
         /// </summary>
-        public static string RegisterButton_DisplayName1 {
+        public static string RegisterButton_DisplayName {
             get {
-                return ResourceManager.GetString("RegisterButton_DisplayName1", resourceCulture);
+                return ResourceManager.GetString("RegisterButton_DisplayName", resourceCulture);
             }
         }
         

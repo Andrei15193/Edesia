@@ -61,6 +61,42 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detalii pentru adresa de livrare.
+        /// </summary>
+        public static string AddressDetailsTextBox_DisplayName {
+            get {
+                return ResourceManager.GetString("AddressDetailsTextBox_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to doar daca este cazul.
+        /// </summary>
+        public static string AddressDetailsTextBox_Hint {
+            get {
+                return ResourceManager.GetString("AddressDetailsTextBox_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Înapoi.
+        /// </summary>
+        public static string BackToShoppingCart_DisplayName {
+            get {
+                return ResourceManager.GetString("BackToShoppingCart_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completare comandă.
+        /// </summary>
+        public static string CheckoutViewTitle {
+            get {
+                return ResourceManager.GetString("CheckoutViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comenzi în așteptare.
         /// </summary>
         public static string DefaultViewTitle {
@@ -79,6 +115,15 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detalii livrare.
+        /// </summary>
+        public static string DeliveryDetailsLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("DeliveryDetailsLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comanda #{0}, {1:dd MMMM yyyy, HH:mm}.
         /// </summary>
         public static string OrderAccordionFrameHeader_DisplayName_Format {
@@ -88,11 +133,29 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detalii produse.
+        /// </summary>
+        public static string OrderDetailsLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("OrderDetailsLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {1} x {0}, {2:0.00} RON (total: {3:0.00} RON).
         /// </summary>
         public static string OrderedProductLabel_DisplayName_Format {
             get {
                 return ResourceManager.GetString("OrderedProductLabel_DisplayName_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produse comandate.
+        /// </summary>
+        public static string OrderedProductsLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("OrderedProductsLabel_DisplayName", resourceCulture);
             }
         }
         
@@ -120,6 +183,78 @@ namespace Andrei15193.Edesia.Resources {
         public static string SchedulePendingOrdersButton_Hint {
             get {
                 return ResourceManager.GetString("SchedulePendingOrdersButton_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adresa pentru livrare.
+        /// </summary>
+        public static string SelectedAddressListBox_DisplayName {
+            get {
+                return ResourceManager.GetString("SelectedAddressListBox_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trebuie să alegeți o adresă pentru livrare..
+        /// </summary>
+        public static string SelectedAddressListBox_NoSelectedItem {
+            get {
+                return ResourceManager.GetString("SelectedAddressListBox_NoSelectedItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finalizează comandă.
+        /// </summary>
+        public static string SubmitOrderButton_DisplayName {
+            get {
+                return ResourceManager.GetString("SubmitOrderButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Andrei.
+        /// </summary>
+        public static string ThanksNoticeAuthor {
+            get {
+                return ResourceManager.GetString("ThanksNoticeAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mulțumesc pentru timpul acordat realizării acestei comenzi, alături de altele realizate de alți utilizatori vor forma datele de test pentru motorul de planificare din spatele aplicației. Este foarte important ca aceste comenzi să fie cât mai apropiate de  comenzi reale pentru rezultate cât mai precise..
+        /// </summary>
+        public static string ThanksNoticeParagraph1 {
+            get {
+                return ResourceManager.GetString("ThanksNoticeParagraph1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mulțumesc încă odata și spor în continuare!.
+        /// </summary>
+        public static string ThanksNoticeParagraph2 {
+            get {
+                return ResourceManager.GetString("ThanksNoticeParagraph2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preț total.
+        /// </summary>
+        public static string TotalPriceLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("TotalPriceLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total produse:.
+        /// </summary>
+        public static string TotalProductsLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("TotalProductsLabel_DisplayName", resourceCulture);
             }
         }
     }

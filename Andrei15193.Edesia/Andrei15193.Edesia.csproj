@@ -284,6 +284,7 @@
     <Compile Include="Settings\RegistrationSettings.cs" />
     <Compile Include="ViewModels\DeliveryZone\DeliveryZoneViewModel.cs" />
     <Compile Include="ViewModels\Address\AddAddressViewModel.cs" />
+    <Compile Include="ViewModels\Order\CheckoutViewModel.cs" />
     <Compile Include="ViewModels\Product\AddProductViewModel.cs" />
     <Compile Include="Views\ApplicationWebViewPage.cs" />
     <Compile Include="Resources\HtmlElementId.cs" />
@@ -379,6 +380,8 @@
     <Content Include="Views\DeliveryTask\Default.cshtml" />
     <Content Include="Views\ShoppingCart\Default.cshtml" />
     <Content Include="Views\ShoppingCart\_OrderedProduct.cshtml" />
+    <Content Include="Views\Order\Checkout.cshtml" />
+    <Content Include="Views\Order\_OrderedProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

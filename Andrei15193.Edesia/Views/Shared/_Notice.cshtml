@@ -1,4 +1,5 @@
-﻿@model Andrei15193.Edesia.Models.Notice
+﻿@using Andrei15193.Edesia.Resources;
+@model Andrei15193.Edesia.Models.Notice
 @{
 	ViewBag.Title = Model.PageTitle;
 }
@@ -25,7 +26,7 @@
 	</div>
 	<div class="row">
 		<div class="span4 offset4">
-			<p class="text-center"><a href="/">Pagina principală</a></p>
+			<p class="text-center"><a href="@Url.Action("Default", "Product")">@ApplicationControllerStrings.BackToDefaultPageButton_DisplayName</a></p>
 		</div>
 	</div>
 </div>

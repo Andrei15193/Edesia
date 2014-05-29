@@ -8,6 +8,7 @@ namespace Andrei15193.Edesia.DataAccess
 		void UpdateCart(ApplicationUser applicationUser, OrderedProduct orderedProduct);
 		void RemoveFromCart(ApplicationUser applicationUser, Product product);
 		void RemoveFromCarts(Product product);
+		void ClearShoppingCart(ApplicationUser applicationUser);
 
 		void AddApplicationUser(ApplicationUser applicationUser, string password, string registrationKey);
 

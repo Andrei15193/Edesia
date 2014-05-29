@@ -120,6 +120,9 @@
   <data name="ApplicationName" xml:space="preserve">
     <value>Edesia</value>
   </data>
+  <data name="BackToDefaultPageButton_DisplayName" xml:space="preserve">
+    <value>Înapoi la pagina principală</value>
+  </data>
   <data name="FooterText" xml:space="preserve">
     <value>Edesia, creat de Fangli Andrei. Toate drepturile rezervate.</value>
   </data>

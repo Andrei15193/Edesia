@@ -70,6 +70,15 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Înapoi la pagina principală.
+        /// </summary>
+        public static string BackToDefaultPageButton_DisplayName {
+            get {
+                return ResourceManager.GetString("BackToDefaultPageButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edesia, creat de Fangli Andrei. Toate drepturile rezervate..
         /// </summary>
         public static string FooterText {

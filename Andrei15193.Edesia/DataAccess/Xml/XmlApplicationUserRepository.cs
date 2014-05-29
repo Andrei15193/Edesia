@@ -222,6 +222,28 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				xmlTransaction.Commit();
 			}
 		}
+		public void ClearShoppingCart(ApplicationUser applicationUser)
+		{
+			if (applicationUser == null)
+				throw new ArgumentNullException("applicationUser");
+
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
+			{
+				XElement applicationUserXElement = xmlTransaction.XmlDocument
+																 .Root
+																 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+																 .FirstOrDefault(applicationXmlElement => string.Equals(applicationXmlElement.Attribute("EMail").Value, applicationUser.EMailAddress, StringComparison.OrdinalIgnoreCase));
+
+				if (applicationUserXElement == null)
+					throw new InvalidOperationException("The specified user does not exist!");
+
+				applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ShoppingCart")
+									   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Product")
+									   .Remove();
+
+				xmlTransaction.Commit();
+			}
+		}
 
 		public void AddApplicationUser(ApplicationUser applicationUser, string password, string registrationKey)
 		{

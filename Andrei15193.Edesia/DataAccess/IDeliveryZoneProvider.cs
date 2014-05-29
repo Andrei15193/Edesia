@@ -8,5 +8,6 @@ namespace Andrei15193.Edesia.DataAccess
 		DeliveryZone GetDeliveryZone(IApplicationUserProvider applicationUserProvider, string deliveryZoneName, DateTime version);
 		IEnumerable<string> GetUnmappedAddresses();
 		IEnumerable<DeliveryZone> GetDeliveryZones(IApplicationUserProvider applicationUserProvider);
+		IEnumerable<string> GetAddresses();
 	}
 }

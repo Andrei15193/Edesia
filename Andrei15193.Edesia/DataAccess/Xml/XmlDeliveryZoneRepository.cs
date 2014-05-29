@@ -49,8 +49,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					return _GetDeliveryZone(deliveryZoneXElement, applicationUserProvider);
 			}
 		}
-		#endregion
-		#region IDeliveryRepository Members
+
 		public IEnumerable<string> GetUnmappedAddresses()
 		{
 			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
@@ -71,6 +70,21 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									 .Select(deliveryZoneXmlElement => _GetDeliveryZone(deliveryZoneXmlElement, applicationUserProvider));
 		}
 
+		public IEnumerable<string> GetAddresses()
+		{
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
+				return xmlTransaction.XmlDocument
+									 .Root
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+									 .Concat(xmlTransaction.XmlDocument
+														   .Root
+														   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone")
+														   .SelectMany(deliveryZoneXmlElement => deliveryZoneXmlElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")))
+									 .Select(addressXmlElement => addressXmlElement.Value)
+									 .OrderBy(address => address);
+		}
+		#endregion
+		#region IDeliveryRepository Members
 		public void AddAddress(string addressName)
 		{
 			if (addressName == null)
