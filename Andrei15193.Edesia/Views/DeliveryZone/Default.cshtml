@@ -13,7 +13,7 @@
 						<h2 class="dropdown-toggle dropdown-toggle-h2">@DeliveryZoneControllerStrings.DefaultViewTitle (@Model.Count())</h2>
 						<ul class="dropdown-menu inverse" data-role="dropdown" data-effect="fade">
 							<li class="fg-emerald">
-								<a href="@Url.Action("Add", "Address")">@DeliveryZoneControllerStrings.AddAddressMenuItem_DisplayName</a>
+								<a href="@Url.Action("Add", "Street")">@DeliveryZoneControllerStrings.AddStreetMenuItem_DisplayName</a>
 							</li>
 							<li class="fg-emerald">
 								<a href="@Url.Action("Add", "DeliveryZone")">@DeliveryZoneControllerStrings.AddDeliveryZoneMenuItem_DisplayName</a>
@@ -26,7 +26,7 @@
 	</div>
 	<div class="row">
 		<div class="span12">
-			@Html.Action("Unmapped", "Address")
+			@Html.Action("Unmapped", "Street")
 			@foreach (DeliveryZone deliveryZone in Model)
 			{
 				@Html.Partial("_DeliveryZone", deliveryZone)

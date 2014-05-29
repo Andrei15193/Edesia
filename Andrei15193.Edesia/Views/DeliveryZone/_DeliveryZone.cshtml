@@ -3,7 +3,7 @@
 <div class="accordion with-marker" data-role="accordion">
 	<div class="accordion-frame">
 		<span class="heading" style="cursor: pointer; padding-right: 0; z-index: 1;">
-			@if (!Model.Addresses.Any())
+			@if (!Model.Streets.Any())
 			{
 				<span class="fg-red"><i class="icon-warning"></i> @DeliveryZoneControllerStrings.DeliveryZoneAddressesListBox_NoValues</span><br />
 			}
@@ -25,9 +25,9 @@
 				</small>
 			}
 			<ul>
-				@foreach (string address in Model.Addresses)
+				@foreach (string street in Model.Streets)
 				{
-					<li>@address</li>
+					<li>@street</li>
 				}
 			</ul>
 		</div>

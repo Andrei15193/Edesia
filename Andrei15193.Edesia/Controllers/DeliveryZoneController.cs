@@ -21,7 +21,7 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet]
 		public ActionResult Add()
 		{
-			return View(new DeliveryZoneViewModel(_deliveryRepository.GetUnmappedAddresses().Select(unmappedAddress => new KeyValuePair<string, bool>(unmappedAddress, false)),
+			return View(new DeliveryZoneViewModel(_deliveryRepository.GetUnmappedStreets().Select(unmappedStreet => new KeyValuePair<string, bool>(unmappedStreet, false)),
 												  _applicationUserProvider.GetEmployees())
 						{
 							SubmitButtonText = DeliveryZoneControllerStrings.AddDeliveryZoneButton_DisplayName
@@ -49,9 +49,9 @@ namespace Andrei15193.Edesia.Controllers
 				}
 			}
 
-			deliveryZoneViewModel.AvailableAddresses.Clear();
-			foreach (string unmappedAddress in _deliveryRepository.GetUnmappedAddresses())
-				deliveryZoneViewModel.AvailableAddresses.Add(new KeyValuePair<string, bool>(unmappedAddress, Request.Form.AllKeys.Contains("checkbox " + unmappedAddress)));
+			deliveryZoneViewModel.AvailableStreets.Clear();
+			foreach (string unmappedStreet in _deliveryRepository.GetUnmappedStreets())
+				deliveryZoneViewModel.AvailableStreets.Add(new KeyValuePair<string, bool>(unmappedStreet, Request.Form.AllKeys.Contains("checkbox " + unmappedStreet)));
 
 			foreach (Employee employee in _applicationUserProvider.GetEmployees())
 				deliveryZoneViewModel.Employees.Add(employee);
@@ -67,9 +67,9 @@ namespace Andrei15193.Edesia.Controllers
 				DeliveryZone deliveryZoneFound = _deliveryRepository.GetDeliveryZones(_applicationUserProvider).FirstOrDefault(storedDeiveryZone => string.Equals(deliveryZone, storedDeiveryZone.Name, StringComparison.OrdinalIgnoreCase));
 
 				if (deliveryZoneFound != null)
-					return View(new DeliveryZoneViewModel(deliveryZoneFound.Addresses.Select(address => new KeyValuePair<string, bool>(address, true))
-																					 .Concat(_deliveryRepository.GetUnmappedAddresses().Select(address => new KeyValuePair<string, bool>(address, false))),
-																							_applicationUserProvider.GetEmployees())
+					return View(new DeliveryZoneViewModel(deliveryZoneFound.Streets.Select(street => new KeyValuePair<string, bool>(street, true))
+																				   .Concat(_deliveryRepository.GetUnmappedStreets().Select(street => new KeyValuePair<string, bool>(street, false))),
+														  _applicationUserProvider.GetEmployees())
 					{
 						DeliveryZoneName = deliveryZoneFound.Name,
 						DeliveryZoneColour = deliveryZoneFound.Colour.ToString(),
@@ -108,13 +108,13 @@ namespace Andrei15193.Edesia.Controllers
 			if (deliveryZoneFound == null)
 				return RedirectToAction("Default", "Delivery");
 
-			deliveryZoneViewModel.AvailableAddresses.Clear();
-			foreach (KeyValuePair<string, bool> address in deliveryZoneFound.Addresses.Select(address => new KeyValuePair<string, bool>(address, true))
-																					  .Concat(Request.Form.Keys.Cast<string>()
-																											   .Where(inputName => inputName.StartsWith("checkbox "))
-																											   .Select(inputName => new KeyValuePair<string, bool>(inputName.Substring(9), true)))
-																					  .Concat(_deliveryRepository.GetUnmappedAddresses().Select(address => new KeyValuePair<string, bool>(address, false))))
-				deliveryZoneViewModel.AvailableAddresses.Add(address);
+			deliveryZoneViewModel.AvailableStreets.Clear();
+			foreach (KeyValuePair<string, bool> street in deliveryZoneFound.Streets.Select(address => new KeyValuePair<string, bool>(address, true))
+																				   .Concat(Request.Form.Keys.Cast<string>()
+																											.Where(inputName => inputName.StartsWith("checkbox "))
+																											.Select(inputName => new KeyValuePair<string, bool>(inputName.Substring(9), true)))
+																				   .Concat(_deliveryRepository.GetUnmappedStreets().Select(address => new KeyValuePair<string, bool>(address, false))))
+				deliveryZoneViewModel.AvailableStreets.Add(street);
 
 			foreach (Employee employee in _applicationUserProvider.GetEmployees())
 				deliveryZoneViewModel.Employees.Add(employee);

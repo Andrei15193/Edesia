@@ -133,6 +133,6 @@
     <value>Comenzi</value>
   </data>
   <data name="PendingDeliveriesLabel_DisplayName" xml:space="preserve">
-    <value>DefaultViewTitle</value>
+    <value>Livrări în așteptare</value>
   </data>
 </root>

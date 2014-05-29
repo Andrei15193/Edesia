@@ -61,15 +61,6 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adaugă adresă.
-        /// </summary>
-        public static string AddAddressMenuItem_DisplayName {
-            get {
-                return ResourceManager.GetString("AddAddressMenuItem_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Adaugă.
         /// </summary>
         public static string AddDeliveryZoneButton_DisplayName {
@@ -97,20 +88,29 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adrese incluse.
+        ///   Looks up a localized string similar to Adaugă stradă.
         /// </summary>
-        public static string AvailableAddressesListBox_DisplayName {
+        public static string AddStreetMenuItem_DisplayName {
             get {
-                return ResourceManager.GetString("AvailableAddressesListBox_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AddStreetMenuItem_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Străzi incluse.
+        /// </summary>
+        public static string AvailableStreetsListBox_DisplayName {
+            get {
+                return ResourceManager.GetString("AvailableStreetsListBox_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AvailableAddressesListBox_Hint {
+        public static string AvailableStreetsListBox_Hint {
             get {
-                return ResourceManager.GetString("AvailableAddressesListBox_Hint", resourceCulture);
+                return ResourceManager.GetString("AvailableStreetsListBox_Hint", resourceCulture);
             }
         }
         

@@ -37,7 +37,7 @@
 								<ul>
 									@foreach (Order order in deliveryTask.OrdersToDeliver)
 									{
-										<li>@(string.Format(DeliveryTaskControllerStrings.OrderListItemLabel_DisplayName_Format, order.OrderNumber, order.DeliveryAddress))</li>
+										<li>@(string.Format(DeliveryTaskControllerStrings.OrderListItemLabel_DisplayName_Format, order.OrderNumber, order.DeliveryStreet))</li>
 									}
 								</ul>
 							</p>

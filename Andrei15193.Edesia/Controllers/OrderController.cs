@@ -6,7 +6,6 @@ using Andrei15193.Edesia.Resources;
 using Andrei15193.Edesia.ViewModels.Order;
 namespace Andrei15193.Edesia.Controllers
 {
-	[ConfirmAccess]
 	public class OrderController
 		: ApplicationController
 	{
@@ -17,6 +16,7 @@ namespace Andrei15193.Edesia.Controllers
 		}
 
 		[HttpGet]
+		[ConfirmAccess]
 		public ActionResult Checkout()
 		{
 			ShoppingCart shoppingCart = _applicationUserRepository.GetShoppingCart(User, _productProvider);
@@ -26,10 +26,11 @@ namespace Andrei15193.Edesia.Controllers
 			return View(new CheckoutViewModel
 						{
 							ShoppingCart = shoppingCart,
-							Addresses = _deliveryRepository.GetAddresses()
+							Streets = _deliveryRepository.GetStreets()
 						});
 		}
 		[HttpPost]
+		[ConfirmAccess]
 		public ActionResult Checkout(CheckoutViewModel checkoutViewModel)
 		{
 			ShoppingCart shoppingCart = _applicationUserRepository.GetShoppingCart(User, _productProvider);
@@ -39,12 +40,12 @@ namespace Andrei15193.Edesia.Controllers
 			if (!ModelState.IsValid)
 			{
 				checkoutViewModel.ShoppingCart = shoppingCart;
-				checkoutViewModel.Addresses = _deliveryRepository.GetAddresses();
+				checkoutViewModel.Streets = _deliveryRepository.GetStreets();
 
 				return View(checkoutViewModel);
 			}
 
-			OrderDetails orderDetails = new OrderDetails(User, checkoutViewModel.SelectedAddress, checkoutViewModel.AddressDetails);
+			OrderDetails orderDetails = new OrderDetails(User, checkoutViewModel.SelectedStreet, checkoutViewModel.AddressDetails);
 			foreach (OrderedProduct orderedProduct in shoppingCart)
 				orderDetails.OrderedProducts.Add(orderedProduct);
 

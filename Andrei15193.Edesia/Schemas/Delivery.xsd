@@ -10,14 +10,14 @@
 							 type="delivery:DeliveryZone"
 							 minOccurs="0"
 							 maxOccurs="unbounded" />
-				<xsd:element name="Address"
+				<xsd:element name="Street"
 							 type="xsd:string"
 							 minOccurs="0"
 							 maxOccurs="unbounded" />
 			</xsd:sequence>
 		</xsd:complexType>
-		<xsd:unique name="UniqueAddresses">
-			<xsd:selector xpath=".//delivery:Address" />
+		<xsd:unique name="UniqueStreets">
+			<xsd:selector xpath=".//delivery:Street" />
 			<xsd:field xpath="." />
 		</xsd:unique>
 		<xsd:unique name="UniqueDeliveryZoneNames">
@@ -28,7 +28,7 @@
 
 	<xsd:complexType name="DeliveryZone">
 		<xsd:sequence>
-			<xsd:element name="Address"
+			<xsd:element name="Street"
 						 type="xsd:string"
 						 minOccurs="0"
 						 maxOccurs="unbounded" />

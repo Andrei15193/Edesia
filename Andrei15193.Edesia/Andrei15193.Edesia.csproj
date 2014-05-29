@@ -157,7 +157,7 @@
     <Compile Include="Collections\EqualityComparer.cs" />
     <Compile Include="Collections\KeyValuePair.cs" />
     <Compile Include="Collections\ReadOnlyCollection.cs" />
-    <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\StreetController.cs" />
     <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\DeliveryTaskController.cs" />
     <Compile Include="Controllers\DeliveryZoneController.cs" />
@@ -183,7 +183,7 @@
     <Compile Include="DataAccess\Xml\XmlProductRepository.cs" />
     <Compile Include="DataAccess\Xml\XmlTransaction.cs" />
     <Compile Include="Exceptions\DomainConstraintException.cs" />
-    <Compile Include="Exceptions\UniqueAddressException.cs" />
+    <Compile Include="Exceptions\UniqueStreetException.cs" />
     <Compile Include="Exceptions\UniqueConstraintException.cs" />
     <Compile Include="Exceptions\UniqueDeliveryZoneNameException.cs" />
     <Compile Include="Exceptions\UniqueEMailAddressException.cs" />
@@ -237,10 +237,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProductControllerStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\AddressControllerStrings.Designer.cs">
+    <Compile Include="Resources\StreetControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AddressControllerStrings.resx</DependentUpon>
+      <DependentUpon>StreetControllerStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\DeliveryControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -262,7 +262,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShoppingCartControllerStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Strings\AddressControllerKey.cs" />
     <Compile Include="Resources\Strings\ApplicationControllerKey.cs" />
     <Compile Include="Resources\Strings\ColourKey.cs" />
     <Compile Include="Resources\Strings\DeliveryControllerKey.cs" />
@@ -271,6 +270,7 @@
     <Compile Include="Resources\Strings\OrderControllerKey.cs" />
     <Compile Include="Resources\Strings\ProductControllerKey.cs" />
     <Compile Include="Resources\Strings\ShoppingCartControllerKey.cs" />
+    <Compile Include="Resources\Strings\StreetControllerKey.cs" />
     <Compile Include="Resources\Strings\UserControllerKey.cs" />
     <Compile Include="Resources\UserControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -283,7 +283,7 @@
     <Compile Include="Settings\Local\LocalEMailSettings.cs" />
     <Compile Include="Settings\RegistrationSettings.cs" />
     <Compile Include="ViewModels\DeliveryZone\DeliveryZoneViewModel.cs" />
-    <Compile Include="ViewModels\Address\AddAddressViewModel.cs" />
+    <Compile Include="ViewModels\Street\AddStreetViewModel.cs" />
     <Compile Include="ViewModels\Order\CheckoutViewModel.cs" />
     <Compile Include="ViewModels\Product\AddProductViewModel.cs" />
     <Compile Include="Views\ApplicationWebViewPage.cs" />
@@ -299,7 +299,6 @@
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="Models\DetailedAddress.cs" />
     <Compile Include="Models\DisplayLanguage.cs" />
     <Compile Include="Models\Icons.cs" />
     <Compile Include="Models\NavigationBarAction.cs" />
@@ -367,7 +366,7 @@
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Delivery\Default.cshtml" />
     <Content Include="Views\DeliveryZone\_DeliveryZone.cshtml" />
-    <Content Include="Views\Address\Add.cshtml" />
+    <Content Include="Views\Street\Add.cshtml" />
     <Content Include="Views\DeliveryZone\Add.cshtml" />
     <Content Include="Views\DeliveryZone\Edit.cshtml" />
     <Content Include="Views\Product\Default.cshtml" />
@@ -376,7 +375,7 @@
     <Content Include="Views\Order\Default.cshtml" />
     <Content Include="Views\Order\_Order.cshtml" />
     <Content Include="Views\DeliveryZone\Default.cshtml" />
-    <Content Include="Views\Address\Unmapped.cshtml" />
+    <Content Include="Views\Street\Unmapped.cshtml" />
     <Content Include="Views\DeliveryTask\Default.cshtml" />
     <Content Include="Views\ShoppingCart\Default.cshtml" />
     <Content Include="Views\ShoppingCart\_OrderedProduct.cshtml" />
@@ -403,9 +402,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ProductControllerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\AddressControllerStrings.resx">
+    <EmbeddedResource Include="Resources\StreetControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AddressControllerStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>StreetControllerStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\DeliveryControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

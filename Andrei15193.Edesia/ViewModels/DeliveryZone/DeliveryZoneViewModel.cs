@@ -61,17 +61,17 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 			_availableColours = new ReadOnlyDictionary<string, Colour>(allColours);
 		}
 
-		public DeliveryZoneViewModel(IEnumerable<KeyValuePair<string, bool>> availableAddresses, IEnumerable<Employee> employees)
+		public DeliveryZoneViewModel(IEnumerable<KeyValuePair<string, bool>> availableStreets, IEnumerable<Employee> employees)
 		{
 			if (employees == null)
 				_employees = new SortedSet<Employee>(Comparer<Employee>.Create((first, second) => first.LastName.CompareTo(second.LastName)));
 			else
 				_employees = new SortedSet<Employee>(employees, Comparer<Employee>.Create((first, second) => first.LastName.CompareTo(second.LastName)));
 
-			if (availableAddresses == null)
-				_availableAddresses = new SortedSet<KeyValuePair<string, bool>>(new KeyComparer());
+			if (availableStreets == null)
+				_availableStreets = new SortedSet<KeyValuePair<string, bool>>(new KeyComparer());
 			else
-				_availableAddresses = new SortedSet<KeyValuePair<string, bool>>(availableAddresses.Where(availableAddress => !string.IsNullOrEmpty(availableAddress.Key) && !string.IsNullOrWhiteSpace(availableAddress.Key)), new KeyComparer());
+				_availableStreets = new SortedSet<KeyValuePair<string, bool>>(availableStreets.Where(availableStreet => !string.IsNullOrEmpty(availableStreet.Key) && !string.IsNullOrWhiteSpace(availableStreet.Key)), new KeyComparer());
 		}
 		public DeliveryZoneViewModel()
 			: this(null, null)
@@ -106,12 +106,12 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 			}
 		}
 
-		[Display(Name = DeliveryZoneControllerKey.AvailableAddressesListBox_DisplayName, Prompt = DeliveryZoneControllerKey.AvailableAddressesListBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
-		public ISet<KeyValuePair<string, bool>> AvailableAddresses
+		[Display(Name = DeliveryZoneControllerKey.AvailableStreetsListBox_DisplayName, Prompt = DeliveryZoneControllerKey.AvailableStreetsListBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
+		public ISet<KeyValuePair<string, bool>> AvailableStreets
 		{
 			get
 			{
-				return _availableAddresses;
+				return _availableStreets;
 			}
 		}
 		public string SubmitButtonText
@@ -134,7 +134,7 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 			set;
 		}
 
-		private readonly ISet<KeyValuePair<string, bool>> _availableAddresses;
+		private readonly ISet<KeyValuePair<string, bool>> _availableStreets;
 		private readonly ISet<Employee> _employees;
 		private static IReadOnlyDictionary<string, Colour> _availableColours;
 

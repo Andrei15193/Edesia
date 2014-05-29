@@ -120,8 +120,8 @@
   <data name="DefaultViewTitle" xml:space="preserve">
     <value>Comenzi în așteptare</value>
   </data>
-  <data name="DeliveryAddressLabel_DisplayName" xml:space="preserve">
-    <value>Adresa de livrare:</value>
+  <data name="DeliveryStreetLabel_DisplayName" xml:space="preserve">
+    <value>Strada pentru livrare:</value>
   </data>
   <data name="OrderAccordionFrameHeader_DisplayName_Format" xml:space="preserve">
     <value>Comanda #{0}, {1:dd MMMM yyyy, HH:mm}</value>
@@ -142,7 +142,10 @@
     <value>Detalii pentru adresa de livrare</value>
   </data>
   <data name="AddressDetailsTextBox_Hint" xml:space="preserve">
-    <value>doar daca este cazul</value>
+    <value>numărul străzii, bloc etc.</value>
+  </data>
+  <data name="AddressDetailsTextBox_MissingValue" xml:space="preserve">
+    <value>Trebuie să completați detalile adresei pentru livrare.</value>
   </data>
   <data name="BackToShoppingCart_DisplayName" xml:space="preserve">
     <value>Înapoi</value>
@@ -159,11 +162,11 @@
   <data name="OrderedProductsLabel_DisplayName" xml:space="preserve">
     <value>Produse comandate</value>
   </data>
-  <data name="SelectedAddressListBox_DisplayName" xml:space="preserve">
-    <value>Adresa pentru livrare</value>
+  <data name="SelectedStreetListBox_DisplayName" xml:space="preserve">
+    <value>Strada pentru livrare</value>
   </data>
-  <data name="SelectedAddressListBox_NoSelectedItem" xml:space="preserve">
-    <value>Trebuie să alegeți o adresă pentru livrare.</value>
+  <data name="SelectedStreetListBox_NoSelectedItem" xml:space="preserve">
+    <value>Trebuie să alegeți o stradă pentru livrare.</value>
   </data>
   <data name="SubmitOrderButton_DisplayName" xml:space="preserve">
     <value>Finalizează comandă</value>

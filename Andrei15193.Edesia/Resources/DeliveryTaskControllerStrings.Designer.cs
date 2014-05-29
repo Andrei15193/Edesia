@@ -106,7 +106,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DefaultViewTitle.
+        ///   Looks up a localized string similar to Livrări în așteptare.
         /// </summary>
         public static string PendingDeliveriesLabel_DisplayName {
             get {

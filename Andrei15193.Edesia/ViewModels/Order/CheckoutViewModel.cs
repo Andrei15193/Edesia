@@ -14,26 +14,27 @@ namespace Andrei15193.Edesia.ViewModels.Order
 			set;
 		}
 
-		[LocalizedRequired(OrderControllerKey.SelectedAddressListBox_NoSelectedItem, typeof(OrderControllerStrings), AllowEmptyStrings = false)]
-		[Display(Name = OrderControllerKey.SelectedAddressListBox_DisplayName, ResourceType = typeof(OrderControllerStrings))]
-		public string SelectedAddress
+		[LocalizedRequired(OrderControllerKey.SelectedStreetListBox_NoSelectedItem, typeof(OrderControllerStrings), AllowEmptyStrings = false)]
+		[Display(Name = OrderControllerKey.SelectedStreetListBox_DisplayName, ResourceType = typeof(OrderControllerStrings))]
+		public string SelectedStreet
 		{
 			get;
 			set;
 		}
 
-		public IEnumerable<string> Addresses
+		public IEnumerable<string> Streets
 		{
 			get
 			{
-				return _addresses;
+				return _streets;
 			}
 			set
 			{
-				_addresses = (value ?? MvcApplication.GetEmptyAray<string>());
+				_streets = (value ?? MvcApplication.GetEmptyAray<string>());
 			}
 		}
 
+		[LocalizedRequired(OrderControllerKey.AddressDetailsTextBox_MissingValue, typeof(OrderControllerStrings), AllowEmptyStrings = false)]
 		[Display(Name = OrderControllerKey.AddressDetailsTextBox_DisplayName, Prompt = OrderControllerKey.AddressDetailsTextBox_Hint, ResourceType = typeof(OrderControllerStrings))]
 		public string AddressDetails
 		{
@@ -41,6 +42,6 @@ namespace Andrei15193.Edesia.ViewModels.Order
 			set;
 		}
 
-		private IEnumerable<string> _addresses;
+		private IEnumerable<string> _streets;
 	}
 }

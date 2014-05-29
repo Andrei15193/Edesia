@@ -5,22 +5,23 @@ namespace Andrei15193.Edesia.Models
 {
 	public sealed class OrderDetails
 	{
-		public OrderDetails(ApplicationUser recipient, string deliveryAddress, string deliveryAddressLine2 = null)
+		public OrderDetails(ApplicationUser recipient, string deliveryStreet, string deliveryAddressDetails)
 		{
 			if (recipient == null)
 				throw new ArgumentNullException("recipient");
 
-			if (deliveryAddress == null)
-				throw new ArgumentNullException("deliveryAddress");
-			if (string.IsNullOrWhiteSpace(deliveryAddress))
-				throw new ArgumentException("Cannot be empty or whitespace!", "deliveryAddress");
+			if (deliveryStreet == null)
+				throw new ArgumentNullException("deliveryStreet");
+			if (string.IsNullOrWhiteSpace(deliveryStreet))
+				throw new ArgumentException("Cannot be empty or whitespace!", "deliveryStreet");
 
-			if (string.IsNullOrWhiteSpace(deliveryAddressLine2))
-				_deliveryAddressLine2 = null;
-			else
-				_deliveryAddressLine2 = deliveryAddressLine2.Trim();
+			if (deliveryAddressDetails == null)
+				throw new ArgumentNullException("deliveryAddressDetails");
+			if (string.IsNullOrWhiteSpace(deliveryAddressDetails))
+				throw new ArgumentException("Cannot be empty or whitespace!", "deliveryAddressDetails");
 
-			_deliveryAddress = deliveryAddress.Trim();
+			_deliveryStreet = deliveryStreet.Trim();
+			_deliveryAddressDetails = deliveryAddressDetails.Trim();
 			_recipient = recipient;
 		}
 
@@ -31,18 +32,18 @@ namespace Andrei15193.Edesia.Models
 				return _recipient;
 			}
 		}
-		public string DeliveryAddress
+		public string DeliveryStreet
 		{
 			get
 			{
-				return _deliveryAddress;
+				return _deliveryStreet;
 			}
 		}
-		public string DeliveryAddressLine2
+		public string DeliveryAddressDetails
 		{
 			get
 			{
-				return _deliveryAddressLine2;
+				return _deliveryAddressDetails;
 			}
 		}
 		public ICollection<OrderedProduct> OrderedProducts
@@ -54,8 +55,8 @@ namespace Andrei15193.Edesia.Models
 		}
 
 		private readonly ApplicationUser _recipient;
-		private readonly string _deliveryAddressLine2;
-		private readonly string _deliveryAddress;
+		private readonly string _deliveryStreet;
+		private readonly string _deliveryAddressDetails;
 		private readonly ICollection<OrderedProduct> _orderedProducts = new OrderedProductsCollection();
 	}
 }

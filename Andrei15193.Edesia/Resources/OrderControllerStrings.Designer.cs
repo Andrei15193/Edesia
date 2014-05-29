@@ -70,11 +70,20 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to doar daca este cazul.
+        ///   Looks up a localized string similar to numărul străzii, bloc etc..
         /// </summary>
         public static string AddressDetailsTextBox_Hint {
             get {
                 return ResourceManager.GetString("AddressDetailsTextBox_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trebuie să completați detalile adresei pentru livrare..
+        /// </summary>
+        public static string AddressDetailsTextBox_MissingValue {
+            get {
+                return ResourceManager.GetString("AddressDetailsTextBox_MissingValue", resourceCulture);
             }
         }
         
@@ -106,20 +115,20 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adresa de livrare:.
-        /// </summary>
-        public static string DeliveryAddressLabel_DisplayName {
-            get {
-                return ResourceManager.GetString("DeliveryAddressLabel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Detalii livrare.
         /// </summary>
         public static string DeliveryDetailsLabel_DisplayName {
             get {
                 return ResourceManager.GetString("DeliveryDetailsLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Strada pentru livrare:.
+        /// </summary>
+        public static string DeliveryStreetLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("DeliveryStreetLabel_DisplayName", resourceCulture);
             }
         }
         
@@ -187,20 +196,20 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adresa pentru livrare.
+        ///   Looks up a localized string similar to Strada pentru livrare.
         /// </summary>
-        public static string SelectedAddressListBox_DisplayName {
+        public static string SelectedStreetListBox_DisplayName {
             get {
-                return ResourceManager.GetString("SelectedAddressListBox_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SelectedStreetListBox_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trebuie să alegeți o adresă pentru livrare..
+        ///   Looks up a localized string similar to Trebuie să alegeți o stradă pentru livrare..
         /// </summary>
-        public static string SelectedAddressListBox_NoSelectedItem {
+        public static string SelectedStreetListBox_NoSelectedItem {
             get {
-                return ResourceManager.GetString("SelectedAddressListBox_NoSelectedItem", resourceCulture);
+                return ResourceManager.GetString("SelectedStreetListBox_NoSelectedItem", resourceCulture);
             }
         }
         

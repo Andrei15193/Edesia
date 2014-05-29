@@ -50,13 +50,13 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 		}
 
-		public IEnumerable<string> GetUnmappedAddresses()
+		public IEnumerable<string> GetUnmappedStreets()
 		{
 			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
 				return xmlTransaction.XmlDocument
 									 .Root
-									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-									 .Select(addressXElement => addressXElement.Value);
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street")
+									 .Select(streetXElement => streetXElement.Value);
 		}
 		public IEnumerable<DeliveryZone> GetDeliveryZones(IApplicationUserProvider applicationUserProvider)
 		{
@@ -70,33 +70,33 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									 .Select(deliveryZoneXmlElement => _GetDeliveryZone(deliveryZoneXmlElement, applicationUserProvider));
 		}
 
-		public IEnumerable<string> GetAddresses()
+		public IEnumerable<string> GetStreets()
 		{
 			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
 				return xmlTransaction.XmlDocument
 									 .Root
-									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street")
 									 .Concat(xmlTransaction.XmlDocument
 														   .Root
 														   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone")
-														   .SelectMany(deliveryZoneXmlElement => deliveryZoneXmlElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")))
-									 .Select(addressXmlElement => addressXmlElement.Value)
-									 .OrderBy(address => address);
+														   .SelectMany(deliveryZoneXmlElement => deliveryZoneXmlElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street")))
+									 .Select(streetXmlElement => streetXmlElement.Value)
+									 .OrderBy(street => street);
 		}
 		#endregion
 		#region IDeliveryRepository Members
-		public void AddAddress(string addressName)
+		public void AddStreet(string street)
 		{
-			if (addressName == null)
-				throw new ArgumentNullException("addressName");
-			if (string.IsNullOrEmpty(addressName) || string.IsNullOrWhiteSpace(addressName))
-				throw new ArgumentException("Cannot be empty or whitespace.", "addressName");
+			if (street == null)
+				throw new ArgumentNullException("street");
+			if (string.IsNullOrWhiteSpace(street))
+				throw new ArgumentException("Cannot be empty or whitespace.", "street");
 
 			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
 				xmlTransaction.XmlDocument
 							  .Root
-							  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address", addressName));
+							  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street", street));
 				try
 				{
 					xmlTransaction.Commit();
@@ -107,24 +107,24 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				}
 			}
 		}
-		public void RemoveAddress(string addressName)
+		public void RemoveStreet(string street)
 		{
-			if (addressName == null)
-				throw new ArgumentNullException("addressName");
-			if (string.IsNullOrEmpty(addressName) || string.IsNullOrWhiteSpace(addressName))
-				throw new ArgumentException("Cannot be empty or whitespace.", "addressName");
+			if (street == null)
+				throw new ArgumentNullException("street");
+			if (string.IsNullOrWhiteSpace(street))
+				throw new ArgumentException("Cannot be empty or whitespace.", "street");
 
 			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
-				XElement addressXElement = xmlTransaction.XmlDocument
-														 .Root
-														 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-														 .FirstOrDefault(addressXmlElement => string.Equals(addressXmlElement.Value, addressName, StringComparison.OrdinalIgnoreCase)
-																							  && !addressXmlElement.Elements().Any());
+				XElement streetXElement = xmlTransaction.XmlDocument
+														.Root
+														.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street")
+														.FirstOrDefault(streetXmlElement => string.Equals(streetXmlElement.Value, street, StringComparison.OrdinalIgnoreCase)
+																							&& !streetXmlElement.Elements().Any());
 
-				if (addressXElement != null)
+				if (streetXElement != null)
 				{
-					addressXElement.Remove();
+					streetXElement.Remove();
 					try
 					{
 						xmlTransaction.Commit();
@@ -149,8 +149,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 															 new XAttribute("Colour", deliveryZone.Colour.ToString()),
 															 xmlTransaction.XmlDocument
 																		   .Root
-																		   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-																		   .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Value)));
+																		   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street")
+																		   .Where(unmappedStreetXElement => deliveryZone.Streets.Contains(unmappedStreetXElement.Value)));
 
 				if (deliveryZone.Assignee != null)
 					deliveryZoneXElement.Add(new XAttribute("AssigneeEMailAddress", deliveryZone.Assignee.EMailAddress));
@@ -160,8 +160,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 							  .AddFirst(deliveryZoneXElement);
 				xmlTransaction.XmlDocument
 							  .Root
-							  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-							  .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Value))
+							  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street")
+							  .Where(unmappedStreetXElement => deliveryZone.Streets.Contains(unmappedStreetXElement.Value))
 							  .Remove();
 				try
 				{
@@ -194,8 +194,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				{
 					deliveryZoneXElement.Add(xmlTransaction.XmlDocument
 														   .Root
-														   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-														   .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Value)));
+														   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street")
+														   .Where(unmappedStreetXElement => deliveryZone.Streets.Contains(unmappedStreetXElement.Value)));
 
 					XAttribute assigneeXAttribute = deliveryZoneXElement.Attribute("AssigneeEMailAddress");
 					if (deliveryZone.Assignee != null)
@@ -209,16 +209,16 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 					xmlTransaction.XmlDocument
 								  .Root
-								  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-								  .Where(unmappedAddressXElement => deliveryZone.Addresses.Contains(unmappedAddressXElement.Value))
+								  .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street")
+								  .Where(unmappedStreetXElement => deliveryZone.Streets.Contains(unmappedStreetXElement.Value))
 								  .Remove();
 
 					xmlTransaction.XmlDocument
 								  .Root
-								  .Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-														   .Where(unmappedAddressXElement => !deliveryZone.Addresses.Contains(unmappedAddressXElement.Value)));
-					deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-										.Where(unmappedAddressXElement => !deliveryZone.Addresses.Contains(unmappedAddressXElement.Value))
+								  .Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street")
+														   .Where(unmappedStreetXElement => !deliveryZone.Streets.Contains(unmappedStreetXElement.Value)));
+					deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street")
+										.Where(unmappedStreetXElement => !deliveryZone.Streets.Contains(unmappedStreetXElement.Value))
 										.Remove();
 
 					deliveryZoneXElement.Attribute("Name").SetValue(deliveryZone.Name);
@@ -252,7 +252,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				{
 					xmlTransaction.XmlDocument
 								  .Root
-								  .Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address"));
+								  .Add(deliveryZoneXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street"));
 					deliveryZoneXElement.Remove();
 					try
 					{
@@ -303,8 +303,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			DeliveryZone deliveryZone = new DeliveryZone(deliveryZoneXmlElement.Attribute("Name").Value,
 														 Colour.Parse(deliveryZoneXmlElement.Attribute("Colour").Value),
-														 deliveryZoneXmlElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Address")
-																			   .Select(addressXElement => addressXElement.Value));
+														 deliveryZoneXmlElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street")
+																			   .Select(streetXElement => streetXElement.Value));
 
 			if (assigneeEMailAddressXAtribute != null)
 				deliveryZone.Assignee = applicationUserProvider.GetEmployee(assigneeEMailAddressXAtribute.Value);
@@ -317,8 +317,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			if (xmlUniqueConstraintException != null)
 			{
-				if (string.Equals("http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd:UniqueAddresses", xmlUniqueConstraintException.ConstraintName, StringComparison.Ordinal))
-					return new UniqueAddressException(xmlUniqueConstraintException.ConflictingValue, xmlUniqueConstraintException);
+				if (string.Equals("http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd:UniqueStreets", xmlUniqueConstraintException.ConstraintName, StringComparison.Ordinal))
+					return new UniqueStreetException(xmlUniqueConstraintException.ConflictingValue, xmlUniqueConstraintException);
 
 				if (string.Equals("http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryMapping.xsd:UniqueDeliveryZoneNames", xmlUniqueConstraintException.ConstraintName, StringComparison.Ordinal))
 					return new UniqueDeliveryZoneNameException(xmlUniqueConstraintException.ConflictingValue, xmlUniqueConstraintException);

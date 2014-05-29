@@ -8,11 +8,7 @@
 		</a>
 		<div class="content">
 			<small>
-				@OrderControllerStrings.DeliveryAddressLabel_DisplayName @Model.DeliveryAddress
-				@if (Model.DeliveryAddressLine2 != null)
-				{
-					@(", " + @Model.DeliveryAddressLine2)
-				}
+				@OrderControllerStrings.DeliveryStreetLabel_DisplayName @Model.DeliveryStreet, @Model.DeliveryAddressDetails
 			</small>
 			<ul>
 				@foreach (OrderedProduct orderedProduct in Model.OrderedProducts)

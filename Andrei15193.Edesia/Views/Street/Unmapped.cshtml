@@ -1,0 +1,33 @@
+﻿@using Andrei15193.Edesia.Resources;
+@model IEnumerable<KeyValuePair<string, bool>>
+@{
+	Layout = null;
+}
+@if (Model.Any())
+{
+	<div class="accordion with-marker" data-role="accordion">
+		<div class="accordion-frame">
+			<span class="heading @(Model.Skip(30).Any()? string.Empty : "active") fg-red" style="cursor: pointer;">
+				<i class="icon-warning"></i> @StreetControllerStrings.UngroupedStreetsLabel_DisplayName (@Model.Count())
+			</span>
+			<div class="content">
+				<ul>
+					@foreach (KeyValuePair<string, bool> unmappedStreet in Model)
+					{
+						<li class="@(unmappedStreet.Value ? "disabled" : string.Empty)">
+							@unmappedStreet.Key
+							<a href="@Url.Action("Remove", "Address")?address=@Url.Encode(unmappedStreet.Key)" class="@(unmappedStreet.Value ? "actionLink" : "disabledActionLink")">
+								<i class="icon-remove" style="float: right;"></i>
+							</a>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<p style="text-align: justify;">
+		<small>
+			<i class="icon-info-2 fg-red"></i> @StreetControllerStrings.UngroupedStreetsLabel_Hint
+		</small>
+	</p>
+}

@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using Andrei15193.Edesia.Models;
+﻿using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.DataAccess
 {
 	public interface IDeliveryZoneRepository
 		: IDeliveryZoneProvider
 	{
-		void AddAddress(string addressName);
-		void RemoveAddress(string addressName);
+		void AddStreet(string street);
+		void RemoveStreet(string street);
 
 		void AddDeliveryZone(DeliveryZone deliveryZone);
 		void UpdateDeliveryZone(DeliveryZone deliveryZone, string deliveryZoneOldName);

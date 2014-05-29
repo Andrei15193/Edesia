@@ -4,10 +4,8 @@ namespace Andrei15193.Edesia.Resources.Strings
 	{
 		internal const string CredentialControls_InvalidValues = "CredentialControls_InvalidValues";
 		internal const string EMailTextBox_DisplayName = "EMailTextBox_DisplayName";
-		internal const string EMailTextBox_DisplayName1 = "EMailTextBox_DisplayName1";
 		internal const string EMailTextBox_DuplicateValue_Format = "EMailTextBox_DuplicateValue_Format";
 		internal const string EMailTextBox_Hint = "EMailTextBox_Hint";
-		internal const string EMailTextBox_Hint1 = "EMailTextBox_Hint1";
 		internal const string EMailTextBox_InvalidValue = "EMailTextBox_InvalidValue";
 		internal const string EMailTextBox_InvalidVerificationValue = "EMailTextBox_InvalidVerificationValue";
 		internal const string EMailTextBox_MissingValue = "EMailTextBox_MissingValue";
@@ -27,7 +25,6 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string LoginViewTitle = "LoginViewTitle";
 		internal const string LogoutMenuItem_DisplayName = "LogoutMenuItem_DisplayName";
 		internal const string PasswordInput_DisplayName = "PasswordInput_DisplayName";
-		internal const string PasswordInput_DisplayName1 = "PasswordInput_DisplayName1";
 		internal const string PasswordInput_Hint = "PasswordInput_Hint";
 		internal const string PasswordInput_Hint1 = "PasswordInput_Hint1";
 		internal const string PasswordInput_InvalidVerificationValue = "PasswordInput_InvalidVerificationValue";
@@ -35,8 +32,8 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string PasswordVerificationInput_DisplayName = "PasswordVerificationInput_DisplayName";
 		internal const string PasswordVerificationInput_Hint = "PasswordVerificationInput_Hint";
 		internal const string Register_MailBody_Format = "Register_MailBody_Format";
+		internal const string RegisterAccountButton_DisplayName = "RegisterAccountButton_DisplayName";
 		internal const string RegisterButton_DisplayName = "RegisterButton_DisplayName";
-		internal const string RegisterButton_DisplayName1 = "RegisterButton_DisplayName1";
 		internal const string RegisterViewTitle = "RegisterViewTitle";
 		internal const string Registration_Completed_Paragraph1 = "Registration_Completed_Paragraph1";
 		internal const string Registration_ConfirmationMailSent_Paragraph1 = "Registration_ConfirmationMailSent_Paragraph1";

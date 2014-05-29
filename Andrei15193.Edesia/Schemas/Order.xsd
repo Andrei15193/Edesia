@@ -34,12 +34,12 @@
 		<xsd:attribute name="RecipientEMailAddress"
 					   type="xsd:string"
 					   use="required" />
-		<xsd:attribute name="DeliveryAddress"
+		<xsd:attribute name="DeliveryStreet"
 					   type="xsd:string"
 					   use="required" />
-		<xsd:attribute name="DeliveryAddressLine2"
+		<xsd:attribute name="DeliveryAddressDetails"
 					   type="xsd:string"
-					   use="optional" />
+					   use="required" />
 		<xsd:attribute name="State"
 					   use="required">
 			<xsd:simpleType>

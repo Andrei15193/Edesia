@@ -2,12 +2,12 @@ namespace Andrei15193.Edesia.Resources.Strings
 {
 	internal static class DeliveryZoneControllerKey
 	{
-		internal const string AddAddressMenuItem_DisplayName = "AddAddressMenuItem_DisplayName";
 		internal const string AddDeliveryZoneButton_DisplayName = "AddDeliveryZoneButton_DisplayName";
 		internal const string AddDeliveryZoneMenuItem_DisplayName = "AddDeliveryZoneMenuItem_DisplayName";
 		internal const string AddDeliveryZoneViewTitle = "AddDeliveryZoneViewTitle";
-		internal const string AvailableAddressesListBox_DisplayName = "AvailableAddressesListBox_DisplayName";
-		internal const string AvailableAddressesListBox_Hint = "AvailableAddressesListBox_Hint";
+		internal const string AddStreetMenuItem_DisplayName = "AddStreetMenuItem_DisplayName";
+		internal const string AvailableStreetsListBox_DisplayName = "AvailableStreetsListBox_DisplayName";
+		internal const string AvailableStreetsListBox_Hint = "AvailableStreetsListBox_Hint";
 		internal const string CancelButton_DisplayName = "CancelButton_DisplayName";
 		internal const string DefaultViewTitle = "DefaultViewTitle";
 		internal const string DeliveryZoneAddressesListBox_NoValues = "DeliveryZoneAddressesListBox_NoValues";

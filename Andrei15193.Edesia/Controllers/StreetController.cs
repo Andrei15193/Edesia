@@ -6,19 +6,19 @@ using Andrei15193.Edesia.Collections;
 using Andrei15193.Edesia.DataAccess;
 using Andrei15193.Edesia.Exceptions;
 using Andrei15193.Edesia.Resources;
-using Andrei15193.Edesia.ViewModels.Address;
+using Andrei15193.Edesia.ViewModels.Street;
 namespace Andrei15193.Edesia.Controllers
 {
-	public class AddressController
+	public class StreetController
 		: ApplicationController
 	{
 		[ChildActionOnly]
 		public ActionResult Unmapped()
 		{
-			IEnumerable<string> unusedAddress = new SortedSet<string>(_deliveryRepository.GetUnmappedAddresses().Except(_orderRepository.GetUsedAddresses()), StringComparer.Ordinal);
+			IEnumerable<string> unusedStreets = new SortedSet<string>(_deliveryRepository.GetUnmappedStreets().Except(_orderRepository.GetUsedStreets()), StringComparer.Ordinal);
 
-			return View(_deliveryRepository.GetUnmappedAddresses()
-										   .Select(address => KeyValuePair.Create(address, unusedAddress.Contains(address))));
+			return View(_deliveryRepository.GetUnmappedStreets()
+										   .Select(street => KeyValuePair.Create(street, unusedStreets.Contains(street))));
 		}
 
 		[HttpGet]
@@ -27,37 +27,37 @@ namespace Andrei15193.Edesia.Controllers
 			return View();
 		}
 		[HttpPost]
-		public ActionResult Add(AddAddressViewModel addAddressViewModel)
+		public ActionResult Add(AddStreetViewModel addStreetViewModel)
 		{
 			if (ModelState.IsValid)
 			{
 				try
 				{
-					_deliveryRepository.AddAddress(addAddressViewModel.Address);
+					_deliveryRepository.AddStreet(addStreetViewModel.Street);
 					return Redirect(Url.Action("Default", "Delivery"));
 				}
 				catch (AggregateException aggregateException)
 				{
 					foreach (Exception aggregatedException in aggregateException.InnerExceptions)
 					{
-						UniqueAddressException uniqueAddressException = aggregatedException as UniqueAddressException;
+						UniqueStreetException uniqueStreetException = aggregatedException as UniqueStreetException;
 
-						if (uniqueAddressException != null)
-							ModelState.AddModelError("Address", string.Format(AddressControllerStrings.AddressTextBox_InvalidDuplicateValue_Format, uniqueAddressException.ConflictingValue));
+						if (uniqueStreetException != null)
+							ModelState.AddModelError("Street", string.Format(StreetControllerStrings.StreetTextBox_InvalidDuplicateValue_Format, uniqueStreetException.ConflictingValue));
 					}
 
-					return View(addAddressViewModel);
+					return View(addStreetViewModel);
 				}
 			}
 			else
-				return View(addAddressViewModel);
+				return View(addStreetViewModel);
 		}
 
 		[HttpGet]
-		public ActionResult Remove(string address)
+		public ActionResult Remove(string street)
 		{
-			if (address != null)
-				_deliveryRepository.RemoveAddress(address);
+			if (street != null)
+				_deliveryRepository.RemoveStreet(street);
 
 			return RedirectToAction("Default", "Delivery");
 		}

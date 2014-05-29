@@ -58,28 +58,23 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			{
 				int orderNumber = (xmlTransaction.XmlDocument.Root.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}Order").Count() + 1);
 				DateTime now = DateTime.Now;
-				XElement orderXmlElement = new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}Order",
-														new XAttribute("OrderNumber", orderNumber),
-														new XAttribute("DatePlaced", now.ToString(MvcApplication.DateTimeSerializationFormat)),
-														new XAttribute("RecipientEMailAddress", orderDetails.Recipient.EMailAddress),
-														new XAttribute("State", OrderState.Pending),
-														new XAttribute("DeliveryAddress", orderDetails.DeliveryAddress),
-														orderDetails.OrderedProducts.Select(orderedProduct => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}ProductOrdered",
-																														   new XAttribute("Name", orderedProduct.Product.Name),
-																														   new XAttribute("Quantity", orderedProduct.Quantity))));
-
-				if (orderDetails.DeliveryAddressLine2 != null)
-					orderXmlElement.Add(new XAttribute("DeliveryAddressLine2", orderDetails.DeliveryAddressLine2));
 
 				xmlTransaction.XmlDocument
 							  .Root
-							  .Add(orderXmlElement);
-
-
+							  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}Order",
+												new XAttribute("OrderNumber", orderNumber),
+												new XAttribute("DatePlaced", now.ToString(MvcApplication.DateTimeSerializationFormat)),
+												new XAttribute("RecipientEMailAddress", orderDetails.Recipient.EMailAddress),
+												new XAttribute("State", OrderState.Pending),
+												new XAttribute("DeliveryStreet", orderDetails.DeliveryStreet),
+												new XAttribute("DeliveryAddressDetails", orderDetails.DeliveryAddressDetails),
+												orderDetails.OrderedProducts.Select(orderedProduct => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}ProductOrdered",
+																												   new XAttribute("Name", orderedProduct.Product.Name),
+																												   new XAttribute("Quantity", orderedProduct.Quantity)))));
 				try
 				{
 					xmlTransaction.Commit();
-					return new Order(orderNumber, now, orderDetails.Recipient, orderDetails.DeliveryAddress, orderDetails.DeliveryAddressLine2, OrderState.Pending);
+					return new Order(orderNumber, now, orderDetails.Recipient, orderDetails.DeliveryStreet, orderDetails.DeliveryAddressDetails, OrderState.Pending);
 				}
 				catch (AggregateException xmlExceptions)
 				{
@@ -128,13 +123,13 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			}
 		}
 
-		public IEnumerable<string> GetUsedAddresses()
+		public IEnumerable<string> GetUsedStreets()
 		{
 			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
 				return new SortedSet<string>(xmlTransaction.XmlDocument
 														   .Root
 														   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}Order")
-														   .Select(orderXmlElement => orderXmlElement.Attribute("DeliveryAddress").Value));
+														   .Select(orderXmlElement => orderXmlElement.Attribute("DeliveryStreet").Value));
 		}
 		#endregion
 		public string XmlDocumentFileName
@@ -170,23 +165,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 		private Order _GetOrder(XElement orderXElement, IApplicationUserProvider applicationUserProvider, IProductProvider productProvider)
 		{
-			XAttribute deliveryAddressLine2XmlAttribute = orderXElement.Attribute("DeliveryAddressLine2");
 			DateTime datePlaced = DateTime.ParseExact(orderXElement.Attribute("DatePlaced").Value, MvcApplication.DateTimeSerializationFormat, null);
 
-			Order order;
-			if (deliveryAddressLine2XmlAttribute != null)
-				order = new Order(int.Parse(orderXElement.Attribute("OrderNumber").Value),
-								  datePlaced,
-								  applicationUserProvider.GetUser(orderXElement.Attribute("RecipientEMailAddress").Value, datePlaced),
-								  orderXElement.Attribute("DeliveryAddress").Value,
-								  deliveryAddressLine2XmlAttribute.Value,
-								  (OrderState)Enum.Parse(typeof(OrderState), orderXElement.Attribute("State").Value));
-			else
-				order = new Order(int.Parse(orderXElement.Attribute("OrderNumber").Value),
-								  datePlaced,
-								  applicationUserProvider.GetUser(orderXElement.Attribute("RecipientEMailAddress").Value, datePlaced),
-								  orderXElement.Attribute("DeliveryAddress").Value,
-								  orderState: (OrderState)Enum.Parse(typeof(OrderState), orderXElement.Attribute("State").Value));
+			Order order = new Order(int.Parse(orderXElement.Attribute("OrderNumber").Value),
+									datePlaced,
+									applicationUserProvider.GetUser(orderXElement.Attribute("RecipientEMailAddress").Value, datePlaced),
+									orderXElement.Attribute("DeliveryStreet").Value,
+									orderXElement.Attribute("DeliveryAddressDetails").Value,
+									(OrderState)Enum.Parse(typeof(OrderState), orderXElement.Attribute("State").Value));
 
 			foreach (XElement orderedProductXElement in orderXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}ProductOrdered"))
 				order.OrderedProducts.Add(new OrderedProduct(productProvider.GetProduct(orderedProductXElement.Attribute("Name").Value, datePlaced),

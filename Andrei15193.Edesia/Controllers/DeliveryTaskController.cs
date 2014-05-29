@@ -29,7 +29,7 @@ namespace Andrei15193.Edesia.Controllers
 
 			foreach (DeliveryZone deliveryZone in _deliveryRepository.GetDeliveryZones(_applicationUserProvider).Where(deliveryZone => deliveryZone.Assignee != null))
 			{
-				ICollection<Order> orders = new LinkedList<Order>(remainingOrders.Values.Where(order => deliveryZone.Addresses.Contains(order.DeliveryAddress) && order.TotalCapacity <= deliveryZone.Assignee.TransportCapacity));
+				ICollection<Order> orders = new LinkedList<Order>(remainingOrders.Values.Where(order => deliveryZone.Streets.Contains(order.DeliveryStreet) && order.TotalCapacity <= deliveryZone.Assignee.TransportCapacity));
 				if (orders.Count > 0)
 				{
 					ordersByDeliveryZone.Add(deliveryZone, orders);
