@@ -13,8 +13,8 @@ namespace Andrei15193.Edesia.ViewModels.Product
 		#region IValidatableObject Members
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{
-			int capacity;
-			if (!int.TryParse(Capacity, out capacity) || capacity <= 0)
+			double capacity;
+			if (!double.TryParse(Capacity, out capacity) || capacity <= 0)
 				yield return new ValidationResult(ProductControllerStrings.ProductCapacityTextBox_InvalidValue, new[] { "Capacity" });
 
 			double price;

@@ -26,7 +26,7 @@
 					   type="xsd:double"
 					   use="required" />
 		<xsd:attribute name="Capacity"
-					   type="xsd:int"
+					   type="xsd:double"
 					   use="required" />
 		<xsd:attribute name="ImageLocation"
 					   type="xsd:string"

@@ -74,7 +74,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 							  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Product.xsd}Product",
 												new XAttribute("Name", product.Name),
 												new XAttribute("Price", product.Price.ToString("0.00")),
-												new XAttribute("Capacity", product.Capacity),
+												new XAttribute("Capacity", product.Capacity.ToString()),
 												new XAttribute("ImageLocation", product.ImageLocation.AbsoluteUri)));
 				try
 				{
@@ -143,7 +143,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		{
 			return new Product(productXElement.Attribute("Name").Value,
 							   double.Parse(productXElement.Attribute("Price").Value),
-							   int.Parse(productXElement.Attribute("Capacity").Value),
+							   double.Parse(productXElement.Attribute("Capacity").Value),
 							   new Uri(productXElement.Attribute("ImageLocation").Value));
 		}
 		private Exception _TranslateException(Exception exception)

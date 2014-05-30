@@ -38,7 +38,7 @@ namespace Andrei15193.Edesia.Models.Collections
 				return _partitionNumber;
 			}
 		}
-		public int TotalCapacity
+		public double TotalCapacity
 		{
 			get
 			{

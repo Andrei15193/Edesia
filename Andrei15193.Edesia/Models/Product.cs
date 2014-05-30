@@ -3,15 +3,15 @@ namespace Andrei15193.Edesia.Models
 {
 	public class Product
 	{
-		public Product(string name, double price, int capacity, Uri imageLocation)
+		public Product(string name, double price, double capacity, Uri imageLocation)
 		{
 			if (name == null)
 				throw new ArgumentNullException("name");
 			if (string.IsNullOrWhiteSpace(name))
 				throw new ArgumentException("Cannot be empty or whitespace!", "name");
 
-			if (price <= 0)
-				throw new ArgumentException("Must be strictly positive!", "price");
+			if (price < 0)
+				throw new ArgumentException("Must be positive!", "price");
 
 			if (capacity <= 0)
 				throw new ArgumentException("Must be strictly positive!", "capacity");
@@ -55,7 +55,7 @@ namespace Andrei15193.Edesia.Models
 				_price = value;
 			}
 		}
-		public int Capacity
+		public double Capacity
 		{
 			get
 			{
@@ -72,7 +72,7 @@ namespace Andrei15193.Edesia.Models
 
 		private string _name;
 		private double _price;
-		private readonly int _capacity;
+		private readonly double _capacity;
 		private readonly Uri _imageLocation;
 	}
 }

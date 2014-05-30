@@ -34,7 +34,7 @@ namespace Andrei15193.Edesia.Controllers
 										  addProductViewModel.Image.FileName.Substring(Math.Max(addProductViewModel.Image.FileName.LastIndexOf('\\'), addProductViewModel.Image.FileName.LastIndexOf('/')) + 1),
 										  out imageLocation);
 
-					_productRepository.AddProduct(new Product(addProductViewModel.Name, double.Parse(addProductViewModel.Price), int.Parse(addProductViewModel.Capacity), imageLocation));
+					_productRepository.AddProduct(new Product(addProductViewModel.Name, double.Parse(addProductViewModel.Price), double.Parse(addProductViewModel.Capacity), imageLocation));
 					return RedirectToAction("Default", "Product");
 				}
 				catch (AggregateException aggregateException)

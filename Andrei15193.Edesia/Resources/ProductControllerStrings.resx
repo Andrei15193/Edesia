@@ -148,13 +148,13 @@
     <value>Capacitatea produsului</value>
   </data>
   <data name="ProductCapacityTextBox_Hint" xml:space="preserve">
-    <value>un număr natural diferit de 0 (zero)</value>
+    <value>un număr real mai mare decât 0</value>
   </data>
   <data name="ProductCapacityTextBox_InvalidValue" xml:space="preserve">
-    <value>Prețul introdus trebuie să fie un număr pozitiv.</value>
+    <value>Capacitatea introdusă trebuie să fie un număr strict pozitiv.</value>
   </data>
   <data name="ProductCapacityTextBox_MissingValue" xml:space="preserve">
-    <value>Trebuie să introduceți un preț.</value>
+    <value>Trebuie să introduceți capacitatea produsului.</value>
   </data>
   <data name="ProductImageTextBox_DisplayName" xml:space="preserve">
     <value>Imaginea asociată produsului</value>
@@ -187,9 +187,9 @@
     <value>un număr real pozitiv cu maximum două zecimale</value>
   </data>
   <data name="ProductPriceTextBox_InvalidValue" xml:space="preserve">
-    <value>Trebuie să intorduceți un numar mai mare sau egal cu 0.</value>
+    <value>Trebuie sa introduceți un număr real pozitiv.</value>
   </data>
   <data name="ProductPriceTextBox_MissingValue" xml:space="preserve">
-    <value>Trebuie să introduceți un preț.</value>
+    <value>Trebuie să introduceți prețul produsului.</value>
   </data>
 </root>

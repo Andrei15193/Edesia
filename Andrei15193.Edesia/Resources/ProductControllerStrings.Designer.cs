@@ -151,7 +151,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to un număr natural diferit de 0 (zero).
+        ///   Looks up a localized string similar to un număr real mai mare decât 0.
         /// </summary>
         public static string ProductCapacityTextBox_Hint {
             get {
@@ -160,7 +160,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prețul introdus trebuie să fie un număr pozitiv..
+        ///   Looks up a localized string similar to Capacitatea introdusă trebuie să fie un număr strict pozitiv..
         /// </summary>
         public static string ProductCapacityTextBox_InvalidValue {
             get {
@@ -169,7 +169,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trebuie să introduceți un preț..
+        ///   Looks up a localized string similar to Trebuie să introduceți capacitatea produsului..
         /// </summary>
         public static string ProductCapacityTextBox_MissingValue {
             get {
@@ -268,7 +268,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trebuie să intorduceți un numar mai mare sau egal cu 0..
+        ///   Looks up a localized string similar to Trebuie sa introduceți un număr real pozitiv..
         /// </summary>
         public static string ProductPriceTextBox_InvalidValue {
             get {
@@ -277,7 +277,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trebuie să introduceți un preț..
+        ///   Looks up a localized string similar to Trebuie să introduceți prețul produsului..
         /// </summary>
         public static string ProductPriceTextBox_MissingValue {
             get {

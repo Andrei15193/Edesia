@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 namespace Andrei15193.Edesia.Models
 {
 	public class Employee
 		: ApplicationUserRole
 	{
-		public Employee(ApplicationUser employee, int transportCapacity)
+		public Employee(ApplicationUser employee, double transportCapacity)
 			: base(employee)
 		{
-			if (transportCapacity <= 0)
+			if (transportCapacity < 1)
 				throw new ArgumentException("Must be strictly positive", "transportCapacity");
 
 			_transportCapacity = transportCapacity;
 		}
 
-		public int TransportCapacity
+		public double TransportCapacity
 		{
 			get
 			{
@@ -22,14 +21,13 @@ namespace Andrei15193.Edesia.Models
 			}
 			set
 			{
-				if (value <= 0)
+				if (value < 1)
 					throw new ArgumentException("Must be strictly positive", "TransportCapacity");
 
 				_transportCapacity = value;
 			}
 		}
 
-		private int _transportCapacity;
-		private readonly ISet<string> _deliveryZones = new SortedSet<string>();
+		private double _transportCapacity;
 	}
 }

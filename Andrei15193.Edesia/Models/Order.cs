@@ -76,7 +76,7 @@ namespace Andrei15193.Edesia.Models
 			}
 		}
 
-		public int TotalCapacity
+		public double TotalCapacity
 		{
 			get
 			{

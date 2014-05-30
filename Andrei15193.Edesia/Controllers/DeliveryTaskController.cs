@@ -52,7 +52,7 @@ namespace Andrei15193.Edesia.Controllers
 		{
 			DateTime now = DateTime.Now;
 
-			int sum = 0;
+			double sum = 0;
 			int maximumNumberOfOrdersInpartition = ordersByDeliveryZone.Value
 																	   .OrderBy(order => order.TotalCapacity)
 																	   .TakeWhile(order => (sum += order.TotalCapacity) <= ordersByDeliveryZone.Key.Assignee.TransportCapacity)
@@ -61,12 +61,12 @@ namespace Andrei15193.Edesia.Controllers
 				return new DeliveryTaskDetails[] { new DeliveryTaskDetails(now, "Deliver", "Deliver!", ordersByDeliveryZone.Key, ordersByDeliveryZone.Value) };
 
 			int numberOfPartitions;
-			decimal tot = (ordersByDeliveryZone.Value.Sum(order => order.TotalCapacity) / (decimal)ordersByDeliveryZone.Key.Assignee.TransportCapacity);
+			double tot = (ordersByDeliveryZone.Value.Sum(order => order.TotalCapacity) / ordersByDeliveryZone.Key.Assignee.TransportCapacity);
 
-			if (decimal.Floor(tot) == tot)
+			if (Math.Floor(tot) == tot)
 				numberOfPartitions = (int)tot + 1;
 			else
-				numberOfPartitions = (int)decimal.Ceiling(tot);
+				numberOfPartitions = (int)Math.Ceiling(tot);
 
 			ICollection<OrdersPartition> partitions = new LinkedList<OrdersPartition>();
 			BinaryConstraints<int, Order> ordersPartitionBinaryConstraints = BinaryConstraints.Create(_Range(from: 0, to: maximumNumberOfOrdersInpartition - 1).Select(orderIndex => BinaryConstraint.Create<int, Order>(orderIndex, orderIndex + 1, _OrdersPartitionConstraint)));
