@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
@@ -15,7 +16,7 @@ namespace Andrei15193.Edesia.Controllers
 		[AllowAnonymous]
 		public ActionResult Default()
 		{
-			return View(_productRepository.GetProducts());
+			return View(_productRepository.GetProducts().OrderBy(product => product.Name));
 		}
 
 		[HttpGet]

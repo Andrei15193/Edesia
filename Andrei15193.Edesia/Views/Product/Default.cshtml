@@ -23,6 +23,15 @@ else
 {
 	<h1>@ProductControllerStrings.DefaultViewTitle</h1>
 }
+<p style="text-align: justify;">
+	<i class="icon-info-2 fg-emerald"></i> @ApplicationControllerStrings.ProductSourceLabel_DisplayName <a href="http://www.carrefour.ro/" target="_blank">Carrefour.ro</a>
+</p>
+<p style="text-align: justify;">
+	<i class="icon-info-2 fg-emerald"></i> @ProductControllerStrings.NoticeParagraph1
+</p>
+<p style="text-align: right;">
+	<em>- Andrei</em>
+</p>
 
 <div class="grid fluid">
 	@foreach (IGrouping<int, Product> productsOnRow in Model.Select((product, index) => new
@@ -43,26 +52,3 @@ else
 		</div>
 	}
 </div>
-
-@section scripts
-{
-	<script>
-		$.Dialog({
-			shadow: true,
-			overlay: false,
-			flat: true,
-			icon: '<span class="icon-info-2 fg-emerald"></span>',
-			title: "<span class=\"fg-emerald\">@ProductControllerStrings.NoticeTitle.Replace("\"", "\\\"")</span>",
-			width: 500,
-			padding: 10,
-			content: '',
-			draggable: true,
-			onShow: function (_dialog)
-			{
-				var content = _dialog.children('.content');
-				content.html("@ProductControllerStrings.NoticeParagraph1.Replace("\"", "\\\"")");
-			}
-
-		});
-	</script>
-}

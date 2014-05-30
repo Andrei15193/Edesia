@@ -79,7 +79,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preț.
+        ///   Looks up a localized string similar to Preț individual.
         /// </summary>
         public static string PriceLabel_DisplayName {
             get {

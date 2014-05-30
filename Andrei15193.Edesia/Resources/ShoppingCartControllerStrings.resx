@@ -124,7 +124,7 @@
     <value>Coșul de cumpărături</value>
   </data>
   <data name="PriceLabel_DisplayName" xml:space="preserve">
-    <value>Preț</value>
+    <value>Preț individual</value>
   </data>
   <data name="ProductLabel_DisplayName" xml:space="preserve">
     <value>produs</value>

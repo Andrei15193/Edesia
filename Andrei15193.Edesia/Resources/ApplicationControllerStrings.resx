@@ -132,4 +132,7 @@
   <data name="FooterUrlText" xml:space="preserve">
     <value>www.Andrei15193.ro</value>
   </data>
+  <data name="ProductSourceLabel_DisplayName" xml:space="preserve">
+    <value>Sursa:</value>
+  </data>
 </root>

@@ -120,8 +120,8 @@
   <data name="DefaultViewTitle" xml:space="preserve">
     <value>Comenzi în așteptare</value>
   </data>
-  <data name="DeliveryStreetLabel_DisplayName" xml:space="preserve">
-    <value>Strada pentru livrare:</value>
+  <data name="DeliveryAddressLabel_DisplayName" xml:space="preserve">
+    <value>Adresa de livrare:</value>
   </data>
   <data name="OrderAccordionFrameHeader_DisplayName_Format" xml:space="preserve">
     <value>Comanda #{0}, {1:dd MMMM yyyy, HH:mm}</value>
@@ -185,5 +185,17 @@
   </data>
   <data name="TotalProductsLabel_DisplayName" xml:space="preserve">
     <value>Total produse:</value>
+  </data>
+  <data name="PriceLabel_DisplayName" xml:space="preserve">
+    <value>Preț individual</value>
+  </data>
+  <data name="QuantityLabel_DisplayName" xml:space="preserve">
+    <value>Cantitate</value>
+  </data>
+  <data name="TotalPriceLabel_DisplayName1" xml:space="preserve">
+    <value>Preț total</value>
+  </data>
+  <data name="TotalProductsLabel_DisplayName1" xml:space="preserve">
+    <value>Total produse</value>
   </data>
 </root>

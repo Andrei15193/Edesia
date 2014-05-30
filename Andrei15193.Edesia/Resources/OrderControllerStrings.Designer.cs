@@ -115,20 +115,20 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adresa de livrare:.
+        /// </summary>
+        public static string DeliveryAddressLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("DeliveryAddressLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detalii livrare.
         /// </summary>
         public static string DeliveryDetailsLabel_DisplayName {
             get {
                 return ResourceManager.GetString("DeliveryDetailsLabel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Strada pentru livrare:.
-        /// </summary>
-        public static string DeliveryStreetLabel_DisplayName {
-            get {
-                return ResourceManager.GetString("DeliveryStreetLabel_DisplayName", resourceCulture);
             }
         }
         
@@ -174,6 +174,24 @@ namespace Andrei15193.Edesia.Resources {
         public static string OrderLabel_DisplayName {
             get {
                 return ResourceManager.GetString("OrderLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preț individual.
+        /// </summary>
+        public static string PriceLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("PriceLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cantitate.
+        /// </summary>
+        public static string QuantityLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("QuantityLabel_DisplayName", resourceCulture);
             }
         }
         
@@ -259,11 +277,29 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preț total.
+        /// </summary>
+        public static string TotalPriceLabel_DisplayName1 {
+            get {
+                return ResourceManager.GetString("TotalPriceLabel_DisplayName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total produse:.
         /// </summary>
         public static string TotalProductsLabel_DisplayName {
             get {
                 return ResourceManager.GetString("TotalProductsLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total produse.
+        /// </summary>
+        public static string TotalProductsLabel_DisplayName1 {
+            get {
+                return ResourceManager.GetString("TotalProductsLabel_DisplayName1", resourceCulture);
             }
         }
     }

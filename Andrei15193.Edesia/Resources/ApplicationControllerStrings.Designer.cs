@@ -104,5 +104,14 @@ namespace Andrei15193.Edesia.Resources {
                 return ResourceManager.GetString("FooterUrlText", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sursa:.
+        /// </summary>
+        public static string ProductSourceLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("ProductSourceLabel_DisplayName", resourceCulture);
+            }
+        }
     }
 }

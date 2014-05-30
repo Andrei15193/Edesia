@@ -9,9 +9,9 @@
 	<input type="hidden" name="product" value="@Url.Encode(Model.Product.Name)" />
 	<div style="margin-bottom: 10px;">
 		<div style="display: inline;">
-			<img class="rounded span3 margin5" style="background:url('@Model.Product.ImageLocation.AbsoluteUri') no-repeat center center" />
+			<img class="rounded span3 margin5" src="@Model.Product.ImageLocation.AbsoluteUri" />
 		</div>
-		<div style="display: inline;">
+		<div style="margin-left: 23.404252%; padding-left:10px;">
 			<div>
 				<small>
 					<a href="@Url.Action("Remove", "ShoppingCart")?product=@Url.Encode(Model.Product.Name)" class="actionLink" style="float: right;">

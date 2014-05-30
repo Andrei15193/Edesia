@@ -59,8 +59,9 @@ namespace Andrei15193.Edesia.Controllers
 			return RedirectToAction("Default", "ShoppingCart");
 		}
 		[HttpGet]
-		public ActionResult Update(string product, int quantity)
+		public ActionResult Update(string product, int quantity = 1)
 		{
+			product = Server.UrlDecode(product);
 			if (product != null)
 				if (quantity > 0)
 					_applicationUserRepository.UpdateCart(User, new OrderedProduct(_productProvider.GetProduct(product), quantity));

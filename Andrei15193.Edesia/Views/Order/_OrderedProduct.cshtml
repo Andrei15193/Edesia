@@ -3,17 +3,19 @@
 @model OrderedProduct
 <div style="margin-bottom: 10px;">
 	<div style="display: inline;">
-		<img class="rounded span3 margin5" style="background:url('@Model.Product.ImageLocation.AbsoluteUri') no-repeat center center" />
+		<img class="rounded span3 margin5" src="@Model.Product.ImageLocation.AbsoluteUri" />
 	</div>
-	<h2>@Model.Product.Name</h2>
-	<div>
-		@ShoppingCartControllerStrings.QuantityLabel_DisplayName
-		<span style="float: right;">@Model.Quantity</span>
-	</div>
-	<div>
-		@ShoppingCartControllerStrings.PriceLabel_DisplayName<span style="float: right;">@Model.Product.Price RON</span>
-	</div>
-	<div>
-		<strong>@ShoppingCartControllerStrings.TotalPriceLabel_DisplayName</strong><strong style="float: right;">@(Model.Product.Price * Model.Quantity) RON</strong>
+	<div style="margin-left: 23.404252%; padding-left:10px;">
+		<h2>@Model.Product.Name</h2>
+		<div>
+			@OrderControllerStrings.QuantityLabel_DisplayName
+			<span style="float: right;">@Model.Quantity</span>
+		</div>
+		<div>
+			@OrderControllerStrings.PriceLabel_DisplayName<span style="float: right;">@Model.Product.Price RON</span>
+		</div>
+		<div>
+			<strong>@OrderControllerStrings.TotalPriceLabel_DisplayName</strong><strong style="float: right;">@(Model.Product.Price * Model.Quantity) RON</strong>
+		</div>
 	</div>
 </div>
