@@ -264,7 +264,28 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				xmlTransaction.Commit();
 			}
 		}
+		public void EnrollAdministrator(string eMailAddress)
+		{
+			if (eMailAddress == null)
+				throw new ArgumentNullException("eMailAddress");
+			if (string.IsNullOrWhiteSpace(eMailAddress))
+				throw new ArgumentException("Cannot be empty or whitespace!", "eMailAddress");
 
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(XmlDocumentFileName))
+			{
+				XElement applicationUserXElement = xmlTransaction.XmlDocument
+																 .Root
+																 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+																 .FirstOrDefault(applicationUserXmlElement => string.Equals(applicationUserXmlElement.Attribute("EMail").Value, eMailAddress, StringComparison.Ordinal));
+
+				if (applicationUserXElement != null && applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Administrator") == null)
+				{
+					applicationUserXElement.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Administrator"));
+					xmlTransaction.Commit();
+				}
+			}
+		}
+		
 		public ApplicationUser Find(string eMail, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
 		{
 			if (eMail == null)

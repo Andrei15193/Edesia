@@ -1,4 +1,5 @@
-﻿using Andrei15193.Edesia.Models;
+﻿using System;
+using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.DataAccess
 {
 	public interface IApplicationUserRepository
@@ -9,6 +10,7 @@ namespace Andrei15193.Edesia.DataAccess
 		void RemoveFromCart(ApplicationUser applicationUser, Product product);
 		void RemoveFromCarts(Product product);
 		void ClearShoppingCart(ApplicationUser applicationUser);
+		void EnrollAdministrator(string eMailAddress);
 
 		void AddApplicationUser(ApplicationUser applicationUser, string password, string registrationKey);
 

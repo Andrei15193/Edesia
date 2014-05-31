@@ -24,6 +24,7 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string LoginMenuItemButton_DisplayName = "LoginMenuItemButton_DisplayName";
 		internal const string LoginViewTitle = "LoginViewTitle";
 		internal const string LogoutMenuItem_DisplayName = "LogoutMenuItem_DisplayName";
+		internal const string ManageDeliveryZoneButton_DisplayName = "ManageDeliveryZoneButton_DisplayName";
 		internal const string PasswordInput_DisplayName = "PasswordInput_DisplayName";
 		internal const string PasswordInput_Hint = "PasswordInput_Hint";
 		internal const string PasswordInput_Hint1 = "PasswordInput_Hint1";

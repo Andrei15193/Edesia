@@ -183,6 +183,9 @@
   <data name="LogoutMenuItem_DisplayName" xml:space="preserve">
     <value>Deconectare</value>
   </data>
+  <data name="ManageDeliveryZoneButton_DisplayName" xml:space="preserve">
+    <value>Administrare livrări</value>
+  </data>
   <data name="PasswordInput_DisplayName" xml:space="preserve">
     <value>Parola</value>
   </data>

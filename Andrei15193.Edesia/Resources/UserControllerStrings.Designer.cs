@@ -259,6 +259,15 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administrare livrări.
+        /// </summary>
+        public static string ManageDeliveryZoneButton_DisplayName {
+            get {
+                return ResourceManager.GetString("ManageDeliveryZoneButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parola.
         /// </summary>
         public static string PasswordInput_DisplayName {

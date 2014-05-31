@@ -70,7 +70,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adaugă zona de livrare.
+        ///   Looks up a localized string similar to Adaugă zonă de livrare.
         /// </summary>
         public static string AddDeliveryZoneMenuItem_DisplayName {
             get {
