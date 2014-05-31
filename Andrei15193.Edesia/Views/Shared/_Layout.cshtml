@@ -13,6 +13,7 @@
 	<script>
 		var shoppingCartTotalPriceElement;
 		var shoppingCartCountElement;
+		var requestCount = 0;
 
 		function toFixed(number, fractionDifits)
 		{
@@ -21,41 +22,46 @@
 
 		function updateShoppingCartNav()
 		{
-			$.getJSON("@Url.Action("DefaultJson", "ShoppingCart")")
+			$.ajax({
+				url: "@Url.Action("DefaultJson", "ShoppingCart")",
+				cache: false
+			 })
 			 .success(function (shoppingCart)
 			 {
-			 	shoppingCartTotalPriceElement.innerHTML = toFixed(parseFloat(shoppingCart.TotalPrice), 2);
+				 shoppingCartTotalPriceElement.innerHTML = toFixed(parseFloat(shoppingCart.TotalPrice), 2);
 
-			 	if (parseInt(shoppingCart.Count) == 1)
-			 		shoppingCartCountElement.innerHTML = shoppingCart.Count + " " + "@ShoppingCartControllerStrings.ProductLabel_DisplayName";
-			 	else
-			 		shoppingCartCountElement.innerHTML = shoppingCart.Count + " " + "@ShoppingCartControllerStrings.ProductsLabel_DisplayName";
+				 if (parseInt(shoppingCart.Count) == 1)
+					 shoppingCartCountElement.innerHTML = shoppingCart.Count + " " + "@ShoppingCartControllerStrings.ProductLabel_DisplayName";
+				 else
+					 shoppingCartCountElement.innerHTML = shoppingCart.Count + " " + "@ShoppingCartControllerStrings.ProductsLabel_DisplayName";
 			 });
 		}
+		@if (User != null)
+		{
+			@Html.Raw(@"
+				function addToCart(product)
+				{
+					$.ajax({
+						async: false,
+						url: """ + Url.Action("Add", "ShoppingCart") + @"?product="" + product,
+						dataType: ""html"",
+						cache: false
+					 })
+					 .success(function ()
+					 {
+						 updateShoppingCartNav();
+					 });
+				}")
+		}
+		else
+		{
+			@Html.Raw(@"function addToCart(product)
+				{
+					window.location = """ + @Url.Action("Add", "ShoppingCart") + @"?product="" + product;
+				}")
+		}
+
 	</script>
-	@if (User != null)
-	{
-		<script>
-			function addToCart(product)
-			{
-				$.ajax({
-					async: false,
-					url: "@Url.Action("Add", "ShoppingCart")?product=" + product,
-					dataType: "text"
-				});
-					updateShoppingCartNav();
-			}
-		</script>
-	}
-	else
-	{
-		<script>
-			function addToCart(product)
-			{
-				window.location = "@Url.Action("Login", "User")?ReturnUrl=@Url.Encode(Request.Url.AbsoluteUri)";
-			}
-		</script>
-	}
 </head>
 <body lang="ro" class="metro" style="margin: 0; padding: 0; height: 100%;">
 	<div style="position: relative; margin: 0; padding: 0; min-height: 100%;">
