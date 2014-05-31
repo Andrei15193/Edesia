@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
 using Andrei15193.Edesia.Exceptions;
 using Andrei15193.Edesia.Models;
@@ -9,6 +10,7 @@ using Andrei15193.Edesia.Resources;
 using Andrei15193.Edesia.ViewModels.DeliveryZone;
 namespace Andrei15193.Edesia.Controllers
 {
+	[Authorize, Role(typeof(Administrator))]
 	public class DeliveryZoneController
 		: ApplicationController
 	{

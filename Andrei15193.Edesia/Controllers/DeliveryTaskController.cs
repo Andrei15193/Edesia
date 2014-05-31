@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Andrei15193.ConstraintSatisfaction;
 using Andrei15193.ConstraintSatisfaction.Tuples;
+using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.Collections;
 using Andrei15193.Edesia.DataAccess;
 using Andrei15193.Edesia.Models;
@@ -19,7 +20,7 @@ namespace Andrei15193.Edesia.Controllers
 			return View(_deliveryTaskRepository.GetDeliveryTasks(_applicationUserProvider, _deliveryRepository, _productProvider, _orderRepository, TaskState.InProgress, TaskState.Scheduled));
 		}
 
-		[HttpGet]
+		[HttpGet, Authorize, Role(typeof(Administrator))]
 		public ActionResult Schedule()
 		{
 			IDictionary<DeliveryZone, IEnumerable<Order>> ordersByDeliveryZone = new Dictionary<DeliveryZone, IEnumerable<Order>>();
@@ -151,7 +152,7 @@ namespace Andrei15193.Edesia.Controllers
 			else
 				return (orderSequence.Second == null || orderSequence.First.OrderNumber < orderSequence.Second.OrderNumber);
 		}
-		
+
 		private IEnumerable<int> _Range(int from = 0, int to = 0)
 		{
 			for (int value = from; value < to; value++)

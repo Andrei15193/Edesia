@@ -9,6 +9,17 @@ namespace Andrei15193.Edesia.Controllers
 	public abstract class ApplicationController
 		: Controller
 	{
+		protected override void OnActionExecuting(ActionExecutingContext filterContext)
+		{
+			base.OnActionExecuting(filterContext);
+			_applicationUser = null;
+		}
+		protected override void OnActionExecuted(ActionExecutedContext filterContext)
+		{
+			base.OnActionExecuted(filterContext);
+			_applicationUser = null;
+		}
+
 		internal static ApplicationUser GetApplicationUser(HttpContextBase httpContext)
 		{
 			if (httpContext == null)
@@ -38,13 +49,13 @@ namespace Andrei15193.Edesia.Controllers
 			return ((IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"]).Find(httpContext.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
 		}
 
-		new protected ApplicationUser User
+		new internal protected ApplicationUser User
 		{
 			get
 			{
 				if (_applicationUser == null && base.User.Identity.IsAuthenticated)
 				{
-					HttpCookie authenticationCookie = HttpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
+					HttpCookie authenticationCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
 					if (authenticationCookie != null)
 						_applicationUser = ((IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"]).Find(base.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
 				}
@@ -53,6 +64,7 @@ namespace Andrei15193.Edesia.Controllers
 			}
 		}
 
+		[ThreadStatic]
 		private ApplicationUser _applicationUser = null;
 	}
 }

@@ -3,7 +3,7 @@ using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.Controllers
 {
-	[ConfirmAccess(typeof(Administrator))]
+	[Authorize, Role(typeof(Administrator))]
 	public class DeliveryController
 		: ApplicationController
 	{

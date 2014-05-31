@@ -157,6 +157,7 @@
     <Compile Include="Collections\EqualityComparer.cs" />
     <Compile Include="Collections\KeyValuePair.cs" />
     <Compile Include="Collections\ReadOnlyCollection.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\StreetController.cs" />
     <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\DeliveryTaskController.cs" />
@@ -203,7 +204,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\MetroUICSSBundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Attributes\ConfirmAccessAttribute.cs" />
+    <Compile Include="Attributes\RoleAttribute.cs" />
     <Compile Include="Attributes\PasswordAttribute.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -231,6 +232,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ColourStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ErrorControllerStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorControllerStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\ProductControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -267,6 +273,7 @@
     <Compile Include="Resources\Strings\DeliveryControllerKey.cs" />
     <Compile Include="Resources\Strings\DeliveryTaskControllerKey.cs" />
     <Compile Include="Resources\Strings\DeliveryZoneControllerKey.cs" />
+    <Compile Include="Resources\Strings\ErrorControllerKey.cs" />
     <Compile Include="Resources\Strings\OrderControllerKey.cs" />
     <Compile Include="Resources\Strings\ProductControllerKey.cs" />
     <Compile Include="Resources\Strings\ShoppingCartControllerKey.cs" />
@@ -351,7 +358,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\User\Login.cshtml" />
@@ -381,6 +388,7 @@
     <Content Include="Views\ShoppingCart\_OrderedProduct.cshtml" />
     <Content Include="Views\Order\Checkout.cshtml" />
     <Content Include="Views\Order\_OrderedProduct.cshtml" />
+    <Content Include="Views\Error\Forbidden.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -397,6 +405,10 @@
     <EmbeddedResource Include="Resources\ColourStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ColourStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ErrorControllerStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorControllerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ProductControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

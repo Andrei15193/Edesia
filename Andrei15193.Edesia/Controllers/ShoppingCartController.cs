@@ -1,22 +1,19 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
 using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.Controllers
 {
-	[ConfirmAccess]
 	public class ShoppingCartController
 		: ApplicationController
 	{
-		[HttpGet]
+		[HttpGet, Authorize]
 		public ActionResult Default()
 		{
 			return View(_applicationUserRepository.GetShoppingCart(User, _productProvider));
 		}
 
 		[HttpGet]
-		[AllowAnonymous]
 		public JsonResult DefaultJson()
 		{
 			if (User == null)
@@ -50,7 +47,7 @@ namespace Andrei15193.Edesia.Controllers
 			}
 		}
 
-		[HttpGet]
+		[HttpGet, Authorize]
 		public ActionResult Add(string product, int quantity = 1)
 		{
 			if (product != null)
@@ -58,7 +55,7 @@ namespace Andrei15193.Edesia.Controllers
 
 			return RedirectToAction("Default", "ShoppingCart");
 		}
-		[HttpGet]
+		[HttpGet, Authorize]
 		public ActionResult Update(string product, int quantity = 1)
 		{
 			product = Server.UrlDecode(product);
@@ -70,7 +67,7 @@ namespace Andrei15193.Edesia.Controllers
 
 			return RedirectToAction("Default", "ShoppingCart");
 		}
-		[HttpGet]
+		[HttpGet, Authorize]
 		public ActionResult Remove(string product)
 		{
 			if (product != null)

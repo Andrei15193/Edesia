@@ -9,22 +9,21 @@ using Andrei15193.Edesia.Resources;
 using Andrei15193.Edesia.ViewModels.Product;
 namespace Andrei15193.Edesia.Controllers
 {
-	[ConfirmAccess(typeof(Administrator))]
 	public class ProductController
 		: ApplicationController
 	{
-		[AllowAnonymous]
+		[HttpGet]
 		public ActionResult Default()
 		{
 			return View(_productRepository.GetProducts().OrderBy(product => product.Name));
 		}
 
-		[HttpGet]
+		[HttpGet, Authorize, Role(typeof(Administrator))]
 		public ActionResult Add()
 		{
 			return View();
 		}
-		[HttpPost]
+		[HttpPost, Authorize, Role(typeof(Administrator))]
 		public ActionResult Add(AddProductViewModel addProductViewModel)
 		{
 			if (ModelState.IsValid)
@@ -52,7 +51,7 @@ namespace Andrei15193.Edesia.Controllers
 			return View(addProductViewModel);
 		}
 
-		[HttpGet]
+		[HttpGet, Authorize, Role(typeof(Administrator))]
 		public ActionResult Remove(string productName)
 		{
 			if (productName != null)

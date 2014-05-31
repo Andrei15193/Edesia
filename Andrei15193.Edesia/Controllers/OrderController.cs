@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
 using Andrei15193.Edesia.Models;
 using Andrei15193.Edesia.Resources;
@@ -15,8 +14,7 @@ namespace Andrei15193.Edesia.Controllers
 			return View(_orderRepository.GetOrders(_applicationUserRepository, _productProvider, OrderState.Pending));
 		}
 
-		[HttpGet]
-		[ConfirmAccess]
+		[HttpGet, Authorize]
 		public ActionResult Checkout()
 		{
 			ShoppingCart shoppingCart = _applicationUserRepository.GetShoppingCart(User, _productProvider);
@@ -29,8 +27,7 @@ namespace Andrei15193.Edesia.Controllers
 							Streets = _deliveryRepository.GetStreets()
 						});
 		}
-		[HttpPost]
-		[ConfirmAccess]
+		[HttpPost, Authorize]
 		public ActionResult Checkout(CheckoutViewModel checkoutViewModel)
 		{
 			ShoppingCart shoppingCart = _applicationUserRepository.GetShoppingCart(User, _productProvider);

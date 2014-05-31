@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.Collections;
 using Andrei15193.Edesia.DataAccess;
 using Andrei15193.Edesia.Exceptions;
+using Andrei15193.Edesia.Models;
 using Andrei15193.Edesia.Resources;
 using Andrei15193.Edesia.ViewModels.Street;
 namespace Andrei15193.Edesia.Controllers
@@ -21,12 +23,12 @@ namespace Andrei15193.Edesia.Controllers
 										   .Select(street => KeyValuePair.Create(street, unusedStreets.Contains(street))));
 		}
 
-		[HttpGet]
+		[HttpGet, Authorize, Role(typeof(Administrator))]
 		public ActionResult Add()
 		{
 			return View();
 		}
-		[HttpPost]
+		[HttpPost, Authorize, Role(typeof(Administrator))]
 		public ActionResult Add(AddStreetViewModel addStreetViewModel)
 		{
 			if (ModelState.IsValid)
@@ -53,7 +55,7 @@ namespace Andrei15193.Edesia.Controllers
 				return View(addStreetViewModel);
 		}
 
-		[HttpGet]
+		[HttpGet, Authorize, Role(typeof(Administrator))]
 		public ActionResult Remove(string street)
 		{
 			if (street != null)

@@ -90,7 +90,7 @@ namespace Andrei15193.Edesia.Controllers
 			return View(loginViewModel);
 		}
 
-		[HttpGet, ConfirmAccess]
+		[HttpGet, Authorize]
 		public ActionResult Logout()
 		{
 			if (User != null)
@@ -122,7 +122,11 @@ namespace Andrei15193.Edesia.Controllers
 			IList<NavigationBarAction> userActions = new List<NavigationBarAction>();
 
 			if (User != null)
+			{
+				if (User.IsInRole<Administrator>())
+					userActions.Add(new NavigationBarAction(UserControllerStrings.ManageDeliveryZoneButton_DisplayName, "Default", "Delivery"));
 				userActions.Add(new NavigationBarAction(UserControllerStrings.LogoutMenuItem_DisplayName, "Logout", "User", Icons.User));
+			}
 			else
 			{
 				userActions.Add(new NavigationBarAction(UserControllerStrings.LoginButton_DisplayName, "Login", "User", Icons.User));
@@ -135,6 +139,15 @@ namespace Andrei15193.Edesia.Controllers
 		public ActionResult LanguageDropdown()
 		{
 			return View("_LanguageDropdown", new[] { new DisplayLanguage("Română", "RO", true) });
+		}
+
+		[Authorize, Role(typeof(Administrator))]
+		public ActionResult PromoteToAdmin(string eMail)
+		{
+			if (!string.IsNullOrWhiteSpace(eMail))
+				_applicationUserRepository.EnrollAdministrator(Server.UrlDecode(eMail));
+
+			return RedirectToAction("Default", "Product");
 		}
 
 		private string _GenerateRegistrationKey()
