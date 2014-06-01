@@ -88,6 +88,15 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Anulează livrare.
+        /// </summary>
+        public static string CancelPendingDeliveryButton_Hint {
+            get {
+                return ResourceManager.GetString("CancelPendingDeliveryButton_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finalizate.
         /// </summary>
         public static string CompletedTasksViewTitle {

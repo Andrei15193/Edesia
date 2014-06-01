@@ -5,6 +5,7 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string AtLabel_DisplayName = "AtLabel_DisplayName";
 		internal const string CancelPendingDeliveriesButton_DisplayName = "CancelPendingDeliveriesButton_DisplayName";
 		internal const string CancelPendingDeliveriesButton_Hint = "CancelPendingDeliveriesButton_Hint";
+		internal const string CancelPendingDeliveryButton_Hint = "CancelPendingDeliveryButton_Hint";
 		internal const string CompletedTasksViewTitle = "CompletedTasksViewTitle";
 		internal const string CompleteTaskButton_DisplayName = "CompleteTaskButton_DisplayName";
 		internal const string DashboardViewTitle = "DashboardViewTitle";

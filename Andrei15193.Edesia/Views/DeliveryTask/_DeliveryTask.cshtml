@@ -37,7 +37,7 @@
 		@if (User.IsInRole<Administrator>() && Model.Key.State != TaskState.Completed)
 		{
 			<div style="float: right; z-index: 2; position: relative; top: -30px; margin-right: 10px;">
-				<a class="actionLink padding5" href="@Url.Action("Cancel", "DeliveryTask")?task=@Model.Key.DeliveryTaskNumber"><i class="icon-cancel-2"></i></a>
+				<a class="actionLink padding5" href="@Url.Action("Cancel", "DeliveryTask")?task=@(Model.Key.DeliveryTaskNumber)&returnUrl=@Url.Encode(Context.Request.RawUrl)" title="@DeliveryTaskControllerStrings.CancelPendingDeliveryButton_Hint"><i class="icon-cancel-2"></i></a>
 			</div>
 		}
 		<div class="content">
@@ -55,7 +55,7 @@
 					}
 				</ul>
 			</p>
-			@if (User.IsInRole<Employee>())
+			@if (User.IsInRole<Employee>() && ApplicationUser.IdentityComparer.Equals(User, Model.Key.DeliveryZone.Assignee))
 			{
 				if (Model.Key.State == TaskState.Scheduled)
 				{

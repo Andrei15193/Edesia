@@ -51,7 +51,7 @@ namespace Andrei15193.Edesia.Controllers
 		}
 
 		[HttpGet, Authorize, Role(typeof(Administrator))]
-		public ActionResult Cancel(int task)
+		public ActionResult Cancel(int task, string returnUrl)
 		{
 			DeliveryTask deliveryTask = _deliveryTaskRepository.GetDeliveryTask(task, _applicationUserProvider, _deliveryRepository, _productProvider, _orderRepository);
 
@@ -59,7 +59,10 @@ namespace Andrei15193.Edesia.Controllers
 			_deliveryTaskRepository.CancelTask(task);
 			_orderRepository.UpdateOrders(deliveryTask.OrdersToDeliver);
 
-			return RedirectToAction("Default", "Delivery");
+			if (Url.IsLocalUrl(returnUrl))
+				return Redirect(returnUrl);
+			else
+				return RedirectToAction("Default", "Delivery");
 		}
 
 		[HttpGet, Authorize, Role(typeof(Employee))]

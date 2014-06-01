@@ -159,4 +159,7 @@
   <data name="StartTaskButton_DisplayName" xml:space="preserve">
     <value>Începe</value>
   </data>
+  <data name="CancelPendingDeliveryButton_Hint" xml:space="preserve">
+    <value>Anulează livrare</value>
+  </data>
 </root>

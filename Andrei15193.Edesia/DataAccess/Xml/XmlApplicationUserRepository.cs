@@ -306,7 +306,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				if (applicationUserXElement != null && applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee") == null)
 				{
 					applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ShoppingCart")
-										   .AddAfterSelf(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Administrator",
+										   .AddAfterSelf(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee",
 																	  new XAttribute("TransportCapacity", transportCapacity)));
 					xmlTransaction.Commit();
 				}
