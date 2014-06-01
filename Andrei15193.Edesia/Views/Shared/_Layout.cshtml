@@ -122,18 +122,23 @@
 			shoppingCartCountElement = document.getElementById('@HtmlElementId.ShoppingCartCount');
 
 			updateShoppingCartNav();
-			@if (User.IsInRole<Employee>())
+			@if (User != null)
 			{
-				@Html.Raw(@"pendingTasksCountElement = document.getElementById('" + HtmlElementId.PendingTasksCount + @"');
-							GetPendingTasksCount();
-							setTimeout('GetPendingTasksCount();', 3000);");
-			}
-			@if (User.IsInRole<Administrator>())
-			{
-				@Html.Raw(@"pendingOrdersCountElement = document.getElementById('" + HtmlElementId.PendingOrdersCount + @"');
-							GetPendingOrdersCount();
-							setTimeout('GetPendingOrdersCount();', 3000);")
-			}
+				if (User.IsInRole<Employee>())
+				{
+					@Html.Raw(@"
+			pendingTasksCountElement = document.getElementById('" + HtmlElementId.PendingTasksCount + @"');
+			GetPendingTasksCount();
+			setTimeout('GetPendingTasksCount();', 3000);");
+				}
+				if (User.IsInRole<Administrator>())
+				{
+					@Html.Raw(@"
+				pendingOrdersCountElement = document.getElementById('" + HtmlElementId.PendingOrdersCount + @"');
+				GetPendingOrdersCount();
+				setTimeout('GetPendingOrdersCount();', 3000);")
+				}
+				}
 		</script>
 	</div>
 </body>
