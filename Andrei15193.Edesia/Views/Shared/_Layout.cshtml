@@ -129,16 +129,16 @@
 					@Html.Raw(@"
 			pendingTasksCountElement = document.getElementById('" + HtmlElementId.PendingTasksCount + @"');
 			GetPendingTasksCount();
-			setTimeout('GetPendingTasksCount();', 3000);");
+			setInterval('GetPendingTasksCount();', 10000);");
 				}
 				if (User.IsInRole<Administrator>())
 				{
 					@Html.Raw(@"
 				pendingOrdersCountElement = document.getElementById('" + HtmlElementId.PendingOrdersCount + @"');
 				GetPendingOrdersCount();
-				setTimeout('GetPendingOrdersCount();', 3000);")
+				setInterval('GetPendingOrdersCount();', 100000);")
 				}
-				}
+			}
 		</script>
 	</div>
 </body>
