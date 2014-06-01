@@ -120,6 +120,9 @@
   <data name="CredentialControls_InvalidValues" xml:space="preserve">
     <value>Adresa de e-mail sau parola nu sunt valide.</value>
   </data>
+  <data name="DashboardMenuItemButton_DisplayName" xml:space="preserve">
+    <value>Sarcini</value>
+  </data>
   <data name="EMailTextBox_DisplayName" xml:space="preserve">
     <value>Adresa de E-Mail</value>
   </data>
@@ -180,19 +183,13 @@
   <data name="LoginViewTitle" xml:space="preserve">
     <value>Autentificare</value>
   </data>
-  <data name="LogoutMenuItem_DisplayName" xml:space="preserve">
+  <data name="LogoutMenuItemButton_DisplayName" xml:space="preserve">
     <value>Deconectare</value>
-  </data>
-  <data name="ManageDeliveryZoneButton_DisplayName" xml:space="preserve">
-    <value>Administrare livrări</value>
   </data>
   <data name="PasswordInput_DisplayName" xml:space="preserve">
     <value>Parola</value>
   </data>
   <data name="PasswordInput_Hint" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PasswordInput_Hint1" xml:space="preserve">
     <value />
   </data>
   <data name="PasswordInput_InvalidVerificationValue" xml:space="preserve">
@@ -207,10 +204,16 @@
   <data name="PasswordVerificationInput_Hint" xml:space="preserve">
     <value>reintroduceți parola (verificare)</value>
   </data>
+  <data name="PlanDeliveriesMenuItemButton_DisplayName" xml:space="preserve">
+    <value>Planificare livrări</value>
+  </data>
   <data name="RegisterAccountButton_DisplayName" xml:space="preserve">
     <value>Nu aveți cont? Înregistrațivă aici</value>
   </data>
   <data name="RegisterButton_DisplayName" xml:space="preserve">
+    <value>Înregistrare</value>
+  </data>
+  <data name="RegisterMenuItemButton_DisplayName" xml:space="preserve">
     <value>Înregistrare</value>
   </data>
   <data name="RegisterViewTitle" xml:space="preserve">

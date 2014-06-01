@@ -69,6 +69,22 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone")
 									 .Select(deliveryZoneXmlElement => _GetDeliveryZone(deliveryZoneXmlElement, applicationUserProvider));
 		}
+		public IEnumerable<DeliveryZone> GetDeliveryZones(Employee employee)
+		{
+			if (employee == null)
+				throw new ArgumentNullException("employee");
+
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
+				return xmlTransaction.XmlDocument
+									 .Root
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}DeliveryZone")
+									 .Where(deliveryZoneXmlElement =>
+										 {
+											 XAttribute assigneeEMailAddress = deliveryZoneXmlElement.Attribute("AssigneeEMailAddress");
+											 return (assigneeEMailAddress != null && string.Equals(employee.EMailAddress, assigneeEMailAddress.Value, StringComparison.Ordinal));
+										 }
+									).Select(deliveryZoneXmlElement => _GetDeliveryZone(deliveryZoneXmlElement, employee));
+		}
 
 		public IEnumerable<string> GetStreets()
 		{
@@ -310,6 +326,16 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				deliveryZone.Assignee = applicationUserProvider.GetEmployee(assigneeEMailAddressXAtribute.Value);
 
 			return deliveryZone;
+		}
+		private DeliveryZone _GetDeliveryZone(XElement deliveryZoneXmlElement, Employee employee)
+		{
+			return new DeliveryZone(deliveryZoneXmlElement.Attribute("Name").Value,
+									Colour.Parse(deliveryZoneXmlElement.Attribute("Colour").Value),
+									deliveryZoneXmlElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street")
+														  .Select(streetXElement => streetXElement.Value))
+				{
+					Assignee = employee
+				};
 		}
 		private Exception _TranslateException(Exception exception)
 		{

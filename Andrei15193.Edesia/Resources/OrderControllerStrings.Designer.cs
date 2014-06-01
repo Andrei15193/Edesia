@@ -70,7 +70,7 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to numărul străzii, bloc etc..
+        ///   Looks up a localized string similar to numărul, bloc etc..
         /// </summary>
         public static string AddressDetailsTextBox_Hint {
             get {

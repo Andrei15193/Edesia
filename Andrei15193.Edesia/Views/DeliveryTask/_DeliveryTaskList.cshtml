@@ -1,0 +1,21 @@
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.ViewModels.DeliveryTask;
+@model DeliveryTasksViewModel
+@{
+	ViewBag.Title = Model.ViewTitle;
+}
+<div class="grid fluid">
+	<div class="row">
+		<div class="span12">
+			<h2>@Model.ViewTitle (@Model.Count())</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span12">
+			@foreach (KeyValuePair<DeliveryTask, bool> deliveryTask in Model.Select((deliveryTask, deliveryTaskIndex) => new KeyValuePair<DeliveryTask, bool>(deliveryTask, deliveryTaskIndex < Model.ExpandedDeliveryTaskCount)))
+			{
+				Html.RenderPartial("_DeliveryTask", deliveryTask);
+			}
+		</div>
+	</div>
+</div>

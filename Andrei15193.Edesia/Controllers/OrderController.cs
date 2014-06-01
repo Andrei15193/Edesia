@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
+using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
 using Andrei15193.Edesia.Models;
 using Andrei15193.Edesia.Resources;
@@ -50,6 +52,16 @@ namespace Andrei15193.Edesia.Controllers
 			_applicationUserRepository.ClearShoppingCart(User);
 
 			return View("_Notice", new Notice(OrderControllerStrings.CheckoutViewTitle, null, OrderControllerStrings.ThanksNoticeParagraph1, OrderControllerStrings.ThanksNoticeParagraph2, OrderControllerStrings.ThanksNoticeAuthor));
+		}
+
+		[HttpGet, Authorize, Role(typeof(Administrator))]
+		public JsonResult PendingCountJson()
+		{
+			return Json(new
+				{
+					Count = _orderRepository.GetOrders(_applicationUserRepository, _productProvider, OrderState.Pending).Count()
+				},
+				JsonRequestBehavior.AllowGet);
 		}
 
 		private readonly IOrderRepository _orderRepository = (IOrderRepository)MvcApplication.DependencyContainer["orderRepository"];

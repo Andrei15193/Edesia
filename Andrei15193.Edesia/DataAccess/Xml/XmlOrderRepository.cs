@@ -25,6 +25,10 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		}
 
 		#region IOrderProvider Members
+		public Order GetOrder(IApplicationUserProvider applicationUserProvider, IProductProvider productProvider, int orderNumber)
+		{
+			return GetOrder(applicationUserProvider, productProvider, orderNumber, DateTime.Now);
+		}
 		public Order GetOrder(IApplicationUserProvider applicationUserProvider, IProductProvider productProvider, int orderNumber, DateTime version)
 		{
 			if (applicationUserProvider == null)
@@ -102,7 +106,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									 .Where(orderXmlElement => (orderStates.Contains((OrderState)Enum.Parse(typeof(OrderState), orderXmlElement.Attribute("State").Value))))
 									 .Select(orderXmlElement => _GetOrder(orderXmlElement, applicationUserProvider, productProvider));
 		}
-		public void UpdateOrders(IEnumerable<Order> orders, OrderState orderState)
+		public void UpdateOrders(IEnumerable<Order> orders)
 		{
 			if (orders == null)
 				throw new ArgumentNullException("orders");
@@ -117,7 +121,22 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 																.Root
 																.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}Order")
 																.Where(orderXmlElement => indexedOrders.ContainsKey(int.Parse(orderXmlElement.Attribute("OrderNumber").Value))))
-					orderXElement.Attribute("State").SetValue(orderState.ToString());
+				{
+					Order order = indexedOrders[int.Parse(orderXElement.Attribute("OrderNumber").Value)];
+
+					orderXElement.Attribute("State").SetValue(order.State.ToString());
+					foreach (XElement productOrderedXElement in orderXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}ProductOrdered"))
+					{
+						OrderedProduct orderedProduct = order.OrderedProducts.FirstOrDefault(productOrdered => string.Equals(productOrdered.Product.Name, productOrderedXElement.Attribute("Name").Value, StringComparison.Ordinal));
+
+						if (orderedProduct.Product == null)
+							orderXElement.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}ProductOrdered",
+														   new XAttribute("Name", orderedProduct.Product.Name),
+														   new XAttribute("Quantity", orderedProduct.Quantity)));
+						else
+							productOrderedXElement.Attribute("Quantity").SetValue(orderedProduct.Quantity);
+					}
+				}
 
 				xmlTransacion.Commit();
 			}

@@ -9,6 +9,7 @@ using Andrei15193.Edesia.Collections;
 using Andrei15193.Edesia.DataAccess;
 using Andrei15193.Edesia.Models;
 using Andrei15193.Edesia.Models.Collections;
+using Andrei15193.Edesia.ViewModels.DeliveryTask;
 namespace Andrei15193.Edesia.Controllers
 {
 	public class DeliveryTaskController
@@ -39,14 +40,71 @@ namespace Andrei15193.Edesia.Controllers
 				}
 			}
 
-			IEnumerable<DeliveryTask> deliveryTasks =
-				_deliveryTaskRepository.AddDeliveryTasks(ordersByDeliveryZone.AsParallel()
-																			 .SelectMany(_GetDeliveryTasks)
-																			 .ToList());
-
-			_orderRepository.UpdateOrders(ordersByDeliveryZone.Values.SelectMany(orders => orders), OrderState.Scheduled);
+			foreach (DeliveryTask deliveryTask in _deliveryTaskRepository.AddDeliveryTasks(ordersByDeliveryZone.AsParallel()
+																		 .SelectMany(_GetDeliveryTasks)
+																		 .ToList()))
+				foreach (Order orderToDeliver in deliveryTask.OrdersToDeliver)
+					orderToDeliver.State = OrderState.Scheduled;
+			_orderRepository.UpdateOrders(ordersByDeliveryZone.Values.SelectMany(orders => orders));
 
 			return RedirectToAction("Default", "Delivery");
+		}
+
+		[HttpGet, Authorize, Role(typeof(Administrator))]
+		public ActionResult Cancel(int task)
+		{
+			DeliveryTask deliveryTask = _deliveryTaskRepository.GetDeliveryTask(task, _applicationUserProvider, _deliveryRepository, _productProvider, _orderRepository);
+
+			deliveryTask.CancelTask();
+			_deliveryTaskRepository.CancelTask(task);
+			_orderRepository.UpdateOrders(deliveryTask.OrdersToDeliver);
+
+			return RedirectToAction("Default", "Delivery");
+		}
+
+		[HttpGet, Authorize, Role(typeof(Employee))]
+		public ActionResult Start(int task)
+		{
+			DeliveryTask deliveryTask = _deliveryTaskRepository.GetDeliveryTask(task, _applicationUserProvider, _deliveryRepository, _productProvider, _orderRepository);
+
+			if (deliveryTask == null || !ApplicationUser.IdentityComparer.Equals(deliveryTask.DeliveryZone.Assignee, User))
+				return RedirectToAction("Forbidden", "Error");
+
+			deliveryTask.StartTask();
+			_orderRepository.UpdateOrders(deliveryTask.OrdersToDeliver);
+
+			return RedirectToAction("Dashboard", "DeliveryTask");
+		}
+
+		[HttpGet, Authorize, Role(typeof(Employee))]
+		public ActionResult Finish(int task)
+		{
+			DeliveryTask deliveryTask = _deliveryTaskRepository.GetDeliveryTask(task, _applicationUserProvider, _deliveryRepository, _productProvider, _orderRepository);
+
+			if (deliveryTask == null || !ApplicationUser.IdentityComparer.Equals(deliveryTask.DeliveryZone.Assignee, User))
+				return RedirectToAction("Forbidden", "Error");
+
+			deliveryTask.FinishTask();
+			_orderRepository.UpdateOrders(deliveryTask.OrdersToDeliver);
+
+			return RedirectToAction("Dashboard", "DeliveryTask");
+		}
+
+		[HttpGet, Authorize, Role(typeof(Employee))]
+		public ActionResult Dashboard()
+		{
+			Employee employee = User.TryGetRole<Employee>();
+			return View(new DashboardViewModel(_deliveryTaskRepository.GetDeliveryTasks(employee, _applicationUserProvider, _deliveryRepository, _productProvider, _orderRepository, TaskState.InProgress, TaskState.Scheduled, TaskState.Completed)));
+		}
+
+		[HttpGet, Authorize, Role(typeof(Employee))]
+		public JsonResult PendingCountJson()
+		{
+			return Json(new
+				{
+					Count = _deliveryTaskRepository.GetDeliveryTasks(User.TryGetRole<Employee>(), _applicationUserProvider, _deliveryRepository, _productProvider, _orderRepository, TaskState.Scheduled, TaskState.InProgress).Count()
+				},
+				JsonRequestBehavior.AllowGet);
 		}
 
 		private IEnumerable<DeliveryTaskDetails> _GetDeliveryTasks(KeyValuePair<DeliveryZone, IEnumerable<Order>> ordersByDeliveryZone)

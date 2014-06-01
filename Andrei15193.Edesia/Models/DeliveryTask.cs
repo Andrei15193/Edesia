@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Andrei15193.Edesia.Collections;
 namespace Andrei15193.Edesia.Models
 {
 	public class DeliveryTask
@@ -20,7 +19,7 @@ namespace Andrei15193.Edesia.Models
 			_dateScheduled = dateScheduled;
 			_deliveryZone = deliveryZone;
 			_isCancelled = isCancelled;
-			_ordersToDeliver = new ReadOnlyCollection<Order>(ordersToDeliver.Where(orderToDeliver => orderToDeliver != null));
+			_ordersToDeliver = ordersToDeliver.Where(orderToDeliver => orderToDeliver != null).ToList();
 		}
 		public DeliveryTask(int deliveryTaskNumber, DateTime dateScheduled, DeliveryZone deliveryZone, bool isCancelled, params Order[] ordersToDeliver)
 			: this(deliveryTaskNumber, dateScheduled, deliveryZone, isCancelled, (IEnumerable<Order>)ordersToDeliver)
@@ -92,7 +91,7 @@ namespace Andrei15193.Edesia.Models
 			foreach (Order orderToDeliver in _ordersToDeliver)
 				orderToDeliver.State = OrderState.EnRoute;
 		}
-		public void CompleteTask()
+		public void FinishTask()
 		{
 			if (_isCancelled)
 				throw new InvalidOperationException("The current delivery task is cancelled!");

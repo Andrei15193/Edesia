@@ -1,0 +1,28 @@
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.ViewModels.DeliveryTask;
+@using Andrei15193.Edesia.Resources;
+@model DashboardViewModel
+@{
+	ViewBag.Title = DeliveryTaskControllerStrings.DashboardViewTitle;
+}
+<h1>@DeliveryTaskControllerStrings.DashboardViewTitle</h1>
+
+<div class="grid fluid">
+	<div class="row">
+		<div class="span4">
+			@Html.Partial("_DeliveryTaskList", new DeliveryTasksViewModel(DeliveryTaskControllerStrings.PendingTasksViewTitle,
+																		  1,
+																		  Model[TaskState.Scheduled]))
+		</div>
+		<div class="span4">
+			@Html.Partial("_DeliveryTaskList", new DeliveryTasksViewModel(DeliveryTaskControllerStrings.InProgressTasksViewTitle,
+																		  Model[TaskState.InProgress].Count(),
+																		  Model[TaskState.InProgress]))
+		</div>
+		<div class="span4">
+			@Html.Partial("_DeliveryTaskList", new DeliveryTasksViewModel(DeliveryTaskControllerStrings.CompletedTasksViewTitle,
+																		  0,
+																		  Model[TaskState.Completed]))
+		</div>
+	</div>
+</div>

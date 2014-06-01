@@ -142,7 +142,7 @@
     <value>Detalii pentru adresa de livrare</value>
   </data>
   <data name="AddressDetailsTextBox_Hint" xml:space="preserve">
-    <value>numărul străzii, bloc etc.</value>
+    <value>numărul, bloc etc.</value>
   </data>
   <data name="AddressDetailsTextBox_MissingValue" xml:space="preserve">
     <value>Trebuie să completați detalile adresei pentru livrare.</value>

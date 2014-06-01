@@ -15,7 +15,7 @@ namespace Andrei15193.Edesia.Models
 
 			return applicationUserRole.IsInRole<TApplicationUserRole>();
 		}
-		public static ApplicationUserRole TryGetRole<TApplicationUserRole>(this ApplicationUser applicationUser)
+		public static TApplicationUserRole TryGetRole<TApplicationUserRole>(this ApplicationUser applicationUser)
 			where TApplicationUserRole : ApplicationUserRole
 		{
 			if (applicationUser == null)

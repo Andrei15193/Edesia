@@ -1,8 +1,6 @@
 ﻿@using Andrei15193.Edesia.Models;
 @using Andrei15193.Edesia.Resources;
-@model IEnumerable<NavigationBarAction>
 @{
-	ViewBag.Title = string.Empty;
 	Layout = null;
 }
 <nav class="navigation-bar fixed-top green" style="border:1px solid white; border-width: 0 0 1px;">
@@ -14,31 +12,27 @@
 		<a href="@Url.Action("Default", "ShoppingCart")" class="element">
 			<i class="icon-cart-2"></i> <span id="@HtmlElementId.ShoppingCartTotalPrice"></span> RON (<span id="@HtmlElementId.ShoppingCartCount"></span>)
 		</a>
-		@Html.Action("LanguageDropdown", "User")
-
-		@using (IEnumerator<NavigationBarAction> userAction = Model.Reverse().GetEnumerator())
-		{
-			if (userAction.MoveNext())
+		<span style="float: right;">
+			@if (User != null)
 			{
-				<a href="@Url.Action(userAction.Current.Action, userAction.Current.Controller)" class="element place-right">
-					@if (userAction.Current.Icon != null)
-					{
-						<i class="@userAction.Current.Icon"></i>
-					}
-					@userAction.Current.Title
-				</a>
-				while (userAction.MoveNext())
+				if (User.IsInRole<Employee>())
 				{
-					<span class="element-divider place-right"></span>
-					<a href="@Url.Action(userAction.Current.Action, userAction.Current.Controller)" class="element place-right">
-						@if (userAction.Current.Icon != null)
-						{
-							<i class="@userAction.Current.Icon"></i>
-						}
-						@userAction.Current.Title
-					</a>
+					<a href="@Url.Action("Dashboard", "DeliveryTask")" class="element">@UserControllerStrings.DashboardMenuItemButton_DisplayName (<span id="@HtmlElementId.PendingTasksCount"></span>)</a>
+					<span class="element-divider"></span>
 				}
+				if (User.IsInRole<Administrator>())
+				{
+					<a href="@Url.Action("Default", "Delivery")" class="element">@UserControllerStrings.PlanDeliveriesMenuItemButton_DisplayName (<span id="@HtmlElementId.PendingOrdersCount"></span>)</a>
+					<span class="element-divider"></span>
+				}
+				<a href="@Url.Action("Logout", "User")" class="element"><i class="icon-user"></i> @UserControllerStrings.LogoutMenuItemButton_DisplayName <small>(@User.FirstName @User.LastName)</small></a>
 			}
-		}
+			else
+			{
+				<a href="@Url.Action("Login", "User")" class="element"><i class="icon-user"></i> @UserControllerStrings.LoginMenuItemButton_DisplayName</a>
+				<span class="element-divider"></span>
+				<a href="@Url.Action("Register", "User")" class="element"><i class="icon-new"></i> @UserControllerStrings.RegisterMenuItemButton_DisplayName</a>
+			}
+		</span>
 	</nav>
 </nav>

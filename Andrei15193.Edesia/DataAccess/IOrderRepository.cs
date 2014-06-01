@@ -7,6 +7,6 @@ namespace Andrei15193.Edesia.DataAccess
 	{
 		Order PlaceOrder(OrderDetails orderDateils);
 		IEnumerable<Order> GetOrders(IApplicationUserProvider applicationUserProvider, IProductProvider productProvider, params OrderState[] orderStates);
-		void UpdateOrders(IEnumerable<Order> orders, OrderState orderState);
+		void UpdateOrders(IEnumerable<Order> orders);
 	}
 }

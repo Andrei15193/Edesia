@@ -8,5 +8,10 @@ namespace Andrei15193.Edesia.DataAccess
 		IEnumerable<DeliveryTask> AddDeliveryTasks(params DeliveryTaskDetails[] deliveryTasksDetails);
 
 		IEnumerable<DeliveryTask> GetDeliveryTasks(IApplicationUserProvider applicationUserProvider, IDeliveryZoneProvider deliveryZoneProvider, IProductProvider productProvider, IOrderProvider orderProvider, params TaskState[] taskStates);
+		IEnumerable<DeliveryTask> GetDeliveryTasks(Employee employee, IApplicationUserProvider applicationUserProvider, IDeliveryZoneProvider deliveryZoneProvider, IProductProvider productProvider, IOrderProvider orderProvider, params TaskState[] taskStates);
+		DeliveryTask GetDeliveryTask(int taskNumber, IApplicationUserProvider applicationUserProvider, IDeliveryZoneProvider deliveryZoneProvider, IProductProvider productProvider, IOrderProvider orderProvider);
+
+		void CancelTask(int deliveryTaskNumber);
+
 	}
 }

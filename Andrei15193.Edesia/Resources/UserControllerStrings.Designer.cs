@@ -70,6 +70,15 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sarcini.
+        /// </summary>
+        public static string DashboardMenuItemButton_DisplayName {
+            get {
+                return ResourceManager.GetString("DashboardMenuItemButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adresa de E-Mail.
         /// </summary>
         public static string EMailTextBox_DisplayName {
@@ -252,18 +261,9 @@ namespace Andrei15193.Edesia.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Deconectare.
         /// </summary>
-        public static string LogoutMenuItem_DisplayName {
+        public static string LogoutMenuItemButton_DisplayName {
             get {
-                return ResourceManager.GetString("LogoutMenuItem_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Administrare livrări.
-        /// </summary>
-        public static string ManageDeliveryZoneButton_DisplayName {
-            get {
-                return ResourceManager.GetString("ManageDeliveryZoneButton_DisplayName", resourceCulture);
+                return ResourceManager.GetString("LogoutMenuItemButton_DisplayName", resourceCulture);
             }
         }
         
@@ -282,15 +282,6 @@ namespace Andrei15193.Edesia.Resources {
         public static string PasswordInput_Hint {
             get {
                 return ResourceManager.GetString("PasswordInput_Hint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PasswordInput_Hint1 {
-            get {
-                return ResourceManager.GetString("PasswordInput_Hint1", resourceCulture);
             }
         }
         
@@ -327,6 +318,15 @@ namespace Andrei15193.Edesia.Resources {
         public static string PasswordVerificationInput_Hint {
             get {
                 return ResourceManager.GetString("PasswordVerificationInput_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Planificare livrări.
+        /// </summary>
+        public static string PlanDeliveriesMenuItemButton_DisplayName {
+            get {
+                return ResourceManager.GetString("PlanDeliveriesMenuItemButton_DisplayName", resourceCulture);
             }
         }
         
@@ -383,6 +383,15 @@ namespace Andrei15193.Edesia.Resources {
         public static string RegisterButton_DisplayName {
             get {
                 return ResourceManager.GetString("RegisterButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Înregistrare.
+        /// </summary>
+        public static string RegisterMenuItemButton_DisplayName {
+            get {
+                return ResourceManager.GetString("RegisterMenuItemButton_DisplayName", resourceCulture);
             }
         }
         

@@ -1,4 +1,5 @@
 ﻿@using System.Threading;
+@using Andrei15193.Edesia.Models;
 @using Andrei15193.Edesia.Resources;
 <!DOCTYPE html>
 <html>
@@ -24,41 +25,78 @@
 		{
 			$.ajax({
 				url: "@Url.Action("DefaultJson", "ShoppingCart")",
-				cache: false
-			 })
+				cache: false,
+				dataType: "json"
+			})
 			 .success(function (shoppingCart)
 			 {
-				 shoppingCartTotalPriceElement.innerHTML = toFixed(parseFloat(shoppingCart.TotalPrice), 2);
+			 	shoppingCartTotalPriceElement.innerHTML = toFixed(parseFloat(shoppingCart.TotalPrice), 2);
 
-				 if (parseInt(shoppingCart.Count) == 1)
-					 shoppingCartCountElement.innerHTML = shoppingCart.Count + " " + "@ShoppingCartControllerStrings.ProductLabel_DisplayName";
-				 else
-					 shoppingCartCountElement.innerHTML = shoppingCart.Count + " " + "@ShoppingCartControllerStrings.ProductsLabel_DisplayName";
+			 	if (parseInt(shoppingCart.Count) == 1)
+			 		shoppingCartCountElement.innerHTML = shoppingCart.Count + " " + "@ShoppingCartControllerStrings.ProductLabel_DisplayName";
+			 	else
+			 		shoppingCartCountElement.innerHTML = shoppingCart.Count + " " + "@ShoppingCartControllerStrings.ProductsLabel_DisplayName";
 			 });
 		}
+
 		@if (User != null)
 		{
 			@Html.Raw(@"
-				function addToCart(product)
-				{
-					$.ajax({
-						async: false,
-						url: """ + Url.Action("Add", "ShoppingCart") + @"?product="" + product,
-						dataType: ""html"",
-						cache: false
-					 })
-					 .success(function ()
-					 {
-						 updateShoppingCartNav();
-					 });
-				}")
+		function addToCart(product)
+		{
+			$.ajax({
+				async: false,
+				url: """ + Url.Action("Add", "ShoppingCart") + @"?product="" + product,
+				dataType: ""html"",
+				cache: false
+			 })
+			 .success(function ()
+			 {
+				 updateShoppingCartNav();
+			 });
+		}")
+			if (User.IsInRole<Employee>())
+			{
+				@Html.Raw(@"
+		var pendingTasksCountElement;
+		function GetPendingTasksCount()
+		{
+			$.ajax({
+				url: '" + @Url.Action("PendingCountJson", "DeliveryTask") + @"',
+				cache: false,
+				dataType: 'json'
+			 })
+			 .success(function (result)
+			 {
+				 pendingTasksCountElement.innerText = result.Count;
+			 });
+		}")
+			}
+			if (User.IsInRole<Administrator>())
+			{
+				@Html.Raw(@"
+		var pendingOrdersCountElement;
+		function GetPendingOrdersCount()
+		{
+			$.ajax({
+				url: '" + Url.Action("PendingCountJson", "Order") + @"',
+				cache: false,
+				dataType: 'json'
+			 })
+			 .success(function (result)
+			 {
+				 pendingOrdersCountElement.innerText = result.Count;
+			 });
+		}")
+			}
 		}
 		else
 		{
-			@Html.Raw(@"function addToCart(product)
-				{
-					window.location = """ + @Url.Action("Add", "ShoppingCart") + @"?product="" + product;
-				}")
+			@Html.Raw(@"
+		function addToCart(product)
+		{
+			window.location = """ + @Url.Action("Add", "ShoppingCart") + @"?product="" + product;
+		}")
 		}
 
 	</script>
@@ -66,7 +104,7 @@
 <body lang="ro" class="metro" style="margin: 0; padding: 0; height: 100%;">
 	<div style="position: relative; margin: 0; padding: 0; min-height: 100%;">
 		<div class="body-content" style="padding-top: 50px; padding-bottom: 50px;">
-			@Html.Action("NavigationBar", "User")
+			@Html.Partial("_NavigationBar")
 			@RenderBody()
 		</div>
 		<div class="text-center" style="position: absolute; bottom: 0; left: 0; height: 50px; width: 100%;">
@@ -80,10 +118,22 @@
 		@Scripts.Render("~/bundles/metro-ui")
 		@RenderSection("scripts", required: false)
 		<script>
-			shoppingCartTotalPriceElement = document.getElementById("@HtmlElementId.ShoppingCartTotalPrice");
-			shoppingCartCountElement = document.getElementById("@HtmlElementId.ShoppingCartCount");
+			shoppingCartTotalPriceElement = document.getElementById('@HtmlElementId.ShoppingCartTotalPrice');
+			shoppingCartCountElement = document.getElementById('@HtmlElementId.ShoppingCartCount');
 
 			updateShoppingCartNav();
+			@if (User.IsInRole<Employee>())
+			{
+				@Html.Raw(@"pendingTasksCountElement = document.getElementById('" + HtmlElementId.PendingTasksCount + @"');
+							GetPendingTasksCount();
+							setTimeout('GetPendingTasksCount();', 3000);");
+			}
+			@if (User.IsInRole<Administrator>())
+			{
+				@Html.Raw(@"pendingOrdersCountElement = document.getElementById('" + HtmlElementId.PendingOrdersCount + @"');
+							GetPendingOrdersCount();
+							setTimeout('GetPendingOrdersCount();', 3000);")
+			}
 		</script>
 	</div>
 </body>

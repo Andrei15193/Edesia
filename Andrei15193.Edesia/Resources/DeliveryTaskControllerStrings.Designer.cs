@@ -61,20 +61,65 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anulează comenzi.
+        ///   Looks up a localized string similar to la.
         /// </summary>
-        public static string CancelPendingTransportsButton_DisplayName {
+        public static string AtLabel_DisplayName {
             get {
-                return ResourceManager.GetString("CancelPendingTransportsButton_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AtLabel_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anulează comenzi care nu sunt în curs de livrare..
+        ///   Looks up a localized string similar to Anulează toate livrările.
         /// </summary>
-        public static string CancelPendingTransportsButton_Hint {
+        public static string CancelPendingDeliveriesButton_DisplayName {
             get {
-                return ResourceManager.GetString("CancelPendingTransportsButton_Hint", resourceCulture);
+                return ResourceManager.GetString("CancelPendingDeliveriesButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anulează toate livrările indiferent dacă sunt planificate sau în execuție..
+        /// </summary>
+        public static string CancelPendingDeliveriesButton_Hint {
+            get {
+                return ResourceManager.GetString("CancelPendingDeliveriesButton_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finalizate.
+        /// </summary>
+        public static string CompletedTasksViewTitle {
+            get {
+                return ResourceManager.GetString("CompletedTasksViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finalizează.
+        /// </summary>
+        public static string CompleteTaskButton_DisplayName {
+            get {
+                return ResourceManager.GetString("CompleteTaskButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Panoul cu sarcini.
+        /// </summary>
+        public static string DashboardViewTitle {
+            get {
+                return ResourceManager.GetString("DashboardViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Livrarea.
+        /// </summary>
+        public static string DeliveryLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("DeliveryLabel_DisplayName", resourceCulture);
             }
         }
         
@@ -88,11 +133,20 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comanda {0} la {1}..
+        ///   Looks up a localized string similar to Începute.
         /// </summary>
-        public static string OrderListItemLabel_DisplayName_Format {
+        public static string InProgressTasksViewTitle {
             get {
-                return ResourceManager.GetString("OrderListItemLabel_DisplayName_Format", resourceCulture);
+                return ResourceManager.GetString("InProgressTasksViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comanda.
+        /// </summary>
+        public static string OrderLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("OrderLabel_DisplayName", resourceCulture);
             }
         }
         
@@ -111,6 +165,24 @@ namespace Andrei15193.Edesia.Resources {
         public static string PendingDeliveriesLabel_DisplayName {
             get {
                 return ResourceManager.GetString("PendingDeliveriesLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to În așteptare.
+        /// </summary>
+        public static string PendingTasksViewTitle {
+            get {
+                return ResourceManager.GetString("PendingTasksViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Începe.
+        /// </summary>
+        public static string StartTaskButton_DisplayName {
+            get {
+                return ResourceManager.GetString("StartTaskButton_DisplayName", resourceCulture);
             }
         }
     }

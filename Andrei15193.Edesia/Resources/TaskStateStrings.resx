@@ -117,46 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AtLabel_DisplayName" xml:space="preserve">
-    <value>la</value>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Anulată</value>
   </data>
-  <data name="CancelPendingDeliveriesButton_DisplayName" xml:space="preserve">
-    <value>Anulează toate livrările</value>
+  <data name="Completed" xml:space="preserve">
+    <value>Finalizată</value>
+    <comment>,</comment>
   </data>
-  <data name="CancelPendingDeliveriesButton_Hint" xml:space="preserve">
-    <value>Anulează toate livrările indiferent dacă sunt planificate sau în execuție.</value>
+  <data name="InProgress" xml:space="preserve">
+    <value>În desfășurare</value>
   </data>
-  <data name="CompletedTasksViewTitle" xml:space="preserve">
-    <value>Finalizate</value>
+  <data name="Scheduled" xml:space="preserve">
+    <value>Planificată</value>
   </data>
-  <data name="CompleteTaskButton_DisplayName" xml:space="preserve">
-    <value>Finalizează</value>
-  </data>
-  <data name="DashboardViewTitle" xml:space="preserve">
-    <value>Panoul cu sarcini</value>
-  </data>
-  <data name="DeliveryLabel_DisplayName" xml:space="preserve">
-    <value>Livrarea</value>
-  </data>
-  <data name="DeliveryStateLabel_DisplayName" xml:space="preserve">
-    <value>Stare livrare</value>
-  </data>
-  <data name="InProgressTasksViewTitle" xml:space="preserve">
-    <value>Începute</value>
-  </data>
-  <data name="OrderLabel_DisplayName" xml:space="preserve">
-    <value>Comanda</value>
-  </data>
-  <data name="OrdersLabel_DisplayName" xml:space="preserve">
-    <value>Comenzi</value>
-  </data>
-  <data name="PendingDeliveriesLabel_DisplayName" xml:space="preserve">
-    <value>Livrări în așteptare</value>
-  </data>
-  <data name="PendingTasksViewTitle" xml:space="preserve">
-    <value>În așteptare</value>
-  </data>
-  <data name="StartTaskButton_DisplayName" xml:space="preserve">
-    <value>Începe</value>
+  <data name="Unknown" xml:space="preserve">
+    <value>Necunoscută</value>
   </data>
 </root>

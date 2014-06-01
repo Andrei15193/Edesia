@@ -11,7 +11,7 @@ namespace Andrei15193.Edesia.Models
 				throw new ArgumentNullException("eMailAddress");
 			try
 			{
-				_eMailAddress = new MailAddress(eMailAddress).Address;
+				_eMailAddress = new MailAddress(eMailAddress);
 			}
 			catch (FormatException formatException)
 			{
@@ -47,7 +47,7 @@ namespace Andrei15193.Edesia.Models
 		{
 			get
 			{
-				return _eMailAddress;
+				return _eMailAddress.Address;
 			}
 			set
 			{
@@ -55,7 +55,7 @@ namespace Andrei15193.Edesia.Models
 					throw new ArgumentNullException("EMailAddress");
 				try
 				{
-					_eMailAddress = new MailAddress(value).Address;
+					_eMailAddress = new MailAddress(value);
 				}
 				catch (FormatException formatException)
 				{
@@ -109,10 +109,39 @@ namespace Andrei15193.Edesia.Models
 				return MvcApplication.GetEmptyAray<string>();
 			}
 		}
+		public static IEqualityComparer<ApplicationUser> IdentityComparer
+		{
+			get
+			{
+				return _identityComparer;
+			}
+		}
 
-		private string _eMailAddress;
+		private MailAddress _eMailAddress;
 		private string _firstName;
 		private string _lastName;
 		private readonly DateTime _registrationTime;
+		private static IEqualityComparer<ApplicationUser> _identityComparer = new ApplicationUserIdentityComparer();
+
+		private sealed class ApplicationUserIdentityComparer
+			: IEqualityComparer<ApplicationUser>
+		{
+			#region IEqualityComparer<ApplicationUser> Members
+			public bool Equals(ApplicationUser one, ApplicationUser another)
+			{
+				if (one == null)
+					return (another == null);
+				else
+					return (another != null && one._eMailAddress.Equals(another._eMailAddress));
+			}
+			public int GetHashCode(ApplicationUser applicationUser)
+			{
+				if (applicationUser == null)
+					throw new ArgumentNullException("applicationUser");
+
+				return applicationUser._eMailAddress.Address.GetHashCode();
+			}
+			#endregion
+		}
 	}
 }

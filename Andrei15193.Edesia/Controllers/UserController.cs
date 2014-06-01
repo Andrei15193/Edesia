@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Mail;
 using System.Text;
 using System.Web;
@@ -103,44 +102,6 @@ namespace Andrei15193.Edesia.Controllers
 			return RedirectToAction("Default", "Product");
 		}
 
-		//[HttpGet]
-		//public ActionResult ChangeLanguage(string languageId, string returnUrl)
-		//{
-		//	if (languageId == null || returnUrl == null)
-		//		return RedirectToAction("Default", "Home");
-
-		//	Response.SetCookie(GetLanguageCookie(languageId));
-		//	if (Url.IsLocalUrl(returnUrl))
-		//		return Redirect(returnUrl);
-		//	else
-		//		return RedirectToAction("Default", "Home");
-		//}
-
-		[ChildActionOnly]
-		public ActionResult NavigationBar()
-		{
-			IList<NavigationBarAction> userActions = new List<NavigationBarAction>();
-
-			if (User != null)
-			{
-				if (User.IsInRole<Administrator>())
-					userActions.Add(new NavigationBarAction(UserControllerStrings.ManageDeliveryZoneButton_DisplayName, "Default", "Delivery"));
-				userActions.Add(new NavigationBarAction(UserControllerStrings.LogoutMenuItem_DisplayName, "Logout", "User", Icons.User));
-			}
-			else
-			{
-				userActions.Add(new NavigationBarAction(UserControllerStrings.LoginButton_DisplayName, "Login", "User", Icons.User));
-				userActions.Add(new NavigationBarAction(UserControllerStrings.RegisterButton_DisplayName, "Register", "User", Icons.New));
-			}
-
-			return View("_NavigationBar", userActions);
-		}
-		[ChildActionOnly]
-		public ActionResult LanguageDropdown()
-		{
-			return View("_LanguageDropdown", new[] { new DisplayLanguage("Română", "RO", true) });
-		}
-
 		[Authorize, Role(typeof(Administrator))]
 		public ActionResult PromoteToAdmin(string eMail)
 		{
@@ -149,7 +110,7 @@ namespace Andrei15193.Edesia.Controllers
 
 			return RedirectToAction("Default", "Product");
 		}
-
+		
 		private string _GenerateRegistrationKey()
 		{
 			Random random = new Random((int)(DateTime.Now.TimeOfDay.TotalMilliseconds));

@@ -218,6 +218,7 @@
     <Compile Include="Models\OrderedProduct.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\TaskState.cs" />
+    <Compile Include="Models\EnumExtensions.cs" />
     <Compile Include="Resources\DeliveryTaskControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -279,6 +280,11 @@
     <Compile Include="Resources\Strings\ShoppingCartControllerKey.cs" />
     <Compile Include="Resources\Strings\StreetControllerKey.cs" />
     <Compile Include="Resources\Strings\UserControllerKey.cs" />
+    <Compile Include="Resources\TaskStateStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TaskStateStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UserControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -289,6 +295,8 @@
     <Compile Include="Settings\IRegistrationSettings.cs" />
     <Compile Include="Settings\Local\LocalEMailSettings.cs" />
     <Compile Include="Settings\RegistrationSettings.cs" />
+    <Compile Include="ViewModels\DeliveryTask\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\DeliveryTask\DeliveryTasksViewModel.cs" />
     <Compile Include="ViewModels\DeliveryZone\DeliveryZoneViewModel.cs" />
     <Compile Include="ViewModels\Street\AddStreetViewModel.cs" />
     <Compile Include="ViewModels\Order\CheckoutViewModel.cs" />
@@ -368,7 +376,6 @@
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Shared\_Notice.cshtml" />
     <Content Include="Views\Shared\_NavigationBar.cshtml" />
-    <Content Include="Views\Shared\_LanguageDropdown.cshtml" />
     <Content Include="Views\Shared\_ModelErrorNotice.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Delivery\Default.cshtml" />
@@ -389,6 +396,9 @@
     <Content Include="Views\Order\Checkout.cshtml" />
     <Content Include="Views\Order\_OrderedProduct.cshtml" />
     <Content Include="Views\Error\Forbidden.cshtml" />
+    <Content Include="Views\DeliveryTask\_DeliveryTask.cshtml" />
+    <Content Include="Views\DeliveryTask\Dashboard.cshtml" />
+    <Content Include="Views\DeliveryTask\_DeliveryTaskList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -431,6 +441,10 @@
     <EmbeddedResource Include="Resources\ShoppingCartControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ShoppingCartControllerStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TaskStateStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TaskStateStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\UserControllerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
