@@ -10,7 +10,9 @@ namespace Andrei15193.Edesia.DataAccess
 		void RemoveFromCart(ApplicationUser applicationUser, Product product);
 		void RemoveFromCarts(Product product);
 		void ClearShoppingCart(ApplicationUser applicationUser);
+
 		void EnrollAdministrator(string eMailAddress);
+		void EnrollEmployee(string eMailAddress, double transportCapacity);
 
 		void AddApplicationUser(ApplicationUser applicationUser, string password, string registrationKey);
 

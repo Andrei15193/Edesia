@@ -264,6 +264,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				xmlTransaction.Commit();
 			}
 		}
+		
 		public void EnrollAdministrator(string eMailAddress)
 		{
 			if (eMailAddress == null)
@@ -285,7 +286,33 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				}
 			}
 		}
-		
+		public void EnrollEmployee(string eMailAddress, double transportCapacity)
+		{
+			if (eMailAddress == null)
+				throw new ArgumentNullException("eMailAddress");
+			if (string.IsNullOrWhiteSpace(eMailAddress))
+				throw new ArgumentException("Cannot be empty or whitespace!", "eMailAddress");
+
+			if (transportCapacity <= 0)
+				throw new ArgumentNullException("Must be strictly positive!", "transportCapacity");
+
+			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(XmlDocumentFileName))
+			{
+				XElement applicationUserXElement = xmlTransaction.XmlDocument
+																 .Root
+																 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+																 .FirstOrDefault(applicationUserXmlElement => string.Equals(applicationUserXmlElement.Attribute("EMail").Value, eMailAddress, StringComparison.Ordinal));
+
+				if (applicationUserXElement != null && applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee") == null)
+				{
+					applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ShoppingCart")
+										   .AddAfterSelf(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Administrator",
+																	  new XAttribute("TransportCapacity", transportCapacity)));
+					xmlTransaction.Commit();
+				}
+			}
+		}
+
 		public ApplicationUser Find(string eMail, string authenticationToken, AuthenticationTokenType authenticationTokenType = AuthenticationTokenType.Password)
 		{
 			if (eMail == null)
@@ -475,7 +502,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			XElement employeeXElement = applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee");
 
 			if (employeeXElement != null)
-				return new Employee(applicationUser, int.Parse(employeeXElement.Attribute("TransportCapacity").Value));
+				return new Employee(applicationUser, double.Parse(employeeXElement.Attribute("TransportCapacity").Value));
 			else
 				return applicationUser;
 		}

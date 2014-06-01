@@ -7,7 +7,7 @@ namespace Andrei15193.Edesia.Models
 		public Employee(ApplicationUser employee, double transportCapacity)
 			: base(employee)
 		{
-			if (transportCapacity < 1)
+			if (transportCapacity <= 0)
 				throw new ArgumentException("Must be strictly positive", "transportCapacity");
 
 			_transportCapacity = transportCapacity;

@@ -110,6 +110,14 @@ namespace Andrei15193.Edesia.Controllers
 
 			return RedirectToAction("Default", "Product");
 		}
+		[Authorize, Role(typeof(Administrator))]
+		public ActionResult PromoteToEmploye(string eMail, double transportCapacity)
+		{
+			if (!string.IsNullOrWhiteSpace(eMail))
+				_applicationUserRepository.EnrollEmployee(Server.UrlDecode(eMail), transportCapacity);
+
+			return RedirectToAction("Default", "Product");
+		}
 		
 		private string _GenerateRegistrationKey()
 		{
