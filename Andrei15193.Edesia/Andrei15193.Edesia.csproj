@@ -279,6 +279,7 @@
     <Compile Include="Resources\Strings\ProductControllerKey.cs" />
     <Compile Include="Resources\Strings\ShoppingCartControllerKey.cs" />
     <Compile Include="Resources\Strings\StreetControllerKey.cs" />
+    <Compile Include="Resources\Strings\TaskStateKey.cs" />
     <Compile Include="Resources\Strings\UserControllerKey.cs" />
     <Compile Include="Resources\TaskStateStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -401,6 +402,8 @@
     <Content Include="Views\DeliveryTask\_DeliveryTaskList.cshtml" />
     <Content Include="Views\Order\History.cshtml" />
     <Content Include="Views\Order\_Orders.cshtml" />
+    <Content Include="Views\User\Browse.cshtml" />
+    <Content Include="Views\User\_User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

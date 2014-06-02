@@ -61,6 +61,33 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administrator.
+        /// </summary>
+        public static string AdministratorRoleLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("AdministratorRoleLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explorează utilizatori.
+        /// </summary>
+        public static string BrowseUsersMenuItemButton_DisplayName {
+            get {
+                return ResourceManager.GetString("BrowseUsersMenuItemButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Utilizatori.
+        /// </summary>
+        public static string BrowseViewTitle {
+            get {
+                return ResourceManager.GetString("BrowseViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adresa de e-mail sau parola nu sunt valide..
         /// </summary>
         public static string CredentialControls_InvalidValues {
@@ -147,6 +174,33 @@ namespace Andrei15193.Edesia.Resources {
         public static string EMailVerificationTextBox_Hint {
             get {
                 return ResourceManager.GetString("EMailVerificationTextBox_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angajat.
+        /// </summary>
+        public static string EmployeeRoleLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("EmployeeRoleLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promovează la administrator.
+        /// </summary>
+        public static string EnrollAdministratorButton_DisplayName {
+            get {
+                return ResourceManager.GetString("EnrollAdministratorButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promovează la angajat.
+        /// </summary>
+        public static string EnrollEmployeeButton_DisplayName {
+            get {
+                return ResourceManager.GetString("EnrollEmployeeButton_DisplayName", resourceCulture);
             }
         }
         
@@ -455,6 +509,15 @@ namespace Andrei15193.Edesia.Resources {
         public static string RegistrationTokenInput_ExpiredValue {
             get {
                 return ResourceManager.GetString("RegistrationTokenInput_ExpiredValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capacitate de transport.
+        /// </summary>
+        public static string TransportCapacityLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("TransportCapacityLabel_DisplayName", resourceCulture);
             }
         }
     }

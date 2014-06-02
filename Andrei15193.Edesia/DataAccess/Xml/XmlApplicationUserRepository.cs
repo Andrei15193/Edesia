@@ -54,6 +54,14 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		{
 			return GetUser(eMailAddress, DateTime.Now);
 		}
+		public IEnumerable<ApplicationUser> GetUsers()
+		{
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
+				return xmlTransaction.XmlDocument
+									 .Root
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ApplicationUser")
+									 .Select(applicationUserXmlElement => _TryGetAdministrator(_TryGetEmployee(_GetApplicationUser(applicationUserXmlElement), applicationUserXmlElement), applicationUserXmlElement));
+		}
 
 		public Employee GetEmployee(string eMailAddress, DateTime version)
 		{
@@ -264,7 +272,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				xmlTransaction.Commit();
 			}
 		}
-		
+
 		public void EnrollAdministrator(string eMailAddress)
 		{
 			if (eMailAddress == null)

@@ -2,6 +2,9 @@ namespace Andrei15193.Edesia.Resources.Strings
 {
 	internal static class UserControllerKey
 	{
+		internal const string AdministratorRoleLabel_DisplayName = "AdministratorRoleLabel_DisplayName";
+		internal const string BrowseUsersMenuItemButton_DisplayName = "BrowseUsersMenuItemButton_DisplayName";
+		internal const string BrowseViewTitle = "BrowseViewTitle";
 		internal const string CredentialControls_InvalidValues = "CredentialControls_InvalidValues";
 		internal const string DashboardMenuItemButton_DisplayName = "DashboardMenuItemButton_DisplayName";
 		internal const string EMailTextBox_DisplayName = "EMailTextBox_DisplayName";
@@ -12,6 +15,9 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string EMailTextBox_MissingValue = "EMailTextBox_MissingValue";
 		internal const string EMailVerificationTextBox_DisplayName = "EMailVerificationTextBox_DisplayName";
 		internal const string EMailVerificationTextBox_Hint = "EMailVerificationTextBox_Hint";
+		internal const string EmployeeRoleLabel_DisplayName = "EmployeeRoleLabel_DisplayName";
+		internal const string EnrollAdministratorButton_DisplayName = "EnrollAdministratorButton_DisplayName";
+		internal const string EnrollEmployeeButton_DisplayName = "EnrollEmployeeButton_DisplayName";
 		internal const string FirstNameTextBox_DisplayName = "FirstNameTextBox_DisplayName";
 		internal const string FirstNameTextBox_Hint = "FirstNameTextBox_Hint";
 		internal const string FirstNameTextBox_InvalidValue = "FirstNameTextBox_InvalidValue";
@@ -43,5 +49,6 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string Registration_TokenExpired_Paragraph1 = "Registration_TokenExpired_Paragraph1";
 		internal const string Registration_TokenExpired_Paragraph2 = "Registration_TokenExpired_Paragraph2";
 		internal const string RegistrationTokenInput_ExpiredValue = "RegistrationTokenInput_ExpiredValue";
+		internal const string TransportCapacityLabel_DisplayName = "TransportCapacityLabel_DisplayName";
 	}
 }

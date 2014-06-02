@@ -102,23 +102,28 @@ namespace Andrei15193.Edesia.Controllers
 			return RedirectToAction("Default", "Product");
 		}
 
+		[HttpGet, Role(typeof(Administrator))]
+		public ActionResult Browse()
+		{
+			return View(_applicationUserRepository.GetUsers());
+		}
 		[Authorize, Role(typeof(Administrator))]
 		public ActionResult PromoteToAdmin(string eMail)
 		{
 			if (!string.IsNullOrWhiteSpace(eMail))
 				_applicationUserRepository.EnrollAdministrator(Server.UrlDecode(eMail));
 
-			return RedirectToAction("Default", "Product");
+			return RedirectToAction("Browse", "User");
 		}
 		[Authorize, Role(typeof(Administrator))]
 		public ActionResult PromoteToEmployee(string eMail, double transportCapacity)
 		{
-			if (!string.IsNullOrWhiteSpace(eMail))
+			if (!string.IsNullOrWhiteSpace(eMail) && transportCapacity > 0)
 				_applicationUserRepository.EnrollEmployee(Server.UrlDecode(eMail), transportCapacity);
 
-			return RedirectToAction("Default", "Product");
+			return RedirectToAction("Browse", "User");
 		}
-		
+
 		private string _GenerateRegistrationKey()
 		{
 			Random random = new Random((int)(DateTime.Now.TimeOfDay.TotalMilliseconds));

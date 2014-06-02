@@ -1,0 +1,26 @@
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.Resources;
+@model IEnumerable<ApplicationUser>
+@{
+	ViewBag.Title = UserControllerStrings.BrowseViewTitle;
+}
+
+<div class="grid fluid">
+	<div class="row">
+		<div class="span12">
+			<h1>@UserControllerStrings.BrowseViewTitle</h1>
+		</div>
+	</div>
+	@foreach (IGrouping<int, ApplicationUser> usersOnSameRow in Model.Select((user, userIndex) => new KeyValuePair<int, ApplicationUser>(userIndex / 4, user))
+																 .GroupBy(usersOnSameRow => usersOnSameRow.Key, usersOnSameRow => usersOnSameRow.Value))
+	{
+		<div class="row">
+			@foreach (ApplicationUser user in usersOnSameRow)
+			{
+				<div class="span3">
+					@Html.Partial("_User", user)
+				</div>
+			}
+		</div>
+	}
+</div>

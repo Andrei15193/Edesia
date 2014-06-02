@@ -35,7 +35,9 @@
 			if (User.IsInRole<Administrator>())
 			{
 				<span class="element-divider place-right"></span>
-				<a href="@Url.Action("Default", "Delivery")" class="element place-right">@UserControllerStrings.PlanDeliveriesMenuItemButton_DisplayName (<span id="@HtmlElementId.PendingOrdersCount"></span>)</a>
+				<a href="@Url.Action("Browse", "User")" class="element place-right">@UserControllerStrings.BrowseUsersMenuItemButton_DisplayName</a>
+			<span class="element-divider place-right"></span>
+			<a href="@Url.Action("Default", "Delivery")" class="element place-right">@UserControllerStrings.PlanDeliveriesMenuItemButton_DisplayName (<span id="@HtmlElementId.PendingOrdersCount"></span>)</a>
 			}
 			if (User.IsInRole<Employee>())
 			{

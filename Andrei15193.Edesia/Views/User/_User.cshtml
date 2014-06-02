@@ -1,0 +1,51 @@
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.Resources;
+@model ApplicationUser
+@{
+	string borderColorStyle;
+
+	if (Model.IsInRole<Administrator>())
+	{
+		borderColorStyle = "bd-blue";
+	}
+	else
+		if (Model.IsInRole<Employee>())
+		{
+			borderColorStyle = "bd-green";
+		}
+		else
+		{
+			borderColorStyle = "bd-grayLighter";
+		}
+}
+<div class="@borderColorStyle padding15" style="border-width: 1px; border-style: solid; border-radius: 10px;">
+	<h4 class="dropdown-toggle" style="cursor: pointer">@Model.FirstName @Model.LastName <i class="icon-arrow-down-5"></i></h4>
+	<ul class="dropdown-menu inverse" data-role="dropdown" data-effect="fade">
+		<li class="@(Model.IsInRole<Administrator>() ? "disabled" : string.Empty)">
+			<a href="@Url.Action("PromoteToAdmin", "User")?eMail=@Url.Encode(Model.EMailAddress)" class="@(Model.IsInRole<Administrator>() ? "disabled" : "actionLink")">@UserControllerStrings.EnrollAdministratorButton_DisplayName</a>
+		</li>
+	</ul>
+	<h5>@Model.EMailAddress</h5>
+	@if (Model.IsInRole<Administrator>())
+	{
+		<small class="fg-blue">@UserControllerStrings.AdministratorRoleLabel_DisplayName</small>
+	}
+	@if (!Model.IsInRole<Employee>())
+	{
+		using (Html.BeginForm("PromoteToEmployee", "User", FormMethod.Get))
+		{
+			<input type="hidden" name="eMail" value="@Model.EMailAddress" />
+			<label for="transportCapacity">@UserControllerStrings.TransportCapacityLabel_DisplayName</label>
+			<div class="input-control text">
+				<input type="text" name="transportCapacity" />
+			</div>
+			<div style="text-align: right">
+				<input type="submit" class="action right" value="@UserControllerStrings.EnrollEmployeeButton_DisplayName" />
+			</div>
+		}
+	}
+	else
+	{
+		<small class="fg-green">@UserControllerStrings.EmployeeRoleLabel_DisplayName</small>
+	}
+</div>
