@@ -115,6 +115,15 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comenzi livrate.
+        /// </summary>
+        public static string DeliveredOrdersLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("DeliveredOrdersLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adresa de livrare:.
         /// </summary>
         public static string DeliveryAddressLabel_DisplayName {
@@ -129,6 +138,24 @@ namespace Andrei15193.Edesia.Resources {
         public static string DeliveryDetailsLabel_DisplayName {
             get {
                 return ResourceManager.GetString("DeliveryDetailsLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comenzi în curs de livrare.
+        /// </summary>
+        public static string EnRouteOrdersLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("EnRouteOrdersLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Istoric comenzi.
+        /// </summary>
+        public static string HistoryViewTitle {
+            get {
+                return ResourceManager.GetString("HistoryViewTitle", resourceCulture);
             }
         }
         
@@ -178,6 +205,15 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comenzi în așteptare.
+        /// </summary>
+        public static string PendingOrdersLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("PendingOrdersLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preț individual.
         /// </summary>
         public static string PriceLabel_DisplayName {
@@ -192,6 +228,15 @@ namespace Andrei15193.Edesia.Resources {
         public static string QuantityLabel_DisplayName {
             get {
                 return ResourceManager.GetString("QuantityLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comenzi planificate.
+        /// </summary>
+        public static string ScheduledOrdersLabel_DisplayName {
+            get {
+                return ResourceManager.GetString("ScheduledOrdersLabel_DisplayName", resourceCulture);
             }
         }
         
@@ -268,20 +313,11 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preț total.
+        ///   Looks up a localized string similar to Preț total:.
         /// </summary>
         public static string TotalPriceLabel_DisplayName {
             get {
                 return ResourceManager.GetString("TotalPriceLabel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Preț total.
-        /// </summary>
-        public static string TotalPriceLabel_DisplayName1 {
-            get {
-                return ResourceManager.GetString("TotalPriceLabel_DisplayName1", resourceCulture);
             }
         }
         
@@ -291,15 +327,6 @@ namespace Andrei15193.Edesia.Resources {
         public static string TotalProductsLabel_DisplayName {
             get {
                 return ResourceManager.GetString("TotalProductsLabel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total produse.
-        /// </summary>
-        public static string TotalProductsLabel_DisplayName1 {
-            get {
-                return ResourceManager.GetString("TotalProductsLabel_DisplayName1", resourceCulture);
             }
         }
     }

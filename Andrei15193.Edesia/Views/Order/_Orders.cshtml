@@ -1,0 +1,26 @@
+﻿@using Andrei15193.Edesia.Models;
+@model KeyValuePair<string, IEnumerable<Order>>
+
+@if (Model.Value.Any())
+{
+	<div class="grid fluid">
+		<div class="row">
+			<div class="span12">
+				<h2>@Model.Key</h2>
+			</div>
+		</div>
+		@foreach (IGrouping<int, Order> ordersOnSameRow in Model.Value
+																.Select((order, orderIndex) => new KeyValuePair<int, Order>(orderIndex / 3, order))
+																.GroupBy(orderWithRow => orderWithRow.Key, orderWithRow => orderWithRow.Value))
+		{
+			<div class="row">
+				@foreach (Order order in ordersOnSameRow)
+				{
+					<div class="span4">
+						@Html.Partial("_Order", new KeyValuePair<Order, bool>(order, (ordersOnSameRow.Key == 0 || order.State != OrderState.Delivered)))
+					</div>
+				}
+			</div>
+		}
+	</div>
+}

@@ -186,6 +186,9 @@
   <data name="LogoutMenuItemButton_DisplayName" xml:space="preserve">
     <value>Deconectare</value>
   </data>
+  <data name="OrderHistoryMenuItemButton_DisplayName" xml:space="preserve">
+    <value>Istoric comenzi</value>
+  </data>
   <data name="PasswordInput_DisplayName" xml:space="preserve">
     <value>Parola</value>
   </data>

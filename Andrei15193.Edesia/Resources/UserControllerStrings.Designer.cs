@@ -268,6 +268,15 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Istoric comenzi.
+        /// </summary>
+        public static string OrderHistoryMenuItemButton_DisplayName {
+            get {
+                return ResourceManager.GetString("OrderHistoryMenuItemButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parola.
         /// </summary>
         public static string PasswordInput_DisplayName {

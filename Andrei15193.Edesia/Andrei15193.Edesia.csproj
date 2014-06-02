@@ -399,6 +399,8 @@
     <Content Include="Views\DeliveryTask\_DeliveryTask.cshtml" />
     <Content Include="Views\DeliveryTask\Dashboard.cshtml" />
     <Content Include="Views\DeliveryTask\_DeliveryTaskList.cshtml" />
+    <Content Include="Views\Order\History.cshtml" />
+    <Content Include="Views\Order\_Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

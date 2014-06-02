@@ -1,21 +1,25 @@
 ﻿@using Andrei15193.Edesia.Models;
 @using Andrei15193.Edesia.Resources;
-@model Order
+@model KeyValuePair<Order, bool>
 <div class="accordion with-marker" data-role="accordion">
 	<div class="accordion-frame">
-		<a class="heading" style="cursor: pointer;">
-			@string.Format(OrderControllerStrings.OrderAccordionFrameHeader_DisplayName_Format, Model.OrderNumber, Model.DatePlaced)
+		<a class="heading @(Model.Value ? "active" : string.Empty)" style="cursor: pointer;">
+			@string.Format(OrderControllerStrings.OrderAccordionFrameHeader_DisplayName_Format, Model.Key.OrderNumber, Model.Key.DatePlaced)
 		</a>
 		<div class="content">
 			<small>
-				@OrderControllerStrings.DeliveryAddressLabel_DisplayName @Model.DeliveryStreet, @Model.DeliveryAddressDetails
+				@OrderControllerStrings.DeliveryAddressLabel_DisplayName @Model.Key.DeliveryStreet, @Model.Key.DeliveryAddressDetails
 			</small>
 			<ul>
-				@foreach (OrderedProduct orderedProduct in Model.OrderedProducts)
+				@foreach (OrderedProduct orderedProduct in Model.Key.OrderedProducts)
 				{
 					<li>@string.Format(OrderControllerStrings.OrderedProductLabel_DisplayName_Format, orderedProduct.Product.Name, orderedProduct.Quantity, orderedProduct.Product.Price, orderedProduct.Product.Price * orderedProduct.Quantity)</li>
 				}
 			</ul>
+			<small>
+				@OrderControllerStrings.TotalProductsLabel_DisplayName <span style="float: right;">@Model.Key.OrderedProducts.Sum(orderedProduct => orderedProduct.Quantity)</span><br />
+				<strong>@OrderControllerStrings.TotalPriceLabel_DisplayName</strong> <strong style="float: right;">@Model.Key.TotalCost RON</strong>
+			</small>
 		</div>
 	</div>
 </div>

@@ -12,27 +12,42 @@
 		<a href="@Url.Action("Default", "ShoppingCart")" class="element">
 			<i class="icon-cart-2"></i> <span id="@HtmlElementId.ShoppingCartTotalPrice"></span> RON (<span id="@HtmlElementId.ShoppingCartCount"></span>)
 		</a>
-		<span style="float: right;">
-			@if (User != null)
+
+		@if (User != null)
+		{
+			<div class="element place-right">
+				<a class="dropdown-toggle" style="cursor: pointer;">
+					<i class="icon-user"></i> @User.FirstName @User.LastName
+				</a>
+				<ul class="dropdown-menu place-right inverse" data-role="dropdown" data-effect="fade">
+					<li>
+						<a href="@Url.Action("History", "Order")" class="actionLink">
+							<i class="icon-diary"></i> @UserControllerStrings.OrderHistoryMenuItemButton_DisplayName
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("Logout", "User")" class="actionLink">
+							<i class="icon-exit"></i> @UserControllerStrings.LogoutMenuItemButton_DisplayName
+						</a>
+					</li>
+				</ul>
+			</div>
+			if (User.IsInRole<Administrator>())
 			{
-				if (User.IsInRole<Employee>())
-				{
-					<a href="@Url.Action("Dashboard", "DeliveryTask")" class="element">@UserControllerStrings.DashboardMenuItemButton_DisplayName (<span id="@HtmlElementId.PendingTasksCount"></span>)</a>
-					<span class="element-divider"></span>
-				}
-				if (User.IsInRole<Administrator>())
-				{
-					<a href="@Url.Action("Default", "Delivery")" class="element">@UserControllerStrings.PlanDeliveriesMenuItemButton_DisplayName (<span id="@HtmlElementId.PendingOrdersCount"></span>)</a>
-					<span class="element-divider"></span>
-				}
-				<a href="@Url.Action("Logout", "User")" class="element"><i class="icon-user"></i> @UserControllerStrings.LogoutMenuItemButton_DisplayName <small>(@User.FirstName @User.LastName)</small></a>
+				<span class="element-divider place-right"></span>
+				<a href="@Url.Action("Default", "Delivery")" class="element place-right">@UserControllerStrings.PlanDeliveriesMenuItemButton_DisplayName (<span id="@HtmlElementId.PendingOrdersCount"></span>)</a>
 			}
-			else
+			if (User.IsInRole<Employee>())
 			{
-				<a href="@Url.Action("Login", "User")" class="element"><i class="icon-user"></i> @UserControllerStrings.LoginMenuItemButton_DisplayName</a>
-				<span class="element-divider"></span>
-				<a href="@Url.Action("Register", "User")" class="element"><i class="icon-new"></i> @UserControllerStrings.RegisterMenuItemButton_DisplayName</a>
+				<span class="element-divider place-right"></span>
+				<a href="@Url.Action("Dashboard", "DeliveryTask")" class="element place-right">@UserControllerStrings.DashboardMenuItemButton_DisplayName (<span id="@HtmlElementId.PendingTasksCount"></span>)</a>
 			}
-		</span>
+		}
+		else
+		{
+			<a href="@Url.Action("Register", "User")" class="element place-right"><i class="icon-new"></i> @UserControllerStrings.RegisterMenuItemButton_DisplayName</a>
+			<span class="element-divider place-right"></span>
+			<a href="@Url.Action("Login", "User")" class="element place-right"><i class="icon-user"></i> @UserControllerStrings.LoginMenuItemButton_DisplayName</a>
+		}
 	</nav>
 </nav>

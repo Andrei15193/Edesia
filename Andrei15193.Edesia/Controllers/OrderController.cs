@@ -54,6 +54,12 @@ namespace Andrei15193.Edesia.Controllers
 			return View("_Notice", new Notice(OrderControllerStrings.CheckoutViewTitle, null, OrderControllerStrings.ThanksNoticeParagraph1, OrderControllerStrings.ThanksNoticeParagraph2, OrderControllerStrings.ThanksNoticeAuthor));
 		}
 
+		[HttpGet, Authorize]
+		public ActionResult History()
+		{
+			return View(_orderRepository.GetOrders(User, _productProvider, OrderState.EnRoute, OrderState.Pending, OrderState.Scheduled, OrderState.Delivered));
+		}
+
 		[HttpGet, Authorize, Role(typeof(Administrator))]
 		public JsonResult PendingCountJson()
 		{

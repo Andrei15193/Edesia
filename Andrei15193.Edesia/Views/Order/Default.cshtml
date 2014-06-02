@@ -26,7 +26,7 @@
 		<div class="span12">
 			@foreach (Order order in Model)
 			{
-				@Html.Partial("_Order", order)
+				@Html.Partial("_Order", new KeyValuePair<Order, bool>(order, false))
 			}
 		</div>
 	</div>

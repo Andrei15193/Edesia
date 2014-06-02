@@ -49,6 +49,35 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					return _GetOrder(orderXElement, applicationUserProvider, productProvider);
 			}
 		}
+		public IEnumerable<Order> GetOrders(ApplicationUser applicationUser, IProductProvider productProvider, params OrderState[] orderStates)
+		{
+			if (applicationUser == null)
+				throw new ArgumentNullException("applicationUser");
+			if (productProvider == null)
+				throw new ArgumentNullException("productProvider");
+
+			if (orderStates == null)
+				throw new ArgumentNullException("orderStates");
+			if (orderStates.Length == 0)
+				throw new ArgumentException("Cannot be empty!", "orderStates");
+
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
+				return xmlTransaction.XmlDocument
+									 .Root
+									 .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}Order")
+									 .Where(orderXmlElement => string.Equals(applicationUser.EMailAddress, orderXmlElement.Attribute("RecipientEMailAddress").Value, StringComparison.Ordinal))
+									 .Select(orderXmlElement => _GetOrder(orderXmlElement, applicationUser, productProvider))
+									 .OrderBy(order => orderStates.TakeWhile(state => (state != order.State)).Count());
+		}
+
+		public IEnumerable<string> GetUsedStreets()
+		{
+			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
+				return new SortedSet<string>(xmlTransaction.XmlDocument
+														   .Root
+														   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}Order")
+														   .Select(orderXmlElement => orderXmlElement.Attribute("DeliveryStreet").Value));
+		}
 		#endregion
 		#region IOrderRepository Members
 		public Order PlaceOrder(OrderDetails orderDetails)
@@ -141,15 +170,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				xmlTransacion.Commit();
 			}
 		}
-
-		public IEnumerable<string> GetUsedStreets()
-		{
-			using (ISharedXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginSharedTransaction(_xmlDocumentFileName))
-				return new SortedSet<string>(xmlTransaction.XmlDocument
-														   .Root
-														   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}Order")
-														   .Select(orderXmlElement => orderXmlElement.Attribute("DeliveryStreet").Value));
-		}
 		#endregion
 		public string XmlDocumentFileName
 		{
@@ -189,6 +209,23 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			Order order = new Order(int.Parse(orderXElement.Attribute("OrderNumber").Value),
 									datePlaced,
 									applicationUserProvider.GetUser(orderXElement.Attribute("RecipientEMailAddress").Value, datePlaced),
+									orderXElement.Attribute("DeliveryStreet").Value,
+									orderXElement.Attribute("DeliveryAddressDetails").Value,
+									(OrderState)Enum.Parse(typeof(OrderState), orderXElement.Attribute("State").Value));
+
+			foreach (XElement orderedProductXElement in orderXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}ProductOrdered"))
+				order.OrderedProducts.Add(new OrderedProduct(productProvider.GetProduct(orderedProductXElement.Attribute("Name").Value, datePlaced),
+															 int.Parse(orderedProductXElement.Attribute("Quantity").Value)));
+
+			return order;
+		}
+		private Order _GetOrder(XElement orderXElement, ApplicationUser applicationUser, IProductProvider productProvider)
+		{
+			DateTime datePlaced = DateTime.ParseExact(orderXElement.Attribute("DatePlaced").Value, MvcApplication.DateTimeSerializationFormat, null);
+
+			Order order = new Order(int.Parse(orderXElement.Attribute("OrderNumber").Value),
+									datePlaced,
+									applicationUser,
 									orderXElement.Attribute("DeliveryStreet").Value,
 									orderXElement.Attribute("DeliveryAddressDetails").Value,
 									(OrderState)Enum.Parse(typeof(OrderState), orderXElement.Attribute("State").Value));

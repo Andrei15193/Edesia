@@ -1,0 +1,12 @@
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.Resources;
+@model IEnumerable<Order>
+@{
+	ViewBag.Title = OrderControllerStrings.HistoryViewTitle;
+}
+<h1>@OrderControllerStrings.HistoryViewTitle</h1>
+
+@Html.Partial("_Orders", new KeyValuePair<string, IEnumerable<Order>>(OrderControllerStrings.PendingOrdersLabel_DisplayName, Model.Where(order => order.State == OrderState.Pending)))
+@Html.Partial("_Orders", new KeyValuePair<string, IEnumerable<Order>>(OrderControllerStrings.ScheduledOrdersLabel_DisplayName, Model.Where(order => order.State == OrderState.Scheduled)))
+@Html.Partial("_Orders", new KeyValuePair<string, IEnumerable<Order>>(OrderControllerStrings.EnRouteOrdersLabel_DisplayName, Model.Where(order => order.State == OrderState.EnRoute)))
+@Html.Partial("_Orders", new KeyValuePair<string, IEnumerable<Order>>(OrderControllerStrings.DeliveredOrdersLabel_DisplayName, Model.Where(order => order.State == OrderState.Delivered)))
