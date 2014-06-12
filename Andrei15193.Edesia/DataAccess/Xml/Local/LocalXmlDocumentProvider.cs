@@ -56,25 +56,30 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Local
 						Validate(xmlDocument, xmlSchemaSet);
 
 					return new XmlTransaction(xmlDocument,
-											  () =>
+											  newVersion =>
 											  {
-												  DateTime now = DateTime.Now;
-												  string xmlDocumentFileName = Combine(DirectoryPath, "." + xmlDocumentName, now.ToString("yyyy_MM_dd__HH_mm_ss_fffffff'.xml'"));
+												  if (newVersion)
+												  {
+													  DateTime now = DateTime.Now;
+													  string xmlDocumentFileName = Combine(DirectoryPath, "." + xmlDocumentName, now.ToString("yyyy_MM_dd__HH_mm_ss_fffffff'.xml'"));
 
-												  if (selectedVersionXElement.Attribute("EndDate") == null)
-													  selectedVersionXElement.Add(new XAttribute("EndDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")));
+													  if (selectedVersionXElement.Attribute("EndDate") == null)
+														  selectedVersionXElement.Add(new XAttribute("EndDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")));
+													  else
+														  versionXmlDocument.Root.Elements("Version").Last().Add(new XAttribute("EndDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")));
+													  versionXmlDocument.Root
+																		.Add(new XElement("Version",
+																						  new XAttribute("FileName", xmlDocumentFileName),
+																						  new XAttribute("BeginDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz"))));
+
+													  if (xmlSchemaSet != null)
+														  Validate(xmlDocument, xmlSchemaSet);
+
+													  xmlDocument.Save(xmlDocumentFileName);
+													  versionXmlDocument.Save(versionXmlDocumentFilePath);
+												  }
 												  else
-													  versionXmlDocument.Root.Elements("Version").Last().Add(new XAttribute("EndDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")));
-												  versionXmlDocument.Root
-																	.Add(new XElement("Version",
-																					  new XAttribute("FileName", xmlDocumentFileName),
-																					  new XAttribute("BeginDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz"))));
-
-												  if (xmlSchemaSet != null)
-													  Validate(xmlDocument, xmlSchemaSet);
-
-												  xmlDocument.Save(xmlDocumentFileName);
-												  versionXmlDocument.Save(versionXmlDocumentFilePath);
+													  xmlDocument.Save(xmlDocumentName);
 											  },
 											  () =>
 											  {
@@ -134,7 +139,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Local
 						Validate(xmlDocument, xmlSchemaSet);
 
 					return new XmlTransaction(xmlDocument,
-											  disposeAction: () =>  versionFileLock.ExitReadLock());
+											  disposeAction: () => versionFileLock.ExitReadLock());
 				}
 				catch
 				{

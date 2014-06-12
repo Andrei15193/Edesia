@@ -53,7 +53,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					deliveryTasks.Add(deliveryTask);
 				}
 
-				xmlTransaction.Commit();
+				xmlTransaction.Commit(newVersion: false);
 				return deliveryTasks;
 			}
 		}
@@ -154,7 +154,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				if (deliveryTaskXElement != null && deliveryTaskXElement.Attribute("Cancelled") == null)
 				{
 					deliveryTaskXElement.Add(new XAttribute("Cancelled", "Cancelled"));
-					xmlTransaction.Commit();
+					xmlTransaction.Commit(newVersion: false);
 				}
 			}
 		}

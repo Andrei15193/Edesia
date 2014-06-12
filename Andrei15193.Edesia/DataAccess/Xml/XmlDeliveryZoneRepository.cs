@@ -115,7 +115,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 							  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Delivery.xsd}Street", street));
 				try
 				{
-					xmlTransaction.Commit();
+					xmlTransaction.Commit(newVersion: false);
 				}
 				catch (AggregateException xmlExceptions)
 				{
@@ -143,7 +143,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					streetXElement.Remove();
 					try
 					{
-						xmlTransaction.Commit();
+						xmlTransaction.Commit(newVersion: true);
 					}
 					catch (AggregateException xmlExceptions)
 					{
@@ -181,7 +181,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 							  .Remove();
 				try
 				{
-					xmlTransaction.Commit();
+					xmlTransaction.Commit(newVersion: false);
 				}
 				catch (AggregateException xmlExceptions)
 				{
@@ -241,7 +241,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					deliveryZoneXElement.Attribute("Colour").SetValue(deliveryZone.Colour.ToString());
 					try
 					{
-						xmlTransaction.Commit();
+						xmlTransaction.Commit(newVersion: true);
 					}
 					catch (AggregateException xmlExceptions)
 					{
@@ -272,7 +272,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					deliveryZoneXElement.Remove();
 					try
 					{
-						xmlTransaction.Commit();
+						xmlTransaction.Commit(newVersion: true);
 					}
 					catch (AggregateException xmlExceptions)
 					{

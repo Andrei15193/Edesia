@@ -71,32 +71,38 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 						throw new ArgumentException("The specified version is before any known version of the file!", "version");
 
 					XDocument xmlDocument;
-					using (Stream readStream = blobContainer.GetBlockBlobReference(selectedVersionXElement.Attribute("FileName").Value).OpenRead())
+					CloudBlockBlob xmlDocumentBlockBlob = blobContainer.GetBlockBlobReference(selectedVersionXElement.Attribute("FileName").Value);
+					using (Stream readStream = xmlDocumentBlockBlob.OpenRead())
 						xmlDocument = XDocument.Load(readStream);
 
 					if (xmlSchemaSet != null)
 						Validate(xmlDocument, xmlSchemaSet);
 
 					return new XmlTransaction(xmlDocument,
-											  () =>
+											  newVersion =>
 											  {
-												  DateTime now = DateTime.Now;
-												  CloudBlockBlob xmlDocumentBlob = blobContainer.GetBlockBlobReference(Combine(DirectoryPath, xmlDocumentName, now.ToString("yyyy_MM_dd__HH_mm_ss_fffffff'.xml'")));
+												  if (newVersion)
+												  {
+													  DateTime now = DateTime.Now;
+													  CloudBlockBlob xmlDocumentBlob = blobContainer.GetBlockBlobReference(Combine(DirectoryPath, xmlDocumentName, now.ToString("yyyy_MM_dd__HH_mm_ss_fffffff'.xml'")));
 
-												  if (selectedVersionXElement.Attribute("EndDate") == null)
-													  selectedVersionXElement.Add(new XAttribute("EndDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")));
+													  if (selectedVersionXElement.Attribute("EndDate") == null)
+														  selectedVersionXElement.Add(new XAttribute("EndDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")));
+													  else
+														  versionXmlDocument.Root.Elements("Version").Last().Add(new XAttribute("EndDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")));
+													  versionXmlDocument.Root
+																		.Add(new XElement("Version",
+																						  new XAttribute("FileName", xmlDocumentBlob.Name),
+																						  new XAttribute("BeginDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz"))));
+
+													  if (xmlSchemaSet != null)
+														  Validate(xmlDocument, xmlSchemaSet);
+
+													  xmlDocumentBlob.UploadText(xmlDocument.ToString());
+													  versionXmlDocumentBlob.UploadText(versionXmlDocument.ToString());
+												  }
 												  else
-													  versionXmlDocument.Root.Elements("Version").Last().Add(new XAttribute("EndDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz")));
-												  versionXmlDocument.Root
-																	.Add(new XElement("Version",
-																					  new XAttribute("FileName", xmlDocumentBlob.Name),
-																					  new XAttribute("BeginDate", now.ToString("yyyy-MM-dd\\THH:mm:ss.FFFFFFFzzz"))));
-
-												  if (xmlSchemaSet != null)
-													  Validate(xmlDocument, xmlSchemaSet);
-
-												  xmlDocumentBlob.UploadText(xmlDocument.ToString());
-												  versionXmlDocumentBlob.UploadText(versionXmlDocument.ToString());
+													  xmlDocumentBlockBlob.UploadText(xmlDocument.ToString());
 											  },
 											  () =>
 											  {
@@ -135,7 +141,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 					versionFileLock.EnterReadLock();
 					XDocument versionXmlDocument;
 					CloudBlockBlob versionXmlDocumentBlob = blobContainer.GetBlockBlobReference(Combine(DirectoryPath, xmlDocumentName, "Versions.xml"));
-					
+
 					if (versionXmlDocumentBlob.Exists())
 						using (Stream readStream = versionXmlDocumentBlob.OpenRead())
 							versionXmlDocument = XDocument.Load(readStream);
@@ -195,7 +201,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml.Azure
 
 		private readonly object _documentSpinLocksLock = new object();
 		private readonly IDictionary<string, SpinLock> _documentSpinLocks = new SortedList<string, SpinLock>(StringComparer.OrdinalIgnoreCase);
-		
+
 		private readonly IDictionary<string, ReaderWriterLockSlim> _documentLocks = new SortedList<string, ReaderWriterLockSlim>();
 
 		private readonly string _connectionStringCloudSettingName;

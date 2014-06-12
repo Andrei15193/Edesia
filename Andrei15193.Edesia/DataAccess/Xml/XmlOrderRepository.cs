@@ -106,7 +106,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 																												   new XAttribute("Quantity", orderedProduct.Quantity)))));
 				try
 				{
-					xmlTransaction.Commit();
+					xmlTransaction.Commit(newVersion: false);
 					return new Order(orderNumber, now, orderDetails.Recipient, orderDetails.DeliveryStreet, orderDetails.DeliveryAddressDetails, OrderState.Pending);
 				}
 				catch (AggregateException xmlExceptions)
@@ -167,7 +167,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					}
 				}
 
-				xmlTransacion.Commit();
+				xmlTransacion.Commit(newVersion: false);
 			}
 		}
 		#endregion

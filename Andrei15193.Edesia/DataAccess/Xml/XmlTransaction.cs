@@ -5,7 +5,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 	public class XmlTransaction
 		: IExclusiveXmlTransaction
 	{
-		public XmlTransaction(XDocument xmlDocument, Action commitAction = null, Action disposeAction = null)
+		public XmlTransaction(XDocument xmlDocument, Action<bool> commitAction = null, Action disposeAction = null)
 		{
 			if (xmlDocument == null)
 				throw new ArgumentNullException("xmlDocument");
@@ -16,12 +16,12 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		}
 
 		#region IExclusiveXmlTransaction Members
-		public void Commit()
+		public void Commit(bool newVersion)
 		{
 			try
 			{
 				if (_commit != null)
-					_commit();
+					_commit(newVersion);
 			}
 			finally
 			{
@@ -55,7 +55,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 		private bool _isDisposed = false;
 		private readonly XDocument _xmlDocument;
-		private readonly Action _commit;
+		private readonly Action<bool> _commit;
 		private readonly Action _disposeAction;
 	}
 }

@@ -78,7 +78,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 												new XAttribute("ImageLocation", product.ImageLocation.AbsoluteUri)));
 				try
 				{
-					xmlTransaction.Commit();
+					xmlTransaction.Commit(newVersion: false);
 				}
 				catch (AggregateException xmlExceptions)
 				{
@@ -99,7 +99,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					try
 					{
 						productXElement.Remove();
-						xmlTransaction.Commit();
+						xmlTransaction.Commit(newVersion: true);
 					}
 					catch (AggregateException xmlExceptions)
 					{

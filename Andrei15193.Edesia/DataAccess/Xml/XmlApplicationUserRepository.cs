@@ -150,7 +150,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 						productXElement.Remove();
 				}
 
-				xmlTransaction.Commit();
+				xmlTransaction.Commit(newVersion: false);
 			}
 		}
 		public void UpdateCart(ApplicationUser applicationUser, OrderedProduct orderedProduct)
@@ -182,7 +182,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				else
 					productXElement.Attribute("Quantity").SetValue(orderedProduct.Quantity);
 
-				xmlTransaction.Commit();
+				xmlTransaction.Commit(newVersion: false);
 			}
 		}
 		public void RemoveFromCart(ApplicationUser applicationUser, Product product)
@@ -209,7 +209,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				if (productXElement != null)
 					productXElement.Remove();
 
-				xmlTransaction.Commit();
+				xmlTransaction.Commit(newVersion: false);
 			}
 		}
 		public void RemoveFromCarts(Product product)
@@ -227,7 +227,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 							  .Where(productXmlElement => string.Equals(productXmlElement.Attribute("Name").Value, product.Name, StringComparison.Ordinal))
 							  .Remove();
 
-				xmlTransaction.Commit();
+				xmlTransaction.Commit(newVersion: false);
 			}
 		}
 		public void ClearShoppingCart(ApplicationUser applicationUser)
@@ -249,7 +249,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Product")
 									   .Remove();
 
-				xmlTransaction.Commit();
+				xmlTransaction.Commit(newVersion: false);
 			}
 		}
 
@@ -269,7 +269,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 							  .Root
 							  .AddFirst(_GetApplicationUserXElement(applicationUser, password, registrationKey));
 
-				xmlTransaction.Commit();
+				xmlTransaction.Commit(newVersion: false);
 			}
 		}
 
@@ -290,7 +290,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				if (applicationUserXElement != null && applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Administrator") == null)
 				{
 					applicationUserXElement.Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Administrator"));
-					xmlTransaction.Commit();
+					xmlTransaction.Commit(newVersion: false);
 				}
 			}
 		}
@@ -316,7 +316,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ShoppingCart")
 										   .AddAfterSelf(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Employee",
 																	  new XAttribute("TransportCapacity", transportCapacity)));
-					xmlTransaction.Commit();
+					xmlTransaction.Commit(newVersion: false);
 				}
 			}
 		}
@@ -388,7 +388,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					}
 					try
 					{
-						xmlTransaction.Commit();
+						xmlTransaction.Commit(newVersion: false);
 					}
 					catch (AggregateException xmlExceptions)
 					{
@@ -416,7 +416,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 						authenticationTokenXAttribute.Remove();
 						try
 						{
-							xmlTransaction.Commit();
+							xmlTransaction.Commit(newVersion: false);
 						}
 						catch (AggregateException xmlExceptions)
 						{
@@ -452,7 +452,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					userXElement.Attribute("RegistrationKey").Remove();
 					try
 					{
-						xmlTransaction.Commit();
+						xmlTransaction.Commit(newVersion: false);
 					}
 					catch (AggregateException xmlExceptions)
 					{
