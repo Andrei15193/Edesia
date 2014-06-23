@@ -56,6 +56,5 @@ namespace Andrei15193.Edesia.Models
 
 		private readonly ApplicationUser _owner;
 		private readonly IEnumerable<OrderedProduct> _orderedProducts;
-
 	}
 }

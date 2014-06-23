@@ -85,6 +85,27 @@ namespace Andrei15193.Edesia.Models
 		{
 			return string.Format("#{0:X2}{1:X2}{2:X2}", _red, _green, _blue);
 		}
+		public byte Red
+		{
+			get
+			{
+				return _red;
+			}
+		}
+		public byte Green
+		{
+			get
+			{
+				return _green;
+			}
+		}
+		public byte Blue
+		{
+			get
+			{
+				return _blue;
+			}
+		}
 
 		private readonly byte _red;
 		private readonly byte _green;

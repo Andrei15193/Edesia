@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 namespace Andrei15193.Edesia.Models
 {
 	public class Product
@@ -69,10 +70,40 @@ namespace Andrei15193.Edesia.Models
 				return _imageLocation;
 			}
 		}
+		public static IEqualityComparer<Product> IdentityComparer
+		{
+			get
+			{
+				return _identityComparer;
+			}
+		}
 
 		private string _name;
 		private double _price;
 		private readonly double _capacity;
 		private readonly Uri _imageLocation;
+		private static readonly IEqualityComparer<Product> _identityComparer = new ProductIdentityComparer();
+
+		private sealed class ProductIdentityComparer
+			: IEqualityComparer<Product>
+		{
+			#region IEqualityComparer<Product> Members
+			public bool Equals(Product one, Product another)
+			{
+				if (one == null)
+					return (another == null);
+				else
+					return (another != null
+							&& string.Equals(one._name, another._name, StringComparison.OrdinalIgnoreCase));
+			}
+			public int GetHashCode(Product value)
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+
+				return value._name.GetHashCode();
+			}
+			#endregion
+		}
 	}
 }

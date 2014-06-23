@@ -5,7 +5,7 @@ namespace Andrei15193.Edesia.Models
 {
 	public class DeliveryTask
 	{
-		public DeliveryTask(int deliveryTaskNumber, DateTime dateScheduled, DeliveryZone deliveryZone, bool isCancelled, IEnumerable<Order> ordersToDeliver)
+		public DeliveryTask(int number, DateTime dateScheduled, DeliveryZone deliveryZone, bool isCancelled, IEnumerable<Order> ordersToDeliver)
 		{
 			if (deliveryZone == null)
 				throw new ArgumentNullException("deliveryZone");
@@ -15,17 +15,24 @@ namespace Andrei15193.Edesia.Models
 			if (!ordersToDeliver.Any())
 				throw new ArgumentException("Cannot be empty!", "ordersToDelvier");
 
-			_deliveryTaskNumber = deliveryTaskNumber;
+			_number = number;
 			_dateScheduled = dateScheduled;
 			_deliveryZone = deliveryZone;
 			_isCancelled = isCancelled;
-			_ordersToDeliver = ordersToDeliver.Where(orderToDeliver => orderToDeliver != null).ToList();
+			_ordersToDeliver = ordersToDeliver.Where(orderToDeliver => (orderToDeliver != null)).ToList();
 		}
-		public DeliveryTask(int deliveryTaskNumber, DateTime dateScheduled, DeliveryZone deliveryZone, bool isCancelled, params Order[] ordersToDeliver)
-			: this(deliveryTaskNumber, dateScheduled, deliveryZone, isCancelled, (IEnumerable<Order>)ordersToDeliver)
+		public DeliveryTask(int number, DateTime dateScheduled, DeliveryZone deliveryZone, bool isCancelled, params Order[] ordersToDeliver)
+			: this(number, dateScheduled, deliveryZone, isCancelled, (IEnumerable<Order>)ordersToDeliver)
 		{
 		}
 
+		public int Number
+		{
+			get
+			{
+				return _number;
+			}
+		}
 		public bool IsCancelled
 		{
 			get
@@ -53,13 +60,6 @@ namespace Andrei15193.Edesia.Models
 				}
 
 				return TaskState.Unknown;
-			}
-		}
-		public int DeliveryTaskNumber
-		{
-			get
-			{
-				return _deliveryTaskNumber;
 			}
 		}
 		public DateTime DateScheduled
@@ -105,11 +105,41 @@ namespace Andrei15193.Edesia.Models
 			foreach (Order orderToDeliver in _ordersToDeliver)
 				orderToDeliver.State = OrderState.Pending;
 		}
+		public static IEqualityComparer<DeliveryTask> IdentityComparer
+		{
+			get
+			{
+				return _identityComparer;
+			}
+		}
 
 		private bool _isCancelled;
-		private readonly int _deliveryTaskNumber;
+		private readonly int _number;
 		private readonly DateTime _dateScheduled;
 		private readonly DeliveryZone _deliveryZone;
 		private readonly IReadOnlyCollection<Order> _ordersToDeliver;
+		private static readonly IEqualityComparer<DeliveryTask> _identityComparer = new DeliveryTaskIdentityComparer();
+
+		private sealed class DeliveryTaskIdentityComparer
+			: IEqualityComparer<DeliveryTask>
+		{
+			#region IEqualityComparer<DeliveryTask> Members
+			public bool Equals(DeliveryTask one, DeliveryTask another)
+			{
+				if (one == null)
+					return (another == null);
+				else
+					return (another != null
+							&& one._number == another._number);
+			}
+			public int GetHashCode(DeliveryTask value)
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+
+				return value._number.GetHashCode();
+			}
+			#endregion
+		}
 	}
 }

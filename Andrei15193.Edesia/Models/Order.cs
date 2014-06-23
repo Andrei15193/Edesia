@@ -5,34 +5,23 @@ namespace Andrei15193.Edesia.Models
 {
 	public class Order
 	{
-		public Order(int orderNumber, DateTime datePlaced, ApplicationUser recipient, string deliveryStreet, string deliveryAddressDetails, OrderState orderState = OrderState.Pending)
+		public Order(int number, DateTime datePlaced, ApplicationUser recipient, DeliveryAddress deliveryAddress, OrderState orderState = OrderState.Pending)
 		{
 			if (recipient == null)
 				throw new ArgumentNullException("recipient");
 
-			if (deliveryStreet == null)
-				throw new ArgumentNullException("deliveryStreet");
-			if (string.IsNullOrWhiteSpace(deliveryStreet))
-				throw new ArgumentException("Cannot be empty or whitespace!", "deliveryStreet");
-
-			if (deliveryAddressDetails == null)
-				throw new ArgumentNullException("deliveryAddressDetails");
-			if (string.IsNullOrWhiteSpace(deliveryAddressDetails))
-				throw new ArgumentException("Cannot be empty or whitespace!", "deliveryAddressDetails");
-
-			_orderNumber = orderNumber;
+			_number = number;
 			_datePlaced = datePlaced;
 			_recipient = recipient;
-			_deliveryStreet = deliveryStreet.Trim();
-			_deliveryAddressDetails = deliveryAddressDetails.Trim();
+			_deliveryAddress = deliveryAddress;
 			State = orderState;
 		}
 
-		public int OrderNumber
+		public int Number
 		{
 			get
 			{
-				return _orderNumber;
+				return _number;
 			}
 		}
 		public DateTime DatePlaced
@@ -49,18 +38,11 @@ namespace Andrei15193.Edesia.Models
 				return _recipient;
 			}
 		}
-		public string DeliveryStreet
+		public DeliveryAddress DeliveryAddress
 		{
 			get
 			{
-				return _deliveryStreet;
-			}
-		}
-		public string DeliveryAddressDetails
-		{
-			get
-			{
-				return _deliveryAddressDetails;
+				return _deliveryAddress;
 			}
 		}
 		public OrderState State
@@ -75,7 +57,6 @@ namespace Andrei15193.Edesia.Models
 				return _orderedProducts;
 			}
 		}
-
 		public double TotalCapacity
 		{
 			get
@@ -90,12 +71,53 @@ namespace Andrei15193.Edesia.Models
 				return _orderedProducts.Sum(orderedProduct => orderedProduct.Product.Price * orderedProduct.Quantity);
 			}
 		}
+		public static IEqualityComparer<Order> IdentityComparer
+		{
+			get
+			{
+				return _identityComparer;
+			}
+		}
 
-		private readonly int _orderNumber;
+		private readonly int _number;
 		private readonly DateTime _datePlaced;
 		private readonly ApplicationUser _recipient;
-		private readonly string _deliveryStreet;
-		private readonly string _deliveryAddressDetails;
-		private readonly ISet<OrderedProduct> _orderedProducts = new HashSet<OrderedProduct>();
+		private readonly DeliveryAddress _deliveryAddress;
+		private readonly ISet<OrderedProduct> _orderedProducts = new SortedSet<OrderedProduct>(_orderedProductComparer);
+		private readonly static IComparer<OrderedProduct> _orderedProductComparer = new OrderedProductComparer();
+		private readonly static IEqualityComparer<Order> _identityComparer = new OrderIdentityComparer();
+
+		private sealed class OrderIdentityComparer
+			: IEqualityComparer<Order>
+		{
+			#region IEqualityComparer<Order> Members
+			public bool Equals(Order one, Order another)
+			{
+				if (one == null)
+					return (another == null);
+				else
+					return (another != null
+							&& one._number == another._number);
+			}
+			public int GetHashCode(Order value)
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+
+				return value._number.GetHashCode();
+			}
+			#endregion
+		}
+
+		private sealed class OrderedProductComparer
+			: IComparer<OrderedProduct>
+		{
+			#region IComparer<OrderedProduct> Members
+			public int Compare(OrderedProduct first, OrderedProduct second)
+			{
+				return string.Compare(first.Product.Name, second.Product.Name, StringComparison.OrdinalIgnoreCase);
+			}
+			#endregion
+		}
 	}
 }

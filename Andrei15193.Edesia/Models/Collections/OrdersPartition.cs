@@ -16,7 +16,7 @@ namespace Andrei15193.Edesia.Models.Collections
 
 			_orders = new SortedList<int, Order>(orders.Count());
 			foreach (Order order in orders)
-				_orders.Add(order.OrderNumber, order);
+				_orders.Add(order.Number, order);
 		}
 
 		#region IEnumerable<Order> Members

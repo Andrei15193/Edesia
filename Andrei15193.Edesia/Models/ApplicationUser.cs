@@ -49,19 +49,6 @@ namespace Andrei15193.Edesia.Models
 			{
 				return _eMailAddress.Address;
 			}
-			set
-			{
-				if (value == null)
-					throw new ArgumentNullException("EMailAddress");
-				try
-				{
-					_eMailAddress = new MailAddress(value);
-				}
-				catch (FormatException formatException)
-				{
-					throw new ArgumentException("The given e-mail address is not valid!", "EMailAddress", formatException);
-				}
-			}
 		}
 		public string FirstName
 		{
@@ -117,9 +104,9 @@ namespace Andrei15193.Edesia.Models
 			}
 		}
 
-		private MailAddress _eMailAddress;
 		private string _firstName;
 		private string _lastName;
+		private readonly MailAddress _eMailAddress;
 		private readonly DateTime _registrationTime;
 		private static IEqualityComparer<ApplicationUser> _identityComparer = new ApplicationUserIdentityComparer();
 
