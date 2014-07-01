@@ -18,7 +18,7 @@
 				<h2>@OrderControllerStrings.OrderDetailsLabel_DisplayName</h2>
 				<p>
 					@OrderControllerStrings.TotalProductsLabel_DisplayName<span style="float: right;">@Model.ShoppingCart.Count</span><br />
-					<strong>@OrderControllerStrings.TotalPriceLabel_DisplayName</strong><strong style="float: right;">@Model.ShoppingCart.TotoalPrice RON</strong>
+					<strong>@OrderControllerStrings.TotalPriceLabel_DisplayName</strong><strong style="float: right;">@Model.ShoppingCart.TotoalPrice.ToString("0.00") RON</strong>
 				</p>
 				<div class="accordion with-marker" data-role="accordion">
 					<div class="accordion-frame">
@@ -26,9 +26,9 @@
 							@OrderControllerStrings.OrderedProductsLabel_DisplayName
 						</span>
 						<div class="content">
-							@foreach (OrderedProduct orderedProduct in Model.ShoppingCart)
+							@foreach (ShoppingCartEntry shoppingCartEntry in Model.ShoppingCart)
 							{
-								Html.RenderPartial("_OrderedProduct", orderedProduct);
+								Html.RenderPartial("_ShoppingCartEntry", shoppingCartEntry);
 							}
 						</div>
 					</div>

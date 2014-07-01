@@ -5,32 +5,32 @@ using System.Linq;
 namespace Andrei15193.Edesia.Models
 {
 	public class ShoppingCart
-		: IReadOnlyCollection<OrderedProduct>
+		: IReadOnlyCollection<ShoppingCartEntry>
 	{
-		public ShoppingCart(ApplicationUser owner, IEnumerable<OrderedProduct> orderedProducts)
+		public ShoppingCart(ApplicationUser owner, IEnumerable<ShoppingCartEntry> shoppingCartEntries)
 		{
 			if (owner == null)
 				throw new ArgumentNullException("owner");
-			if (orderedProducts == null)
-				throw new ArgumentNullException("orderedProducts");
+			if (shoppingCartEntries == null)
+				throw new ArgumentNullException("shoppingCartEntries");
 
 			_owner = owner;
-			_orderedProducts = orderedProducts;
+			_shoppingCartEntries = shoppingCartEntries;
 		}
 
-		#region IReadOnlyCollection<OrderedProduct> Members
+		#region IReadOnlyCollection<ShoppingCartEntry> Members
 		public int Count
 		{
 			get
 			{
-				return _orderedProducts.Sum(product => product.Quantity);
+				return _shoppingCartEntries.Sum(product => product.Quantity);
 			}
 		}
 		#endregion
-		#region IEnumerable<OrderedProduct> Members
-		public IEnumerator<OrderedProduct> GetEnumerator()
+		#region IEnumerable<ShoppingCartEntry> Members
+		public IEnumerator<ShoppingCartEntry> GetEnumerator()
 		{
-			return _orderedProducts.GetEnumerator();
+			return _shoppingCartEntries.GetEnumerator();
 		}
 		#endregion
 		#region IEnumerable Members
@@ -50,11 +50,11 @@ namespace Andrei15193.Edesia.Models
 		{
 			get
 			{
-				return _orderedProducts.Sum(orderedProduct => orderedProduct.Product.Price * orderedProduct.Quantity);
+				return _shoppingCartEntries.Sum(orderedProduct => orderedProduct.Product.Price * orderedProduct.Quantity);
 			}
 		}
 
 		private readonly ApplicationUser _owner;
-		private readonly IEnumerable<OrderedProduct> _orderedProducts;
+		private readonly IEnumerable<ShoppingCartEntry> _shoppingCartEntries;
 	}
 }

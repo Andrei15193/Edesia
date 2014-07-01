@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
 using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
@@ -15,7 +14,7 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet]
 		public ActionResult Default()
 		{
-			return View(_productRepository.GetProducts().OrderBy(product => product.Name));
+			return View(_productRepository.GetProducts());
 		}
 
 		[HttpGet, Authorize, Role(typeof(Administrator))]
@@ -34,7 +33,7 @@ namespace Andrei15193.Edesia.Controllers
 										  addProductViewModel.Image.FileName.Substring(Math.Max(addProductViewModel.Image.FileName.LastIndexOf('\\'), addProductViewModel.Image.FileName.LastIndexOf('/')) + 1),
 										  out imageLocation);
 
-					_productRepository.AddProduct(new Product(addProductViewModel.Name, double.Parse(addProductViewModel.Price), double.Parse(addProductViewModel.Capacity), imageLocation));
+					_productRepository.Add(new Product(addProductViewModel.Name, double.Parse(addProductViewModel.Price), double.Parse(addProductViewModel.Capacity), imageLocation));
 					return RedirectToAction("Default", "Product");
 				}
 				catch (AggregateException aggregateException)
@@ -55,16 +54,12 @@ namespace Andrei15193.Edesia.Controllers
 		public ActionResult Remove(string productName)
 		{
 			if (productName != null)
-			{
-				_applicationUserRepository.RemoveFromCarts(_productRepository.GetProduct(productName));
-				_productRepository.RemoveProduct(productName);
-			}
+				_productRepository.Remove(productName);
 
 			return RedirectToAction("Default", "Product");
 		}
 
 		private readonly IImageUploader _imageUploader = (IImageUploader)MvcApplication.DependencyContainer["imageUploader"];
-		private readonly IProductRepository _productRepository = (IProductRepository)MvcApplication.DependencyContainer["productRepository"];
-		private readonly IApplicationUserRepository _applicationUserRepository = (IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"];
+		private readonly IProductRepository _productRepository = (IProductRepository)MvcApplication.DependencyContainer["productRepo"];
 	}
 }

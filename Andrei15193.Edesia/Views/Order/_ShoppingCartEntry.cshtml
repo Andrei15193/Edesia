@@ -1,6 +1,6 @@
 ﻿@using Andrei15193.Edesia.Models;
 @using Andrei15193.Edesia.Resources;
-@model OrderedProduct
+@model ShoppingCartEntry
 <div style="margin-bottom: 10px;">
 	<div style="display: inline;">
 		<img class="rounded span3 margin5" src="@Model.Product.ImageLocation.AbsoluteUri" />
@@ -12,10 +12,10 @@
 			<span style="float: right;">@Model.Quantity</span>
 		</div>
 		<div>
-			@OrderControllerStrings.PriceLabel_DisplayName<span style="float: right;">@Model.Product.Price RON</span>
+			@OrderControllerStrings.PriceLabel_DisplayName<span style="float: right;">@Model.Product.Price.ToString("0.00") RON</span>
 		</div>
 		<div>
-			<strong>@OrderControllerStrings.TotalPriceLabel_DisplayName</strong><strong style="float: right;">@(Model.Product.Price * Model.Quantity) RON</strong>
+			<strong>@OrderControllerStrings.TotalPriceLabel_DisplayName</strong><strong style="float: right;">@((Model.Product.Price * Model.Quantity).ToString("0.00")) RON</strong>
 		</div>
 	</div>
 </div>

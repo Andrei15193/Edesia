@@ -151,15 +151,6 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Istoric comenzi.
-        /// </summary>
-        public static string HistoryViewTitle {
-            get {
-                return ResourceManager.GetString("HistoryViewTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Comanda #{0}, {1:dd MMMM yyyy, HH:mm}.
         /// </summary>
         public static string OrderAccordionFrameHeader_DisplayName_Format {
@@ -228,6 +219,15 @@ namespace Andrei15193.Edesia.Resources {
         public static string QuantityLabel_DisplayName {
             get {
                 return ResourceManager.GetString("QuantityLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registru comenzi.
+        /// </summary>
+        public static string RegistryViewTitle {
+            get {
+                return ResourceManager.GetString("RegistryViewTitle", resourceCulture);
             }
         }
         

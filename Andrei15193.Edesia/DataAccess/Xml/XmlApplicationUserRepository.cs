@@ -112,7 +112,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				return new ShoppingCart(applicationUser,
 										applicationUserXElement.Element("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}ShoppingCart")
 															   .Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Membership.xsd}Product")
-															   .Select(productXElement => _GetOrderedProduct(productXElement, productProvider)));
+															   .Select(productXElement => _GetShoppingCartEntry(productXElement, productProvider)));
 			}
 		}
 		#endregion
@@ -573,10 +573,10 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			return applicationUserXElement;
 		}
 
-		private OrderedProduct _GetOrderedProduct(XElement productXElement, IProductProvider productProvider)
+		private ShoppingCartEntry _GetShoppingCartEntry(XElement productXElement, IProductProvider productProvider)
 		{
-			return new OrderedProduct(productProvider.GetProduct(productXElement.Attribute("Name").Value),
-									  int.Parse(productXElement.Attribute("Quantity").Value));
+			return new ShoppingCartEntry(productProvider.GetProduct(productXElement.Attribute("Name").Value),
+										 int.Parse(productXElement.Attribute("Quantity").Value));
 		}
 
 		private string _ComputeHash(string authenticationToken)

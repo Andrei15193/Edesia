@@ -82,8 +82,6 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 		#region IOrderRepository Members
 		public Order PlaceOrder(OrderDetails orderDetails)
 		{
-			if (orderDetails == null)
-				throw new ArgumentNullException("orderDetails");
 			if (!orderDetails.OrderedProducts.Any())
 				throw new ArgumentException("There must be at least one ordered product!", "orderDetails");
 
@@ -99,15 +97,15 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 												new XAttribute("DatePlaced", now.ToString(MvcApplication.DateTimeSerializationFormat)),
 												new XAttribute("RecipientEMailAddress", orderDetails.Recipient.EMailAddress),
 												new XAttribute("State", OrderState.Pending),
-												new XAttribute("DeliveryStreet", orderDetails.DeliveryStreet),
-												new XAttribute("DeliveryAddressDetails", orderDetails.DeliveryAddressDetails),
+												new XAttribute("DeliveryStreet", orderDetails.DeliveryAddress.Street),
+												new XAttribute("DeliveryAddressDetails", orderDetails.DeliveryAddress.Details),
 												orderDetails.OrderedProducts.Select(orderedProduct => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}ProductOrdered",
 																												   new XAttribute("Name", orderedProduct.Product.Name),
 																												   new XAttribute("Quantity", orderedProduct.Quantity)))));
 				try
 				{
 					xmlTransaction.Commit(newVersion: false);
-					return new Order(orderNumber, now, orderDetails.Recipient, orderDetails.DeliveryStreet, orderDetails.DeliveryAddressDetails, OrderState.Pending);
+					return new Order(orderNumber, now, orderDetails.Recipient, new DeliveryAddress(orderDetails.DeliveryAddress.Street, orderDetails.DeliveryAddress.Details), OrderState.Pending);
 				}
 				catch (AggregateException xmlExceptions)
 				{
@@ -142,7 +140,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 
 			IDictionary<int, Order> indexedOrders = new SortedList<int, Order>(orders.Count());
 			foreach (Order order in orders)
-				indexedOrders.Add(order.OrderNumber, order);
+				indexedOrders.Add(order.Number, order);
 
 			using (IExclusiveXmlTransaction xmlTransacion = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{
@@ -209,8 +207,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			Order order = new Order(int.Parse(orderXElement.Attribute("OrderNumber").Value),
 									datePlaced,
 									applicationUserProvider.GetUser(orderXElement.Attribute("RecipientEMailAddress").Value, datePlaced),
-									orderXElement.Attribute("DeliveryStreet").Value,
-									orderXElement.Attribute("DeliveryAddressDetails").Value,
+									new DeliveryAddress(orderXElement.Attribute("DeliveryStreet").Value,
+														orderXElement.Attribute("DeliveryAddressDetails").Value),
 									(OrderState)Enum.Parse(typeof(OrderState), orderXElement.Attribute("State").Value));
 
 			foreach (XElement orderedProductXElement in orderXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}ProductOrdered"))
@@ -226,8 +224,8 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 			Order order = new Order(int.Parse(orderXElement.Attribute("OrderNumber").Value),
 									datePlaced,
 									applicationUser,
-									orderXElement.Attribute("DeliveryStreet").Value,
-									orderXElement.Attribute("DeliveryAddressDetails").Value,
+									new DeliveryAddress(orderXElement.Attribute("DeliveryStreet").Value,
+														orderXElement.Attribute("DeliveryAddressDetails").Value),
 									(OrderState)Enum.Parse(typeof(OrderState), orderXElement.Attribute("State").Value));
 
 			foreach (XElement orderedProductXElement in orderXElement.Elements("{http://storage.andrei15193.ro/public/schemas/Edesia/Order.xsd}ProductOrdered"))

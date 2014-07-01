@@ -5,18 +5,8 @@ namespace Andrei15193.Edesia.Models
 {
 	public class DeliveryTaskDetails
 	{
-		public DeliveryTaskDetails(DateTime dateScheduled, string title, string description, DeliveryZone deliveryZone, IEnumerable<Order> ordersToDeliver)
+		public DeliveryTaskDetails(DateTime dateScheduled, DeliveryZone deliveryZone, IEnumerable<Order> ordersToDeliver)
 		{
-			if (title == null)
-				throw new ArgumentNullException("title");
-			if (string.IsNullOrWhiteSpace(title))
-				throw new ArgumentException("Cannot be empty or whitespace!", "title");
-
-			if (description == null)
-				throw new ArgumentNullException("description");
-			if (string.IsNullOrWhiteSpace(description))
-				throw new ArgumentException("Cannot be empty or whitespace!", "description");
-
 			if (deliveryZone == null)
 				throw new ArgumentNullException("deliveryZone");
 
@@ -26,13 +16,11 @@ namespace Andrei15193.Edesia.Models
 				throw new ArgumentException("Cannot be empty!", "ordersToDelvier");
 
 			_dateScheduled = dateScheduled;
-			_title = title;
-			_description = description;
 			_deliveryZone = deliveryZone;
-			_ordersToDeliver = ordersToDeliver.Where(orderToDeliver => ordersToDeliver != null).ToList();
+			_ordersToDeliver = ordersToDeliver.Where(orderToDeliver => orderToDeliver != null).ToList();
 		}
-		public DeliveryTaskDetails(DateTime dateScheduled, string title, string description, DeliveryZone deliveryZone, params Order[] ordersToDeliver)
-			: this(dateScheduled, title, description, deliveryZone, (IEnumerable<Order>)ordersToDeliver)
+		public DeliveryTaskDetails(DateTime dateScheduled, DeliveryZone deliveryZone, params Order[] ordersToDeliver)
+			: this(dateScheduled, deliveryZone, (IEnumerable<Order>)ordersToDeliver)
 		{
 		}
 
@@ -41,20 +29,6 @@ namespace Andrei15193.Edesia.Models
 			get
 			{
 				return _dateScheduled;
-			}
-		}
-		public string Title
-		{
-			get
-			{
-				return _title;
-			}
-		}
-		public string Description
-		{
-			get
-			{
-				return _description;
 			}
 		}
 		public DeliveryZone DeliveryZone
@@ -72,8 +46,6 @@ namespace Andrei15193.Edesia.Models
 			}
 		}
 
-		private readonly string _title;
-		private readonly string _description;
 		private readonly DateTime _dateScheduled;
 		private readonly DeliveryZone _deliveryZone;
 		private readonly IReadOnlyCollection<Order> _ordersToDeliver;

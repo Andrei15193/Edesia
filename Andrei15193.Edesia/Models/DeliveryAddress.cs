@@ -3,21 +3,23 @@ namespace Andrei15193.Edesia.Models
 {
 	public struct DeliveryAddress
 	{
-		public DeliveryAddress(Street street, string details)
+		public DeliveryAddress(string street, string details)
 		{
 			if (street == null)
 				throw new ArgumentNullException("street");
+			if (string.IsNullOrWhiteSpace(street))
+				throw new ArgumentException("Cannot be empty or whitespace!", "street");
 
 			if (details == null)
 				throw new ArgumentNullException("details");
 			if (string.IsNullOrWhiteSpace(details))
-				throw new ArgumentException("Cannot be empty or whitespace!", "street");
+				throw new ArgumentException("Cannot be empty or whitespace!", "details");
 
 			_street = street;
 			_details = details;
 		}
 
-		public Street Street
+		public string Street
 		{
 			get
 			{
@@ -32,7 +34,7 @@ namespace Andrei15193.Edesia.Models
 			}
 		}
 
-		private readonly Street _street;
+		private readonly string _street;
 		private readonly string _details;
 	}
 }

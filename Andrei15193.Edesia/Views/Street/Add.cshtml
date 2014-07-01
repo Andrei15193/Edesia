@@ -10,7 +10,7 @@
 			@using (Html.BeginForm())
 			{
 				@Html.LabelFor(model => model.Street)
-				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Address"])
+				@Html.Partial("_ModelErrorNotice", ViewData.ModelState["Street"])
 				<div class="input-control text">
 					@Html.EditorFor(model => model.Street)
 				</div>

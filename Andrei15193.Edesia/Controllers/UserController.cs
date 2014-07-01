@@ -22,7 +22,7 @@ namespace Andrei15193.Edesia.Controllers
 			if (email == null || key == null)
 				return View();
 			else
-				if (_applicationUserRepository.ClearRegistrationKey(email, key))
+				if (_userRepository.ConfirmUser(email, key))
 					return View("_Notice", new Notice(UserControllerStrings.RegisterViewTitle, null, UserControllerStrings.Registration_Completed_Paragraph1));
 				else
 					return View("_Notice", new Notice(UserControllerStrings.RegisterViewTitle, null, UserControllerStrings.Registration_TokenExpired_Paragraph1, UserControllerStrings.Registration_TokenExpired_Paragraph2));
@@ -35,9 +35,9 @@ namespace Andrei15193.Edesia.Controllers
 				{
 					string registrationKey = _GenerateRegistrationKey();
 
-					_applicationUserRepository.AddApplicationUser(new ApplicationUser(registerViewModel.EMailAddress, registerViewModel.FirstName, registerViewModel.LastName, DateTime.Now),
-																  registerViewModel.Password,
-																  registrationKey);
+					_userRepository.Add(new ApplicationUser(registerViewModel.EMailAddress, registerViewModel.FirstName, registerViewModel.LastName, DateTime.Now),
+															registerViewModel.Password,
+															registrationKey);
 					_SendRegistrationEMail(registerViewModel, registrationKey);
 
 					return View("_Notice", new Notice(UserControllerStrings.RegisterViewTitle, null, UserControllerStrings.Registration_ConfirmationMailSent_Paragraph1));
@@ -68,14 +68,14 @@ namespace Andrei15193.Edesia.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				ApplicationUser applicationUser = _applicationUserRepository.Find(loginViewModel.EMailAddress, loginViewModel.Password);
+				ApplicationUser applicationUser = _userRepository.Find(loginViewModel.EMailAddress, loginViewModel.Password, AuthenticationTokenType.Password);
 
 				if (applicationUser != null)
 				{
 					FormsAuthentication.SignOut();
 					HttpCookie authenticationCookie = FormsAuthentication.GetAuthCookie(loginViewModel.EMailAddress, true);
 
-					_applicationUserRepository.SetAuthenticationToken(applicationUser, authenticationCookie.Value, AuthenticationTokenType.Key);
+					_userRepository.SetAuthenticationToken(applicationUser, authenticationCookie.Value, AuthenticationTokenType.Key);
 					Response.SetCookie(authenticationCookie);
 					if (Url.IsLocalUrl(returnUrl))
 						return Redirect(returnUrl);
@@ -94,7 +94,7 @@ namespace Andrei15193.Edesia.Controllers
 		{
 			if (User != null)
 			{
-				_applicationUserRepository.ClearAuthenticationKey(User.EMailAddress);
+				_userRepository.SetAuthenticationToken(User, null, AuthenticationTokenType.Key);
 				FormsAuthentication.SignOut();
 				Session.Abandon();
 			}
@@ -105,13 +105,17 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet, Role(typeof(Administrator))]
 		public ActionResult Browse()
 		{
-			return View(_applicationUserRepository.GetUsers());
+			return View(_userRepository.Users);
 		}
 		[Authorize, Role(typeof(Administrator))]
 		public ActionResult PromoteToAdmin(string eMail)
 		{
 			if (!string.IsNullOrWhiteSpace(eMail))
-				_applicationUserRepository.EnrollAdministrator(Server.UrlDecode(eMail));
+			{
+				ApplicationUser applicationUser = _userRepository.Find(eMail);
+				if (applicationUser != null)
+					_userRepository.Update(new Administrator(applicationUser));
+			}
 
 			return RedirectToAction("Browse", "User");
 		}
@@ -119,7 +123,12 @@ namespace Andrei15193.Edesia.Controllers
 		public ActionResult PromoteToEmployee(string eMail, double transportCapacity)
 		{
 			if (!string.IsNullOrWhiteSpace(eMail) && transportCapacity > 0)
-				_applicationUserRepository.EnrollEmployee(Server.UrlDecode(eMail), transportCapacity);
+			{
+				ApplicationUser applicationUser = _userRepository.Find(eMail);
+
+				if (applicationUser != null)
+					_userRepository.Update(new Employee(applicationUser, transportCapacity));
+			}
 
 			return RedirectToAction("Browse", "User");
 		}
@@ -182,6 +191,6 @@ namespace Andrei15193.Edesia.Controllers
 			});
 		}
 
-		private readonly IApplicationUserRepository _applicationUserRepository = (IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"];
+		private static readonly IUserRepository _userRepository = (IUserRepository)MvcApplication.DependencyContainer["userRepository"];
 	}
 }

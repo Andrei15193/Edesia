@@ -1,5 +1,5 @@
-﻿@using Andrei15193.Edesia.Models;
-@using Andrei15193.Edesia.Resources;
+﻿@using Andrei15193.Edesia.Resources;
+@using Andrei15193.Edesia.Models;
 @model IEnumerable<DeliveryZone>
 @{
 	Layout = null;
@@ -26,10 +26,12 @@
 	</div>
 	<div class="row">
 		<div class="span12">
-			@Html.Action("Unmapped", "Street")
-			@foreach (DeliveryZone deliveryZone in Model)
-			{
-				@Html.Partial("_DeliveryZone", deliveryZone)
+			@{
+				Html.RenderAction("Unmapped", "Street");
+				foreach (DeliveryZone deliveryZone in Model)
+				{
+					Html.RenderPartial("_DeliveryZone", deliveryZone);
+				}
 			}
 		</div>
 	</div>

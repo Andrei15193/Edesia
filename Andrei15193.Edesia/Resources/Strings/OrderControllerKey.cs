@@ -12,7 +12,6 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string DeliveryAddressLabel_DisplayName = "DeliveryAddressLabel_DisplayName";
 		internal const string DeliveryDetailsLabel_DisplayName = "DeliveryDetailsLabel_DisplayName";
 		internal const string EnRouteOrdersLabel_DisplayName = "EnRouteOrdersLabel_DisplayName";
-		internal const string HistoryViewTitle = "HistoryViewTitle";
 		internal const string OrderAccordionFrameHeader_DisplayName_Format = "OrderAccordionFrameHeader_DisplayName_Format";
 		internal const string OrderDetailsLabel_DisplayName = "OrderDetailsLabel_DisplayName";
 		internal const string OrderedProductLabel_DisplayName_Format = "OrderedProductLabel_DisplayName_Format";
@@ -21,6 +20,7 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string PendingOrdersLabel_DisplayName = "PendingOrdersLabel_DisplayName";
 		internal const string PriceLabel_DisplayName = "PriceLabel_DisplayName";
 		internal const string QuantityLabel_DisplayName = "QuantityLabel_DisplayName";
+		internal const string RegistryViewTitle = "RegistryViewTitle";
 		internal const string ScheduledOrdersLabel_DisplayName = "ScheduledOrdersLabel_DisplayName";
 		internal const string SchedulePendingOrdersButton_DisplayName = "SchedulePendingOrdersButton_DisplayName";
 		internal const string SchedulePendingOrdersButton_Hint = "SchedulePendingOrdersButton_Hint";

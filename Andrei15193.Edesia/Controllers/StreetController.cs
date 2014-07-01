@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using Andrei15193.Edesia.Attributes;
-using Andrei15193.Edesia.Collections;
 using Andrei15193.Edesia.DataAccess;
 using Andrei15193.Edesia.Exceptions;
 using Andrei15193.Edesia.Models;
@@ -17,10 +14,7 @@ namespace Andrei15193.Edesia.Controllers
 		[ChildActionOnly]
 		public ActionResult Unmapped()
 		{
-			IEnumerable<string> unusedStreets = new SortedSet<string>(_deliveryRepository.GetUnmappedStreets().Except(_orderRepository.GetUsedStreets()), StringComparer.Ordinal);
-
-			return View(_deliveryRepository.GetUnmappedStreets()
-										   .Select(street => KeyValuePair.Create(street, unusedStreets.Contains(street))));
+			return View(_deliveryRepository.GetUnmappedStreets());
 		}
 
 		[HttpGet, Authorize, Role(typeof(Administrator))]
@@ -35,7 +29,7 @@ namespace Andrei15193.Edesia.Controllers
 			{
 				try
 				{
-					_deliveryRepository.AddStreet(addStreetViewModel.Street);
+					_deliveryRepository.Add(addStreetViewModel.Street);
 					return Redirect(Url.Action("Default", "Delivery"));
 				}
 				catch (AggregateException aggregateException)
@@ -59,12 +53,16 @@ namespace Andrei15193.Edesia.Controllers
 		public ActionResult Remove(string street)
 		{
 			if (street != null)
-				_deliveryRepository.RemoveStreet(street);
+			{
+				string decodedStreet = Server.UrlDecode(street);
+
+				if (!string.IsNullOrWhiteSpace(decodedStreet))
+					_deliveryRepository.Remove(decodedStreet);
+			}
 
 			return RedirectToAction("Default", "Delivery");
 		}
 
-		private readonly IOrderProvider _orderRepository = (IOrderProvider)MvcApplication.DependencyContainer["orderRepository"];
-		private readonly IDeliveryZoneRepository _deliveryRepository = (IDeliveryZoneRepository)MvcApplication.DependencyContainer["deliveryRepository"];
+		private readonly IDeliveryRepository _deliveryRepository = (IDeliveryRepository)MvcApplication.DependencyContainer["deliveryRepo"];
 	}
 }

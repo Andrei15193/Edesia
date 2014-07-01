@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.Models;
 using Andrei15193.Edesia.Resources;
@@ -61,17 +60,18 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 			_availableColours = new ReadOnlyDictionary<string, Colour>(allColours);
 		}
 
-		public DeliveryZoneViewModel(IEnumerable<KeyValuePair<string, bool>> availableStreets, IEnumerable<Employee> employees)
+		public DeliveryZoneViewModel(IEnumerable<AvailableStreet> availableStreets, IEnumerable<Employee> employees)
 		{
-			if (employees == null)
-				_employees = new SortedSet<Employee>(Comparer<Employee>.Create((first, second) => first.LastName.CompareTo(second.LastName)));
-			else
-				_employees = new SortedSet<Employee>(employees, Comparer<Employee>.Create((first, second) => first.LastName.CompareTo(second.LastName)));
+			_employees = new SortedSet<Employee>(EmployeeComparer.Instance);
+			if (employees != null)
+				foreach (Employee employee in employees)
+					if (employee != null)
+						_employees.Add(employee);
 
-			if (availableStreets == null)
-				_availableStreets = new SortedSet<KeyValuePair<string, bool>>(new KeyComparer());
-			else
-				_availableStreets = new SortedSet<KeyValuePair<string, bool>>(availableStreets.Where(availableStreet => !string.IsNullOrEmpty(availableStreet.Key) && !string.IsNullOrWhiteSpace(availableStreet.Key)), new KeyComparer());
+			_availableStreets = new SortedSet<AvailableStreet>(AvailableStreetComparer.Instance);
+			if (availableStreets != null)
+				foreach (AvailableStreet availableStreet in availableStreets)
+					_availableStreets.Add(availableStreet);
 		}
 		public DeliveryZoneViewModel()
 			: this(null, null)
@@ -107,17 +107,12 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 		}
 
 		[Display(Name = DeliveryZoneControllerKey.AvailableStreetsListBox_DisplayName, Prompt = DeliveryZoneControllerKey.AvailableStreetsListBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
-		public ISet<KeyValuePair<string, bool>> AvailableStreets
+		public ISet<AvailableStreet> AvailableStreets
 		{
 			get
 			{
 				return _availableStreets;
 			}
-		}
-		public string SubmitButtonText
-		{
-			get;
-			set;
 		}
 
 		[Display(Name = DeliveryZoneControllerKey.EmployeesComobBox_DisplayName, Prompt = DeliveryZoneControllerKey.EmployeesComobBox_Hint, ResourceType = typeof(DeliveryZoneControllerStrings))]
@@ -134,19 +129,63 @@ namespace Andrei15193.Edesia.ViewModels.DeliveryZone
 			set;
 		}
 
-		private readonly ISet<KeyValuePair<string, bool>> _availableStreets;
+		private readonly ISet<AvailableStreet> _availableStreets;
 		private readonly ISet<Employee> _employees;
 		private static IReadOnlyDictionary<string, Colour> _availableColours;
 
-		private sealed class KeyComparer
-			: IComparer<KeyValuePair<string, bool>>
+		private sealed class AvailableStreetComparer
+			: IComparer<AvailableStreet>
 		{
-			#region IComparer<KeyValuePair<string,bool>> Members
-			public int Compare(KeyValuePair<string, bool> x, KeyValuePair<string, bool> y)
+			private AvailableStreetComparer()
 			{
-				return x.Key.CompareTo(y.Key);
+			}
+
+			#region IComparer<AvailableStreet> Members
+			public int Compare(AvailableStreet first, AvailableStreet second)
+			{
+				return first.Name.CompareTo(second.Name);
 			}
 			#endregion
+
+			public static IComparer<AvailableStreet> Instance
+			{
+				get
+				{
+					return _instace;
+				}
+			}
+
+			private static readonly IComparer<AvailableStreet> _instace = new AvailableStreetComparer();
+		}
+
+		private sealed class EmployeeComparer
+			: IComparer<Employee>
+		{
+			private EmployeeComparer()
+			{
+			}
+
+			#region IComparer<Employee> Members
+			public int Compare(Employee first, Employee second)
+			{
+				int firstNameCompareResult = first.FirstName.CompareTo(second.FirstName);
+
+				if (firstNameCompareResult == 0)
+					return first.LastName.CompareTo(second.LastName);
+				else
+					return firstNameCompareResult;
+			}
+			#endregion
+
+			public static IComparer<Employee> Instance
+			{
+				get
+				{
+					return _instance;
+				}
+			}
+
+			private static readonly IComparer<Employee> _instance = new EmployeeComparer();
 		}
 	}
 }

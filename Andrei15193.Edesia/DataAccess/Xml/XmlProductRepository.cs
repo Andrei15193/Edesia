@@ -62,7 +62,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 									 .Select(_GetProduct);
 		}
 
-		public void AddProduct(Product product)
+		public void Add(Product product)
 		{
 			if (product == null)
 				throw new ArgumentNullException("product");
@@ -86,7 +86,7 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 				}
 			}
 		}
-		public void RemoveProduct(string productName)
+		public void Remove(string productName)
 		{
 			using (IExclusiveXmlTransaction xmlTransaction = _xmlDocumentProvider.BeginExclusiveTransaction(_xmlDocumentFileName, _xmlDocumentSchemaSet))
 			{

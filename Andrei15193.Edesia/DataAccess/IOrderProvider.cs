@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Andrei15193.Edesia.Models;
 namespace Andrei15193.Edesia.DataAccess
 {
+	[Obsolete]
 	public interface IOrderProvider
 	{
 		Order GetOrder(IApplicationUserProvider applicationUserProvider, IProductProvider productProvider, int orderNumber);

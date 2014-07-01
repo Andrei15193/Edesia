@@ -2,9 +2,9 @@
 @using Andrei15193.Edesia.Resources;
 @model IEnumerable<Order>
 @{
-	ViewBag.Title = OrderControllerStrings.HistoryViewTitle;
+	ViewBag.Title = OrderControllerStrings.RegistryViewTitle;
 }
-<h1>@OrderControllerStrings.HistoryViewTitle</h1>
+<h1>@OrderControllerStrings.RegistryViewTitle</h1>
 
 @Html.Partial("_Orders", new KeyValuePair<string, IEnumerable<Order>>(OrderControllerStrings.PendingOrdersLabel_DisplayName, Model.Where(order => order.State == OrderState.Pending)))
 @Html.Partial("_Orders", new KeyValuePair<string, IEnumerable<Order>>(OrderControllerStrings.ScheduledOrdersLabel_DisplayName, Model.Where(order => order.State == OrderState.Scheduled)))

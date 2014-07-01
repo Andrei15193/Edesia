@@ -322,11 +322,11 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Istoric comenzi.
+        ///   Looks up a localized string similar to Registru comenzi.
         /// </summary>
-        public static string OrderHistoryMenuItemButton_DisplayName {
+        public static string OrderRegistryMenuItemButton_DisplayName {
             get {
-                return ResourceManager.GetString("OrderHistoryMenuItemButton_DisplayName", resourceCulture);
+                return ResourceManager.GetString("OrderRegistryMenuItemButton_DisplayName", resourceCulture);
             }
         }
         
@@ -432,11 +432,20 @@ namespace Andrei15193.Edesia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nu aveți cont? Înregistrațivă aici.
+        ///   Looks up a localized string similar to aici.
         /// </summary>
         public static string RegisterAccountButton_DisplayName {
             get {
                 return ResourceManager.GetString("RegisterAccountButton_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nu aveți cont? Înregistrați-vă.
+        /// </summary>
+        public static string RegisterAccountButton_Label {
+            get {
+                return ResourceManager.GetString("RegisterAccountButton_Label", resourceCulture);
             }
         }
         
@@ -518,6 +527,15 @@ namespace Andrei15193.Edesia.Resources {
         public static string TransportCapacityLabel_DisplayName {
             get {
                 return ResourceManager.GetString("TransportCapacityLabel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actualizează angajat.
+        /// </summary>
+        public static string UpdateEmployeeButton_DisplayName {
+            get {
+                return ResourceManager.GetString("UpdateEmployeeButton_DisplayName", resourceCulture);
             }
         }
     }

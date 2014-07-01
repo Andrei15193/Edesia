@@ -4,7 +4,7 @@ namespace Andrei15193.Edesia.Models
 {
 	public class DeliveryZone
 	{
-		public DeliveryZone(string name, Colour colour, DateTime dateAdded, IEnumerable<Street> streets)
+		public DeliveryZone(string name, Colour colour, IEnumerable<string> streets)
 		{
 			if (name == null)
 				throw new ArgumentNullException("name");
@@ -13,22 +13,20 @@ namespace Andrei15193.Edesia.Models
 
 			_name = name;
 			_colour = colour;
-			_dateAdded = dateAdded;
-			_streets = new SortedSet<Street>();
 
 			if (streets != null)
-				foreach (Street street in streets)
+				foreach (string street in streets)
 					if (street != null)
 						_streets.Add(street);
 
 			Assignee = null;
 		}
-		public DeliveryZone(string name, Colour colour, DateTime dateAdded, params Street[] streets)
-			: this(name, colour, dateAdded, (IEnumerable<Street>)streets)
+		public DeliveryZone(string name, Colour colour, params string[] streets)
+			: this(name, colour, (IEnumerable<string>)streets)
 		{
 		}
-		public DeliveryZone(string name, Colour colour, DateTime dateAdded)
-			: this(name, colour, dateAdded, null)
+		public DeliveryZone(string name, Colour colour)
+			: this(name, colour, null)
 		{
 		}
 
@@ -50,14 +48,7 @@ namespace Andrei15193.Edesia.Models
 				return _colour;
 			}
 		}
-		public DateTime DateAdded
-		{
-			get
-			{
-				return _dateAdded;
-			}
-		}
-		public ICollection<Street> Streets
+		public ICollection<string> Streets
 		{
 			get
 			{
@@ -79,8 +70,7 @@ namespace Andrei15193.Edesia.Models
 
 		private readonly string _name;
 		private readonly Colour _colour;
-		private readonly DateTime _dateAdded;
-		private readonly ICollection<Street> _streets;
+		private readonly ICollection<string> _streets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 		private readonly static IEqualityComparer<DeliveryZone> _identityComparer = new DeliveryZoneIdentityComparer();
 
 		private sealed class DeliveryZoneIdentityComparer

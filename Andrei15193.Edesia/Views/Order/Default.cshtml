@@ -24,9 +24,11 @@
 	</div>
 	<div class="row">
 		<div class="span12">
-			@foreach (Order order in Model)
-			{
-				@Html.Partial("_Order", new KeyValuePair<Order, bool>(order, false))
+			@{
+				foreach (Order order in Model)
+				{
+					Html.RenderPartial("_Order", new KeyValuePair<Order, bool>(order, false));
+				}
 			}
 		</div>
 	</div>

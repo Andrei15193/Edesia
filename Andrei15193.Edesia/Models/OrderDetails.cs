@@ -3,28 +3,26 @@ using System.Collections.Generic;
 using Andrei15193.Edesia.Models.Collections;
 namespace Andrei15193.Edesia.Models
 {
-	public sealed class OrderDetails
+	public struct OrderDetails
 	{
-		public OrderDetails(ApplicationUser recipient, string deliveryStreet, string deliveryAddressDetails)
+		public OrderDetails(ApplicationUser recipient, DeliveryAddress deliveryAddress, DateTime datePlaced)
 		{
 			if (recipient == null)
 				throw new ArgumentNullException("recipient");
 
-			if (deliveryStreet == null)
-				throw new ArgumentNullException("deliveryStreet");
-			if (string.IsNullOrWhiteSpace(deliveryStreet))
-				throw new ArgumentException("Cannot be empty or whitespace!", "deliveryStreet");
-
-			if (deliveryAddressDetails == null)
-				throw new ArgumentNullException("deliveryAddressDetails");
-			if (string.IsNullOrWhiteSpace(deliveryAddressDetails))
-				throw new ArgumentException("Cannot be empty or whitespace!", "deliveryAddressDetails");
-
-			_deliveryStreet = deliveryStreet.Trim();
-			_deliveryAddressDetails = deliveryAddressDetails.Trim();
+			_deliveryAddress = deliveryAddress;
 			_recipient = recipient;
+			_datePlaced = datePlaced;
+			_orderedProducts = new OrderedProductsCollection();
 		}
 
+		public DateTime DatePlaced
+		{
+			get
+			{
+				return _datePlaced;
+			}
+		}
 		public ApplicationUser Recipient
 		{
 			get
@@ -32,18 +30,11 @@ namespace Andrei15193.Edesia.Models
 				return _recipient;
 			}
 		}
-		public string DeliveryStreet
+		public DeliveryAddress DeliveryAddress
 		{
 			get
 			{
-				return _deliveryStreet;
-			}
-		}
-		public string DeliveryAddressDetails
-		{
-			get
-			{
-				return _deliveryAddressDetails;
+				return _deliveryAddress;
 			}
 		}
 		public ICollection<OrderedProduct> OrderedProducts
@@ -54,9 +45,9 @@ namespace Andrei15193.Edesia.Models
 			}
 		}
 
+		private readonly DateTime _datePlaced;
 		private readonly ApplicationUser _recipient;
-		private readonly string _deliveryStreet;
-		private readonly string _deliveryAddressDetails;
-		private readonly ICollection<OrderedProduct> _orderedProducts = new OrderedProductsCollection();
+		private readonly DeliveryAddress _deliveryAddress;
+		private readonly ICollection<OrderedProduct> _orderedProducts;
 	}
 }

@@ -61,7 +61,7 @@ namespace Andrei15193.Edesia.Attributes
 				ApplicationUserRole applicationUserRole = user as ApplicationUserRole;
 
 				if (user == null || (_roles != null && (applicationUserRole == null || _roles.All(role => !applicationUserRole.IsInRole(role)))))
-					filterContext.Result = new RedirectResult("Error/Forbidden");
+					filterContext.Result = new RedirectResult(UrlHelper.GenerateContentUrl("~/Error/Forbidden", filterContext.HttpContext));
 			}
 		}
 		#endregion

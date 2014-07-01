@@ -32,7 +32,7 @@ namespace Andrei15193.Edesia.Controllers
 			if (authenticationCookie == null)
 				return null;
 
-			return ((IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"]).Find(httpContext.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
+			return ((IUserRepository)MvcApplication.DependencyContainer["userRepository"]).Find(httpContext.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
 		}
 		internal static ApplicationUser GetApplicationUser(HttpContext httpContext)
 		{
@@ -57,7 +57,7 @@ namespace Andrei15193.Edesia.Controllers
 				{
 					HttpCookie authenticationCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
 					if (authenticationCookie != null)
-						_applicationUser = ((IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"]).Find(base.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
+						_applicationUser = ((IUserRepository)MvcApplication.DependencyContainer["userRepository"]).Find(base.User.Identity.Name, authenticationCookie.Value, AuthenticationTokenType.Key);
 				}
 
 				return _applicationUser;

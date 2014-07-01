@@ -1,5 +1,6 @@
-﻿@using Andrei15193.Edesia.Resources;
-@model IEnumerable<KeyValuePair<string, bool>>
+﻿@using Andrei15193.Edesia.Models;
+@using Andrei15193.Edesia.Resources;
+@model IEnumerable<string>
 @{
 	Layout = null;
 }
@@ -12,11 +13,11 @@
 			</span>
 			<div class="content">
 				<ul>
-					@foreach (KeyValuePair<string, bool> unmappedStreet in Model)
+					@foreach (string unmappedStreet in Model)
 					{
-						<li class="@(unmappedStreet.Value ? "disabled" : string.Empty)">
-							@unmappedStreet.Key
-							<a href="@Url.Action("Remove", "Address")?address=@Url.Encode(unmappedStreet.Key)" class="@(unmappedStreet.Value ? "actionLink" : "disabledActionLink")">
+						<li>
+							@unmappedStreet
+							<a href="@Url.Action("Remove", "Street")?street=@Url.Encode(unmappedStreet)" class="actionLink">
 								<i class="icon-remove" style="float: right;"></i>
 							</a>
 						</li>

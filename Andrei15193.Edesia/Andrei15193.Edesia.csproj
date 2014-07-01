@@ -43,10 +43,6 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Andrei15193.DependencyInjection, Version=1.2014.309.7, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>External Dependencies\Andrei15193.DependencyInjection.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.6.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -145,10 +141,7 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="Attributes\LocalizedEMailAddressAttribute.cs" />
     <Compile Include="Attributes\LocalizedRegularExpressionAttribute.cs" />
@@ -165,6 +158,8 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
+    <Compile Include="DataAccess\ITranslator.cs" />
+    <Compile Include="DataAccess\IDeliveryRepository.cs" />
     <Compile Include="DataAccess\IDeliveryZoneProvider.cs" />
     <Compile Include="DataAccess\IDeliveryZoneRepository.cs" />
     <Compile Include="DataAccess\Azure\ImageUploader.cs" />
@@ -175,7 +170,12 @@
     <Compile Include="DataAccess\IProductRepository.cs" />
     <Compile Include="DataAccess\IApplicationUserProvider.cs" />
     <Compile Include="DataAccess\IDeliveryTaskRepository.cs" />
+    <Compile Include="DataAccess\IUserRepository.cs" />
     <Compile Include="DataAccess\Local\ImageUploader.cs" />
+    <Compile Include="DataAccess\Sql\Database.cs" />
+    <Compile Include="DataAccess\Sql\DeliveryRepository.cs" />
+    <Compile Include="DataAccess\Sql\ProductRepository.cs" />
+    <Compile Include="DataAccess\Sql\UserRepository.cs" />
     <Compile Include="DataAccess\Xml\IExclusiveXmlTransaction.cs" />
     <Compile Include="DataAccess\Xml\ISharedXmlTransaction.cs" />
     <Compile Include="DataAccess\Xml\XmlDeliveryZoneRepository.cs" />
@@ -192,10 +192,12 @@
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\ApplicationUserExtensions.cs" />
     <Compile Include="Models\ApplicationUserRole.cs" />
+    <Compile Include="Models\AvailableStreet.cs" />
     <Compile Include="Models\Collections\OrderedProductsCollection.cs" />
     <Compile Include="Models\Collections\OrdersPartition.cs" />
     <Compile Include="Models\Colour.cs" />
     <Compile Include="Models\Colours.cs" />
+    <Compile Include="Models\DeliveryAddress.cs" />
     <Compile Include="Models\DeliveryTask.cs" />
     <Compile Include="Models\DeliveryTaskDetails.cs" />
     <Compile Include="Models\DeliveryZone.cs" />
@@ -217,6 +219,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\OrderedProduct.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
+    <Compile Include="Models\ShoppingCartEntry.cs" />
     <Compile Include="Models\TaskState.cs" />
     <Compile Include="Models\EnumExtensions.cs" />
     <Compile Include="Resources\DeliveryTaskControllerStrings.Designer.cs">
@@ -315,7 +318,6 @@
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="Models\DisplayLanguage.cs" />
     <Compile Include="Models\Icons.cs" />
     <Compile Include="Models\NavigationBarAction.cs" />
     <Compile Include="Models\Notice.cs" />
@@ -326,6 +328,16 @@
     <Compile Include="Xml\Validation\XmlSchemaConstraintException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\CreateApplicationUsersInterface.sql" />
+    <Content Include="App_Data\CreateDeliveryTasksInterface.sql" />
+    <Content Include="App_Data\CreateDeliveryZonesInterface.sql" />
+    <Content Include="App_Data\CreateOrdersInterface.sql" />
+    <Content Include="App_Data\CreateShoppingCartsInterface.sql" />
+    <Content Include="App_Data\CreateStreetsInterface.sql" />
+    <Content Include="App_Data\CreateTables.sql" />
+    <Content Include="App_Data\Data.sql" />
+    <Content Include="App_Data\DropTables.sql" />
+    <Content Include="App_Data\CreateProductsInterface.sql" />
     <Content Include="Content\metro-ui\css\metro-bootstrap-responsive.css" />
     <Content Include="Content\metro-ui\css\metro-bootstrap-responsive.min.css" />
     <Content Include="Content\metro-ui\css\metro-bootstrap.css" />
@@ -388,22 +400,22 @@
     <Content Include="Views\Product\_Product.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
     <Content Include="Views\Order\Default.cshtml" />
-    <Content Include="Views\Order\_Order.cshtml" />
-    <Content Include="Views\DeliveryZone\Default.cshtml" />
+    <Content Include="Views\Shared\_Order.cshtml" />
     <Content Include="Views\Street\Unmapped.cshtml" />
-    <Content Include="Views\DeliveryTask\Default.cshtml" />
     <Content Include="Views\ShoppingCart\Default.cshtml" />
-    <Content Include="Views\ShoppingCart\_OrderedProduct.cshtml" />
+    <Content Include="Views\ShoppingCart\_ShoppingCartEntry.cshtml" />
     <Content Include="Views\Order\Checkout.cshtml" />
-    <Content Include="Views\Order\_OrderedProduct.cshtml" />
+    <Content Include="Views\Order\_ShoppingCartEntry.cshtml" />
     <Content Include="Views\Error\Forbidden.cshtml" />
     <Content Include="Views\DeliveryTask\_DeliveryTask.cshtml" />
     <Content Include="Views\DeliveryTask\Dashboard.cshtml" />
     <Content Include="Views\DeliveryTask\_DeliveryTaskList.cshtml" />
-    <Content Include="Views\Order\History.cshtml" />
+    <Content Include="Views\Order\Registry.cshtml" />
     <Content Include="Views\Order\_Orders.cshtml" />
     <Content Include="Views\User\Browse.cshtml" />
     <Content Include="Views\User\_User.cshtml" />
+    <Content Include="Views\DeliveryTask\Default.cshtml" />
+    <Content Include="Views\DeliveryZone\Default.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -461,6 +473,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Andrei15193.DependencyInjection\Andrei15193.DependencyInjection.csproj">
+      <Project>{ff99af6f-9335-4b96-b180-03ec86d8b8ea}</Project>
+      <Name>Andrei15193.DependencyInjection</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Andrei15193.ConstraintSatisfaction\Andrei15193.ConstraintSatisfaction.csproj">
       <Project>{7c7320fd-f0c4-48eb-aeb1-76b2574f3971}</Project>
       <Name>Andrei15193.ConstraintSatisfaction</Name>

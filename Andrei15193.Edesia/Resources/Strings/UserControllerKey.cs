@@ -31,7 +31,7 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string LoginMenuItemButton_DisplayName = "LoginMenuItemButton_DisplayName";
 		internal const string LoginViewTitle = "LoginViewTitle";
 		internal const string LogoutMenuItemButton_DisplayName = "LogoutMenuItemButton_DisplayName";
-		internal const string OrderHistoryMenuItemButton_DisplayName = "OrderHistoryMenuItemButton_DisplayName";
+		internal const string OrderRegistryMenuItemButton_DisplayName = "OrderRegistryMenuItemButton_DisplayName";
 		internal const string PasswordInput_DisplayName = "PasswordInput_DisplayName";
 		internal const string PasswordInput_Hint = "PasswordInput_Hint";
 		internal const string PasswordInput_InvalidVerificationValue = "PasswordInput_InvalidVerificationValue";
@@ -41,6 +41,7 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string PlanDeliveriesMenuItemButton_DisplayName = "PlanDeliveriesMenuItemButton_DisplayName";
 		internal const string Register_MailBody_Format = "Register_MailBody_Format";
 		internal const string RegisterAccountButton_DisplayName = "RegisterAccountButton_DisplayName";
+		internal const string RegisterAccountButton_Label = "RegisterAccountButton_Label";
 		internal const string RegisterButton_DisplayName = "RegisterButton_DisplayName";
 		internal const string RegisterMenuItemButton_DisplayName = "RegisterMenuItemButton_DisplayName";
 		internal const string RegisterViewTitle = "RegisterViewTitle";
@@ -50,5 +51,6 @@ namespace Andrei15193.Edesia.Resources.Strings
 		internal const string Registration_TokenExpired_Paragraph2 = "Registration_TokenExpired_Paragraph2";
 		internal const string RegistrationTokenInput_ExpiredValue = "RegistrationTokenInput_ExpiredValue";
 		internal const string TransportCapacityLabel_DisplayName = "TransportCapacityLabel_DisplayName";
+		internal const string UpdateEmployeeButton_DisplayName = "UpdateEmployeeButton_DisplayName";
 	}
 }

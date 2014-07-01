@@ -45,10 +45,10 @@ namespace Andrei15193.Edesia.DataAccess.Xml
 					xmlTransaction.XmlDocument
 								  .Root
 								  .Add(new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryTask.xsd}DeliveryTask",
-													new XAttribute("TaskNumber", deliveryTask.DeliveryTaskNumber),
+													new XAttribute("TaskNumber", deliveryTask.Number),
 													new XAttribute("DateScheduled", deliveryTask.DateScheduled.ToString(MvcApplication.DateTimeSerializationFormat)),
 													new XAttribute("DeliveryZone", deliveryTask.DeliveryZone.Name),
-													deliveryTask.OrdersToDeliver.Select(orderToDeliver => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryTask.xsd}OrderToDeliver", orderToDeliver.OrderNumber))));
+													deliveryTask.OrdersToDeliver.Select(orderToDeliver => new XElement("{http://storage.andrei15193.ro/public/schemas/Edesia/DeliveryTask.xsd}OrderToDeliver", orderToDeliver.Number))));
 
 					deliveryTasks.Add(deliveryTask);
 				}

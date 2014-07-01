@@ -204,8 +204,8 @@
   <data name="LogoutMenuItemButton_DisplayName" xml:space="preserve">
     <value>Deconectare</value>
   </data>
-  <data name="OrderHistoryMenuItemButton_DisplayName" xml:space="preserve">
-    <value>Istoric comenzi</value>
+  <data name="OrderRegistryMenuItemButton_DisplayName" xml:space="preserve">
+    <value>Registru comenzi</value>
   </data>
   <data name="PasswordInput_DisplayName" xml:space="preserve">
     <value>Parola</value>
@@ -229,7 +229,10 @@
     <value>Planificare livrări</value>
   </data>
   <data name="RegisterAccountButton_DisplayName" xml:space="preserve">
-    <value>Nu aveți cont? Înregistrațivă aici</value>
+    <value>aici</value>
+  </data>
+  <data name="RegisterAccountButton_Label" xml:space="preserve">
+    <value>Nu aveți cont? Înregistrați-vă</value>
   </data>
   <data name="RegisterButton_DisplayName" xml:space="preserve">
     <value>Înregistrare</value>
@@ -330,5 +333,8 @@
   </data>
   <data name="TransportCapacityLabel_DisplayName" xml:space="preserve">
     <value>Capacitate de transport</value>
+  </data>
+  <data name="UpdateEmployeeButton_DisplayName" xml:space="preserve">
+    <value>Actualizează angajat</value>
   </data>
 </root>

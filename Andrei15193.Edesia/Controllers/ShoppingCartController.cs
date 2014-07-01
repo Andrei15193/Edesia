@@ -10,7 +10,7 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet, Authorize]
 		public ActionResult Default()
 		{
-			return View(_applicationUserRepository.GetShoppingCart(User, _productProvider));
+			return View(_userRepository.GetShoppingCart(User));
 		}
 
 		[HttpGet]
@@ -26,7 +26,7 @@ namespace Andrei15193.Edesia.Controllers
 							JsonRequestBehavior.AllowGet);
 			else
 			{
-				ShoppingCart shoppingCart = _applicationUserRepository.GetShoppingCart(User, _productProvider);
+				ShoppingCart shoppingCart = _userRepository.GetShoppingCart(User);
 
 				return Json(new
 							{
@@ -51,7 +51,7 @@ namespace Andrei15193.Edesia.Controllers
 		public ActionResult Add(string product, int quantity = 1)
 		{
 			if (product != null)
-				_applicationUserRepository.AddToCart(User, new OrderedProduct(_productProvider.GetProduct(product), quantity));
+				_userRepository.AddToShoppingCart(User, new ShoppingCartEntry(_productRepository.GetProduct(product), quantity));
 
 			return RedirectToAction("Default", "ShoppingCart");
 		}
@@ -61,9 +61,9 @@ namespace Andrei15193.Edesia.Controllers
 			product = Server.UrlDecode(product);
 			if (product != null)
 				if (quantity > 0)
-					_applicationUserRepository.UpdateCart(User, new OrderedProduct(_productProvider.GetProduct(product), quantity));
+					_userRepository.UpdateShoppingCart(User, new ShoppingCartEntry(_productRepository.GetProduct(product), quantity));
 				else
-					_applicationUserRepository.RemoveFromCart(User, _productProvider.GetProduct(product));
+					_userRepository.RemoveFromShoppingCart(User, _productRepository.GetProduct(product));
 
 			return RedirectToAction("Default", "ShoppingCart");
 		}
@@ -71,12 +71,12 @@ namespace Andrei15193.Edesia.Controllers
 		public ActionResult Remove(string product)
 		{
 			if (product != null)
-				_applicationUserRepository.RemoveFromCart(User, _productProvider.GetProduct(product));
+				_userRepository.RemoveFromShoppingCart(User, _productRepository.GetProduct(product));
 
 			return RedirectToAction("Default", "ShoppingCart");
 		}
 
-		private readonly IProductProvider _productProvider = (IProductProvider)MvcApplication.DependencyContainer["productRepository"];
-		private readonly IApplicationUserRepository _applicationUserRepository = (IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"];
+		private readonly IUserRepository _userRepository = (IUserRepository)MvcApplication.DependencyContainer["userRepository"];
+		private readonly IProductRepository _productRepository = (IProductRepository)MvcApplication.DependencyContainer["productRepo"];
 	}
 }

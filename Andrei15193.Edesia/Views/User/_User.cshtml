@@ -3,6 +3,7 @@
 @model ApplicationUser
 @{
 	string borderColorStyle;
+	Employee employee = Model.TryGetRole<Employee>();
 
 	if (Model.IsInRole<Administrator>())
 	{
@@ -19,33 +20,43 @@
 		}
 }
 <div class="@borderColorStyle padding15" style="border-width: 1px; border-style: solid; border-radius: 10px;">
-	<h4 class="dropdown-toggle" style="cursor: pointer">@Model.FirstName @Model.LastName <i class="icon-arrow-down-5"></i></h4>
-	<ul class="dropdown-menu inverse" data-role="dropdown" data-effect="fade">
-		<li class="@(Model.IsInRole<Administrator>() ? "disabled" : string.Empty)">
-			<a href="@Url.Action("PromoteToAdmin", "User")?eMail=@Url.Encode(Model.EMailAddress)" class="@(Model.IsInRole<Administrator>() ? "disabled" : "actionLink")">@UserControllerStrings.EnrollAdministratorButton_DisplayName</a>
-		</li>
-	</ul>
+	<h4 style="cursor: pointer">@Model.FirstName @Model.LastName</h4>
 	<h5>@Model.EMailAddress</h5>
-	@if (Model.IsInRole<Administrator>())
+
+	@using (Html.BeginForm("PromoteToEmployee", "User", FormMethod.Get))
 	{
-		<small class="fg-blue">@UserControllerStrings.AdministratorRoleLabel_DisplayName</small>
-	}
-	@if (!Model.IsInRole<Employee>())
-	{
-		using (Html.BeginForm("PromoteToEmployee", "User", FormMethod.Get))
+		if (Model.IsInRole<Administrator>())
 		{
-			<input type="hidden" name="eMail" value="@Model.EMailAddress" />
-			<label for="transportCapacity">@UserControllerStrings.TransportCapacityLabel_DisplayName</label>
-			<div class="input-control text">
-				<input type="text" name="transportCapacity" />
-			</div>
-			<div style="text-align: right">
-				<input type="submit" class="action right" value="@UserControllerStrings.EnrollEmployeeButton_DisplayName" />
-			</div>
+			<small class="fg-blue">
+				@UserControllerStrings.AdministratorRoleLabel_DisplayName
+				<i class="icon-checkmark"></i>
+			</small>
 		}
-	}
-	else
-	{
-		<small class="fg-green">@UserControllerStrings.EmployeeRoleLabel_DisplayName</small>
+		else
+		{
+			<small class="fg-blue">
+				<a class="actionLink" href="@Url.Action("PromoteToAdmin", "User")?eMail=@Url.Encode(Model.EMailAddress)" title="@UserControllerStrings.EnrollAdministratorButton_DisplayName">
+					@UserControllerStrings.AdministratorRoleLabel_DisplayName
+					<i class="icon-arrow-up"></i>
+				</a>
+			</small>
+		}
+		<button type="submit" style="overflow: visible;" class="actionLink bg-transparent no-padding" title="@(employee == null ? UserControllerStrings.EnrollEmployeeButton_DisplayName : UserControllerStrings.UpdateEmployeeButton_DisplayName)">
+			@UserControllerStrings.EmployeeRoleLabel_DisplayName
+			@if (employee == null)
+			{
+				<i class="icon-arrow-up"></i>
+			}
+			else
+			{
+				<i class="icon-checkmark"></i>
+			}
+		</button>
+
+		<input type="hidden" name="eMail" value="@Model.EMailAddress" />
+		<label for="transportCapacity">@UserControllerStrings.TransportCapacityLabel_DisplayName</label>
+		<div class="input-control text">
+			<input type="text" name="transportCapacity" value="@(employee == null ? string.Empty : employee.TransportCapacity.ToString())" />
+		</div>
 	}
 </div>

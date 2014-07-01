@@ -6,13 +6,19 @@
 <div class="grid fluid">
 	<div class="row">
 		<div class="span4">
-			@Html.Action("Default", "DeliveryZone")
+			@{
+				Html.RenderAction("Default", "DeliveryZone");
+			}
 		</div>
 		<div class="span4">
-			@Html.Action("Default", "DeliveryTask")
+			@{
+				Html.RenderAction("Default", "DeliveryTask");
+			}
 		</div>
 		<div class="span4">
-			@Html.Action("Default", "Order")
+			@{
+				Html.RenderAction("Default", "Order");
+			}
 		</div>
 	</div>
 </div>

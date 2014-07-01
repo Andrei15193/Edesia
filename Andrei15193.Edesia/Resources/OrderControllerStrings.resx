@@ -198,8 +198,8 @@
   <data name="EnRouteOrdersLabel_DisplayName" xml:space="preserve">
     <value>Comenzi în curs de livrare</value>
   </data>
-  <data name="HistoryViewTitle" xml:space="preserve">
-    <value>Istoric comenzi</value>
+  <data name="RegistryViewTitle" xml:space="preserve">
+    <value>Registru comenzi</value>
   </data>
   <data name="PendingOrdersLabel_DisplayName" xml:space="preserve">
     <value>Comenzi în așteptare</value>

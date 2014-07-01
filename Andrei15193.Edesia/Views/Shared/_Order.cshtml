@@ -4,11 +4,11 @@
 <div class="accordion with-marker" data-role="accordion">
 	<div class="accordion-frame">
 		<a class="heading @(Model.Value ? "active" : string.Empty)" style="cursor: pointer;">
-			@string.Format(OrderControllerStrings.OrderAccordionFrameHeader_DisplayName_Format, Model.Key.OrderNumber, Model.Key.DatePlaced)
+			@string.Format(OrderControllerStrings.OrderAccordionFrameHeader_DisplayName_Format, Model.Key.Number, Model.Key.DatePlaced)
 		</a>
 		<div class="content">
 			<small>
-				@OrderControllerStrings.DeliveryAddressLabel_DisplayName @Model.Key.DeliveryStreet, @Model.Key.DeliveryAddressDetails
+				@OrderControllerStrings.DeliveryAddressLabel_DisplayName @Model.Key.DeliveryAddress.Street, @Model.Key.DeliveryAddress.Details
 			</small>
 			<ul>
 				@foreach (OrderedProduct orderedProduct in Model.Key.OrderedProducts)
@@ -18,7 +18,7 @@
 			</ul>
 			<small>
 				@OrderControllerStrings.TotalProductsLabel_DisplayName <span style="float: right;">@Model.Key.OrderedProducts.Sum(orderedProduct => orderedProduct.Quantity)</span><br />
-				<strong>@OrderControllerStrings.TotalPriceLabel_DisplayName</strong> <strong style="float: right;">@Model.Key.TotalCost RON</strong>
+				<strong>@OrderControllerStrings.TotalPriceLabel_DisplayName</strong> <strong style="float: right;">@Model.Key.TotalCost.ToString("0.00") RON</strong>
 			</small>
 		</div>
 	</div>

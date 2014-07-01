@@ -10,19 +10,22 @@ namespace Andrei15193.Edesia.Models
 			if (deliveryZone == null)
 				throw new ArgumentNullException("deliveryZone");
 
-			if (ordersToDeliver == null)
-				throw new ArgumentNullException("ordersToDeliver");
-			if (!ordersToDeliver.Any())
-				throw new ArgumentException("Cannot be empty!", "ordersToDelvier");
-
 			_number = number;
 			_dateScheduled = dateScheduled;
 			_deliveryZone = deliveryZone;
 			_isCancelled = isCancelled;
-			_ordersToDeliver = ordersToDeliver.Where(orderToDeliver => (orderToDeliver != null)).ToList();
+			_ordersToDeliver = new SortedSet<Order>(OrderComparer.Instance);
+
+			if (ordersToDeliver != null)
+				foreach (Order orderToDeliver in ordersToDeliver)
+					_ordersToDeliver.Add(orderToDeliver);
 		}
 		public DeliveryTask(int number, DateTime dateScheduled, DeliveryZone deliveryZone, bool isCancelled, params Order[] ordersToDeliver)
 			: this(number, dateScheduled, deliveryZone, isCancelled, (IEnumerable<Order>)ordersToDeliver)
+		{
+		}
+		public DeliveryTask(int number, DateTime dateScheduled, DeliveryZone deliveryZone, bool isCancelled)
+			: this(number, dateScheduled, deliveryZone, isCancelled, (IEnumerable<Order>)null)
 		{
 		}
 
@@ -76,7 +79,7 @@ namespace Andrei15193.Edesia.Models
 				return _deliveryZone;
 			}
 		}
-		public IReadOnlyCollection<Order> OrdersToDeliver
+		public ICollection<Order> OrdersToDeliver
 		{
 			get
 			{
@@ -117,7 +120,7 @@ namespace Andrei15193.Edesia.Models
 		private readonly int _number;
 		private readonly DateTime _dateScheduled;
 		private readonly DeliveryZone _deliveryZone;
-		private readonly IReadOnlyCollection<Order> _ordersToDeliver;
+		private readonly ICollection<Order> _ordersToDeliver;
 		private static readonly IEqualityComparer<DeliveryTask> _identityComparer = new DeliveryTaskIdentityComparer();
 
 		private sealed class DeliveryTaskIdentityComparer
@@ -141,5 +144,30 @@ namespace Andrei15193.Edesia.Models
 			}
 			#endregion
 		}
+
+		private sealed class OrderComparer
+			: IComparer<Order>
+		{
+			private OrderComparer()
+			{
+			}
+
+			#region IComparer<Order> Members
+			public int Compare(Order x, Order y)
+			{
+				return x.Number.CompareTo(y.Number);
+			}
+			#endregion
+			public static IComparer<Order> Instance
+			{
+				get
+				{
+					return _instance;
+				}
+			}
+
+			private static readonly IComparer<Order> _instance = new OrderComparer();
+		}
+
 	}
 }

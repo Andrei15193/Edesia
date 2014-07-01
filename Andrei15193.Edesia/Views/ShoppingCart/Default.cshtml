@@ -10,11 +10,11 @@
 			<h1>@ShoppingCartControllerStrings.DefaultViewTitle</h1>
 		</div>
 	</div>
-	@foreach (OrderedProduct orderedProduct in Model)
+	@foreach (ShoppingCartEntry shoppingCartEntry in Model)
 	{
 		<div class="row">
 			<div class="span4 offset4">
-				@Html.Partial("_OrderedProduct", orderedProduct)
+				@Html.Partial("_ShoppingCartEntry", shoppingCartEntry)
 			</div>
 		</div>
 	}
@@ -24,7 +24,7 @@
 				<div class="row">
 					<div class="span12">
 						<div>@ShoppingCartControllerStrings.TotalProductsLabel_DisplayName<span style="float: right;">@Model.Count</span></div>
-						<div><strong>@ShoppingCartControllerStrings.TotalPriceLabel_DisplayName</strong> <strong style="float: right;">@Model.TotoalPrice RON</strong></div>
+						<div><strong>@ShoppingCartControllerStrings.TotalPriceLabel_DisplayName</strong> <strong style="float: right;">@Model.TotoalPrice.ToString("0.00") RON</strong></div>
 					</div>
 				</div>
 				<div class="row">

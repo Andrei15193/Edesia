@@ -31,6 +31,7 @@ namespace Andrei15193.Edesia
 				return _dependencyContainer;
 			}
 		}
+		internal const string AzureConnectionStringFormat = "SQLAZURECONNSTR_{0}";
 
 		protected void Application_Start()
 		{

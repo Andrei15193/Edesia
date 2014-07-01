@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Andrei15193.Edesia.Attributes;
 using Andrei15193.Edesia.DataAccess;
@@ -13,13 +14,13 @@ namespace Andrei15193.Edesia.Controllers
 		[ChildActionOnly]
 		public ActionResult Default()
 		{
-			return View(_orderRepository.GetOrders(_applicationUserRepository, _productProvider, OrderState.Pending));
+			return View(_deliveryRepository.GetOrders(OrderState.Pending));
 		}
 
 		[HttpGet, Authorize]
 		public ActionResult Checkout()
 		{
-			ShoppingCart shoppingCart = _applicationUserRepository.GetShoppingCart(User, _productProvider);
+			ShoppingCart shoppingCart = _userRepository.GetShoppingCart(User);
 			if (shoppingCart.Count == 0)
 				return RedirectToAction("Default", "Product");
 
@@ -32,7 +33,7 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpPost, Authorize]
 		public ActionResult Checkout(CheckoutViewModel checkoutViewModel)
 		{
-			ShoppingCart shoppingCart = _applicationUserRepository.GetShoppingCart(User, _productProvider);
+			ShoppingCart shoppingCart = _userRepository.GetShoppingCart(User);
 			if (shoppingCart.Count == 0)
 				return RedirectToAction("Default", "Product");
 
@@ -44,20 +45,22 @@ namespace Andrei15193.Edesia.Controllers
 				return View(checkoutViewModel);
 			}
 
-			OrderDetails orderDetails = new OrderDetails(User, checkoutViewModel.SelectedStreet, checkoutViewModel.AddressDetails);
-			foreach (OrderedProduct orderedProduct in shoppingCart)
-				orderDetails.OrderedProducts.Add(orderedProduct);
+			OrderDetails orderDetails = new OrderDetails(User,
+														 new DeliveryAddress(checkoutViewModel.SelectedStreet, checkoutViewModel.AddressDetails),
+														 DateTime.Now);
+			foreach (ShoppingCartEntry shoppingCartEntry in shoppingCart)
+				orderDetails.OrderedProducts.Add(new OrderedProduct(shoppingCartEntry.Product, shoppingCartEntry.Quantity));
 
-			_orderRepository.PlaceOrder(orderDetails);
-			_applicationUserRepository.ClearShoppingCart(User);
+			_deliveryRepository.Add(orderDetails);
+			_userRepository.ClearShoppingCart(User);
 
 			return View("_Notice", new Notice(OrderControllerStrings.CheckoutViewTitle, null, OrderControllerStrings.ThanksNoticeParagraph1, OrderControllerStrings.ThanksNoticeParagraph2, OrderControllerStrings.ThanksNoticeAuthor));
 		}
 
 		[HttpGet, Authorize]
-		public ActionResult History()
+		public ActionResult Registry()
 		{
-			return View(_orderRepository.GetOrders(User, _productProvider, OrderState.EnRoute, OrderState.Pending, OrderState.Scheduled, OrderState.Delivered));
+			return View(_deliveryRepository.GetOrders(User, OrderState.EnRoute, OrderState.Pending, OrderState.Scheduled, OrderState.Delivered));
 		}
 
 		[HttpGet, Authorize, Role(typeof(Administrator))]
@@ -65,14 +68,12 @@ namespace Andrei15193.Edesia.Controllers
 		{
 			return Json(new
 				{
-					Count = _orderRepository.GetOrders(_applicationUserRepository, _productProvider, OrderState.Pending).Count()
+					Count = _deliveryRepository.GetOrders(OrderState.Pending).Count()
 				},
 				JsonRequestBehavior.AllowGet);
 		}
 
-		private readonly IOrderRepository _orderRepository = (IOrderRepository)MvcApplication.DependencyContainer["orderRepository"];
-		private readonly IProductProvider _productProvider = (IProductProvider)MvcApplication.DependencyContainer["productRepository"];
-		private readonly IDeliveryZoneProvider _deliveryRepository = (IDeliveryZoneProvider)MvcApplication.DependencyContainer["deliveryRepository"];
-		private readonly IApplicationUserRepository _applicationUserRepository = (IApplicationUserRepository)MvcApplication.DependencyContainer["applicationUserRepository"];
+		private readonly IUserRepository _userRepository = (IUserRepository)MvcApplication.DependencyContainer["userRepository"];
+		private readonly IDeliveryRepository _deliveryRepository = (IDeliveryRepository)MvcApplication.DependencyContainer["deliveryRepo"];
 	}
 }

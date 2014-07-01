@@ -16,6 +16,12 @@ namespace Andrei15193.Edesia.Models
 			_deliveryAddress = deliveryAddress;
 			State = orderState;
 		}
+		public Order(int number, OrderDetails orderDetails, OrderState orderState = OrderState.Pending)
+			: this(number, orderDetails.DatePlaced, orderDetails.Recipient, orderDetails.DeliveryAddress, orderState)
+		{
+			foreach (OrderedProduct orderedProduct in orderDetails.OrderedProducts)
+				_orderedProducts.Add(orderedProduct);
+		}
 
 		public int Number
 		{
