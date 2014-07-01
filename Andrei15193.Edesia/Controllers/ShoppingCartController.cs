@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Andrei15193.Edesia.DataAccess;
 using Andrei15193.Edesia.Models;
@@ -50,8 +51,14 @@ namespace Andrei15193.Edesia.Controllers
 		[HttpGet, Authorize]
 		public ActionResult Add(string product, int quantity = 1)
 		{
+			if (User == null)
+				return RedirectToAction("Login", "User", new
+					{
+						returnUrl = Request.Url.AbsoluteUri
+					});
+
 			if (product != null)
-				_userRepository.AddToShoppingCart(User, new ShoppingCartEntry(_productRepository.GetProduct(product), quantity));
+				_userRepository.AddToShoppingCart(User, new ShoppingCartEntry(_productRepository.GetProduct(Server.UrlDecode(product)), quantity));
 
 			return RedirectToAction("Default", "ShoppingCart");
 		}
@@ -61,9 +68,9 @@ namespace Andrei15193.Edesia.Controllers
 			product = Server.UrlDecode(product);
 			if (product != null)
 				if (quantity > 0)
-					_userRepository.UpdateShoppingCart(User, new ShoppingCartEntry(_productRepository.GetProduct(product), quantity));
+					_userRepository.UpdateShoppingCart(User, new ShoppingCartEntry(_productRepository.GetProduct(Server.UrlDecode(product)), quantity));
 				else
-					_userRepository.RemoveFromShoppingCart(User, _productRepository.GetProduct(product));
+					_userRepository.RemoveFromShoppingCart(User, _productRepository.GetProduct(Server.UrlDecode(product)));
 
 			return RedirectToAction("Default", "ShoppingCart");
 		}
@@ -71,7 +78,7 @@ namespace Andrei15193.Edesia.Controllers
 		public ActionResult Remove(string product)
 		{
 			if (product != null)
-				_userRepository.RemoveFromShoppingCart(User, _productRepository.GetProduct(product));
+				_userRepository.RemoveFromShoppingCart(User, _productRepository.GetProduct(Server.UrlDecode(product)));
 
 			return RedirectToAction("Default", "ShoppingCart");
 		}

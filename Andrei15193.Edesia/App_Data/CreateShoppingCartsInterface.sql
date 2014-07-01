@@ -21,7 +21,9 @@ create procedure AddToCart @owner nvarchar(256),
 begin transaction
 	if exists(select quantity
 				  from ShoppingCarts
-				  where owner = @owner and quantity = @quantity)
+				  where owner = @owner and product = (select top 1 id
+														  from ActualProducts
+														  where name = @product))
 		update ShoppingCarts
 			set quantity = quantity + @quantity
 			where @owner = owner and product = (select top 1 id
