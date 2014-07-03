@@ -859,7 +859,7 @@ namespace Andrei15193.Edesia.DataAccess.Sql
 						yield return deliveryTask;
 						deliveryTask = new DeliveryTask(Convert.ToInt32(deliveryTaskDataReader[Database.DeliveryTasks.DeliveryTaskNumber]),
 												   (DateTime)deliveryTaskDataReader[Database.DeliveryTasks.DateScheduled],
-												   _TranslateDeliveryZone(_TranslateApplicationUser(applicationUserCache, employeePrefixedNameDataRecordProxy), deliveryZonePrefixedNameDataRecordProxy),
+												   _TranslateDeliveryZone(employee, deliveryZonePrefixedNameDataRecordProxy),
 												   Convert.ToBoolean(deliveryTaskDataReader[Database.DeliveryTasks.IsCanceled]));
 					}
 					if (order.Number != Convert.ToInt32(deliveryTaskDataReader[Database.Orders.Number]))
